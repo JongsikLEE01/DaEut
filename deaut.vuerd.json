@@ -1,0 +1,291 @@
+{
+  "canvas": {
+    "version": "2.2.13",
+    "width": 3000,
+    "height": 3000,
+    "scrollTop": -31.24539999999999,
+    "scrollLeft": -845.0887000000001,
+    "zoomLevel": 0.9,
+    "show": {
+      "tableComment": true,
+      "columnComment": true,
+      "columnDataType": true,
+      "columnDefault": true,
+      "columnAutoIncrement": false,
+      "columnPrimaryKey": true,
+      "columnUnique": false,
+      "columnNotNull": true,
+      "relationship": true
+    },
+    "database": "MySQL",
+    "databaseName": "",
+    "canvasType": "ERD",
+    "language": "GraphQL",
+    "tableCase": "pascalCase",
+    "columnCase": "camelCase",
+    "highlightTheme": "VS2015",
+    "bracketType": "none",
+    "setting": {
+      "relationshipDataTypeSync": true,
+      "relationshipOptimization": false,
+      "columnOrder": [
+        "columnName",
+        "columnDataType",
+        "columnNotNull",
+        "columnUnique",
+        "columnAutoIncrement",
+        "columnDefault",
+        "columnComment"
+      ]
+    },
+    "pluginSerializationMap": {}
+  },
+  "table": {
+    "tables": [
+      {
+        "id": "35a3eefe-6a29-43b9-a4d8-c187be9a32f2",
+        "name": "user",
+        "comment": "사용자",
+        "columns": [],
+        "ui": {
+          "active": false,
+          "left": 1435.0987,
+          "top": 210.5089,
+          "zIndex": 191,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "visible": true
+      },
+      {
+        "id": "572d36ac-a42e-428e-b40e-1a411550a870",
+        "name": "admin",
+        "comment": "관리자",
+        "columns": [
+          {
+            "id": "7bafd05f-7472-4da4-8d45-928627d531c8",
+            "name": "admin_no",
+            "comment": "관리자 번호",
+            "dataType": "int",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 71.5703125,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "id": "4a2fd456-35e9-41f9-9308-d9dba1763da0",
+            "name": "admin_id",
+            "comment": "관리자 아이디",
+            "dataType": "VARCHAR",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 84.5703125,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "id": "b9b4e806-1c5e-44f4-b54a-4eaaae1792d8",
+            "name": "admin_pw",
+            "comment": "관리자 비밀번호",
+            "dataType": "VARCHAR",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 61.6552734375,
+              "widthComment": 97.5703125,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 1913.5363,
+          "top": 546.3072,
+          "zIndex": 291,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "visible": true
+      },
+      {
+        "id": "4c96de77-b48d-4e54-a2f3-cf290f46c35a",
+        "name": "board",
+        "comment": "팁게시판",
+        "columns": [],
+        "ui": {
+          "active": false,
+          "left": 1900.6424,
+          "top": 208.8478,
+          "zIndex": 188,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "visible": true
+      },
+      {
+        "id": "665604d2-96fc-4152-9249-313a20a673fb",
+        "name": "reservation",
+        "comment": "예약",
+        "columns": [],
+        "ui": {
+          "active": false,
+          "left": 895.786,
+          "top": 363.4194,
+          "zIndex": 224,
+          "widthName": 66.94287109375,
+          "widthComment": 60
+        },
+        "visible": true
+      },
+      {
+        "id": "cdf29768-b5e2-4383-b128-39d5c36f1333",
+        "name": "payment",
+        "comment": "결제",
+        "columns": [],
+        "ui": {
+          "active": false,
+          "left": 1159.4644,
+          "top": 560.5983,
+          "zIndex": 230,
+          "widthName": 60,
+          "widthComment": 60,
+          "color": "#000000"
+        },
+        "visible": true
+      },
+      {
+        "id": "123b4f0a-a178-4815-9991-f756d1b073da",
+        "name": "chat",
+        "comment": "채팅",
+        "columns": [],
+        "ui": {
+          "active": false,
+          "left": 599.369,
+          "top": 564.6809,
+          "zIndex": 227,
+          "widthName": 60,
+          "widthComment": 60,
+          "color": "#000000"
+        },
+        "visible": true
+      },
+      {
+        "id": "626851da-d2cc-40f5-ab77-71d8047dfa21",
+        "name": "files",
+        "comment": "게시판 파일",
+        "columns": [],
+        "ui": {
+          "active": false,
+          "left": 2322.6429,
+          "top": 318.8477,
+          "zIndex": 186,
+          "widthName": 60,
+          "widthComment": 71.5703125
+        },
+        "visible": true
+      },
+      {
+        "id": "093f1124-8f72-4f88-a1c9-71f0d6d01058",
+        "name": "reply",
+        "comment": "댓글",
+        "columns": [],
+        "ui": {
+          "active": false,
+          "left": 2310.4288,
+          "top": 81.955,
+          "zIndex": 184,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "visible": true
+      },
+      {
+        "id": "05c68491-d8f7-468a-b248-e615b9c1cddb",
+        "name": "partner",
+        "comment": "청소부",
+        "columns": [],
+        "ui": {
+          "active": false,
+          "left": 399.6663,
+          "top": 247.881,
+          "zIndex": 226,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "visible": true
+      },
+      {
+        "id": "7db38127-7dcb-4d5d-b300-9df85444c117",
+        "name": "review",
+        "comment": "리뷰",
+        "columns": [],
+        "ui": {
+          "active": false,
+          "left": 898.5953,
+          "top": 134.1796,
+          "zIndex": 225,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "visible": true
+      },
+      {
+        "id": "2c2de619-f78d-46f0-b79e-e708ba34ce97",
+        "name": "auto_login",
+        "comment": "자동로그인",
+        "columns": [],
+        "ui": {
+          "active": false,
+          "left": 1426.671,
+          "top": 69.9221,
+          "zIndex": 192,
+          "widthName": 63.50244140625,
+          "widthComment": 67
+        },
+        "visible": true
+      }
+    ],
+    "indexes": []
+  },
+  "memo": {
+    "memos": []
+  },
+  "relationship": {
+    "relationships": []
+  }
+}
