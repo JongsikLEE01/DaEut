@@ -58,6 +58,6 @@ nav{
     width: 1280px;
     height: auto; 
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    border: 0 1px 0 1px solid #000;
 }

@@ -4,19 +4,149 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Da E ut</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/indexCss.css" rel="stylesheet" />
     <th:block th:replace="~{fragment/link::link}"></th:block>
 </head>
-<body>
+<body id="page-top">
     <!-- th:replace : 프래그먼트를 가져오는 속성 -->
     <!-- <th:block th:replace="~{폴더명/파일명::프래그먼트명}"></th:block> -->
     <th:block th:replace="~{fragment/header::header}"></th:block>
 
     <div class="container">
-        <h3>content</h3>
+        <div class="top">
+            <!-- 날씨 API 들어갈 자리 -->
+            <p>오늘의 날씨는 맑아요</p>
+            <p>빨래하기 좋은 날 이에요!</p>
+        </div>
+        <div class="swiper">
+            <!-- 이미지 슬라이드 -->
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/img/slide01.png" alt=""></div>
+                <div class="swiper-slide"><img src="/img/slide02.png" alt=""></div>
+                <div class="swiper-slide"><img src="/img/slide03.png" alt=""></div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="content">
+            <!-- 서비스 설명 영역 -->
+        <section id="features">
+            <div class="px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-8 order-lg-1 mb-5 mb-lg-0">
+                        <div class="container-fluid px-5">
+                            <div class="row gx-5">
+                                <div class="col-md-6 mb-5">
+                                    <!-- Feature item-->
+                                    <div class="text-center">
+                                        <i class="bi-brush icon-feature text-gradient d-block mb-3 icon"></i>
+                                        <h3 class="font-alt">청소</h3>
+                                        <p class="text-muted mb-0">더러운 집에서 사는 것 만큼 짜증나는 상황없는 없습니다. 지금 저희가 필요하신가요?</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-5">
+                                    <!-- Feature item-->
+                                    <div class="text-center">
+                                        <i class="bi bi-bug icon-feature text-gradient d-block mb-3 icon"></i>
+                                        <h3 class="font-alt">방역</h3>
+                                        <p class="text-muted mb-0">누구나 벌레와 같이 살기는 싫어합니다. 그런 당신을 위해 준비했습니다</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-5 mb-md-0">
+                                    <!-- Feature item-->
+                                    <div class="text-center">
+                                        <i class="bi-gift icon-feature text-gradient d-block mb-3 icon"></i>
+                                        <h3 class="font-alt">패키지</h3>
+                                        <p class="text-muted mb-0">타 사 대비 저렴한 가격와 최상의 품질을 보장하고, 패키지를 통해 원하는 서비스를 모두 받을 수 있습니다.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- Feature item-->
+                                    <div class="text-center">
+                                        <i class="bi bi-chat-dots icon-feature text-gradient d-block mb-3 icon"></i>
+                                        <h3 class="font-alt">1 : 1 상담</h3>
+                                        <p class="text-muted mb-0">고객님의 궁금한 부분은 파트너에게 언제든지 물어볼 수 있습니다.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 order-lg-0">
+                        <!-- 이미지 or 다른 영역-->
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 섹션1 -->
+        <section class="px-5">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6">
+                    <!-- Mashead text and app badges-->
+                    <div class="mb-5 mb-lg-0 text-center text-lg-start">
+                        <h1 class="display-1 lh-1 mb-3">Point 1</h1>
+                        <p class="lead fw-normal text-muted mb-5">모든 다이웃 파트너는 관리자가 직접 파트너를 승인해야 활동 할 수 있으며 엄격한 관리를 통해 관리되고 있습니다</p>
+                        <div class="d-flex flex-column flex-lg-row align-items-center">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <!-- 이미지-->
+                    <div class="px-5 px-sm-0"><img src="/img/index01.jpg" alt="설명이미지" class="img-fluid rounded-circle"></div>
+                </div>
+            </div>
+        </section>
+        <!-- 섹션2-->
+        <section class="section02">
+            <div class="px-5 bg-ligth">
+                <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
+                    <div class="col-12 col-lg-5">
+                        <h2 class="display-4 lh-1 mb-4">Point 2</h2>
+                        <p class="lead fw-normal text-muted mb-5 mb-lg-0">설명들어갑니다설명들어갑니다설명들어갑니다설명들어갑니다설명들어갑니다설명들어갑니다설명들어갑니다설명들어갑니다설명들어갑니다설명들어갑니다</p>
+                    </div>
+                    <div class="col-sm-8 col-md-6">
+                        <div class="px-5 px-sm-0"><img src="/img/index02.jpg" alt="설명이미지" class="img-fluid rounded-circle"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 예약 버튼 -->
+        <section class="cta">
+            <div class="cta-content">
+                <div class="container px-5">
+                    <h2 class="text-white display-1 lh-1 mb-4">
+                        누구나 깨끗한 집을
+                        <br/>
+                        원하잖아요
+                    </h2>
+                    <a class="btn btn-outline-light py-3 px-4 rounded-pill" href="#" target="_blank">예약하기</a>
+                </div>
+            </div>
+        </section>
     </div>
+</div>
 
     <th:block th:replace="~{fragment/footer::footer}"></th:block>
 
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     <th:block th:replace="~{fragment/script::script}"></th:block>
 </body>
 </html>
