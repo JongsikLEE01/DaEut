@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-DaeutApplication<daeut>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.daeut.daeut.DaeutApplication",
+            "projectName": "daeut",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+<th:block th:fragment="script">
+    <!-- js 가져오는 순서 -->
+    <!-- 1. jQuery -->
+    <!-- 2. jQuery 기반 라이브러리 -->
+    <!-- 3. 자바스크립트 라이브러리 -->
+    <!-- 4. 사용자 정의 자바스크립트 -->
+</th:block>
+
+<!-- 인덱스 스크립트 프래그먼트 -->
+<th:block th:fragment="indexScript">
+    <!-- 부트스트랩 JS와 jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+    <!-- swiperJS / indexScript -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <script src="/js/indexScript.js"></script>
+</th:block>

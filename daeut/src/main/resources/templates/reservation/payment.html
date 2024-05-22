@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 화면</title>
+    <th:block th:replace="~{fragment/link::link}"></th:block>
+</head>
+<body>
+    <th:block th:replace="~{fragment/header::header}"></th:block>
+
+    <div class="container">
+        <div class="sideView">
+
+        </div>
+        <div class="payment">
+            <h1>userName님의 예약 확인</h1>
+        
+            <!-- TODO : 결제 정보 값 받아오기 -->
+            <input type="hidden" name="userId" id="userId" value="user1">
+            <br> 예약자 : <input type="text" name="userName" id="userName">
+            <br> 일정 : <input type="date" name="resrvationDate" id="resrvationDate">
+            <br> 주소 : <input type="text" name="userAddress1" id="userAddress">
+            <br> 우편번호 : <input type="text" name="userPost1" id="userPost">
+            <br> 휴대전화 : <input type="text" name="userPhone1" id="userPhone">
+            <br> 상품 이름 : <input type="text" name="productName" id="productName" value="[여름맞이][특가]청소 + 방역 서비스">
+            <br> 상품 가격 : <input type="text" name="productCost" id="productCost" value="52000">
+            <br> 쿠폰 : <select name="coupon" id="coupon" value="쿠폰고르기">
+                            <option value="coupon1">쿠폰1</option>
+                            <option value="coupon2">쿠폰2</option>
+                            <option value="coupon3">쿠폰3</option>
+                        </select>
+            <br> 담당자
+            <br> 이미지 partnerName님이 청소하러 갈게요!
+            
+            <br>productCost - coupon 를 결제합니다
+            <br>
+            <button type="button" id="orderBtn">결제하기</button>
+            <button type="button">취소하기</button>
+        </div>
+    </div>
+
+    <th:block th:replace="~{fragment/footer::footer}"></th:block>
+
+    <th:block th:replace="~{fragment/script::script}"></th:block>
+
+    <!-- 아임포트 스크립트 추가 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <script>
+        // 결제 취소
+        function cancelPayment(){
+            const payment = confirm("정말 결제를 취소하시겠습니까? 결제를 취소할 경우 모든 입력값을 잃어버리게 됩니다")
+            if(payment){
+                location.href = "/resevation/reservationRead"
+            }
+        }
+
+        $("#orderBtn").on("click", function () {
+            var userId = $("#userId").val();
+            var userName = $("#userName").val();
+            var userAddress = $("#userAddress").val();
+            var userPhone = $("#userPhone").val();
+            var productName = $("#productName").val();
+            var productCost = $("#productCost").val();
+            var merchant_uid = "O" + new Date().getTime(); // 고유 주문번호 생성 
+
+            var IMP = window.IMP;
+            IMP.init('imp52301113');          // 고객사 식별코드 입력 
+            // request_pay 결제를 요청하는 함수
+            IMP.request_pay({
+                pg: "html5_inicis",           // 등록된 pg사 (적용된 pg사는 KG이니시스)
+                pay_method: "card",           // 결제방식: card(신용카드), trans(실시간계좌이체), vbank(가상계좌), phone(소액결제)
+                merchant_uid: merchant_uid,   // 주문번호
+                name: productName,            // 상품명
+                amount: productCost,          // 금액
+                buyer_name: userName,         // 주문자
+                buyer_tel: userPhone,         // 전화번호 (필수입력)
+                buyer_addr: userAddress,      // 주소
+                buyer_postcode: userPost      // 우편번호
+            }, function(res) {
+                if (res.success) {
+                    axios({
+                        method: "post",
+                        url: `/payment/validation/${rsp.imp_uid}`
+                    })
+                    // 응답 데이터의 정보들
+                    alert("결제 성공!");
+                    console.log("Payment ID : " + res.imp_uid);
+                    console.log("Order ID : " + res.merchant_uid);
+                    console.log("Payment Amount : " + res.paid_amount);
+                } else 
+                    alert("결제 실패..."+response.error_msg);
+            });
+        });
+    </script>
+</body>
+</html>
