@@ -1,12 +1,12 @@
 @charset "UTF-8";
 /* 날씨 */
 .top{   
-    width: 100%;
+    width: 90%;
     height: 120px;
 }
 /* 슬라이드 */
 .swiper {
-    width: 80%;
+    width: 100%;
     height: auto;
 }
 .swiper img{
@@ -2861,35 +2861,35 @@ textarea.form-control-lg {
 }
 
 .btn-primary {
-  --bs-btn-color: #fff;
+  --bs-btn-color: #E4E8F4;
   --bs-btn-bg: #2937f0;
   --bs-btn-border-color: #2937f0;
-  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-color: #E4E8F4;
   --bs-btn-hover-bg: #232fcc;
   --bs-btn-hover-border-color: #212cc0;
   --bs-btn-focus-shadow-rgb: 73, 85, 242;
-  --bs-btn-active-color: #fff;
+  --bs-btn-active-color: #E4E8F4;
   --bs-btn-active-bg: #212cc0;
   --bs-btn-active-border-color: #1f29b4;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-color: #E4E8F4;
   --bs-btn-disabled-bg: #2937f0;
   --bs-btn-disabled-border-color: #2937f0;
 }
 
 .btn-secondary {
-  --bs-btn-color: #fff;
+  --bs-btn-color: #E4E8F4;
   --bs-btn-bg: #9f1ae2;
   --bs-btn-border-color: #9f1ae2;
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #8716c0;
   --bs-btn-hover-border-color: #7f15b5;
   --bs-btn-focus-shadow-rgb: 173, 60, 230;
-  --bs-btn-active-color: #fff;
+  --bs-btn-active-color: #E4E8F4;
   --bs-btn-active-bg: #7f15b5;
   --bs-btn-active-border-color: #7714aa;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-color: #E4E8F4;
   --bs-btn-disabled-bg: #9f1ae2;
   --bs-btn-disabled-border-color: #9f1ae2;
 }
@@ -2964,19 +2964,19 @@ textarea.form-control-lg {
 
 .btn-light {
   --bs-btn-color: #000;
-  --bs-btn-bg: #f8f9fa;
-  --bs-btn-border-color: #f8f9fa;
+  --bs-btn-bg: #E4E8F4;
+  --bs-btn-border-color: #E4E8F4;
   --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #d3d4d5;
-  --bs-btn-hover-border-color: #c6c7c8;
+  --bs-btn-hover-border-color: #E4E8F4;
   --bs-btn-focus-shadow-rgb: 211, 212, 213;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #c6c7c8;
-  --bs-btn-active-border-color: #babbbc;
+  --bs-btn-active-bg: #E4E8F4;
+  --bs-btn-active-border-color: #E4E8F4;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #f8f9fa;
-  --bs-btn-disabled-border-color: #f8f9fa;
+  --bs-btn-disabled-bg: #E4E8F4;
+  --bs-btn-disabled-border-color: #E4E8F4;
 }
 
 .btn-dark {
@@ -3003,7 +3003,7 @@ textarea.form-control-lg {
   --bs-btn-hover-bg: #2937f0;
   --bs-btn-hover-border-color: #2937f0;
   --bs-btn-focus-shadow-rgb: 41, 55, 240;
-  --bs-btn-active-color: #fff;
+  --bs-btn-active-color: #E4E8F4;
   --bs-btn-active-bg: #2937f0;
   --bs-btn-active-border-color: #2937f0;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -3037,7 +3037,7 @@ textarea.form-control-lg {
   --bs-btn-hover-bg: #198754;
   --bs-btn-hover-border-color: #198754;
   --bs-btn-focus-shadow-rgb: 25, 135, 84;
-  --bs-btn-active-color: #fff;
+  --bs-btn-active-color: #E4E8F4;
   --bs-btn-active-bg: #198754;
   --bs-btn-active-border-color: #198754;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -10902,57 +10902,6 @@ section {
   color: #2937f0;
 }
 
-/*!
- * html5-device-mockups (https://github.com/pixelsign/html5-device-mockups)
- * Copyright 2013 - 2017 pixelsign
- * Licensed under MIT (https://github.com/pixelsign/html5-device-mockups/blob/master/LICENSE.txt)
- * Last Build: Tue Nov 14 2017 12:40:57
- */
-.device-wrapper {
-  max-width: 300px;
-  width: 100%;
-}
-
-.device {
-  position: relative;
-  background-size: cover;
-}
-
-.device::after {
-  position: absolute;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.device .screen {
-  position: absolute;
-  background-size: cover;
-  pointer-events: auto;
-}
-
-.device .button {
-  position: absolute;
-  cursor: pointer;
-}
-
-.device[data-device=iPhoneX][data-orientation=portrait][data-color=black] {
-  padding-bottom: 198.898071625%;
-}
-
-.device[data-device=iPhoneX][data-orientation=portrait][data-color=black] .screen {
-  top: 3.1855955679%;
-  left: 6.8870523416%;
-  width: 86.2258953168%;
-  height: 93.6288088643%;
-}
-
-.device[data-device=iPhoneX][data-orientation=portrait][data-color=black]::after {
-  content: "";
-  background-image: url("../assets/img/portrait_black.png");
-}
-
 .device[data-device=iPhoneX][data-orientation=portrait][data-color=black] .button {
   display: none;
   top: 0%;
@@ -10964,6 +10913,7 @@ section {
 section.cta {
   position: relative;
   padding: 15rem 0;
+  /* TODO : 배경 이미지 변경 필요 시 변경 */
   background-image: url("https://source.unsplash.com/5g41N3uRPf8/1500x800");
   background-position: center;
   background-size: cover;
@@ -10979,7 +10929,7 @@ section.cta:before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .icon-feature {
@@ -11029,6 +10979,7 @@ section.cta:before {
     color: var(--bs-main);
 }
 
+/* 반응형 */
 @media (min-width: 576px) {
   .features-device-mockup .circle {
     width: 70%;
@@ -11180,4 +11131,40 @@ footer a:hover, footer a:active, footer a:focus {
   .masthead .masthead-device-mockup .device-wrapper {
     max-width: 17rem;
   }
+}
+
+.section02{
+  background-color: #edf2f72b;
+}
+
+.section03{
+  background-color: #e4e8f457;
+}
+
+#output2, #output3 {
+  display: none; /* 처음에는 숨김 */
+}
+.service{
+  background-color: white;
+  border: 1px solid #8FA2CA;
+  width: 80px;
+  height: 40px;
+  color: #8FA2CA;
+  transition: 0.5s;
+  border-radius: 8px;
+  margin-bottom: 50px;
+  justify-content: center;
+
+}
+.service:hover{
+  color: #48523D;
+  border: 1px solid #48523D;
+}
+.content{
+  width: 100%;
+}
+.serviceBox{
+  display: flex;
+  justify-content: center;
+  
 }
