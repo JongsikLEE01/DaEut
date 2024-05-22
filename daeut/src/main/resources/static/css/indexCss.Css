@@ -1,9 +1,28 @@
 @charset "UTF-8";
 /* 날씨 */
-.top{   
-    width: 90%;
-    height: 120px;
+.weather{
+  background-color : #8FA2CA;
+  padding : 40px;
+  color : #fff;
+  height : 200px;
+  width : 100%;
 }
+.weather .weatherIcon{
+  float : left;
+}
+.weather .weatherData{
+  float : right; 
+  margin : -5px 0px 0px 60px; 
+  font-size : 11pt;
+}
+.weather .myWeather{
+  float : right;
+  margin-top : -45px;
+}
+.weather .myWeather .current_temp{ font-size : 50pt; }
+.weather .myWeather .weather_description{ font-size : 20pt; }
+.weather .myWeather .city { font-size : 13pt; }
+
 /* 슬라이드 */
 .swiper {
     width: 100%;
