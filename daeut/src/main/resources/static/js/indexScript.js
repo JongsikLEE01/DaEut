@@ -1,3 +1,49 @@
+// 이미지 슬라이드
+$(function() {
+    const swiper = new Swiper('.swiper', {
+        direction: 'horizontal',         
+        loop: true,                         
+        autoplay: {                         
+            delay: 4000,
+            disableOnInteraction: false,        
+        },
+        speed: 1000,                        
+        slidesPerView: 1,                   
+        spaceBetween: 0,                    
+
+        pagination: {
+            el: '.swiper-pagination',
+            type:   'bullets',
+            clickable: true,
+        },
+      });
+})
+
+// 부트스트랩
+window.addEventListener('DOMContentLoaded', event => {
+    // Activate Bootstrap scrollspy on the main nav element
+    const mainNav = document.body.querySelector('#mainNav');
+    if (mainNav) {
+        new bootstrap.ScrollSpy(document.body, {
+            target: '#mainNav',
+            offset: 74,
+        });
+    };
+    // Collapse responsive navbar when toggler is visible
+    const navbarToggler = document.body.querySelector('.navbar-toggler');
+    const responsiveNavItems = [].slice.call(
+        document.querySelectorAll('#navbarResponsive .nav-link')
+    );
+    responsiveNavItems.map(function (responsiveNavItem) {
+        responsiveNavItem.addEventListener('click', () => {
+            if (window.getComputedStyle(navbarToggler).display !== 'none') {
+                navbarToggler.click();
+            }
+        });
+    });
+
+});
+
 // 날씨
 // 날씨 api - fontawesome 아이콘 사용
 var weatherIcon = {
@@ -11,6 +57,8 @@ var weatherIcon = {
     '13' : 'far fa-snowflake',
     '50' : 'fas fa-smog'
 };
+
+// 날씨 api - 서울
 
 // api key
 const API_KEY = 'ef8952bfbab9356b5066de2f01ab56c1'
@@ -59,50 +107,3 @@ function showService(option) {
     // 해당하는 출력 요소를 표시
     document.getElementById('output' + option.charAt(option.length - 1)).style.display = 'block';
 }
-
-
-// 이미지 슬라이드
-$(function() {
-    const swiper = new Swiper('.swiper', {
-        direction: 'horizontal',         
-        loop: true,                         
-        autoplay: {                         
-            delay: 4000,
-            disableOnInteraction: false,        
-        },
-        speed: 1000,                        
-        slidesPerView: 1,                   
-        spaceBetween: 0,                    
-
-        pagination: {
-            el: '.swiper-pagination',
-            type:   'bullets',
-            clickable: true,
-        },
-      });
-})
-
-
-// 부트스트랩
-window.addEventListener('DOMContentLoaded', event => {
-    // Activate Bootstrap scrollspy on the main nav element
-    const mainNav = document.body.querySelector('#mainNav');
-    if (mainNav) {
-        new bootstrap.ScrollSpy(document.body, {
-            target: '#mainNav',
-            offset: 74,
-        });
-    };
-    // Collapse responsive navbar when toggler is visible
-    const navbarToggler = document.body.querySelector('.navbar-toggler');
-    const responsiveNavItems = [].slice.call(
-        document.querySelectorAll('#navbarResponsive .nav-link')
-    );
-    responsiveNavItems.map(function (responsiveNavItem) {
-        responsiveNavItem.addEventListener('click', () => {
-            if (window.getComputedStyle(navbarToggler).display !== 'none') {
-                navbarToggler.click();
-            }
-        });
-    });
-});

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 실패</title>
+    <th:block th:replace="~{fragment/link::link}"></th:block>
+</head>
+<body>
+    <th:block th:replace="~{fragment/header::header}"></th:block>
+
+    <div class="container">
+        <div class="sideView">
+
+        </div>
+        <div class="payment">
+            <h1>실패</h1>
+        
+            <!-- TODO : 결제 실패 디자인 만들기 -->
+            <br>결제에 실패하였습니다!
+            <br>다시 시도해주세요
+            
+            <br><br>
+            <button type="button" onclick="moveToReservation()">예약 화면 다시 가기</button>
+            <button type="button" onclick="moveToIndex()">메인 화면</button>
+        </div>
+    </div>
+
+    <th:block th:replace="~{fragment/footer::footer}"></th:block>
+
+    <th:block th:replace="~{fragment/script::script}"></th:block>
+
+    <script>
+        // 예약화면 다시가기
+        function moveToReservation(){
+            location.href = "/resevation/reservationRead"
+        }
+
+        // 메인화면으로
+        function moveToIndex(){
+            location.href = "/index"
+        }
+    </script>
+</body>
+</html>
