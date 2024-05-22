@@ -16,7 +16,6 @@ nav{
 }
 .navbar-nav .nav-link:hover {
     color: #8FA2CA; 
-    transition: 1s;
 }
 
 /* 푸터 */
@@ -58,7 +57,6 @@ nav{
     width: 1280px;
     height: auto; 
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    border-right: 1px solid #000;
-    border-left: 1px solid #000;
 }
