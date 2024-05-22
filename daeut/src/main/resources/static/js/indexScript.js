@@ -58,55 +58,51 @@ function showService(option) {
 
 
 // 날씨
-const API_KEY = ef8952bfbab9356b5066de2f01ab56c1;
-window.onload = function() {
-    // 실행할 코드 작성
-    console.log('페이지가 로드되었습니다.');
-
-    navigator.geolocation.getCurrentPosition(success);
+// 날씨 api - fontawesome 아이콘 사용
+var weatherIcon = {
+    '01' : 'fas fa-sun',
+    '02' : 'fas fa-cloud-sun',
+    '03' : 'fas fa-cloud',
+    '04' : 'fas fa-cloud-meatball',
+    '09' : 'fas fa-cloud-sun-rain',
+    '10' : 'fas fa-cloud-showers-heavy',
+    '11' : 'fas fa-poo-storm',
+    '13' : 'far fa-snowflake',
+    '50' : 'fas fa-smog'
 };
 
-// 성공시
-const success = (position) => {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
+// 날씨 api - 서울
+const API_KEY = 'ef8952bfbab9356b5066de2f01ab56c1'
+const lat = position.coords.latitude
+const lon = position.coords.longitude
+var apiURI = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
 
-    getWeather(latitude, longitude);
-}
+$.ajax({
+    url: apiURI,
+    dataType: "json",
+    type: "GET",
+    async: "false",
+    success: function(resp) {
 
-const tempSection = document.querySelector('.temperature');
-const placeSection = document.querySelector('.place');
-const descSection = document.querySelector('.description');
-const iconSection = document.querySelector('.icon');
+        var $Icon = (resp.weather[0].icon).substr(0,2);
+        var $weather_description = resp.weather[0].main;
+        var $Temp = Math.floor(resp.main.temp- 273.15) + 'º';
+        var $humidity = '습도&nbsp;&nbsp;&nbsp;&nbsp;' + resp.main.humidity+ ' %';
+        var $wind = '바람&nbsp;&nbsp;&nbsp;&nbsp;' +resp.wind.speed + ' m/s';
+        var $city = '서울';
+        var $cloud = '구름&nbsp;&nbsp;&nbsp;&nbsp;' + resp.clouds.all +"%";
+        var $temp_min = '최저 온도&nbsp;&nbsp;&nbsp;&nbsp;' + Math.floor(resp.main.temp_min- 273.15) + 'º';
+        var $temp_max = '최고 온도&nbsp;&nbsp;&nbsp;&nbsp;' + Math.floor(resp.main.temp_max- 273.15) + 'º';
+        
 
-const getWeather = (lat, lon) => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=kr`
-    )
-      .then((response) => {
-        // json 변환
-        return response.json();
-      })
-      .then((json) => {
-        const temperature = json.main.temp;
-        const place = json.name;
-        const description = json.weather[0].description;
-  
-        tempSection.innerText = temperature;
-        placeSection.innerText = place;
-        descSection.innerText = description;
-      })
-      .then((json) => {
-        const icon = json.weather[0].icon;
-        const iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-  
-        iconSection.setAttribute('src', iconURL);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
-// 실패시
-const fail = () => {
-    console.log('좌표를 받아 올 수 없습니다');
-}
+        $('.weather_icon').append('<i class="' + weatherIcon[$Icon] +' fa-5x" style="height : 150px; width : 150px;"></i>');
+        $('.weather_description').prepend($weather_description);
+        $('.current_temp').prepend($Temp);
+        $('.humidity').prepend($humidity);
+        $('.wind').prepend($wind);
+        $('.city').append($city);
+        $('.cloud').append($cloud);
+        $('.temp_min').append($temp_min);
+        $('.temp_max').append($temp_max);               
+    }
+})
