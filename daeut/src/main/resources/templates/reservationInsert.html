@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da E ut</title>
+    <th:block th:replace="~{fragment/link::link}"></th:block>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <!-- th:replace : 프래그먼트를 가져오는 속성 -->
+    <!-- <th:block th:replace="~{폴더명/파일명::프래그먼트명}"></th:block> -->
+    <th:block th:replace="~{fragment/header::header}"></th:block>
+
+    <div class="container">
+
+		<div class="reservationInsertBox">
+		<form action="게시글_등록_처리_파일의_URL_입력" method="post" enctype="multipart/form-data">
+			<div>
+				<label for="title" style="display: none;">제목:</label><br>
+				<input type="text" id="title" name="title" placeholder="제목을 입력해주세요" required><br>
+            </div>
+			<div class="servicetag">
+				<!-- <label>태그 선택:</label><br> -->
+				<button class="tag-button" type="button" value="청소">청소</button>
+				<button class="tag-button" type="button" value="빨래">빨래</button>
+				<button class="tag-button" type="button" value="방역">방역</button>
+				<button class="tag-button" type="button" value="보안">보안</button>
+				<button class="tag-button" type="button" value="기타">기타</button>
+			</div>
+            <div>
+                <!-- <label for="content">내용:</label><br> -->
+                <textarea id="content" name="content" rows="4" cols="50" placeholder="부적절한 글로 판단되어 다른 사용자로부터 일정 수 이상의 신고를 받는 경우 글이 삭제처리 될 수 있습니다." required></textarea><br>
+            </div>
+            <div class="fileuploadbox">
+                <label for="images" class="image-upload-title">첨부파일</label><br>
+				<label for="images" class="file-upload-button">첨부하기</label>
+                <input type="file" id="images" name="images" accept="image/*" multiple onchange="previewImages(event)"><br>
+                <p class="file-upload-note">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</p>
+			</div>
+				<div id="image-preview-container"></div>
+
+			<div class="option-form" id="option-form-container">
+				<div>
+                    <input type="text" name="optionName[]" placeholder="옵션명"  required><br>
+                </div>
+                <div>
+					<input type="number" name="price[]" placeholder="가격" required><br>
+                </div>
+                <div>
+					<textarea name="description[]" rows="2" cols="50" placeholder="옵션 설명" required></textarea><br>
+                </div>
+            </div>
+
+			<button type="button" onclick="addOptionForm()">서비스 옵션 추가하기</button>
+			
+            <div>
+				<input type="submit" value="등록하기">
+                <input type="button" value="취소하기" onclick="window.location.href='취소할_페이지_주소'">
+            </div>
+        </form>
+    </div>
+</div>
+    <th:block th:replace="~{fragment/footer::footer}"></th:block>
+
+    <th:block th:replace="~{fragment/script::script}"></th:block>
+
+    <script>
+        function previewImages(event) {
+            var container = document.getElementById('image-preview-container');
+            
+            var files = event.target.files;
+            for (var i = 0; i < files.length; i++) {
+                var image = document.createElement('img');
+                image.src = URL.createObjectURL(files[i]);
+                image.alt = '이미지 미리보기';
+                image.style.maxWidth = '200px';
+                image.style.marginTop = '10px';
+                container.appendChild(image);
+            }
+        }
+
+        function addOptionForm() {
+            var container = document.getElementById('option-form-container');
+            var newOptionForm = document.createElement('div');
+            newOptionForm.innerHTML = `
+                <div>
+                    <label for="optionName">옵션명:</label><br>
+                    <input type="text" name="optionName[]" required><br>
+                </div>
+                <div>
+                    <label for="price">가격:</label><br>
+                    <input type="number" name="price[]" required><br>
+                </div>
+                <div>
+                    <label for="description">옵션 설명:</label><br>
+                    <textarea name="description[]" rows="2" cols="50" required></textarea><br>
+                </div>
+            `;
+            container.appendChild(newOptionForm);
+        }
+
+        var tagButtons = document.querySelectorAll('.tag-button');
+
+        tagButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                this
+				button.classList.toggle('selected');
+            });
+        });
+    </script>
+</body>
+</html>
