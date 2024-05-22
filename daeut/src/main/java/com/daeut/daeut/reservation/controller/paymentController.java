@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-public class paymentController {
+public class PaymentController {
     private IamportClient iamportClient;
 
     // 키 가져오기
