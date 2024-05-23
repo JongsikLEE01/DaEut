@@ -1,7 +1,7 @@
 <th:block th:fragment="footer">
-    <footer class="footer mt-auto py-3">
+    <footer class="footer mt-auto">
         <div class="row">
-            <div class="col-md-11 d-flex justify-content-left">
+            <div class="col-md-11 d-flex justify-content-center">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#">회사 소개</a>
@@ -28,20 +28,24 @@
             </div>
             <!-- 설명 영역 -->
             <div class="col-md-3 company-info text-center text-md-left">
-                <p><strong>㈜다이웃</strong> 대표이사: 이종식</p>
-                <p>주소: 서울시 강남구 논현로 508(역삼동, GS타워)</p>
-                <p>사업자등록번호: 117-88-00000</p>
-                <p>통신판매업신고: 제2024-서울강남-00000호</p>
-                <p>개인정보보호책임자: 홍길동</p>
-                <p>호스팅제공자: ㈜카페24</p>
-                <p>고객센터: (무료)080-123-4567 / (유료)02-1234-5678</p>
-                <p>이메일 문의: <a href="mailto:daeut@gmail.com">daeut@gmail.com</a></p>
+                <p class="letter-spacing"><strong>㈜다이웃</strong> 대표이사: 이종식</p>
+                <p class="letter-spacing">주소: 서울시 강남구 논현로 508(역삼동, GS타워)</p>
+                <p class="letter-spacing">사업자등록번호: 117-88-00000</p>
+                <p class="letter-spacing">통신판매업신고: 제2024-서울강남-00000호</p>
+                <p class="letter-spacing">개인정보보호책임자: 홍길동</p>
+                <p class="letter-spacing">호스팅제공자: ㈜카페24</p>
+                <p class="letter-spacing">고객센터: (무료)080-123-4567 / (유료)02-1234-5678</p>
+                <p class="letter-spacing">이메일 문의: <a href="mailto:daeut@gmail.com">daeut@gmail.com</a></p>
             </div>
             <!-- 채무지급 안내 -->
             <div class="col-md-3 text-center text-md-left">
-                <p>조은은행 채무지급보증안내:</p>
-                <p>전자상거래 등에서의 소비자보호에 관한 법률에 따라 조은은행과 채무지급보증 계약을 체결하여 고객님의 결제 금액에 대한 안전거래를 보장하고 있습니다.</p>
-                <p>서비스 가입 사실 확인</p>
+                <p class="letter-spacing">조은은행 채무지급보증안내:</p>
+                <p class="text-nowrap custom-break">
+                    전자상거래 등에서의 소비자보호에 관한 법률에 따라<br>
+                    조은은행과 채무지급보증 계약을 체결하여 고객님의 결제 금액에 대한<br>
+                    안전거래를 보장하고 있습니다.
+                </p>
+                <p class="letter-spacing">서비스 가입 사실 확인</p>
             </div>
         </div>
         <div class="row mt-3">
@@ -50,4 +54,17 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        $(document).ready(function(){
+            $('.navbar-toggler').click(function(){
+                $('#menu-icon').toggleClass('fa-bars fa-xmark');
+            
+            });
+    
+        });
+    
+        
+    </script>
+
 </th:block>

@@ -1,4 +1,4 @@
-package com.daeut.daeut.config;
+package com.daeut.sample.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
