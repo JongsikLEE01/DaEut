@@ -6,7 +6,7 @@ plugins {
 }
 
 
-group = 'com.daeut'
+group = 'com.aloha'
 version = '0.0.1-SNAPSHOT'
 
 java {
