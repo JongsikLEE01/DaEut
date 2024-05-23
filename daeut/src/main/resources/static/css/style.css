@@ -1,3 +1,12 @@
+/* 폰트 */
+@font-face {
+    font-family: 'Binggrae';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{font-family: 'Binggrae';}
 /* 헤더 */
 nav {
     border-bottom: 1px solid #8FA2CA;

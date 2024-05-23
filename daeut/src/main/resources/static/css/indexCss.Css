@@ -1,21 +1,17 @@
 @charset "UTF-8";
-@font-face {
-  font-family: 'Binggrae';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
 /* 날씨 */
 .weather {
-  background-color: #8FA2CA;
+  background-color: #fff;
   padding: 40px;
-  color: #fff;
+  color: #B5C6B8;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  text-align: right;
 }
 
 .weather .weatherIcon {
   font-size: 3em;
+  color: #8FA2CA;
 }
 
 .weatherText{
@@ -30,6 +26,7 @@
 
 .weather .myWeather .current_temp {
   font-size: 50pt;
+  color: #8FA2CA;
 }
 
 .weather .myWeather .weather_description {
@@ -1555,5 +1552,3 @@ section {
       padding: 18px 36px;
   }
 }
-
-*{font-family: 'Binggrae';}

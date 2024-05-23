@@ -1,18 +1,220 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/main_layout}">
 <!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Da E Ut</title>
 </head>
 <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+
 <body layout:fragment="content">
-    <div class="container">
-        <h3>CONTENT</h3>
+    <!-- 날씨 API -->
+    <div class="weather">
+        <div class="weatherIcon"></div>
+        <div class="weatherText">
+            <div class="weatherData">
+                <div class="temp_min"></div>
+                <div class="temp_max"></div>
+                <div class="humidity"></div>
+                <div class="wind"></div>
+                <div class="cloud"></div>
+            </div>
+            <div class="myWeather">
+                <div class="current_temp"></div>
+                <div class="weather_description"></div>
+                <div class="city"></div>
+            </div>
+        </div>
     </div>
+
+    <!-- 이미지 슬라이드 -->
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="/img/slide01.png" alt=""></div>
+            <div class="swiper-slide"><img src="/img/slide02.png" alt=""></div>
+            <div class="swiper-slide"><img src="/img/slide03.png" alt=""></div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <!-- 서비스 버튼 영역 -->
+    <div class="content">
+        <section id="features">
+            <div class="px-5 serviceBox">
+                <div class="row gx-5">
+                    <div class="col-4 align-items-center justify-content-center">
+                        <button type="button" onclick="showService('output1')" class="service">청소</button>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" onclick="showService('output2')" class="service">방역</button>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" onclick="showService('output3')" class="service">빨래</button>
+                    </div>
+                </div>
+            </div>
+            <!-- 서비스 설명 영역 ▶ 청소 -->
+            <div class="px-5 output" id="output1">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-2 order-lg-1">
+                        <div class="text-center">
+                            <i class="bi bi-building icon-feature text-gradient d-block mb-3 icon"></i>
+                            <h3 class="font-alt">입주 청소</h3>
+                            <p class="text-muted mb-0">이사하느랴 정신없으시죠? 저희가 새 집보다 새 집처럼 청소해둘게요!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 order-lg-1">
+                        <div class="text-center">
+                            <i class="bi bi-calendar-check icon-feature text-gradient d-block mb-3 icon"></i>
+                            <h3 class="font-alt">정기 청소</h3>
+                            <p class="text-muted mb-0">정기적인 구독으로 할인과 청소, 두마리 토끼를 모두 잡아보세요!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 order-lg-1">
+                        <div class="text-center">
+                            <i class="bi-brush icon-feature text-gradient d-block mb-3 icon"></i>
+                            <h3 class="font-alt">부분 청소</h3>
+                            <p class="text-muted mb-0">더러운 집에서 볼 때마다 화가 날거에요 지금 당장 저희가 필요하신가요?</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 order-lg-1">
+                        <div class="text-center">
+                            <i class="bi bi-chat-dots icon-feature text-gradient d-block mb-3 icon"></i>
+                            <h3 class="font-alt">1 : 1 상담</h3>
+                            <p class="text-muted mb-0">고객님의 궁금한 부분은 파트너에게 언제든지 물어볼 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 서비스 설명 영역 ▶ 방역 -->
+            <div class="px-5 output" id="output2">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-2 order-lg-1">
+                        <div class="text-center">
+                            <i class="bi bi-building icon-feature text-gradient d-block mb-3 icon"></i>
+                            <h3 class="font-alt">입주 방역</h3>
+                            <p class="text-muted mb-0">새 집에 이사화 벌레들과 이웃하는 것만큼 끔찍한 일은 없을거에요</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 order-lg-1">
+                        <div class="text-center">
+                            <i class="bi bi-calendar-check icon-feature text-gradient d-block mb-3 icon"></i>
+                            <h3 class="font-alt">정기 방역</h3>
+                            <p class="text-muted mb-0">누구나 벌레와 같이 살기는 싫어합니다. 그런 당신을 위해 준비했습니다</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 order-lg-1">
+                        <div class="text-center">
+                            <i class="bi bi-bug icon-feature text-gradient d-block mb-3 icon"></i>
+                            <h3 class="font-alt">부분 방역</h3>
+                            <p class="text-muted mb-0">마당, 정원, 부엌 모두 맡겨주세요 오늘부터 벌레는 사라질겁니다.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 order-lg-1">
+                        <div class="text-center">
+                            <i class="bi bi-chat-dots icon-feature text-gradient d-block mb-3 icon"></i>
+                            <h3 class="font-alt">1 : 1 상담</h3>
+                            <p class="text-muted mb-0">고객님의 궁금한 부분은 파트너에게 언제든지 물어볼 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 서비스 설명 영역 ▶ 빨래 -->
+            <div class="px-5 output" id="output3">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-2 order-lg-1">
+                        <div class="text-center">
+                            <i class="bi bi-calendar-check icon-feature text-gradient d-block mb-3 icon"></i>
+                            <h3 class="font-alt">정기 구독</h3>
+                            <p class="text-muted mb-0">새벽에 세탁기를 돌리지 못해 눈치를 보고 빨래를 들고 빨래방에 가시나요?</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 order-lg-1">
+                        <div class="text-center">
+                            <i class="bi bi-bucket icon-feature text-gradient d-block mb-3 icon"></i>
+                            <h3 class="font-alt">빨래</h3>
+                            <p class="text-muted mb-0">한번 맡겨보기면 다음부터 저희 다이웃을 매일 찾으실겁니다.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 order-lg-1">
+                        <div class="text-center">
+                            <i class="bi-gift icon-feature text-gradient d-block mb-3 icon"></i>
+                            <h3 class="font-alt">패키지</h3>
+                            <p class="text-muted mb-0">많은 리뷰가 증명합니다 제일 잘 나가는 베스트 상품들만 모아놨어요.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 order-lg-1">
+                        <div class="text-center">
+                            <i class="bi bi-chat-dots icon-feature text-gradient d-block mb-3 icon"></i>
+                            <h3 class="font-alt">1 : 1 상담</h3>
+                            <p class="text-muted mb-0">고객님의 궁금한 부분은 파트너에게 언제든지 물어볼 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- 섹션1 -->
+    <section class="section01">
+        <div class="px-5 ">
+            <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
+                <div class="col-12 col-lg-5">
+                    <h2 class="display-4 lh-1 mb-4 h2">Everywhere</h2>
+                    <p class="lead fw-normal text-muted mb-5 mb-lg-0">하기 힘든 입주 청소, 귀찮은 정기 청소, 화장실이든 어디든 다이웃과 함께하면 어디든
+                        깨끗해 질 수 있습니다.</p>
+                </div>
+                <div class="col-sm-8 col-md-6">
+                    <div class="px-5 px-sm-0"><img src="/img/index01.png" alt="설명이미지" class="img-fluid rounded-circle">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 섹션2-->
+    <section class="section02">
+        <div class="px-5 ">
+            <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
+                <div class="col-sm-8 col-md-6">
+                    <div class="px-5 px-sm-0"><img src="/img/index02.png" alt="설명이미지" class="img-fluid rounded-circle">
+                    </div>
+                </div>
+                <div class="col-12 col-lg-5">
+                    <h2 class="display-4 lh-1 mb-4 h2">Eco friendly</h2>
+                    <p class="lead fw-normal text-muted mb-5 mb-lg-0">고객님의 건강을 최우선으로 생각하는 저희 다이웃 파트너들은 모두 다이웃에서 제공하는 친환경
+                        약품만을 사용합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 섹션3 -->
+    <section class="section03">
+        <div class="px-5 ">
+            <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
+                <div class="col-12 col-lg-5">
+                    <h2 class="display-4 lh-1 mb-4 h2">Management</h2>
+                    <p class="lead fw-normal text-muted mb-5 mb-lg-0">다이웃 파트너는 관리자가 엄격한 심사 후 승인된 파트너만 활동하고 있습니다.</p>
+                </div>
+                <div class="col-sm-8 col-md-6">
+                    <div class="px-5 px-sm-0"><img src="/img/index03.png" alt="설명이미지" class="img-fluid rounded-circle">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 예약 버튼 -->
+    <section class="cta">
+        <div class="cta-content">
+            <div class="container px-5">
+                <h2 class="text-white display-1 lh-1 mb-4">
+                    누구나 깨끗한 집을
+                    <br />
+                    원하잖아요
+                </h2>
+                <a class="btn btn-outline-light py-3 px-4" href="#" target="_blank">지금 예약하기</a>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
