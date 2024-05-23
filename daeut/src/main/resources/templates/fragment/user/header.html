@@ -1,4 +1,4 @@
-<!-- 일반 헤더-->
+<!-- 유저 헤더-->
 <th:block th:fragment="header">
     <header>
         <nav class="navbar navbar-expand-lg">
@@ -23,8 +23,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">팁</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login/member">로그인</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            마이페이지
+                        </a>
+                        <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">내 정보 변경</a></li>
+                            <li><a class="dropdown-item" href="#">내 예약 보기</a></li>
+                            <li><a class="dropdown-item" href="#">좋아하는 글</a></li>
+                            <li><a class="dropdown-item" href="#">리뷰 작성</a></li>
+                            <li><a class="dropdown-item" href="#">쿠폰</a></li>
+                            <li><a class="dropdown-item" href="#">파트너 신청</a></li>
+                            <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
