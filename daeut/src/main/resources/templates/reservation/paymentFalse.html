@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/main_layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>결제 실패</title>
-    <th:block th:replace="~{fragment/link::link}"></th:block>
 </head>
-<body>
-    <th:block th:replace="~{fragment/header::header}"></th:block>
+<body layout:fragment="content">
 
     <div class="container">
         <div class="sideView">
@@ -29,17 +28,5 @@
     <th:block th:replace="~{fragment/footer::footer}"></th:block>
 
     <th:block th:replace="~{fragment/script::script}"></th:block>
-
-    <script>
-        // 예약화면 다시가기
-        function moveToReservation(){
-            location.href = "/resevation/reservationRead"
-        }
-
-        // 메인화면으로
-        function moveToIndex(){
-            location.href = "/index"
-        }
-    </script>
 </body>
 </html>

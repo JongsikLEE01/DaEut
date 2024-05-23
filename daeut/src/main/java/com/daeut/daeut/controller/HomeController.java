@@ -11,5 +11,10 @@ public class HomeController {
     @GetMapping("")
     public String index() {
         return "/index";
-    }   
+    }
+    
+    @GetMapping("/reservation/payment")
+    public String payment() {
+        return "/reservation/payment";
+    } 
 }
