@@ -1,4 +1,10 @@
 @charset "UTF-8";
+@font-face {
+  font-family: 'Binggrae';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 /* 날씨 */
 .weather {
   background-color: #8FA2CA;
@@ -186,12 +192,15 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-h3, .h3, h2, .h2 {
+h2, .h2 {
   margin-top: 0;
   margin-bottom: 0.5rem;
   font-family: "Newsreader", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 600;
   line-height: 1.2;
+}
+.h2{
+  font-style: italic;
 }
 
 h2, .h2 {
@@ -1366,6 +1375,7 @@ button:not(:disabled),
 
 .text-white {
   color: white !important;
+  margin-bottom: 5%;
 }
 
 .text-muted {
@@ -1414,8 +1424,9 @@ section {
 }
 
 #output2, #output3 {
-  display: none; /* 처음에는 숨김 */
+  display: none;
 }
+
 .service{
   background-color: white;
   border: 1px solid #8FA2CA;
@@ -1454,7 +1465,6 @@ section {
 
 .text-white {
   color: #EDF2F7;
-  font-size: 5em;
 }
 
 .btn-outline-light {
@@ -1462,7 +1472,7 @@ section {
   border: 2px solid #EDF2F7;
   background-color: transparent;
   transition: background-color 0.3s, color 0.3s;
-  width: 20%;
+  width: 100%;
 }
 
 .btn-outline-light:hover {
@@ -1478,7 +1488,7 @@ section {
   .cta-content {
       padding: 30px;
   }
-  h2 {
+  h2, .text-white {
       font-size: 2.5rem;
   }
   .btn {
@@ -1493,7 +1503,7 @@ section {
   .cta-content {
       padding: 40px;
   }
-  h2 {
+  h2, .text-white {
       font-size: 3rem;
   }
   .btn {
@@ -1508,7 +1518,7 @@ section {
   .cta-content {
       padding: 50px;
   }
-  h2 {
+  h2, .text-white {
       font-size: 3.5rem;
   }
   .btn {
@@ -1523,7 +1533,7 @@ section {
   .cta-content {
       padding: 60px;
   }
-  h2 {
+  h2, .text-white {
       font-size: 4rem;
   }
   .btn {
@@ -1538,10 +1548,12 @@ section {
   .cta-content {
       padding: 70px;
   }
-  h2 {
+  h2, .text-white {
       font-size: 4.5rem;
   }
   .btn {
       padding: 18px 36px;
   }
 }
+
+*{font-family: 'Binggrae';}

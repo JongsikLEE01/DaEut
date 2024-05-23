@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', event => {
 // 날씨
 // 날씨 api - fontawesome 아이콘 사용
 var weatherIcon = {
-    '01' : 'fa-solid fa-sun',
+    '01' : 'bi bi-brightness-high-fill',
     '02' : 'fa-solid fa-cloud-sun',
     '03' : 'fa-solid fa-cloud',
     '04' : 'fa-solid fa-cloud-meatball',
