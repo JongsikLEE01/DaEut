@@ -112,7 +112,7 @@ function weatherData(latitude, longitude) {
             console.log(iconClass)
 
             // 가져온 데이터 화면에 출력
-            $('.weather_icon').html('<i class="' + iconClass + '"></i>');
+            $('.weatherIcon').html('<i class="' + iconClass + ' weatherIcon"></i>');
             $('.weather_description').text($weather_description);
             $('.current_temp').text($Temp)
             $('.humidity').text($humidity)

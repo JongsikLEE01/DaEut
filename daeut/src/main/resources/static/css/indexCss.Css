@@ -1,114 +1,119 @@
 @charset "UTF-8";
 /* 날씨 */
-.weather{
-  background-color : #8FA2CA;
-  padding : 40px;
-  color : #fff;
-  height : 200px;
-  width : 100%;
+.weather {
+  background-color: #8FA2CA;
+  padding: 40px;
+  color: #fff;
+  display: flex;
+  justify-content: space-evenly;
 }
-.weather .weatherIcon{
-  float : left;
+
+.weather .weatherIcon {
+  font-size: 3em;
 }
-.weather .weatherData{
-  float : right; 
-  margin : -5px 0px 0px 60px; 
-  font-size : 11pt;
+
+.weatherText{
+  display: flex;
+  flex-direction: row-reverse;
 }
-.weather .myWeather{
-  float : right;
-  margin-top : -45px;
+
+.weather .weatherData {
+  margin: -5px 0px 0px 60px;
+  font-size: 1.5em;
 }
-.weather .myWeather .current_temp{ font-size : 50pt; }
-.weather .myWeather .weather_description{ font-size : 20pt; }
-.weather .myWeather .city { font-size : 13pt; }
-/* 반응형 디자인 */
-@media (min-width: 576px) {
+
+.weather .myWeather .current_temp {
+  font-size: 50pt;
+}
+
+.weather .myWeather .weather_description {
+  font-size: 20pt;
+}
+
+.weather .myWeather .city {
+  font-size: 13pt;
+}
+
+/* 미디어 쿼리를 사용하여 반응형 스타일 적용 */
+@media (max-width: 1400px) {
   .weather {
       padding: 30px;
   }
-  .weather .myWeather .current_temp {
-      font-size: 35pt;
-  }
-  .weather .myWeather .weather_description {
-      font-size: 16pt;
-  }
-  .weather .myWeather .city {
-      font-size: 11pt;
+}
+
+@media (max-width: 1200px) {
+  .weather {
+      padding: 20px;
   }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 992px) {
   .weather {
-      padding: 40px;
-      height: 200px;
+      flex-direction: column;
+      align-items: center;
+      height: auto;
+      padding: 20px;
   }
+
   .weather .weatherIcon,
-  .weather .weatherData,
-  .weather .myWeather {
-      float: none;
-      text-align: left;
+  .weather .weatherData {
+      margin: 10px 0;
   }
+
+  .weather .weatherText {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
   .weather .myWeather {
-      float: right;
       margin-top: 0;
   }
+}
+
+@media (max-width: 576px) {
+  .weather .weatherIcon {
+      font-size: 2em;
+  }
+
+  .weather .weatherData {
+      font-size: 10pt;
+  }
+
   .weather .myWeather .current_temp {
       font-size: 40pt;
   }
+
   .weather .myWeather .weather_description {
       font-size: 18pt;
   }
+
   .weather .myWeather .city {
       font-size: 12pt;
   }
 }
 
-@media (min-width: 992px) {
+@media (max-width: 575.98px) {
   .weather .weatherIcon {
-      float: left;
+      font-size: 1.5em;
   }
+
   .weather .weatherData {
-      float: right;
-      margin: -5px 0 0 60px;
+      font-size: 9pt;
+  }
+
+  .weather .myWeather .current_temp {
+      font-size: 30pt;
+  }
+
+  .weather .myWeather .weather_description {
+      font-size: 16pt;
+  }
+
+  .weather .myWeather .city {
       font-size: 11pt;
-  }
-  .weather .myWeather {
-      float: right;
-      margin-top: -45px;
-  }
-  .weather .myWeather .current_temp {
-      font-size: 50pt;
-  }
-  .weather .myWeather .weather_description {
-      font-size: 20pt;
-  }
-  .weather .myWeather .city {
-      font-size: 13pt;
-  }
-}
-
-@media (min-width: 1200px) {
-  .weather .myWeather .current_temp {
-      font-size: 55pt;
-  }
-  .weather .myWeather .weather_description {
-      font-size: 22pt;
-  }
-  .weather .myWeather .city {
-      font-size: 14pt;
-  }
-}
-
-@media (min-width: 1400px) {
-  .weather .myWeather .current_temp {
-      font-size: 60pt;
-  }
-  .weather .myWeather .weather_description {
-      font-size: 24pt;
-  }
-  .weather .myWeather .city {
-      font-size: 15pt;
   }
 }
 
