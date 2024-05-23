@@ -3,6 +3,8 @@ package com.daeut.daeut.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 // @RequestMapping("/index")
@@ -12,6 +14,12 @@ public class PageController {
 	public String getMethodName(@PathVariable("path") String path ) {
 		return path;
 	}
+
+	@GetMapping("reservation")
+	public String getMethodName() {
+		return "reservation/reservation";
+	}
+	
 
 	// @GetMapping("/reservationInsert")
 	// public String reservation() {
