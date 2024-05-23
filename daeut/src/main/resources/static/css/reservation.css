@@ -120,6 +120,11 @@
     padding: 4px 15px;
     margin: 8px;
     cursor: pointer;
+	transition: background-color 0.3s, color 0.3s; /* 부드러운 전환 효과 */
+}
+
+.tag-button:hover {
+	background-color: #48523D;
 }
 
 .tag-button.selected {
@@ -177,6 +182,7 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center; /* 요소들을 세로 가운데 정렬 */
+	padding-top: 25px;
 }
 
 .file-upload-button, .image-upload-title, input[type="file"], .file-upload-note {
@@ -203,11 +209,106 @@ input[type="file"] {
 .file-upload-note {
     font-size: 12px;
     color: rgba(0, 0, 0, 0.5); /* 흐릿한 효과를 주는 색상 */
+	margin-top: 15px;
+}
+
+/* 이미지 프리뷰 */
+#image-preview-container {
+    display: flex;
+    gap: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    overflow: hidden; /* 넘치는 이미지 숨기기 */
+    position: relative;
+	min-height: 100px; /* 최소 높이 지정 */
+	margin-bottom: 20px;
+	margin-top: 10px;
 }
 
 /* 옵션 폼 */
 .option-form {
-    display: flex; /* Flexbox 사용 */
-    flex-wrap: nowrap; /* 줄 바꿈 방지 */
+    display: flex;
+    flex-direction: column; /* 옵션 폼을 세로로 배치 */
+    gap: 10px; /* 옵션 입력 사이의 간격 */
+    margin-bottom: 10px;
 }
 
+.option-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+	margin-top: 5px;
+}
+
+.option-input input[type="text"],
+.option-input input[type="number"],
+.option-input textarea {
+    flex: 3; /* 옵션명 창이 가로 전체의 3/10을 차지하도록 설정 */
+    height: 50px; /* 칸의 높이를 50px로 설정 */
+}
+
+.option-input input[type="number"] {
+    flex: 2; /* 가격 창이 가로 전체의 2/10을 차지하도록 설정 */
+}
+
+.option-input textarea {
+    flex: 5; /* 옵션 설명 창이 가로 전체의 5/10을 차지하도록 설정 */
+    resize: none; /* textarea 크기 조절 비활성화 */
+	height: 50px; /* 칸의 높이를 50px로 설정 */
+}
+
+.addOption {
+    background: none; /* 배경 제거 */
+    border: none; /* 테두리 제거 */
+    padding: 0; /* 내부 간격 제거 */
+}
+
+.addOption:focus {
+    outline: none;
+}
+
+.addOption svg {
+    width: 30px; /* 너비 설정 */
+    height: 30px; /* 높이 설정 */
+    fill: #8FA2CA; /* 아이콘 색상 설정 */
+	margin: 5px;
+}
+
+/* 하단 버튼*/ 
+.cancleInsert {
+	box-sizing: border-box;
+	width: 120px;
+	height: 50px;
+	border: 1px solid #ABABAB;
+	border-radius: 8px;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.reservationInsertOk {
+	box-sizing: border-box;
+	width: 120px;
+	height: 50px;
+	background: #8FA2CA;
+	border: 1px solid #FFFFFF;
+	border-radius: 8px;
+	color: #FFFFFF;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.reservationInsertOk:hover {
+	background: #E4E8F4;
+	color: #000000;
+	text-decoration: none;
+}
+
+.cancleInsert:hover {
+	background: #ffff;
+	color: #8FA2CA;
+}
+
+.bottomButton {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: right;
+}
