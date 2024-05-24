@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/oauth_layout}"
+      >
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 완료</title>
+</head>
+<!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+<body layout:fragment="content">
+    <div class="container complete">
+        <div class="form-container complete">
+            <h1 class="text-center">회원가입 완료</h1>
+            <hr class="completeHr">
+            <p class="text-center">회원가입이 정상적으로 처리되었습니다.</p>
+            <a href="/" class="btn btn-primary custom-auth-btn complete">확인</a>
+        </div>
+    </div>
+</body>
+</html>
