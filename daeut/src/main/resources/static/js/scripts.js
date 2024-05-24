@@ -4,7 +4,7 @@ function daumPostcode() {
         oncomplete: function (data) {
             // 각 값 저장
             document.getElementById('userPost').value = data.zonecode;
-            document.getElementById('userAddress').value = data.roadAddress;
+            document.getElementById('userAddressA').value = data.roadAddress;
 
             // 상세주소 키 입력 이동
             document.getElementById('userAddressDetail').focus();
@@ -22,10 +22,11 @@ function cancelPayment() {
 }
 
 $("#paymentBtn").on("click", function () {
-
+    // TODO : 연결 필요
     var userId = $("#userId").val()
     var userName = $("#userName").val()
-    var userAddress = $("#userAddress").val()
+    // var userAddress = $("#userAddress").val()
+    var userAddress = $("#userAddressA").val() + $("#userAddressDetail").val()
     var userPhone = $("#userPhone1").val() + $("#userPhone2").val()
     // var productName = $("#productName").val() 
     var productName = '상품이름'
@@ -97,11 +98,4 @@ function moveToMyReservation() {
 // 메인화면
 function moveToIndex() {
     location.href = "/index"
-}
-// 예약 취소
-function cancelPayment() {
-    const payment = confirm("정말 예약을 취소하시겠습니까? 예약를 취소할 경우 수수료가 발생할 수 있습니다.")
-    if (payment) {
-        // TODO : 결제 취소 로직 작성 필요
-    }
 }
