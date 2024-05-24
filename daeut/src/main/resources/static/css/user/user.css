@@ -1,0 +1,113 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main {
+    flex: 1;
+}
+.sidebar {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+}
+.sidebar a {
+    display: block;
+    padding: 10px;
+    margin-left: 15px;
+    color: #333;
+    text-decoration: none;
+}
+.sidebar a:hover {
+    background-color: #e9ecef;
+    color: #007bff;
+}
+.form-section {
+    padding: 20px;
+    border-top: 40px;
+}
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.form-group label {
+    flex: 1;
+    margin-bottom: 0;
+}
+.form-group input {
+    flex: 2;
+}
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.form-buttons button {
+    margin-left: 10px;
+}
+.toggle-btn {
+    position: fixed;
+    width: 60px !important;
+    left: 10px;
+    top: 70px; /* Adjust the position of the toggle button */
+    z-index: 1001; /* Ensure the button is above the sidebar */
+}
+
+@media (max-width: 767px) {
+    .sidebar {
+        position: fixed;
+        left: -250px;
+        top: 50px; /* Adjust the top position to make space for the header */
+        width: 250px !important;
+        height: calc(100% - 50px); /* Adjust the height to make space for the header */
+        transition: left 0.3s;
+        z-index: 900; /* Ensure the sidebar is behind the header */
+    }
+    .sidebar.active {
+        left: 0;
+    }
+    .form-section {
+        padding-top: 60px;
+        transition: margin-left 0.3s;
+    }
+    .sidebar.active ~ .form-section {
+        margin-left: 250px; /* Adjust this value to match the sidebar width */
+    }
+    .toggle-btn {
+        position: fixed;
+        width: 60px;
+        left: 10px;
+        top: 70px; /* Adjust the position of the toggle button */
+        z-index: 1001; /* Ensure the button is above the sidebar */
+    }
+    .sidebar.active + .toggle-btn {
+        left: 250px; /* Move the toggle button when sidebar is active */
+    }
+    .close-btn {
+        display: none;
+        position: fixed;
+        right: 10px;
+        top: 70px; /* Adjust the position of the close button */
+        z-index: 1001; /* Ensure the button is above the sidebar */
+    }
+    .sidebar.active + .close-btn {
+        display: block;
+    }
+    .sidebar .close-btn {
+        display: block;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1002;
+    }
+}
+
+@media (min-width: 768px) {
+    .toggle-btn {
+        display: none !important;
+    }
+    .sidebar .close-btn {
+        display: none;
+    }
+}
