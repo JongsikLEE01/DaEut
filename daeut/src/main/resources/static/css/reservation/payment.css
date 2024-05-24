@@ -52,6 +52,11 @@
     text-align: center;
 }
 
+.myCoupon{
+    display: flex;
+    justify-content: space-around;
+}
+
 h2.size_4rem {
     font-size: 2rem;
 }
