@@ -1,0 +1,122 @@
+<!-- 일반 헤더-->
+<th:block th:fragment="header">
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="/index">
+                <img src="/img/logo_w.png" alt="DA E UT 로고">
+            </a>
+            <button class="navbar-toggler" id="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars" id="menu-icon"></i>
+            </button>
+
+            <!-- General Navigation Bar -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            예약
+                        </a>
+                        <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown" id="menu-service">
+                            <li><a class="dropdown-item" href="#">서비스 보기</a></li>
+                            <li><a class="dropdown-item" href="#">리뷰 보기</a></li>
+                            <li><a class="dropdown-item" href="#">서비스 예약</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">팁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/oauth/member">로그인</a>
+                    </li>
+                </ul>  
+            </div>
+
+            <!-- User Navigation Bar -->
+            <!-- <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            예약
+                        </a>
+                        <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown" id="menu-service">
+                            <li><a class="dropdown-item" href="#">서비스 보기</a></li>
+                            <li><a class="dropdown-item" href="#">리뷰 보기</a></li>
+                            <li><a class="dropdown-item" href="#">서비스 예약</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">팁</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            마이페이지
+                        </a>
+                        <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">내 정보 변경</a></li>
+                            <li><a class="dropdown-item" href="#">내 예약 보기</a></li>
+                            <li><a class="dropdown-item" href="#">좋아하는 글</a></li>
+                            <li><a class="dropdown-item" href="#">리뷰 작성</a></li>
+                            <li><a class="dropdown-item" href="#">쿠폰</a></li>
+                            <li><a class="dropdown-item" href="#">파트너 신청</a></li>
+                            <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div> -->
+
+            <!-- Partner Navigation Bar -->
+            <!-- <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            예약
+                        </a>
+                        <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown" id="menu-service">
+                            <li><a class="dropdown-item" href="#">서비스 보기</a></li>
+                            <li><a class="dropdown-item" href="#">리뷰 보기</a></li>
+                            <li><a class="dropdown-item" href="#">서비스 예약</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">팁</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            마이페이지
+                        </a>
+                        <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">내 정보 변경</a></li>
+                            <li><a class="dropdown-item" href="#">내 예약 보기</a></li>
+                            <li><a class="dropdown-item" href="#">내 리뷰 보기</a></li>
+                            <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div> -->
+
+            <!-- Admin Navigation Bar -->
+            <!-- <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">예약 관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">팁 관리</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            마이페이지
+                        </a>
+                        <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">유저 관리</a></li>
+                            <li><a class="dropdown-item" href="#">파트너 관리</a></li>
+                            <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div> -->
+        </nav>
+    </header>
+
+</th:block>
+
