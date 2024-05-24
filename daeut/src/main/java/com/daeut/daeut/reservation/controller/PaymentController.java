@@ -2,6 +2,7 @@ package com.daeut.daeut.reservation.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,18 +32,6 @@ public class PaymentController {
     public void init() {
         this.iamportClient = new IamportClient(apiKey, secretKey);
     }
-
-    // /**
-    //  * 결제 완료 후 페이지 이동
-    //  * @param entity
-    //  * @return
-    //  */
-    // @PostMapping("/pay")
-    // public String paymentComplete() {
-    //     log.info("결제 성공");
-
-    //     return "redirect :/pay/payComplete";
-    // }
 
     /**
      * 해당 거래의 상세 정보를 조회 및 반환

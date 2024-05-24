@@ -172,8 +172,36 @@ button:focus {
     }
 }
 
-.container{
+.container {
+    width:1280px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;  /* 세로축 스크롤바 폭 너비 */
+    height: 15px;  /* 가로축 스크롤바 폭 너비 */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #8FA2CA; /* 스크롤바 막대 색상 */
+    border: 2px solid #8FA2CA; /* 스크롤바 막대 테두리 설정  */
+    border-radius: 12px 12px 12px 12px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color:#B5C6B8;
+    border-color: #B5C6B8;
+}
+
+/* 스크롤이 움직이는 뒷 배경 */
+::-webkit-scrollbar-track {
+	background: lightgray; /* 스크롤바 뒷 배경 색상 */
+}.container{
     width: 1080px;
+}
+
+h2 {
+    color: #8FA2CA !important;
+    font-weight: bold !important;
 }
 
 /* 메인 색상 */

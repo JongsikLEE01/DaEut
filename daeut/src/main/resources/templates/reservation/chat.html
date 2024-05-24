@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/reserv_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da E ut</title>
+</head>
+<body layout:fragment="content">
+	
+<div class="container">
+    <div class="chatbox">
+        <div class="chat-header">
+            <div class="chat-partner-info">
+                <span class="partner-name">상대방 이름</span>
+            </div>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <!-- 채팅 메시지는 여기에 추가됩니다 -->
+        </div>
+        <div class="input-box">
+            <input type="text" id="message" placeholder="부적절한 메세지는 삭제 처리됩니다." onkeypress="enterSend(event)">
+            <button onclick="sendMessage()" class="sendchat">전송</button>
+        </div>
+    </div>
+    <button class="goback" onclick="goBack()">돌아가기</button>
+</div>
+
+
+
+
+
+</body>
+</html>
