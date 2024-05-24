@@ -1,21 +1,17 @@
 @charset "UTF-8";
-@font-face {
-  font-family: 'Binggrae';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
 /* 날씨 */
 .weather {
-  background-color: #8FA2CA;
+  background-color: #fff;
   padding: 40px;
-  color: #fff;
+  color: #48523D;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  text-align: right;
 }
 
 .weather .weatherIcon {
   font-size: 3em;
+  color: #8FA2CA;
 }
 
 .weatherText{
@@ -30,6 +26,7 @@
 
 .weather .myWeather .current_temp {
   font-size: 50pt;
+  color: #8FA2CA;
 }
 
 .weather .myWeather .weather_description {
@@ -195,7 +192,6 @@ body {
 h2, .h2 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-family: "Newsreader", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 600;
   line-height: 1.2;
 }
@@ -1296,7 +1292,7 @@ button:not(:disabled),
 
 /* TODO 버튼 색상 지정 */
 .btn-outline-light {
-  
+    
 }
 
 .btn .badge {
@@ -1555,5 +1551,3 @@ section {
       padding: 18px 36px;
   }
 }
-
-*{font-family: 'Binggrae';}
