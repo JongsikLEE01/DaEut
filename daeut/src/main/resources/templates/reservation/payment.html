@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{/layout/main_layout}">
+    layout:decorate="~{/layout/payment_layout}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Da E Ut</title>
-    <link rel="stylesheet" href="/css/reservation/payment.css">
 </head>
 
 <body layout:fragment="content">
@@ -53,11 +52,13 @@
                 <form class="card p-2">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="쿠폰">
-                        <button type="button" class="btn btn-secondary myBtn" data-bs-toggle="modal" data-bs-target="#couponeModal">쿠폰 사용</button>
+                        <button type="button" class="btn btn-secondary myBtn" data-bs-toggle="modal"
+                            data-bs-target="#couponeModal">쿠폰 사용</button>
                     </div>
                 </form>
                 <!-- 쿠폰 modal -->
-                <div class="modal fade" id="couponeModal" tabindex="-1" aria-labelledby="couponeModalLabel" aria-hidden="true">
+                <div class="modal fade" id="couponeModal" tabindex="-1" aria-labelledby="couponeModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -66,13 +67,17 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                    <p class="myCoupon">가입쿠폰 5,000원 
-                                        <a href="#" role="button" class="btn btn-secondary popover-test myBtn" title="Popover title" data-bs-content="Popover body content is set in this attribute.">사용하기</a>
-                                    </p>
+                                <p class="myCoupon">가입쿠폰 5,000원
+                                    <a href="#" role="button" class="btn btn-secondary popover-test myBtn"
+                                        title="Popover title"
+                                        data-bs-content="Popover body content is set in this attribute.">사용하기</a>
+                                </p>
                                 <hr>
-                                    <p class="myCoupon">할인쿠폰 5,000원 
-                                        <a href="#" role="button" class="btn btn-secondary popover-test myBtn" title="Popover title" data-bs-content="Popover body content is set in this attribute.">사용하기</a>
-                                    </p>
+                                <p class="myCoupon">할인쿠폰 5,000원
+                                    <a href="#" role="button" class="btn btn-secondary popover-test myBtn"
+                                        title="Popover title"
+                                        data-bs-content="Popover body content is set in this attribute.">사용하기</a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -88,7 +93,7 @@
                             <label for="userName" class="form-label">이름</label>
                             <input type="text" class="form-control" id="userName" placeholder="이름" value="" required>
                             <div class="invalid-feedback">
-                                이름이 올바르게 입력되지 않았습니다.
+                                이름을 입력해주세요.
                             </div>
                         </div>
 
@@ -98,7 +103,7 @@
                                 <span class="input-group-text">@</span>
                                 <input type="text" class="form-control" id="userId" placeholder="userId" required>
                                 <div class="invalid-feedback">
-                                    아이디가 올바르게 입력되지 않았습니다.
+                                    아이디를 입력해주세요.
                                 </div>
                             </div>
                         </div>
@@ -107,7 +112,7 @@
                             <label for="email" class="form-label">이메일</label>
                             <input type="email" class="form-control" id="email" placeholder="daeut@example.com">
                             <div class="invalid-feedback">
-                                이메일이 올바르지 않습니다.
+                                이메일을 입력해주세요.
                             </div>
                         </div>
 
@@ -120,7 +125,7 @@
                                 <option value="011">019</option>
                             </select>
                             <div class="invalid-feedback">
-                                전화번호를 입력하세요
+                                전화번호를 입력해주세요.
                             </div>
                         </div>
 
@@ -129,7 +134,7 @@
                             <input type="text" class="form-control" id="userPhone2" placeholder="'-'는 제외하고 입력해주세요"
                                 required>
                             <div class="invalid-feedback">
-                                전화번호를 입력해주세요
+                                전화번호를 입력해주세요.
                             </div>
                         </div>
 
@@ -149,7 +154,7 @@
                             <label for="userAddress" class="form-label">주소</label>
                             <input type="text" class="form-control" id="userAddressA" placeholder="서울시 강서구" required>
                             <div class="invalid-feedback">
-                                주소가 올바르지 않습니다.
+                                주소를 입력해주세요.
                             </div>
                         </div>
 
@@ -162,16 +167,19 @@
                         </div>
 
                         <div class="d-flex justify-content-end gap-5 mb-3 mt-4 btn-container">
-                            <button class="btn btn-primary btn-lg sessuce color_main " type="button" id="paymentBtn">결제 하기</button>
-                            <button class="btn btn-danger btn-lg cancel " type="button" data-bs-toggle="modal" data-bs-target="#cancelPaymentModel">취소 하기</button>
+                            <button class="btn btn-primary btn-lg sessuce color_main " type="button" id="paymentBtn">결제하기</button>
+                            <button class="btn btn-danger btn-lg cancel " type="button" data-bs-toggle="modal"
+                                data-bs-target="#cancelPaymentModel">취소하기</button>
                         </div>
                         <!-- 결제 취소 Modal -->
-                        <div class="modal fade" id="cancelPaymentModel" tabindex="-1" aria-labelledby="cancelPaymentModelLabel" aria-hidden="true">
+                        <div class="modal fade" id="cancelPaymentModel" tabindex="-1"
+                            aria-labelledby="cancelPaymentModelLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="cancelPaymentModelLabel">예약 취소</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <p>정말 예약을 취소하시겠습니까? 예약를 취소할 경우 수수료가 발생할 수 있습니다.</p>
@@ -183,10 +191,12 @@
                                 </div>
                             </div>
                         </div>
+
                 </form>
             </div>
         </div>
     </div>
-</div>
+    </div>
 </body>
+
 </html>

@@ -1,49 +1,38 @@
-/* 메인 색상 */
-.size_4rem{ font-size: 4rem; }
-.color_main{ color: #8FA2CA !important; }
-.color_sub1{ color: #E4E8F4 !important; }
-.color_sub2{ color: #B5C6B8 !important; }
-.color_point{ color: #48523D !important; }
-.bg_color_main{ background-color: #8FA2CA !important; }
-.bg_color_sub1{ background-color: #E4E8F4 !important; }
-.bg_color_sub2{ background-color: #B5C6B8 !important; }
-.bg_color_point{ background-color: #48523D !important; }
-
 .sessuce{
-    background-color: #fff;
-    border: 1px solid #8FA2CA;
-    border-radius: 8px;
-    transition: 0.5s;
+    background-color: #fff !important;
+    border: 1px solid #8FA2CA !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
 }
 .sessuce:hover{
-    background-color: #8FA2CA;
-    border: 1px solid #8FA2CA;
+    background-color: #8FA2CA !important;
+    border: 1px solid #8FA2CA !important;
     color: white !important;
 }
 
 .cancel{
-    background-color: #fff;
-    color: red;
-    border: 1px solid red;
-    border-radius: 8px;
-    transition: 0.5s;
+    background-color: #fff !important;
+    color: red !important;
+    border: 1px solid red !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
 }
 .cancel:hover{
-    background-color: red;
-    border: 1px solid red;
-    color: white;
+    background-color: red !important;
+    border: 1px solid red !important;
+    color: white !important;
 }
 
 .myBtn{
-    background-color: #fff;
-    color: #48523D;
-    border: 1px solid #48523D;
-    transition: 0.5s;
+    background-color: #fff !important;
+    color: #48523D !important;
+    border: 1px solid #48523D !important;
+    transition: 0.5s !important;
 }
 .myBtn:hover{
-    background-color: #48523D;
-    border: 1px solid #48523D;
-    color: white;
+    background-color: #48523D !important;
+    border: 1px solid #48523D !important;
+    color: white !important;
 }
 
 .py-5.text-center {
@@ -57,7 +46,7 @@
     justify-content: space-around;
 }
 
-h2.size_4rem {
+/* h2.size_4rem {
     font-size: 2rem;
 }
 
@@ -97,7 +86,7 @@ button.btn.btn-secondary.myBtn {
 .d-flex.justify-content-end {
     justify-content: center;
     gap: 10px;
-}
+} */
 
 .btn-container {
     display: flex;
