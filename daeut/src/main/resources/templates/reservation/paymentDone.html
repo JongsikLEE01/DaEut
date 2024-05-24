@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 성공</title>
+</head>
+<body layout:fragment="content">
+    <div class="container">
+        <div class="sideView">
+
+        </div>
+        <div class="payment">
+            <h1>결제 완료</h1>
+        
+            <!-- TODO : 결제 완료 만들기 -->
+            <input type="hidden" name="userId" id="userId" value="user1">
+            <br> 예약자 : <input type="text" name="userName" id="userName">
+            <br> 일정 : <input type="date" name="resrvationDate" id="resrvationDate">
+            <br> 주소 : <input type="text" name="userAddress1" id="userAddress">
+            <br> 우편번호 : <input type="text" name="userPost1" id="userPost">
+            <br> 휴대전화 : <input type="text" name="userPhone1" id="userPhone">
+            <br> 상품 이름 : <input type="text" name="productName" id="productName" value="[여름맞이][특가]청소 + 방역 서비스">
+            <br> 상품 가격 : <input type="text" name="productCost" id="productCost" value="52000">
+            <br> 쿠폰 : <img src="" alt="사용한 쿠폰 출력">
+            <br> 담당자
+            <br> 이미지 partnerName님이 청소하러 갈게요!
+            
+            <br>
+            <button type="button" onclick="moveToChat()">문의 하기</button>
+            <button type="button" onclick="moveToMyReservation()">결제 내역 확인</button>
+            <button type="button" onclick="moveToIndex()">메인 화면</button>
+            <button type="button" onclick="cancelPayment()">결제 취소</button>
+        </div>
+    </div>
+</body>
+</html>

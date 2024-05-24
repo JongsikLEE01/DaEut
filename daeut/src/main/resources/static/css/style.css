@@ -1,3 +1,12 @@
+/* 폰트 */
+@font-face {
+    font-family: 'Binggrae';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{font-family: 'Binggrae';}
 /* 헤더 */
 nav {
     border-bottom: 1px solid #8FA2CA;
@@ -186,4 +195,17 @@ button:focus {
 /* 스크롤이 움직이는 뒷 배경 */
 ::-webkit-scrollbar-track {
 	background: lightgray; /* 스크롤바 뒷 배경 색상 */
+}.container{
+    width: 1080px;
 }
+
+/* 메인 색상 */
+.size_4rem{ font-size: 4rem; }
+.color_main{ color: #8FA2CA !important; }
+.color_sub1{ color: #E4E8F4 !important; }
+.color_sub2{ color: #B5C6B8 !important; }
+.color_point{ color: #48523D !important; }
+.bg_color_main{ background-color: #8FA2CA !important; }
+.bg_color_sub1{ background-color: #E4E8F4 !important; }
+.bg_color_sub2{ background-color: #B5C6B8 !important; }
+.bg_color_pint{ background-color: #48523D !important; }

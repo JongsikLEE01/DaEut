@@ -98,13 +98,13 @@ function weatherData(latitude, longitude) {
 
             // JSON 데이터 가져오기
             var $weather_description =  response.weather[0].description
-            var $Temp = Math.floor( response.main.temp) + 'º'
+            var $Temp = Math.floor( response.main.temp) + '°C'
             var $humidity = '습도 : ' +  response.main.humidity + ' %'
             var $wind = '바람 : ' +  response.wind.speed + ' m/s'
             var $city =  response.name
             var $cloud = '구름 : ' +  response.clouds.all + "%"
-            var $temp_min = '최저 온도 : ' + Math.floor( response.main.temp_min) + 'º'
-            var $temp_max = '최고 온도 : ' + Math.floor( response.main.temp_max) + 'º'
+            var $temp_min = '최저 온도 : ' + Math.floor( response.main.temp_min) + '°C'
+            var $temp_max = '최고 온도 : ' + Math.floor( response.main.temp_max) + '°C'
             var $Icon = ( response.weather[0].icon).substr(0,2)
             
             console.log($Icon)

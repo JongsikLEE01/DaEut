@@ -1,0 +1,161 @@
+/* 메인 색상 */
+.size_4rem{ font-size: 4rem; }
+.color_main{ color: #8FA2CA !important; }
+.color_sub1{ color: #E4E8F4 !important; }
+.color_sub2{ color: #B5C6B8 !important; }
+.color_point{ color: #48523D !important; }
+.bg_color_main{ background-color: #8FA2CA !important; }
+.bg_color_sub1{ background-color: #E4E8F4 !important; }
+.bg_color_sub2{ background-color: #B5C6B8 !important; }
+.bg_color_point{ background-color: #48523D !important; }
+
+.sessuce{
+    background-color: #fff;
+    border: 1px solid #8FA2CA;
+    border-radius: 8px;
+    transition: 0.5s;
+}
+.sessuce:hover{
+    background-color: #8FA2CA;
+    border: 1px solid #8FA2CA;
+    color: white !important;
+}
+
+.cancel{
+    background-color: #fff;
+    color: red;
+    border: 1px solid red;
+    border-radius: 8px;
+    transition: 0.5s;
+}
+.cancel:hover{
+    background-color: red;
+    border: 1px solid red;
+    color: white;
+}
+
+.myBtn{
+    background-color: #fff;
+    color: #48523D;
+    border: 1px solid #48523D;
+    transition: 0.5s;
+}
+.myBtn:hover{
+    background-color: #48523D;
+    border: 1px solid #48523D;
+    color: white;
+}
+
+.py-5.text-center {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.myCoupon{
+    display: flex;
+    justify-content: space-around;
+}
+
+h2.size_4rem {
+    font-size: 2rem;
+}
+
+.lead {
+    font-size: 1rem;
+}
+
+.list-group-item {
+    padding: 10px;
+}
+
+.form-control,
+.input-group,
+.select {
+    width: 100%;
+}
+
+input[type="text"].form-control {
+    width: 70%;
+}
+
+button.btn.btn-secondary.myBtn {
+    width: 30%;
+}
+
+.d-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.d-flex.justify-content-between {
+    justify-content: center;
+    align-items: center;
+}
+
+.d-flex.justify-content-end {
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 450px) {
+    .btn-container {
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 1.5rem;
+    }
+}
+
+.modal-content {
+    padding: 15px;
+}
+
+/*  450px 미디어 쿼리 */
+@media (max-width: 450px) {
+    .container {
+        padding: 10px;
+    }
+    h2.size_4rem {
+        font-size: 1.5rem;
+    }
+    .lead {
+        font-size: 0.9rem;
+    }
+    .list-group-item {
+        padding: 8px;
+    }
+    .form-control,
+    .input-group,
+    .select {
+        width: 100%;
+    }
+    input[type="text"].form-control {
+        width: 60%;
+    }
+    button.btn.btn-secondary.myBtn {
+        width: 40%;
+    }
+    .d-flex {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .d-flex.justify-content-between,
+    .d-flex.justify-content-end {
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        padding: 10px;
+    }
+}
