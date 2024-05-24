@@ -176,6 +176,11 @@ button:focus {
     width: 1080px;
 }
 
+h2 {
+    color: #8FA2CA !important;
+    font-weight: bold !important;
+}
+
 /* 메인 색상 */
 .size_4rem{ font-size: 4rem; }
 .color_main{ color: #8FA2CA !important; }

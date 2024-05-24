@@ -1,4 +1,4 @@
-package com.daeut.daeut.login;
+package com.daeut.daeut.login.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
