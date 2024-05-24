@@ -4,7 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import lombok.extern.slf4j.Slf4j;
 
+
+
+@Slf4j
 @Controller
 public class PageController {
 
@@ -47,16 +51,16 @@ public class PageController {
 	
 	
 
-	// @GetMapping("/reservationInsert")
-	// public String reservation() {
-	// 	return "/reservation/reservationInsert";
-	// }
+	@GetMapping("/reservationInsert")
+	public String reservation() {
+		return "/reservation/reservationInsert";
+	}
 	
 	
-    // @GetMapping("/chat")
-    // public String main() {
-    //     log.info("채팅 화면...");
-    //     return "chat";
-    // }
+    @GetMapping("/chat")
+    public String main() {
+        log.info("채팅 화면...");
+        return "chat";
+    }
     
 }
