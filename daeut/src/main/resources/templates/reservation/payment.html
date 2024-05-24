@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/main_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da E Ut</title>
+    <link rel="stylesheet" href="/css/reservation/payment.css">
+</head>
+
+<body layout:fragment="content">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2 class="color_main size_4rem">결제 화면</h2>
+            <p class="lead">userName님의 결제 화면입니다.</p>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-5 col-lg-4 order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary color_main">나의 예약</span>
+                    <span class="badge bg-primary rounded-pill bg_color_main">N개</span>
+                </h4>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">[여름맞이][특가]청소 + 빨래 세트</h6>
+                            <small class="text-body-secondary"></small>
+                        </div>
+                        <span class="text-body-secondary">50,000원</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">방역</h6>
+                            <small class="text-body-secondary">전체 방역</small>
+                        </div>
+                        <span class="text-body-secondary">20,000원</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
+                        <div class="text-success">
+                            <h6 class="my-0">사용한 쿠폰</h6>
+                            <small>가입쿠폰</small>
+                        </div>
+                        <span class="text-success">-5,000원</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>총 가격 (원)</span>
+                        <strong value="65000" id="productCost">65,000</strong>
+                    </li>
+                </ul>
+                <!--  TODO : 쿠폰 사용시 DB와 연결 필요 -->
+                <form class="card p-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="쿠폰">
+                        <button type="button" class="btn btn-secondary myBtn" data-bs-toggle="modal" data-bs-target="#couponeModal">쿠폰 사용</button>
+                    </div>
+                </form>
+                <!-- 쿠폰 modal -->
+                <div class="modal fade" id="couponeModal" tabindex="-1" aria-labelledby="couponeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="couponeModalLabel">쿠폰 사용하기</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                    <p class="myCoupon">가입쿠폰 5,000원 
+                                        <a href="#" role="button" class="btn btn-secondary popover-test myBtn" title="Popover title" data-bs-content="Popover body content is set in this attribute.">사용하기</a>
+                                    </p>
+                                <hr>
+                                    <p class="myCoupon">할인쿠폰 5,000원 
+                                        <a href="#" role="button" class="btn btn-secondary popover-test myBtn" title="Popover title" data-bs-content="Popover body content is set in this attribute.">사용하기</a>
+                                    </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-7 col-lg-8">
+                <h4 class="mb-3 color_sub2">예약 정보</h4>
+                <!-- TODO : 결제 로직 완성 필요 -->
+                <form class="needs-validation" novalidate>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="userName" class="form-label">이름</label>
+                            <input type="text" class="form-control" id="userName" placeholder="이름" value="" required>
+                            <div class="invalid-feedback">
+                                이름이 올바르게 입력되지 않았습니다.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="userId" class="form-label">아이디</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">@</span>
+                                <input type="text" class="form-control" id="userId" placeholder="userId" required>
+                                <div class="invalid-feedback">
+                                    아이디가 올바르게 입력되지 않았습니다.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">이메일</label>
+                            <input type="email" class="form-control" id="email" placeholder="daeut@example.com">
+                            <div class="invalid-feedback">
+                                이메일이 올바르지 않습니다.
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label for="userPhone1" class="form-label">전화번호</label>
+                            <select class="form-select" id="userPhone1" required>
+                                <option value="010">010</option>
+                                <option value="011">011</option>
+                                <option value="011">017</option>
+                                <option value="011">019</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                전화번호를 입력하세요
+                            </div>
+                        </div>
+
+                        <div class="col-md-10">
+                            <label for="userPhone2" class="form-label">전화번호</label>
+                            <input type="text" class="form-control" id="userPhone2" placeholder="'-'는 제외하고 입력해주세요"
+                                required>
+                            <div class="invalid-feedback">
+                                전화번호를 입력해주세요
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="userPost" class="form-label">우편번호</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="userPost" placeholder="우편번호" required>
+                                <button type="button" class="btn btn-secondary myBtn" onclick="daumPostcode()">우편번호
+                                    찾기</button>
+                                <div class="invalid-feedback">
+                                    우편번호를 입력해주세요.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="userAddress" class="form-label">주소</label>
+                            <input type="text" class="form-control" id="userAddressA" placeholder="서울시 강서구" required>
+                            <div class="invalid-feedback">
+                                주소가 올바르지 않습니다.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="userAddressDetail" class="form-label">상세주소</label>
+                            <input type="text" class="form-control" id="userAddressDetail" placeholder="상세주소" required>
+                            <div class="invalid-feedback">
+                                상세주소를 입력해주세요.
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-5 mb-3 mt-4 btn-container">
+                            <button class="btn btn-primary btn-lg sessuce color_main " type="button" id="paymentBtn">결제 하기</button>
+                            <button class="btn btn-danger btn-lg cancel " type="button" data-bs-toggle="modal" data-bs-target="#cancelPaymentModel">취소 하기</button>
+                        </div>
+                        <!-- 결제 취소 Modal -->
+                        <div class="modal fade" id="cancelPaymentModel" tabindex="-1" aria-labelledby="cancelPaymentModelLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="cancelPaymentModelLabel">예약 취소</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>정말 예약을 취소하시겠습니까? 예약를 취소할 경우 수수료가 발생할 수 있습니다.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary myBtn" data-bs-dismiss="modal">닫기</button>
+                                        <a href="/resevation/reservationRead" type="button" class="btn btn-danger cancel">취소하기</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
