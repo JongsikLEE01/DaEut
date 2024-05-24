@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/main_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da E ut</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+  />
+    <link rel="stylesheet" href="/css/tip/tipInsert.css">
+</head>
+<body layout:fragment="content">
+    <!-- ⭐ content -->
+
+    <div class="container">
+        <form>
+            <div class="form-group">
+                <label for="title" style="display: none;">제목을 입력해주세요.</label>
+                <input type="text" id="title" class="form-control" placeholder="제목을 입력해주세요.">
+            </div>
+            <div class="form-group">
+                <textarea class="content" cols="100" rows="8" placeholder="부적절한 글로 판단되어 다른 사용자로부터 일정 수 이상의 신고를 받은 경우 글이 삭제될 수 있습니다."></textarea>
+            </div>
+            <div class="fileuploadbox">
+                <label for="images" class="image-upload-title">첨부파일</label>
+                    <label for="images" class="file-upload-button">첨부하기</label>
+                    <input type="file" id="images" name="images" accept="image/*" multiple onchange="previewImages(event)">
+                    <p class="file-upload-note">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</p>
+                </div>
+                <div id="image-preview-container"></div>
+            <!-- <p class="text-muted">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10개까지 첨부 가능합니다.</p> -->
+            <div class="buttons">
+                <button type="submit" class="btn btn-primary">등록하기</button>
+                <button type="button" class="btn btn-outline-secondary">취소하기</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function previewImages(event) {
+        var container = document.getElementById('image-preview-container');
+        container.innerHTML = ''; // 기존 이미지 제거
+        
+        var files = event.target.files;
+        for (var i = 0; i < files.length; i++) {
+            var image = document.createElement('img');
+            image.src = URL.createObjectURL(files[i]);
+            image.alt = '이미지 미리보기';
+            image.style.maxWidth = '200px';
+            image.style.marginTop = '10px';
+            container.appendChild(image);
+        }
+    }
+    </script>
+</body>
+</html>
