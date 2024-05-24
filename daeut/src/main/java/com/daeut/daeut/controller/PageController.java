@@ -19,6 +19,18 @@ public class PageController {
 	public String getMethodName() {
 		return "reservation/reservation";
 	}
+
+	@GetMapping("reservationRead")
+	public String read() {
+		return "reservation/reservationRead";
+	}
+
+	
+	@GetMapping("reservationInsert")
+	public String insert() {
+		return "reservation/reservationInsert";
+	}
+	
 	
 
 	// @GetMapping("/reservationInsert")
