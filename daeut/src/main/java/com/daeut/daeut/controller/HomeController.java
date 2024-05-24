@@ -8,9 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("")
 public class HomeController {
 
-    @GetMapping("/index")
+    @GetMapping("")
     public String index() {
         return "/index";
     }
     
+    @GetMapping("/reservation/payment")
+    public String payment() {
+        return "/reservation/payment";
+    } 
 }
