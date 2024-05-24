@@ -13,6 +13,7 @@ function daumPostcode() {
 }
 
 
+// TODO : 결제 값 가져와야함
 // 결제 스크립트
 function cancelPayment() {
     const payment = alert("정말 결제를 취소하시겠습니까? 결제를 취소할 경우 모든 입력값을 잃어버리게 됩니다")
@@ -22,21 +23,32 @@ function cancelPayment() {
 }
 
 $("#paymentBtn").on("click", function () {
-    // TODO : 연결 필요
-    var userId = $("#userId").val()
-    var userName = $("#userName").val()
+    var userId = $("#user_id").val()
+    console.log(userId)
+
+    var userName = $("#user_name").val()
+    console.log(userName)
+
     // var userAddress = $("#userAddress").val()
-    var userAddress = $("#userAddressA").val() + $("#userAddressDetail").val()
-    var userPhone = $("#userPhone1").val() + $("#userPhone2").val()
-    // var productName = $("#productName").val() 
+    var userAddress = $("#user_address").val() + $("#user_address_detail").val()
+    console.log(userAddress)
+
+    var userPhone = $("#user_phone1").val() + $("#user_phone2").val()
+    console.log(userPhone)
+
+    // var productName = $("#service_name").val() 
     var productName = '상품이름'
-    // var productCost = $("#productCost").val() 
+    console.log(productName)
+
+    // var productCost = $("#service_price").val() + $("#service_price").val()
     var productCost = 300
+    console.log(productCost)
+
     var merchant_uid = "O" + new Date().getTime() // 고유 주문번호 생성 
+    console.log(merchant_uid)
 
     var IMP = window.IMP
     IMP.init('imp52301113') // 고객사 식별코드 입력 
-
     // request_pay 결제를 요청하는 함수
     IMP.request_pay({
         pg: "html5_inicis",             // 등록된 pg사 (적용된 pg사는 KG이니시스)
