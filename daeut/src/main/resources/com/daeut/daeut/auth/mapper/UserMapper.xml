@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daeut.daeut.auth.mapper.UserMapper">
+
+    <resultMap type="Users" id="userMap">
+        <id property="userNo" column="user_no" />
+        
+        <result property="userName" column="user_name" />
+        <result property="userPhone" column="user_phone" />
+        <result property="userBirth" column="user_birth" />
+        <result property="userAddress" column="user_address" />
+        <result property="userEmail" column="user_email" />
+        <result property="userGender" column="user_gender" />
+        <result property="userId" column="user_id" />
+        <result property="userPassword" column="user_password" />
+        <result property="userRegDate" column="user_reg_date" />
+        <result property="userCoupon" column="user_coupon" />
+        <result property="userUpdDate" column="user_upd_date" />
+        <result property="enabled" column="enabled" />
+        
+        <collection property="authList" resultMap="authMap"></collection>
+    </resultMap>
+
+        
+    <resultMap type="UserAuth" id="authMap">
+        <result property="authNo" column="auth_no" />
+        <result property="userNo" column="user_no" />
+        <result property="auth" column="auth" />
+    </resultMap>
+
+    <!-- 로그인 - username -->
+    <select id="login" resultMap="userMap">
+        SELECT u.user_no
+              ,u.user_name
+              ,u.user_phone
+              ,u.user_birth
+              ,u.user_address
+              ,u.user_email
+              ,u.user_gender
+              ,u.user_id
+              ,u.user_password
+              ,u.user_reg_date
+              ,u.user_coupon
+              ,u.user_upd_date
+              ,enabled
+              ,auth
+        FROM users u LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
+        WHERE u.user_id = #{userId}
+    </select>
+
+
+    <!-- 회원 조회 - id -->
+    <select id="select" resultMap="userMap">
+        SELECT u.user_no
+              ,u.user_name
+              ,u.user_phone
+              ,u.user_birth
+              ,u.user_address
+              ,u.user_email
+              ,u.user_gender
+              ,u.user_id
+              ,u.user_password
+              ,u.user_reg_date
+              ,u.user_coupon
+              ,u.user_upd_date
+              ,enabled
+              ,auth
+        FROM users u LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
+        WHERE u.user_id = #{userId}
+    </select>
+
+    <!-- 회원 가입 -->
+    <insert id="join">
+        INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password, user_coupon)
+        VALUES (#{userName}, #{userPhone}, #{userBirth}, #{userAddress}, #{userEmail}, #{userGender}, #{userId}, #{userPassword}, #{userCoupon})
+    </insert>
+
+    <!-- 회원 정보 수정 -->
+    <update id="update">
+        UPDATE user
+           SET user_name = #{userName}
+              ,user_phone = #{userPhone}
+              ,user_birth = #{userBirth}
+              ,user_address = #{userAddress}
+              ,user_gender = #{userGender}
+              ,user_email = #{userEmail}
+              ,user_coupon = #{userCoupon}
+              ,user_upd_date = now()
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 회원 권한 등록 -->
+    <insert id="insertAuth">
+        INSERT INTO user_auth( user_no, auth )
+        VALUES ( #{userNo}, #{auth} )
+    </insert>
+
+</mapper>

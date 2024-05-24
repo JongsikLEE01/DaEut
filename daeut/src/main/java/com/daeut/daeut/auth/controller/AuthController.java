@@ -1,4 +1,4 @@
-package com.daeut.daeut.login.controller;
+package com.daeut.daeut.auth.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,37 +7,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/oauth")
-public class loginController {
+@RequestMapping("/auth")
+public class AuthController {
     
     @GetMapping("/member")
     public String loginMain() {
-        return "/oauth/member";
+        return "/auth/member";
     }
 
     @GetMapping("/join")
     public String join() {
-        return "/oauth/join";
+        return "/auth/join";
     } 
 
     @GetMapping("/login")
     public String login() {
-        return "/oauth/login";
+        return "/auth/login";
     }
 
     @GetMapping("/findId")
     public String findId() {
-        return "/oauth/findId";
+        return "/auth/findId";
     }
 
     @GetMapping("/findPw")
     public String findPw() {
-        return "/oauth/findPw";
+        return "/auth/findPw";
     }
 
     @GetMapping("/joinDone")
     public String joinDone() {
-        return "/oauth/joinDone";
+        return "/auth/joinDone";
     }
 
 
