@@ -33,17 +33,6 @@ public class PaymentController {
         this.iamportClient = new IamportClient(apiKey, secretKey);
     }
 
-
-    @GetMapping("/reservation/paymentDone")
-    public String paymentDone() {
-        return "/reservation/paymentDone";
-    }
-
-    @GetMapping("/reservation/paymentFalse")
-    public String paymentFalse() {
-        return "/reservation/paymentFalse";
-    }
-
     /**
      * 해당 거래의 상세 정보를 조회 및 반환
      * @param imp_uid -> 고객사 식별코드

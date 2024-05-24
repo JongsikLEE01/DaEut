@@ -13,10 +13,8 @@ public class HomeController {
         return "/index";
     }
     
-    @GetMapping("/reservation/payment")
+    @GetMapping("/payment")
     public String payment() {
         return "/reservation/payment";
     } 
-
-  
 }
