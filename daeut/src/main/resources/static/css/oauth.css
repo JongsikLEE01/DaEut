@@ -120,3 +120,16 @@ button {
 .completeHr {
     width: 100%;
 }
+
+/* button css */
+.sessuce{
+    background-color: #fff;
+    border: 1px solid #8FA2CA;
+    border-radius: 8px;
+    transition: 0.5s;
+}
+.sessuce:hover{
+    background-color: #8FA2CA;
+    border: 1px solid #8FA2CA;
+    color: white !important;
+}
