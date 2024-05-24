@@ -19,7 +19,7 @@
             <!-- 채팅 메시지는 여기에 추가됩니다 -->
         </div>
         <div class="input-box">
-            <input type="text" id="message" placeholder="부적절한 메세지는 삭제 처리됩니다.">
+            <input type="text" id="message" placeholder="부적절한 메세지는 삭제 처리됩니다." onkeypress="enterSend(event)">
             <button onclick="sendMessage()" class="sendchat">전송</button>
         </div>
     </div>

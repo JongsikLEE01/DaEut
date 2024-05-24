@@ -24,17 +24,17 @@
                 <ul class="list-group mb-3">
                     <li class="list-group-item d-flex justify-content-between lh-sm">
                         <div>
-                            <h6 class="my-0">service_name</h6>
+                            <h6 class="my-0">serviceName</h6>
                             <small class="text-body-secondary">설명</small>
                         </div>
-                        <span class="text-body-secondary">service_price</span>
+                        <span class="text-body-secondary">servicePrice</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-sm">
                         <div>
-                            <h6 class="my-0">service_name</h6>
+                            <h6 class="my-0">serviceName</h6>
                             <small class="text-body-secondary">설명</small>
                         </div>
-                        <span class="text-body-secondary">service_price</span>
+                        <span class="text-body-secondary">servicePrice</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
                         <div class="text-success">
@@ -45,7 +45,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>총 가격 (원)</span>
-                        <strong id="payment_price">65,000</strong>
+                        <strong id="paymentPrice">65,000</strong>
                     </li>
                 </ul>
 
@@ -69,16 +69,14 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p class="user_coupon">user_coupon
-                                    <a href="#" role="button" class="btn btn-secondary popover-test myBtn"
-                                        title="Popover title"
-                                        data-bs-content="Popover body content is set in this attribute.">사용하기</a>
+                                <p class="userCoupon d-flex justify-content-around">user_coupon
+                                    <button type="button" class="btn btn-secondary popover-test myBtn"
+                                        data-bs-content="Popover body content is set in this attribute.">사용하기</button>
                                 </p>
                                 <hr>
-                                <p class="user_coupon">user_coupon
-                                    <a href="#" role="button" class="btn btn-secondary popover-test myBtn"
-                                        title="Popover title"
-                                        data-bs-content="Popover body content is set in this attribute.">사용하기</a>
+                                <p class="userCoupon d-flex justify-content-around">user_coupon
+                                    <button type="button"  class="btn btn-secondary popover-test myBtn"
+                                        data-bs-content="Popover body content is set in this attribute.">사용하기</button>
                                 </p>
                             </div>
                         </div>
@@ -95,28 +93,28 @@
                     <input type="hidden" name="user_id" id="user_id">
                     <div class="row g-3">
                         <div class="col-12">
-                            <label for="user_name" class="form-label">이름</label>
-                            <input type="text" class="form-control" id="user_name" placeholder="이름" value="" required>
+                            <label for="userName" class="form-label">이름</label>
+                            <input type="text" class="form-control" id="userName" placeholder="이름" value="" required>
                             <div class="invalid-feedback">
                                 이름을 입력해주세요.
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <label for="user_email" class="form-label">이메일</label>
-                            <input type="user_email" class="form-control" id="user_email" placeholder="daeut@example.com">
+                            <label for="userEmal" class="form-label">이메일</label>
+                            <input type="email" class="form-control" id="userEmal" placeholder="daeut@example.com">
                             <div class="invalid-feedback">
                                 이메일을 입력해주세요.
                             </div>
                         </div>
 
                         <div class="col-md-2">
-                            <label for="user_phone1" class="form-label">전화번호</label>
+                            <label for="userPhone1" class="form-label">전화번호</label>
                             <select class="form-select" id="userPhone1" required>
                                 <option value="010">010</option>
                                 <option value="011">011</option>
-                                <option value="011">017</option>
-                                <option value="011">019</option>
+                                <option value="017">017</option>
+                                <option value="019">019</option>
                             </select>
                             <div class="invalid-feedback">
                                 전화번호를 입력해주세요.
@@ -124,7 +122,7 @@
                         </div>
 
                         <div class="col-md-10">
-                            <label for="user_phone2" class="form-label">전화번호</label>
+                            <label for="userPhone2" class="form-label">전화번호</label>
                             <input type="text" class="form-control" id="userPhone2" placeholder="'-'는 제외하고 입력해주세요"
                                 required>
                             <div class="invalid-feedback">
@@ -145,16 +143,16 @@
                         </div>
 
                         <div class="col-12">
-                            <label for="user_address" class="form-label">주소</label>
-                            <input type="text" class="form-control" id="user_address" placeholder="서울시 강서구" required>
+                            <label for="userAddress" class="form-label">주소</label>
+                            <input type="text" class="form-control" id="userAddress" placeholder="서울시 강서구" required>
                             <div class="invalid-feedback">
                                 주소를 입력해주세요.
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <label for="user_address_detail" class="form-label">상세주소</label>
-                            <input type="text" class="form-control" id="user_address_detail" placeholder="상세주소" required>
+                            <label for="userAddressDetail" class="form-label">상세주소</label>
+                            <input type="text" class="form-control" id="userAddressDetail" placeholder="상세주소" required>
                             <div class="invalid-feedback">
                                 상세주소를 입력해주세요.
                             </div>
