@@ -15,7 +15,7 @@ public class SecurityConfig {
 
 
         http.authorizeRequests(requests -> requests.antMatchers("/**").permitAll()
-                                                    .anyRequest().authenticated()
+                                                    .anyRequest().permitAll()
                                                     );
 
         return http.build();
