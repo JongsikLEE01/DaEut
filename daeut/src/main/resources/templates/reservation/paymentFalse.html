@@ -1,32 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{/layout/main_layout}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/payment_layout}"
+      >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>결제 실패</title>
+    <title>예약 실패</title>
 </head>
 <body layout:fragment="content">
 
     <div class="container">
-        <div class="sideView">
 
+        <div class="container complete">
+            <div class="form-container complete">
+                <h2 class="text-center color_main">예약 실패</h2>
+                <hr class="completeHr">
+                <p class="text-center">회원님의 예약가 실패되었습니다</p>
+                <p class="text-center">다시 시도해주세요</p>
+
+                <div class="d-flex gap-5">
+                    <a href="/reservationRead" class="btn btn-primary sessuce color_main">다시하기</a>
+                    <a href="/" class="btn btn-primary sessuce color_main">메인화면</a>
+                </div>
+            </div>
         </div>
-        <div class="payment">
-            <h1>실패</h1>
-        
-            <!-- TODO : 결제 실패 디자인 만들기 -->
-            <br>결제에 실패하였습니다!
-            <br>다시 시도해주세요
-            
-            <br><br>
-            <button type="button" onclick="moveToReservation()">예약 화면 다시 가기</button>
-            <button type="button" onclick="moveToIndex()">메인 화면</button>
-        </div>
+
     </div>
-
-    <th:block th:replace="~{fragment/footer::footer}"></th:block>
-
-    <th:block th:replace="~{fragment/script::script}"></th:block>
 </body>
 </html>
