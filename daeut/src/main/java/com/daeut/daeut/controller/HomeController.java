@@ -17,4 +17,6 @@ public class HomeController {
     public String payment() {
         return "/reservation/payment";
     } 
+
+  
 }
