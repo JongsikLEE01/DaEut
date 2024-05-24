@@ -125,3 +125,7 @@ h2 {
     color: #8FA2CA !important;
     font-weight: bold !important;
 }
+
+input[type="password"] {
+    font-family:'Courier New', Courier, monospace;
+  }
