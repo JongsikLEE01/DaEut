@@ -21,7 +21,7 @@ public class PageController {
 	@GetMapping("/chat")
 	public String chat() {
 		return "/reservation/chat";
-	}
+	} 
 
 	@GetMapping("/reservation/reservation")
 	public String reservationlink() {
