@@ -123,3 +123,8 @@ tagButtons.forEach(function(button) {
         button.classList.toggle('selected');
     });
 });
+
+// 엔터키로 채팅보내기
+function enterSend(e){
+    if(e.keyCode == 13) sendMessage()
+}
