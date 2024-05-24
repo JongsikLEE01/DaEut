@@ -1,36 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Da E ut</title>
-    <th:block th:replace="~{fragment/link::link}"></th:block>
-</head>
-<body>
-	<th:block th:replace="~{fragment/header::header}"></th:block>
-<div class="container">
-    <div class="chatbox">
-        <div class="chat-header">
-            <div class="chat-partner-info">
-                <span class="partner-name">상대방 이름</span>
-            </div>
-        </div>
-        <div class="chat-box" id="chat-box">
-            <!-- 채팅 메시지는 여기에 추가됩니다 -->
-        </div>
-        <div class="input-box">
-            <input type="text" id="message" placeholder="부적절한 메세지는 삭제 처리됩니다.">
-            <button onclick="sendMessage()" class="sendchat">전송</button>
-        </div>
-    </div>
-    <button class="goback" onclick="goBack()">돌아가기</button>
-</div>
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.like-icon').forEach(icon => {
+        icon.addEventListener('click', () => {
+            icon.classList.toggle('liked');
+        });
+    });
+});
 
-<th:block th:replace="~{fragment/footer::footer}"></th:block>
 
-<th:block th:replace="~{fragment/script::script}"></th:block>
-
-<script>
+/* 채팅 임시 스크립트 */
 function sendMessage() {
     var messageInput = document.getElementById("message");
     var message = messageInput.value;
@@ -108,7 +85,41 @@ function getCurrentTime() {
 function goBack() {
     window.history.back();
 }
-</script>
 
-</body>
-</html>
+
+/* 파일 업로드 */
+function previewImages(event) {
+    var container = document.getElementById('image-preview-container');
+    container.innerHTML = ''; // 기존 이미지 제거
+    
+    var files = event.target.files;
+    for (var i = 0; i < files.length; i++) {
+        var image = document.createElement('img');
+        image.src = URL.createObjectURL(files[i]);
+        image.alt = '이미지 미리보기';
+        image.style.maxWidth = '200px';
+        image.style.marginTop = '10px';
+        container.appendChild(image);
+    }
+}
+
+function addOptionForm() {
+    var container = document.getElementById('option-form-container');
+    var newOptionForm = document.createElement('div');
+    newOptionForm.classList.add('option-input'); // 옵션 입력 폼에 클래스 추가
+    newOptionForm.innerHTML = `
+        <input type="text" name="optionName[]" placeholder="옵션명" required>
+        <input type="number" name="price[]" placeholder="가격" required>
+        <textarea name="description[]" rows="2" cols="50" placeholder="옵션 설명" required></textarea>
+    `;
+    // 새로운 옵션 창을 버튼 위로 추가
+    container.insertBefore(newOptionForm, document.querySelector('.addOption'));
+}
+
+var tagButtons = document.querySelectorAll('.tag-button');
+
+tagButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+        button.classList.toggle('selected');
+    });
+});

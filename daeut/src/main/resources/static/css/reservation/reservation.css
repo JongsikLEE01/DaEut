@@ -377,6 +377,7 @@ input[type="file"] {
     color:#8FA2CA;
     margin-bottom: 0;
     margin-top: 5px;
+    font-weight: bold;
 }
 
 .reservation-subtitle{

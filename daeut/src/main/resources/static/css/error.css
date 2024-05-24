@@ -24,8 +24,6 @@ a.backbutton, a.errorlogin {
 }
 
 .errortitle {
-	font-family: 'Inter';
-	font-style: normal;
 	font-weight: 400;
 	font-size: 40px;
 	line-height: 150%;
@@ -37,8 +35,6 @@ a.backbutton, a.errorlogin {
 }
 
 .errormessage {
-	font-family: 'Inter';
-	font-style: normal;
 	font-weight: 500;
 	font-size: 45px;
 	line-height: 150%;
