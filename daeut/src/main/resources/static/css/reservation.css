@@ -76,10 +76,14 @@
     font-size: 16px;
 }
 
+.input-box input[type="text"]:focus {
+    outline-color: #8FA2CA;
+}
+
 .sendchat {
     padding: 15px 20px; /* 버튼의 패딩을 늘려 크기를 증가시킵니다 */
     border: none;
-    background-color: #8FA2CA;;
+    background-color: #8FA2CA;
     color: #fff;
     border-radius: 5px;
     font-size: 16px;
@@ -315,14 +319,6 @@ input[type="file"] {
 }
 
 /* 예약 리스트 페이지 */
-
-.reservation-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-}
-
 .reservation-card {
     width: 250px;
     background-color: #fff;
@@ -362,4 +358,199 @@ input[type="file"] {
 
 .reservation-card-content .reservation-review {
     color: #2196f3;
+}
+
+.reservationTitles{
+   margin-top: 50px;
+   margin-bottom: 30px;
+}
+.reservation-title {
+    font-size: 20px;
+    text-align: left !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-weight: bold;
+}
+
+.partner-title {
+    text-align: center;
+    color:#8FA2CA;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.reservation-subtitle{
+    font-size: 14px;
+}
+
+.partner-name{
+    text-align: center;
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 2px;
+    margin-top:5px;
+}
+
+.num-of-like-review{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8FA2CA;
+    color: #8FA2CA;
+    font-size:12px;
+    font-weight: 300;
+}
+
+.reservation-container {
+    margin-bottom:20px;
+}
+
+.card {
+    box-shadow: none;
+}
+
+/* .card-reservation-thumbnail {
+    width: 365px;
+} */
+
+.card-reservation-thumbnail {
+    position: relative;
+    /* border: 1px solid #ddd; */
+    border-radius: 5px;
+    overflow: hidden;
+    padding-bottom: 10px; /* 이미지와 좋아요 버튼의 여백 */
+}
+
+.card-reservation-img {
+    max-width: 100%; /* 이미지의 최대 너비를 부모 요소에 맞게 설정합니다. */
+    height: 243px;
+    border-radius: 8px;
+}
+
+/* 카드 grid */
+.reservation-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+@media (max-width: 1145px) {
+    .reservation-card-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .reservation-card-grid {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .reservation-card-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.col {
+    position: relative;
+}
+
+
+.card-reservation-thumbnail {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.thumbnail-reservation {
+    position: relative;
+}
+
+
+
+.like-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+    color: white;
+    opacity: 80%;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.like-icon:hover {
+    color: red;
+   
+}
+
+.card-reservation-img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.like-icon.liked {
+    color: red; /* 좋아요가 눌렸을 때 색상을 변경합니다 */
+}
+
+.service-tag {
+    display: flex; /* Flex 레이아웃을 사용하여 태그들을 가로로 배치합니다 */
+    margin-top: 5px;
+    position: absolute;
+    top: 5px; /* 원하는 위치로 조정하세요 */
+    left: 10px; /* 원하는 위치로 조정하세요 */
+    z-index: 1; /* 다른 요소 위에 나타나도록 설정 */
+}
+
+.reserve-sertvice-tag {
+    display: inline-block;
+    width: auto;
+    height: 20px;
+    margin-right: 10px;
+    padding: 2px 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid #FFFFFF;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #48523D;
+}
+
+
+.search-container {
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.search-container input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    max-width: 100%;
+}
+
+.search-container button {
+    padding: 10px 20px;
+    background-color: #8FA2CA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.search-container button:hover {
+    background-color: #48523D;
+}
+
+.search-container input[type="text"]:focus {
+    outline-color: #8FA2CA;
 }
