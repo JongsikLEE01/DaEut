@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/oauth_layout}"
+      >
+<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초기 로그인 화면</title>
+</head>
+<!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
+<body layout:fragment="content">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 680px;">
+        <div class="memberRow d-flex">
+            <div class="col-lg-6 d-flex justify-content-end custom-margin">
+                <div class="text-center">
+                    <a href="/oauth/login" class="icon-box login-icon">
+                        <i class="fas fa-lock-open"></i>
+                    </a>
+                    <div class="icon-text">로그인 하기</div>
+                </div>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-start custom-margin">
+                <div class="text-center">
+                    <a href="/oauth/join" class="icon-box signup-icon">
+                        <i class="fas fa-users"></i>
+                    </a>
+                    <div class="icon-text">회원가입 하기</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
