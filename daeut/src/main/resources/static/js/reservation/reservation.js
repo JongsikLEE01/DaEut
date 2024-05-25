@@ -124,6 +124,25 @@ tagButtons.forEach(function(button) {
     });
 });
 
+// 이미지 슬라이드 
+var slideIndex = 0;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+
+function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("reservation-image-slide");
+    if (n >= slides.length) {slideIndex = 0}
+    if (n < 0) {slideIndex = slides.length - 1}
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slides[slideIndex].style.display = "block";
+}
+
 // 엔터키로 채팅보내기
 function enterSend(e){
     if(e.keyCode == 13) sendMessage()
