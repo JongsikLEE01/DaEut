@@ -4,10 +4,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import lombok.extern.slf4j.Slf4j;
 
+
+
+@Slf4j
 @Controller
 public class PageController {
-
+	
 	@GetMapping("/{path}")
 	public String getMethodName(@PathVariable("path") String path ) {
 		return path;
@@ -44,8 +48,6 @@ public class PageController {
 	// public String chat() {
 	// 	return "/reservation/chat";
 	// }
-	
-	
 
 	// @GetMapping("/reservationInsert")
 	// public String reservation() {
@@ -58,5 +60,15 @@ public class PageController {
     //     log.info("채팅 화면...");
     //     return "chat";
     // }
-    
+
+	// 결제관련
+	@GetMapping("/paymentDone")
+    public String paymentDone() {
+        return "/reservation/paymentDone";
+    }
+
+    @GetMapping("/paymentFalse")
+    public String paymentFalse() {
+        return "/reservation/paymentFalse";
+    }
 }

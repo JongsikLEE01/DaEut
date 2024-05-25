@@ -1,101 +1,148 @@
-// Daum 우편번호찾기 API
-function daumPostcode() {
-    new daum.Postcode({
-        oncomplete: function (data) {
-            // 각 값 저장
-            document.getElementById('userPost').value = data.zonecode;
-            document.getElementById('userAddressA').value = data.roadAddress;
+// 이미지 슬라이드
+$(function() {
+    const swiper = new Swiper('.swiper', {
+        direction: 'horizontal',         
+        loop: true,                         
+        autoplay: {                         
+            delay: 4000,
+            disableOnInteraction: false,        
+        },
+        speed: 1000,                        
+        slidesPerView: 1,                   
+        spaceBetween: 0,                    
 
-            // 상세주소 키 입력 이동
-            document.getElementById('userAddressDetail').focus();
-        }
-    }).open();
+        pagination: {
+            el: '.swiper-pagination',
+            type:   'bullets',
+            clickable: true,
+        },
+      });
+})
+
+// 부트스트랩
+window.addEventListener('DOMContentLoaded', event => {
+    // Activate Bootstrap scrollspy on the main nav element
+    const mainNav = document.body.querySelector('#mainNav');
+    if (mainNav) {
+        new bootstrap.ScrollSpy(document.body, {
+            target: '#mainNav',
+            offset: 74,
+        });
+    };
+    // Collapse responsive navbar when toggler is visible
+    const navbarToggler = document.body.querySelector('.navbar-toggler');
+    const responsiveNavItems = [].slice.call(
+        document.querySelectorAll('#navbarResponsive .nav-link')
+    );
+    responsiveNavItems.map(function (responsiveNavItem) {
+        responsiveNavItem.addEventListener('click', () => {
+            if (window.getComputedStyle(navbarToggler).display !== 'none') {
+                navbarToggler.click();
+            }
+        });
+    });
+
+});
+
+// 날씨
+// 날씨 api - fontawesome 아이콘 사용
+var weatherIcon = {
+    '01' : 'bi bi-brightness-high-fill',
+    '02' : 'fa-solid fa-cloud-sun',
+    '03' : 'fa-solid fa-cloud',
+    '04' : 'fa-solid fa-cloud-meatball',
+    '09' : 'fa-solid fa-cloud-sun-rain',
+    '10' : 'fa-solid fa-cloud-showers-heavy',
+    '11' : 'fa-solid fa-cloud-bolt',
+    '13' : 'fa-solid fa-snowflake',
+    '50' : 'fa-solid fa-smog'
 }
 
-
-// 결제 스크립트
-function cancelPayment() {
-    const payment = alert("정말 결제를 취소하시겠습니까? 결제를 취소할 경우 모든 입력값을 잃어버리게 됩니다")
-    if (payment) {
-        location.href = "/resevation/reservationRead"
+// 날씨 api
+// 사용자의 위치를 가져오는 함수
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                weatherData(latitude, longitude)
+            },
+            error => {
+                console.error('위치 정보 로드 중 에러 발생 : ', error)
+            }
+        )
+    } else {
+        console.error('해당 브라우저는 위치 정보를 가져올 수 없습니다.')
     }
 }
 
-$("#paymentBtn").on("click", function () {
-    // TODO : 연결 필요
-    var userId = $("#userId").val()
-    var userName = $("#userName").val()
-    // var userAddress = $("#userAddress").val()
-    var userAddress = $("#userAddressA").val() + $("#userAddressDetail").val()
-    var userPhone = $("#userPhone1").val() + $("#userPhone2").val()
-    // var productName = $("#productName").val() 
-    var productName = '상품이름'
-    // var productCost = $("#productCost").val() 
-    var productCost = 300
-    var merchant_uid = "O" + new Date().getTime() // 고유 주문번호 생성 
+// 페이지 로드 시 함수 실행
+window.addEventListener('load', getLocation);
 
-    var IMP = window.IMP
-    IMP.init('imp52301113') // 고객사 식별코드 입력 
-    // request_pay 결제를 요청하는 함수
-    IMP.request_pay({
-        pg: "html5_inicis", // 등록된 pg사 (적용된 pg사는 KG이니시스)
-        pay_method: "card", // 결제방식: card(신용카드), trans(실시간계좌이체), vbank(가상계좌), phone(소액결제)
-        merchant_uid: merchant_uid, // 주문번호
-        name: productName, // 상품명
-        amount: productCost, // 금액
-        buyer_name: userName, // 주문자
-        buyer_tel: userPhone, // 전화번호 (필수입력)
-        buyer_addr: userAddress, // 주소
-        buyer_postcode: userPost // 우편번호
-    }, function (res) {
-        if (res.success) {
-            axios({
-                method: "post",
-                url: `/payment/validation/${rsp.imp_uid}`
-            })
-            // 응답 데이터의 정보들
-            alert("결제 성공!")
-            console.log("Payment ID : " + res.imp_uid)
-            console.log("Order ID : " + res.merchant_uid)
-            console.log("Payment Amount : " + res.paid_amount)
-        } else
-            alert("결제 실패..." + response.error_msg)
+// api key
+// 위치 정보를 바탕으로 날씨 데이터를 가져오는 함수
+function weatherData(latitude, longitude) {
+    const API_KEY = 'ef8952bfbab9356b5066de2f01ab56c1'
+    const apiURI = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=kr`;
+
+    $.ajax({
+        url: apiURI,
+        dataType: "json",
+        type: "GET",
+        async: false,
+
+        // 성공
+        success: function(response) {
+            console.log( response)
+
+            // JSON 데이터 가져오기
+            var $weather_description =  response.weather[0].description
+            var $Temp = Math.floor( response.main.temp) + '°C'
+            var $humidity = '습도 : ' +  response.main.humidity + ' %'
+            var $wind = '바람 : ' +  response.wind.speed + ' m/s'
+            var $city =  response.name
+            var $cloud = '구름 : ' +  response.clouds.all + "%"
+            var $temp_min = '최저 온도 : ' + Math.floor( response.main.temp_min) + '°C'
+            var $temp_max = '최고 온도 : ' + Math.floor( response.main.temp_max) + '°C'
+            var $Icon = ( response.weather[0].icon).substr(0,2)
+            
+            console.log($Icon)
+            var iconClass = weatherIcon[$Icon];
+            console.log(iconClass)
+
+            // 가져온 데이터 화면에 출력
+            $('.weatherIcon').html('<i class="' + iconClass + ' weatherIcon"></i>');
+            $('.weather_description').text($weather_description);
+            $('.current_temp').text($Temp)
+            $('.humidity').text($humidity)
+            $('.wind').text($wind)
+            $('.city').text($city)
+            $('.cloud').text($cloud)
+            $('.temp_min').text($temp_min)
+            $('.temp_max').text($temp_max)
+        },
+        // 실패
+        error: function(error) {
+            console.error('날씨 데이터 로드 중 오류 발생 :', error)
+        }
     })
+}
+
+// 페이지 로드 시 사용자의 위치 기반으로 날씨 데이터 가져오기
+$(document).ready(function() {
+    getLocation();
 })
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-// (() => {
-//     'use strict'
 
-//     // Fetch all the forms we want to apply custom Bootstrap validation styles to
-//     const forms = document.querySelectorAll('.needs-validation')
 
-//     // Loop over them and prevent submission
-//     Array.from(forms).forEach(form => {
-//         form.addEventListener('submit', event => {
-//         if (!form.checkValidity()) {
-//             event.preventDefault()
-//             event.stopPropagation()
-//         }
 
-//         form.classList.add('was-validated')
-//         }, false)
-//     })
-// })()
-
-// 문의 하기
-function moveToChat() {
-    location.href = "/resevation/chat"
-}
-// 예약화면 다시가기
-function moveToReservation() {
-    location.href = "/resevation/reservationRead"
-}
-// 결제 내역 확인
-function moveToMyReservation() {
-    location.href = "/userPage/userReservation"
-}
-// 메인화면
-function moveToIndex() {
-    location.href = "/index"
+// 버튼 박스
+function showService(option) {
+    // 모든 출력 요소를 숨김
+    document.querySelectorAll('.output').forEach(function(el) {
+        el.style.display = 'none';
+    });
+    // 해당하는 출력 요소를 표시
+    document.getElementById('output' + option.charAt(option.length - 1)).style.display = 'block';
 }
