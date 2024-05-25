@@ -19,13 +19,13 @@
                             예약
                         </a>
                         <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown" id="menu-service">
-                            <li><a class="dropdown-item" href="/reservation/reservation">서비스 보기</a></li>
+                            <li><a class="dropdown-item" href="/reservation">서비스 보기</a></li>
                             <li><a class="dropdown-item" href="#">리뷰 보기</a></li>
                             <li><a class="dropdown-item" href="#">서비스 예약</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">팁</a>
+                        <a class="nav-link" href="/tip">팁</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/auth/member">로그인</a>
@@ -45,25 +45,25 @@
                                 예약
                             </a>
                             <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown" id="menu-service">
-                                <li><a class="dropdown-item" href="#">서비스 보기</a></li>
+                                <li><a class="dropdown-item" href="/reservation">서비스 보기</a></li>
                                 <li><a class="dropdown-item" href="#">리뷰 보기</a></li>
                                 <li><a class="dropdown-item" href="#">서비스 예약</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">팁</a>
+                            <a class="nav-link" href="/tip"">팁</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 마이페이지
                             </a>
                             <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">내 정보 변경</a></li>
-                                <li><a class="dropdown-item" href="#">내 예약 보기</a></li>
-                                <li><a class="dropdown-item" href="#">좋아하는 글</a></li>
-                                <li><a class="dropdown-item" href="#">리뷰 작성</a></li>
-                                <li><a class="dropdown-item" href="#">쿠폰</a></li>
-                                <li><a class="dropdown-item" href="#">파트너 신청</a></li>
+                                <li><a class="dropdown-item" href="/user/userMypage">내 정보 변경</a></li>
+                                <li><a class="dropdown-item" href="/user/userReservation">내 예약 보기</a></li>
+                                <li><a class="dropdown-item" href="/user/userLikeTip">좋아하는 글</a></li>
+                                <li><a class="dropdown-item" href="/user/userReview">리뷰 작성</a></li>
+                                <li><a class="dropdown-item" href="/user/userCoupon">쿠폰</a></li>
+                                <li><a class="dropdown-item" href="/user/userPartner">파트너 신청</a></li>
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         <form action="/logout" method="post">
@@ -91,22 +91,22 @@
                                 예약
                             </a>
                             <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown" id="menu-service">
-                                <li><a class="dropdown-item" href="#">서비스 보기</a></li>
+                                <li><a class="dropdown-item" href="/reservation">서비스 보기</a></li>
                                 <li><a class="dropdown-item" href="#">리뷰 보기</a></li>
                                 <li><a class="dropdown-item" href="#">서비스 예약</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">팁</a>
+                            <a class="nav-link" href="/tip"">팁</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 마이페이지
-                            </a>
+                            </span>
                             <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">내 정보 변경</a></li>
-                                <li><a class="dropdown-item" href="#">내 예약 보기</a></li>
-                                <li><a class="dropdown-item" href="#">내 리뷰 보기</a></li>
+                                <li><a class="dropdown-item" href="/partner/partnerMypage">내 정보 변경</a></li>
+                                <li><a class="dropdown-item" href="/partner/partnerReview">내 예약 보기</a></li>
+                                <li><a class="dropdown-item" href="/partner/partnerReservation">내 리뷰 보기</a></li>
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         <form action="/logout" method="post">
@@ -130,18 +130,18 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">예약 관리</a>
+                            <a class="nav-link" href="/admin/adminReservation">예약 관리</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">팁 관리</a>
+                            <a class="nav-link" href="/tip">팁 관리</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 마이페이지
                             </a>
                             <ul class="dropdown-menu custom-dropdown-width" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">유저 관리</a></li>
-                                <li><a class="dropdown-item" href="#">파트너 관리</a></li>
+                                <li><a class="dropdown-item" href="/admin/adminUser">유저 관리</a></li>
+                                <li><a class="dropdown-item" href="/admin/adminPartner">파트너 관리</a></li>
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         <form action="/logout" method="post">
