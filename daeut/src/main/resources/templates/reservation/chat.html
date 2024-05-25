@@ -12,7 +12,7 @@
     <div class="chatbox">
         <div class="chat-header">
             <div class="chat-partner-info">
-                <span class="partner-name">상대방 이름</span>
+                <span class="partner-name-chat">상대방 이름</span>
             </div>
         </div>
         <div class="chat-box" id="chat-box">
@@ -22,8 +22,11 @@
             <input type="text" id="message" placeholder="부적절한 메세지는 삭제 처리됩니다." onkeypress="enterSend(event)">
             <button onclick="sendMessage()" class="sendchat">전송</button>
         </div>
+        <div class="button-box">
+            <button class="goback" onclick="goBack()">돌아가기</button>
+        </div>
+        
     </div>
-    <button class="goback" onclick="goBack()">돌아가기</button>
 </div>
 
 
