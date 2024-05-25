@@ -7,7 +7,7 @@
     <title>Da E ut</title>
 </head>
 <body layout:fragment="content">
-
+    <!-- TODO 파트너 로그인시 글쓰기 필요 -->
       <div class="container">
         <section style="width: 1250px;">
             <div class="reservationTitles">
@@ -45,9 +45,14 @@
                 <!-- 나머지 카드들도 동일하게 설정 -->
                 <div class="col">
                   <div class="card-reservation-thumbnail">
-                      <img src="/img/slide02.png" alt="about" class="card-reservation-img">
+                    <!-- TODO 게시글 썸네일, 제목, 좋아요 등 출력 후 클릭 후 Read페이지 이동 -->
+                    <a href="/reservationRead">
+                        <img src="/img/slide02.png" alt="about" class="card-reservation-img">
+                    </a>
                       <div class="card-body">
-                          <p class="partner-title">서비스 안내 이름</p>
+                        <a href="/reservationRead">
+                            <p class="partner-title">서비스 안내 이름</p>
+                        </a>
                           <p class="partner-name">주식회사 청소꾼</p>
                           <div class="num-of-like-review">
                               <p class="reserveLike">좋아요 6</p>
