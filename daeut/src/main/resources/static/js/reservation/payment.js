@@ -69,7 +69,7 @@ $("#paymentBtn").on("click", function () {
                 url: `/payment/validation/${res.imp_uid}`
                 // DB 연동 및 저장 필요
             }).then(function (response) {
-                window.location.href = "/paymentDone";
+                window.location.href = "/reservation/paymentDone";
             }).catch(function (error) {
                 console.error(error);
                 alert("결제 성공 후 처리 중 오류가 발생...");
@@ -77,7 +77,7 @@ $("#paymentBtn").on("click", function () {
         } else {
             // 결제 실패
             alert("결제 실패... " + res.error_msg);
-            window.location.href = "/paymentFalse";
+            window.location.href = "/reservation/paymentFalse";
         }
     })
 })
