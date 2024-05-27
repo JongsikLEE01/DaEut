@@ -129,3 +129,25 @@ h2 {
 input[type="password"] {
     font-family:'Courier New', Courier, monospace;
   }
+
+
+/* 아이콘 hover 변경 */
+.loginHover {
+    display: none;
+}
+.login-icon:hover .loginHover {
+    display: inline-block;
+}
+.login-icon:hover .loginNormal {
+    display: none;
+}
+
+.joinHover {
+    display: none;
+}
+.signup-icon:hover .joinHover {
+    display: inline-block;
+}
+.signup-icon:hover .joinNormal {
+    display: none;
+}
