@@ -13,10 +13,38 @@ public class adminController {
         return "/admin/adminReservation";
     }
 
+
+    @GetMapping("/adminUser")
+    public String adminUser() {
+        return "/admin/adminUser";
+    }
+
+
     @GetMapping("/adminPartner")
     public String adminPartner() {
         return "/admin/adminPartner";
     }
+
+
+    @GetMapping("/adminReservationRead")
+    public String adminReservationRead() {
+        return "/admin/adminReservationRead";
+    }
+
+    @GetMapping("/adminReservationUpdate")
+    public String adminReservationUpdate() {
+        return "/admin/adminReservationUpdate";
+    }
+
+    @GetMapping("/adminUserRead")
+    public String adminUserRead() {
+        return "/admin/adminUserRead";
+    }
+
+    @GetMapping("/adminUserUpdate")
+    public String adminUserUpdate() {
+        return "/admin/adminUserUpdate";
+
     @GetMapping("/adminPartnerRead")
     public String adminPartnerRead() {
         return "/admin/adminPartnerRead";
@@ -24,5 +52,6 @@ public class adminController {
     @GetMapping("/adminPartnerUpdate")
     public String adminPartnerUpdate() {
         return "/admin/adminPartnerUpdate";
+
     }
 }

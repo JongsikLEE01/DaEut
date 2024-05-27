@@ -24,7 +24,9 @@ main {
 
 .sidebar a:hover {
     background-color: #e9ecef;
+    border-radius: 8px;
     color: #8FA2CA;
+
 }
 
 .form-section {
@@ -89,6 +91,8 @@ main {
 
 .table th {
     background-color: #f2f2f2;
+th {
+    background-color: #E4E8F4;
 }
 
 .checked {
@@ -118,6 +122,11 @@ main {
     color: white;
     border: 1px solid #007bff;
 }
+  
+.buttons {
+    text-align: right;
+    margin-top: 30px;
+ }
 
 .checkbox {
     width: 20px !important;
@@ -161,6 +170,59 @@ main {
 .f-warp {
     flex-wrap: wrap;
 }
+
+.partnerManage {
+    background-color: #e9ecef;
+    color: #007bff !important;
+    border-radius: 8px;
+}
+
+.reservationManage {
+    background-color: #e9ecef;
+    color: #007bff !important;
+    border-radius: 8px;
+}
+
+.userManage {
+    background-color: #e9ecef;
+    color: #007bff !important;
+    border-radius: 8px;
+}
+
+.text-decoration-line {
+    color: black;
+}
+
+.info-row {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+.label {
+    color: #8FA2CA;
+}
+
+.size {
+    width: 86.73px;
+}
+.size2 {
+    width: 91.84px;
+}
+
+.reservation-card {
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 10px;
+    font-size: 18px;
+}
+
+.star-rating {
+    color: gold;
+    font-size: 1.5rem;
+    vertical-align: middle;
+}
+
+.f-warp{ flex-wrap: wrap;}
 
 .profile-img {
     max-width: 150px;
@@ -286,3 +348,13 @@ a {
 .transitionNone{
     transform: !important;
 }
+  
+/* 사이드바 */
+.content-container {
+    transition: margin-left 0.5s; /* 사이드바 열림/닫힘 애니메이션을 위한 transition 추가 */
+}
+
+/* 사이드바가 열렸을 때 .content-container의 margin-left 값을 조정
+.sidebar.active ~ .content-container {
+    margin-left: 250px;
+} */
