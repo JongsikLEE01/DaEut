@@ -6,10 +6,12 @@ function toggleSidebar() {
     if (sidebar.classList.contains('active')) {
         sidebar.style.maxWidth = "250px"; // 사이드바 너비 설정
         toggleBtn.style.left = '250px'; // 토글 버튼 위치 조정
+        // formSection.style.marginLeft = '250px'; // 폼 섹션 마진 조정
         toggleBtn.style.visibility = 'hidden'; // 토글 버튼 숨기기
     } else {
         sidebar.style.maxWidth = "0"; // 사이드바 원래 상태로 복구
         toggleBtn.style.left = '10px'; // 토글 버튼 원래 위치로 복구
+        formSection.style.marginLeft = '0'; // 폼 섹션 마진 복구
         toggleBtn.style.visibility = 'visible'; // 토글 버튼 보이기
     }
 }
@@ -24,11 +26,13 @@ window.onload = function() {
         sidebar.classList.remove('active');
         sidebar.style.maxWidth = "0"; // 사이드바 원래 상태로 복구
         toggleBtn.style.left = '10px'; // 토글 버튼 원래 위치로 복구
+        formSection.style.marginLeft = '0'; // 폼 섹션 마진 복구
         toggleBtn.style.visibility = 'visible'; // 토글 버튼 보이기
     } else {
         sidebar.classList.add('active');
         sidebar.style.maxWidth = "250px"; // 사이드바 너비 설정
         toggleBtn.style.left = '250px'; // 토글 버튼 위치 조정
+        // formSection.style.marginLeft = '250px'; // 폼 섹션 마진 조정
         toggleBtn.style.visibility = 'hidden'; // 토글 버튼 숨기기
     }
 };
@@ -43,11 +47,13 @@ window.onresize = function() {
         sidebar.classList.remove('active');
         sidebar.style.maxWidth = "0"; // 사이드바 원래 상태로 복구
         toggleBtn.style.left = '10px'; // 토글 버튼 원래 위치로 복구
+        formSection.style.marginLeft = '0'; // 폼 섹션 마진 복구
         toggleBtn.style.visibility = 'visible'; // 토글 버튼 보이기
     } else if (window.innerWidth >= 768 && !sidebar.classList.contains('active')) {
         sidebar.classList.add('active');
         sidebar.style.maxWidth = "250px"; // 사이드바 너비 설정
         toggleBtn.style.left = '250px'; // 토글 버튼 위치 조정
+        // formSection.style.marginLeft = '250px'; // 폼 섹션 마진 조정
         toggleBtn.style.visibility = 'hidden'; // 토글 버튼 숨기기
     }
 };
