@@ -1,5 +1,3 @@
-
-
 body {
     display: flex;
     flex-direction: column;
@@ -22,7 +20,7 @@ main {
 }
 .sidebar a:hover {
     background-color: #e9ecef;
-    color: #007bff;
+    color: #8FA2CA;
 }
 .form-section {
     padding: 20px;
@@ -74,9 +72,9 @@ main {
         padding-top: 60px;
         transition: margin-left 0.3s;
     }
-    .sidebar.active ~ .form-section {
-        margin-left: 250px; /* Adjust this value to match the sidebar width */
-    }
+    /* .sidebar.active ~ .form-section {
+        margin-left: 250px;
+    } */
     .toggle-btn {
         position: fixed;
         width: 60px;
@@ -84,9 +82,9 @@ main {
         top: 70px; /* Adjust the position of the toggle button */
         z-index: 1001; /* Ensure the button is above the sidebar */
     }
-    .sidebar.active + .toggle-btn {
-        left: 250px; /* Move the toggle button when sidebar is active */
-    }
+    /* .sidebar.active + .toggle-btn {
+        left: 250px; 
+    } */
     .close-btn {
         display: none;
         position: fixed;
@@ -195,4 +193,191 @@ th {
     color: #8FA2CA !important;
 }
 
+.f-warp{ flex-wrap: wrap;}
 
+.profile-img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+.form-section {
+    margin-bottom: 20px;
+}
+.gallery img {
+    max-width: 100px;
+    margin-right: 10px;
+}
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* 파트너 수정화면 반응형 */
+@media (max-width: 992px) {
+    /* 992px 이하에서 적용할 스타일 */
+    .profile-img {
+        max-width: 120px;
+    }
+    .gallery img {
+        max-width: 80px;
+    }
+    .buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .buttons .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        width: 100%;
+        text-align: center;
+    }
+}
+@media (max-width: 768px) {
+    /* 768px 이하에서 적용할 스타일 */
+    .profile-img {
+        max-width: 100px;
+    }
+    .gallery img {
+        max-width: 60px;
+    }
+    .buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .buttons .btn {
+        font-size: 0.85rem;
+        padding: 0.45rem 0.9rem;
+        width: 100%;
+        text-align: center;
+    }
+}
+@media (max-width: 576px) {
+    /* 576px 이하에서 적용할 스타일 */
+    .profile-img {
+        max-width: 80px;
+    }
+    .gallery img {
+        max-width: 50px;
+    }
+    .buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .buttons .btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+        width: 100%;
+        text-align: center;
+    }
+}
+@media (max-width: 450px) {
+    /* 450px 이하에서 적용할 스타일 */
+    .profile-img {
+        max-width: 60px;
+    }
+    .gallery img {
+        max-width: 40px;
+    }
+    .buttons .btn {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+a{
+    text-decoration: none !important;
+}
+
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.pagination a.active {
+    font-weight: bold;
+    color: #000;
+}
+
+/* 테이블 반응형 스타일 */
+@media (max-width: 1400px) {
+    .table th, .table td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .table th, .table td {
+        padding: 6px;
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .table th, .table td {
+        padding: 5px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .table th, .table td {
+        padding: 4px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .table th, .table td {
+        padding: 3px;
+        font-size: 0.7rem;
+    }
+
+    .toggle-btn {
+        font-size: 0.875rem;
+    }
+
+    .pagination a {
+        font-size: 0.875rem;
+        margin: 0 3px;
+    }
+}
+
+@media (max-width: 450px) {
+    .table th, .table td {
+        padding: 2px;
+        font-size: 0.625rem;
+    }
+
+    .toggle-btn {
+        font-size: 0.75rem;
+    }
+    .pagination a {
+        font-size: 0.75rem;
+        margin: 0 2px;
+    }
+}
+
+/* 사이드바 */
+.content-container {
+    transition: margin-left 0.5s; /* 사이드바 열림/닫힘 애니메이션을 위한 transition 추가 */
+}
+
+/* 사이드바가 열렸을 때 .content-container의 margin-left 값을 조정
+.sidebar.active ~ .content-container {
+    margin-left: 250px;
+} */

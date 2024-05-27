@@ -12,4 +12,17 @@ public class adminController {
     public String adminReservation() {
         return "/admin/adminReservation";
     }
+
+    @GetMapping("/adminPartner")
+    public String adminPartner() {
+        return "/admin/adminPartner";
+    }
+    @GetMapping("/adminPartnerRead")
+    public String adminPartnerRead() {
+        return "/admin/adminPartnerRead";
+    }
+    @GetMapping("/adminPartnerUpdate")
+    public String adminPartnerUpdate() {
+        return "/admin/adminPartnerUpdate";
+    }
 }
