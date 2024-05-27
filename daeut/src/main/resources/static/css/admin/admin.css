@@ -195,4 +195,99 @@ th {
     color: #8FA2CA !important;
 }
 
+.f-warp{ flex-wrap: wrap;}
 
+.profile-img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+.form-section {
+    margin-bottom: 20px;
+}
+.gallery img {
+    max-width: 100px;
+    margin-right: 10px;
+}
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+@media (max-width: 992px) {
+    /* 992px 이하에서 적용할 스타일 */
+    .profile-img {
+        max-width: 120px;
+    }
+    .gallery img {
+        max-width: 80px;
+    }
+    .buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .buttons .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        width: 100%;
+        text-align: center;
+    }
+}
+@media (max-width: 768px) {
+    /* 768px 이하에서 적용할 스타일 */
+    .profile-img {
+        max-width: 100px;
+    }
+    .gallery img {
+        max-width: 60px;
+    }
+    .buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .buttons .btn {
+        font-size: 0.85rem;
+        padding: 0.45rem 0.9rem;
+        width: 100%;
+        text-align: center;
+    }
+}
+@media (max-width: 576px) {
+    /* 576px 이하에서 적용할 스타일 */
+    .profile-img {
+        max-width: 80px;
+    }
+    .gallery img {
+        max-width: 50px;
+    }
+    .buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .buttons .btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+        width: 100%;
+        text-align: center;
+    }
+}
+@media (max-width: 450px) {
+    /* 450px 이하에서 적용할 스타일 */
+    .profile-img {
+        max-width: 60px;
+    }
+    .gallery img {
+        max-width: 40px;
+    }
+    .buttons .btn {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+a{
+    text-decoration: none !important;
+}
