@@ -15,38 +15,29 @@
                 <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
                 <h5>관리</h5>
                 <br>
-                <a href="adminUser">회원 관리</a>
+                <a href="adminUser" class="userManage">회원 관리</a>
                 <a href="adminPartner">파트너 관리</a>
-                <a href="adminReservation" class="reservationManage">예약 관리</a>
+                <a href="adminReservation">예약 관리</a>
             </nav>
             <div class="col-md-9 col-lg-10 form-section">
-                <h3>예약 관리</h3>
+                <h3>회원 관리</h3>
                 <table>
                     <thead>
                         <tr>
                             <th width="30">No.</th>
                             <th width="50">사용자 명</th>
-                            <th width="50">파트너 명</th>
-                            <th width="80">예약 상태</th>
-                            <th width="100">예약 시간</th>
+                            <th width="50">아이디</th>
+                            <th width="80">전화번호</th>
+                            <th width="100">등록 일자</th>
                             <th width="30"></th>
                         </tr>
                     </thead>
-                    <!-- <tbody>
-                        <tr th:each="reservation : ${reservations}">
-                            <td th:text="${reservation.username}">김조은</td>
-                            <td th:text="${reservation.partnerName}">홍길동</td>
-                            <td th:text="${reservation.status}">예약 완료</td>
-                            <td th:text="${reservation.time}">2024-05-20 12:19:10</td>
-                            <td class="checked"><input type="checkbox" th:checked="${reservation.checked}"></td>
-                        </tr>
-                    </tbody> -->
                     <tbody>
                         <tr>
                             <td>1.</td>
-                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
-                            <td>홍길동</td>
-                            <td>예약 완료</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
                                 <input type="checkbox" id="chk1" class="checkbox">
@@ -54,9 +45,9 @@
                         </tr>
                         <tr>
                             <td>2.</td>
-                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
-                            <td>홍길동</td>
-                            <td>예약 완료</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
                                 <input type="checkbox" id="chk1" class="checkbox">
@@ -64,9 +55,9 @@
                         </tr>
                         <tr>
                             <td>3.</td>
-                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
-                            <td>홍길동</td>
-                            <td>예약 완료</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
                                 <input type="checkbox" id="chk1" class="checkbox">
@@ -74,9 +65,9 @@
                         </tr>
                         <tr>
                             <td>4.</td>
-                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
-                            <td>홍길동</td>
-                            <td>예약 완료</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
                                 <input type="checkbox" id="chk1" class="checkbox">
@@ -84,9 +75,9 @@
                         </tr>
                         <tr>
                             <td>5.</td>
-                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
-                            <td>홍길동</td>
-                            <td>예약 완료</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
                                 <input type="checkbox" id="chk1" class="checkbox">
@@ -94,9 +85,9 @@
                         </tr>
                         <tr>
                             <td>6.</td>
-                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
-                            <td>홍길동</td>
-                            <td>예약 완료</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
                                 <input type="checkbox" id="chk1" class="checkbox">
@@ -104,9 +95,9 @@
                         </tr>
                         <tr>
                             <td>7.</td>
-                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
-                            <td>홍길동</td>
-                            <td>예약 완료</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
                                 <input type="checkbox" id="chk1" class="checkbox">
@@ -114,9 +105,9 @@
                         </tr>
                         <tr>
                             <td>8.</td>
-                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
-                            <td>홍길동</td>
-                            <td>예약 완료</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
                                 <input type="checkbox" id="chk1" class="checkbox">
@@ -124,9 +115,9 @@
                         </tr>
                         <tr>
                             <td>9.</td>
-                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
-                            <td>홍길동</td>
-                            <td>예약 완료</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
                                 <input type="checkbox" id="chk1" class="checkbox">
@@ -134,9 +125,9 @@
                         </tr>
                         <tr>
                             <td>10.</td>
-                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
-                            <td>홍길동</td>
-                            <td>예약 완료</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
                                 <input type="checkbox" id="chk1" class="checkbox">
@@ -146,8 +137,8 @@
                     </tbody>
                 </table>
                 <div class="buttons">
-                    <button class="btn btn-primary custom1">예약 취소</button>
-                    <button class="btn btn-primary custom2">전체 취소</button>
+                    <button class="btn btn-primary custom1">선택 삭제</button>
+                    <button class="btn btn-primary custom2">전체 삭제</button>
                 </div>
                 <div class="pagination">
                     <a href="#">&laquo;</a>
