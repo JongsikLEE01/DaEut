@@ -107,6 +107,10 @@ button:focus {
     width: 50px;    /* 고정 폭을 50px로 설정 */
 }
 
+.logout {
+    all: unset;
+}
+
 /* 푸터 */
 .d-col-md-12 {
     flex: 0 0 85%;
