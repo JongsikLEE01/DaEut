@@ -1,51 +1,43 @@
-/* 메인 색상 */
-.size_4rem{ font-size: 4rem; }
-.color_main{ color: #8FA2CA !important; }
-.color_sub1{ color: #E4E8F4 !important; }
-.color_sub2{ color: #B5C6B8 !important; }
-.color_point{ color: #48523D !important; }
-.bg_color_main{ background-color: #8FA2CA !important; }
-.bg_color_sub1{ background-color: #E4E8F4 !important; }
-.bg_color_sub2{ background-color: #B5C6B8 !important; }
-.bg_color_point{ background-color: #48523D !important; }
-
 .sessuce{
-    background-color: #fff;
-    border: 1px solid #8FA2CA;
-    border-radius: 8px;
-    transition: 0.5s;
+    background-color: #fff !important;
+    border: 1px solid #8FA2CA !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
 }
 .sessuce:hover{
-    background-color: #8FA2CA;
-    border: 1px solid #8FA2CA;
+    background-color: #8FA2CA !important;
+    border: 1px solid #8FA2CA !important;
     color: white !important;
 }
 
 .cancel{
-    background-color: #fff;
-    color: red;
-    border: 1px solid red;
-    border-radius: 8px;
-    transition: 0.5s;
+    background-color: #fff !important;
+    color: red !important;
+    border: 1px solid red !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
 }
 .cancel:hover{
-    background-color: red;
-    border: 1px solid red;
-    color: white;
+    background-color: red !important;
+    border: 1px solid red !important;
+    color: white !important;
 }
 
 .myBtn{
-    background-color: #fff;
-    color: #48523D;
-    border: 1px solid #48523D;
-    transition: 0.5s;
+    background-color: #fff !important;
+    color: #48523D !important;
+    border: 1px solid #48523D !important;
+    transition: 0.5s !important;
 }
 .myBtn:hover{
-    background-color: #48523D;
-    border: 1px solid #48523D;
-    color: white;
+    background-color: #48523D !important;
+    border: 1px solid #48523D !important;
+    color: white !important;
 }
 
+.modal-content {
+    padding: 15px;
+}
 .py-5.text-center {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -57,46 +49,132 @@
     justify-content: space-around;
 }
 
-h2.size_4rem {
-    font-size: 2rem;
+.icon-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    border-radius: 8px;
+    color: white;
+    font-size: 80px; /* 아이콘 크기 조정 */
+}
+.icon-text {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
+}
+.login-icon {
+    background-color: #8FA2CA;
+}
+.signup-icon {
+    background-color: #B5C6B8;
+}
+button {
+    border: none;
+}
+.custom-margin {
+    margin-right: 100px; /* 왼쪽 요소의 오른쪽 간격 설정 */
+    margin-left: 100px; /* 오른쪽 요소의 왼쪽 간격 설정 */
+}
+.memberRow {
+    display: flex;
+    justify-content: center;
+}
+.form-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin: 20px auto;
+}
+.form-container form {
+    max-width: 500px; /* 줄어든 너비 */
+    width: 100%;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+}
+.form-control {
+    line-height: 1 !important;
+    font-size: 14px !important;
 }
 
-.lead {
-    font-size: 1rem;
+.gender {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* 라디오 버튼 간격 조정 */
 }
 
-.list-group-item {
-    padding: 10px;
+.google {
+    background-color: royalblue !important;
+    color: white !important;
+}
+.kakao {
+    background-color: #FEE500 !important;
+    color: black !important;
+}
+.naver {
+    background-color: #03C75A !important;
+    color: white !important;
+}
+.description {
+    word-break: keep-all;
+    padding-top: 20px;
+    text-align: center;
 }
 
-.form-control,
-.input-group,
-.select {
+.custom-auth-btn {
+    background-color: #8FA2CA !important;
+    border: none !important;
+    padding-top: 50px;
+}
+
+
+.form-container.complete{
+    max-width: 700px; /* 줄어든 너비 */
+    width: 100%;
+    margin: 20px;
+    padding: 70px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 18px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.container.complete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 680px; /* 화면 전체 높이 */
+}
+
+.custom-auth-btn.complete {
+    background-color: #8FA2CA !important;
+    border: none !important;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    width: 130px;
+    height: 40px;
+    font-size: 18px;
+}
+
+.completeHr {
     width: 100%;
 }
 
-input[type="text"].form-control {
-    width: 70%;
-}
-
-button.btn.btn-secondary.myBtn {
-    width: 30%;
-}
-
-.d-flex {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.d-flex.justify-content-between {
-    justify-content: center;
-    align-items: center;
-}
-
-.d-flex.justify-content-end {
-    justify-content: center;
-    gap: 10px;
+h2 {
+    color: #8FA2CA !important;
+    font-weight: bold !important;
 }
 
 .btn-container {
@@ -117,9 +195,6 @@ button.btn.btn-secondary.myBtn {
     }
 }
 
-.modal-content {
-    padding: 15px;
-}
 
 /*  450px 미디어 쿼리 */
 @media (max-width: 450px) {

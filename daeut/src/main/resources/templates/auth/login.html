@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/oauth_layout}"
+      layout:decorate="~{/layout/auth_layout}"
       >
 <!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
 <head>
@@ -12,17 +12,25 @@
 <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
 <body layout:fragment="content">
     <div class="container form-container">
-        <form id="form" action="/oauth/login" method="post">
+        <form id="form" action="/auth/login" method="post">
+            <!-- CSRF TOKEN -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <h2 class="text-center">로그인</h2>
             <p class="text-center">다이웃 이용을 위한 아이디, 비밀번호를 입력해주세요.</p>
-            <div class="mb-3"><input type="text" class="form-control" placeholder="아이디"></div>
-            <div class="mb-3"><input type="password" class="form-control" placeholder="비밀번호"></div>
+            <div class="mb-3"><input type="text" class="form-control" placeholder="아이디" name="userId"></div>
+            <div class="mb-3"><input type="password" class="form-control" placeholder="비밀번호" name="userPassword"></div>
             <div class="mb-3">
                 <div class="row">
                    <div class="col-10">
                         <div class="gender-container d-flex justify-content-center column-gap-5">
-                            <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="find" id="find_id" value="find_id"><label class="form-check-label" for="find_id">아이디 저장</label></div>
-                            <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="find" id="find_pw" value="find_pw"><label class="form-check-label" for="find_pw">자동 로그인</label></div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="remember-id" id="remember-id" >
+                                <label class="form-check-label" for="remember-id">아이디 저장</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="remember-me" id="remember-me" >
+                                <label class="form-check-label" for="remember-me">자동 로그인</label>
+                            </div>
                         </div>
                    </div>
                 </div>
@@ -31,7 +39,7 @@
             </div>
             <div class="d-grid gap-3">
                 <button type="submit" class="btn btn-dark">로그인</button>
-                <a href="/oauth/join" class="btn btn-dark">회원 가입</a>
+                <a href="/auth/join" class="btn btn-dark">회원 가입</a>
                 <button type="button" class="btn btn-light border" onclick="history.back()">돌아가기</button>
             </div>
             <div class="text-center my-3"><hr>소셜계정으로 로그인</div>
@@ -42,8 +50,8 @@
             </div>
             <div class="text-center my-3"><hr>계정이 기억나지 않으신가요?</div>
             <div class="d-grid gap-2">
-                <a href="/oauth/findId" class="btn btn-light border">아이디 찾기</a>
-                <a href="/oauth/findPw" class="btn btn-light border">비밀번호 찾기</a>
+                <a href="/auth/findId" class="btn btn-light border">아이디 찾기</a>
+                <a href="/auth/findPw" class="btn btn-light border">비밀번호 찾기</a>
             </div>
         </form>
     </div>

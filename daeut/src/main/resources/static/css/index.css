@@ -1290,9 +1290,16 @@ button:not(:disabled),
   opacity: var(--bs-btn-disabled-opacity);
 }
 
-/* TODO 버튼 색상 지정 */
 .btn-outline-light {
-    
+  background-color: transparent;
+  color: #E4E8F4;
+  border-radius: 8px;
+  border: 1px solid #E4E8F4;
+  transition: 0.5s;
+}
+.btn-outline-light:hover{
+  background-color: #E4E8F4;
+  color: #48523D;
 }
 
 .btn .badge {
@@ -1463,19 +1470,6 @@ section {
   color: #EDF2F7;
 }
 
-.btn-outline-light {
-  color: #EDF2F7;
-  border: 2px solid #EDF2F7;
-  background-color: transparent;
-  transition: background-color 0.3s, color 0.3s;
-  width: 100%;
-}
-
-.btn-outline-light:hover {
-  background-color: #fff;
-  color: #000;
-}
-
 /* 반응형 디자인 */
 @media (min-width: 576px) {
   .cta {
@@ -1549,5 +1543,66 @@ section {
   }
   .btn {
       padding: 18px 36px;
+  }
+}
+
+/* 예약 반응형 */
+@media (max-width: 1400px) {
+  .cta-content h2 {
+      font-size: 2.75rem;
+  }
+  .cta-content .btn {
+      font-size: 1.125rem;
+      padding: 0.75rem 1.25rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .cta-content h2 {
+      font-size: 2.5rem;
+  }
+  .cta-content .btn {
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .cta-content h2 {
+      font-size: 2.25rem;
+  }
+  .cta-content .btn {
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cta-content h2 {
+      font-size: 2rem;
+  }
+  .cta-content .btn {
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .cta-content h2 {
+      font-size: 1.75rem;
+  }
+  .cta-content .btn {
+      font-size: 0.75rem;
+      padding: 0.5rem 0.75rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .cta-content h2 {
+      font-size: 1.25rem;
+  }
+  .cta-content .btn {
+      font-size: 0.75rem;
+      padding: 0.5rem 0.75rem;
   }
 }
