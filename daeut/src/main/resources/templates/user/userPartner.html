@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/user_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파트너 신청</title>
+</head>
+<body layout:fragment="content">
+    <button class="btn btn-primary toggle-btn menu mt-2 ml-2" id="toggle-btn" onclick="toggleSidebar()">메뉴</button>
+    <div class="container-fluid container">
+        <div class="row">
+            <nav class="col-md-3 col-lg-2 sidebar" id="sidebar">
+                <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
+                <h5>마이페이지</h5>
+                <br>
+                <a href="userMypage">내 정보 변경</a>
+                <a href="userReservation">내 예약 보기</a>
+                <a href="userLikeTip">내가 좋아하는 글</a>
+                <a href="userReview">별점 및 리뷰 작성</a>
+                <a href="userCoupon">내 쿠폰</a>
+                <a href="userPartner">파트너 신청</a>
+            </nav>
+        </div>
+    </div>
+</body>
+</html>
