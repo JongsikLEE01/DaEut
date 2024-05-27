@@ -10,6 +10,7 @@
     <button class="btn btn-primary toggle-btn menu mt-2 ml-2" id="toggle-btn" onclick="toggleSidebar()">메뉴</button>
     <div class="container-fluid container">
         <div class="row">
+            <!-- 사이드바 -->
             <nav class="col-md-3 col-lg-2 sidebar" id="sidebar">
                 <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
                 <h5>마이페이지</h5>
@@ -21,6 +22,53 @@
                 <a href="userCoupon">내 쿠폰</a>
                 <a href="userPartner">파트너 신청</a>
             </nav>
+
+            <!-- 컨텐츠영역 -->
+            <div class="col-md-9 col-lg-10 text-center">
+                <div class="text-start mt-5 ms-5">
+                    <h3 class="color_main">파트너 신청</h3>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="col-md-3 mt-5">
+                        <img src="/img/partner.png" alt="파트너 이미지" class="profile-img img-thumbnail">
+                    </div>
+                    <div class="col-md-8">
+                        <form>
+                            <!-- form 작성 필요 -->
+                            <div class="form-group form-section">
+                                <label for="partnerName">이름</label>
+                                <input type="text" class="form-control" id="partnerName" value="이름을 입력해주세요" >
+                            </div>
+                            <div class="form-group form-section">
+                                <label for="partnerAddress">주소</label>
+                                <input type="text" class="form-control" id="partnerAddress" value="주소를 입력해주세요" >
+                            </div>
+                            <div class="form-group form-section">
+                                <label for="contact">연락처</label>
+                                <input type="text" class="form-control" id="contact" value="전화번호를 입력해주세요" >
+                            </div>
+                            <div class="form-group form-section">
+                                <label for="experience">경력 사항</label>
+                                <input type="text" class="form-control" id="experience" value="경력 사항을 입력해주세요">
+                            </div>
+                            <div class="form-group form-section f-warp text-start">
+                                <label for="description">소개 글</label>
+                                <textarea class="form-control" id="description" rows="3"></textarea>
+                            </div>
+                            <div class="form-group form-section f-warp text-start">
+                                <label for="description">추가 소개 사진</label>
+                                <input type="file" class="form-control" id="file" value="첨부 파일을 선택해주세요">
+                            </div>
+                            
+                            <div class="buttons mb-5 d-flex gap-3 justify-content-end">
+                                <button type="button" class="btn btn-primary sessuce color_main">신청하기</button>
+                                <a href="/user/userMypage" class="btn btn-light myBtn">돌아가기</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>
