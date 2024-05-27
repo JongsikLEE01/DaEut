@@ -54,7 +54,6 @@ main {
     top: 70px; /* Adjust the position of the toggle button */
     z-index: 1001; /* Ensure the button is above the sidebar */
 }
-
 @media (max-width: 767px) {
     .sidebar {
         position: fixed;
@@ -103,7 +102,6 @@ main {
         z-index: 1002;
     }
 }
-
 @media (min-width: 768px) {
     .toggle-btn {
         display: none !important;
@@ -111,4 +109,34 @@ main {
     .sidebar .close-btn {
         display: none;
     }
+}
+.custom-text {
+    white-space: normal;
+    word-break: break-word;
+    padding: 0.375rem 0.75rem;
+    margin-bottom: 0;
+    background-color: transparent;
+    border: 1px solid transparent;
+    display: block;
+    width: 100%;
+}
+.review-form img {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 10px;
+}
+.review-form .file-upload {
+    display: flex;
+    flex-wrap: wrap;
+}
+.review-form .file-upload div {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
