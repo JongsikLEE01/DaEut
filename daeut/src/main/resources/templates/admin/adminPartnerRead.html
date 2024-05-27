@@ -8,6 +8,7 @@ layout:decorate="~{/layout/admin_layout}">
 </head>
 <body layout:fragment="content">
     <div class="container container-fluid">
+        <button class="btn btn-primary toggle-btn menu mt-2 ml-2 myBtn d-md-none" id="toggle-btn" onclick="toggleSidebar()">메뉴</button>
 
         <div class="row flex-nowarp">
             <!-- 사이드바 -->
@@ -31,11 +32,11 @@ layout:decorate="~{/layout/admin_layout}">
                     <div class="col-md-8">
                         <form><!-- form 작성 필요 -->
                             <div class="form-group form-section">
-                                <label for="partnerName">업체 명</label>
-                                <input type="text" class="form-control" id="partnerName" value="김 클린" readonly>
+                                <label for="partnerName">이름</label>
+                                <input type="text" class="form-control" id="partnerName" value="김클린" readonly>
                             </div>
                             <div class="form-group form-section">
-                                <label for="partnerAddress">업체 주소</label>
+                                <label for="partnerAddress">주소</label>
                                 <input type="text" class="form-control" id="partnerAddress" value="인천광역시 부평구" readonly>
                             </div>
                             <div class="form-group form-section">

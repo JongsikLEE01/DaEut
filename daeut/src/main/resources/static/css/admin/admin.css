@@ -1,5 +1,3 @@
-
-
 body {
     display: flex;
     flex-direction: column;
@@ -74,9 +72,9 @@ main {
         padding-top: 60px;
         transition: margin-left 0.3s;
     }
-    .sidebar.active ~ .form-section {
-        margin-left: 250px; /* Adjust this value to match the sidebar width */
-    }
+    /* .sidebar.active ~ .form-section {
+        margin-left: 250px;
+    } */
     .toggle-btn {
         position: fixed;
         width: 60px;
@@ -84,9 +82,9 @@ main {
         top: 70px; /* Adjust the position of the toggle button */
         z-index: 1001; /* Ensure the button is above the sidebar */
     }
-    .sidebar.active + .toggle-btn {
-        left: 250px; /* Move the toggle button when sidebar is active */
-    }
+    /* .sidebar.active + .toggle-btn {
+        left: 250px; 
+    } */
     .close-btn {
         display: none;
         position: fixed;
@@ -215,6 +213,7 @@ th {
     gap: 10px;
 }
 
+/* 파트너 수정화면 반응형 */
 @media (max-width: 992px) {
     /* 992px 이하에서 적용할 스타일 */
     .profile-img {
@@ -314,7 +313,7 @@ a{
     color: #000;
 }
 
-/* 반응형 스타일 */
+/* 테이블 반응형 스타일 */
 @media (max-width: 1400px) {
     .table th, .table td {
         padding: 8px;
@@ -372,4 +371,13 @@ a{
         margin: 0 2px;
     }
 }
-</style>
+
+/* 사이드바 */
+.content-container {
+    transition: margin-left 0.5s; /* 사이드바 열림/닫힘 애니메이션을 위한 transition 추가 */
+}
+
+/* 사이드바가 열렸을 때 .content-container의 margin-left 값을 조정
+.sidebar.active ~ .content-container {
+    margin-left: 250px;
+} */
