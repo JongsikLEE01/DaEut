@@ -36,6 +36,12 @@ public class PageController {
 	}
 
 
+	// 결제 이동
+	@GetMapping("/payment")
+    public String payment() {
+        return "/reservation/payment";
+    }
+
 	// 결제 성공
 	@GetMapping("/paymentDone")
     public String paymentDone() {

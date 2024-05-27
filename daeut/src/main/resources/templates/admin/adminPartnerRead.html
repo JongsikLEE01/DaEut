@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{/layout/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da E ut</title>
+</head>
+<body layout:fragment="content">
+    <div class="container container-fluid">
+
+        <!-- 사이드바 -->
+        <div class="row">
+            <nav class="col-md-3 col-lg-2 sidebar" id="sidebar">
+                <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
+                <h5>관리</h5>
+                <br>
+                <a href="/admin/adminUser">회원 관리</a>
+                <a href="/admin/adminPartner">파트너 관리</a>
+                <a href="/admin/adminReservation">예약 관리</a>
+            </nav>
+        </div>
+
+        <!-- 컨텐츠영역 -->
+    </div>
+</body>
+</html>
