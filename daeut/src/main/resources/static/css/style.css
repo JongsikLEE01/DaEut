@@ -250,7 +250,7 @@ h2 {
     background-color: #fff !important;
     color: #48523D !important;
     border: 1px solid #48523D !important;
-    transition: 0.5s !important;
+    transition: 0.5s;
 }
 .myBtn:hover{
     background-color: #48523D !important;
