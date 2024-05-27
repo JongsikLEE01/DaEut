@@ -16,6 +16,72 @@
 </head>
 <body layout:fragment="content">
     <!-- ⭐ content -->
-
+  <div class="container">
+    <aside>
+      <div class="sidebar">
+          <h2>마이페이지</h2>
+          <ul>
+              <li><a href="/partnerMypage">내 정보 변경</a></li>
+              <li><a href="/partnerReservation">내 예약 보기</a></li>
+              <li><a href="/partnerReview" class="active">내 리뷰 보기</a></li>
+          </ul>
+      </div>
+    </aside>
+      <main>
+          <h2>내 리뷰 보기</h2>
+          <div class="review-list">
+              <div class="review-item">
+                  <p>MM월 DD일</p>
+                  <p>예약번호 : 5ASD7A1Z <span class="spacing">&nbsp;&nbsp;</span> 예약자명 : 김조은</p>
+                  <div class="rating">
+                      <span class="fa fa-star checked"></span>
+                      <span class="rating-value">4.5</span>
+                  </div>
+              </div>
+              <div class="review-item">
+                  <p>MM월 DD일</p>
+                  <p>예약번호 : 5ASD7A1Z <span class="spacing">&nbsp;&nbsp;</span> 예약자명 : 김조은</p>
+                  <div class="rating">
+                      <span class="fa fa-star checked"></span>
+                      <span class="rating-value">5</span>
+                  </div>
+              </div>
+              <div class="review-item">
+                <p>MM월 DD일</p>
+                <p>예약번호 : 5ASD7A1Z <span class="spacing">&nbsp;&nbsp;</span> 예약자명 : 김조은</p>
+                <div class="rating">
+                    <span class="fa fa-star checked"></span>
+                    <span class="rating-value">3.5</span>
+                </div>
+            </div>
+            <div class="review-item">
+              <p>MM월 DD일</p>
+              <p>예약번호 : 5ASD7A1Z <span class="spacing">&nbsp;&nbsp;</span> 예약자명 : 김조은</p>
+              <div class="rating">
+                  <span class="fa fa-star checked"></span>
+                  <span class="rating-value">4</span>
+              </div>
+          </div>
+          <div class="review-item">
+            <p>MM월 DD일</p>
+            <p>예약번호 : 5ASD7A1Z <span class="spacing">&nbsp;&nbsp;</span> 예약자명 : 김조은</p>
+            <div class="rating">
+                <span class="fa fa-star checked"></span>
+                <span class="rating-value">3</span>
+            </div>
+        </div>
+              <!-- Add more review items as needed -->
+          </div>
+          <div class="pagination">
+            <span>&laquo;</span>
+            <span class="active">1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>&raquo;</span>
+        </div>
+      </main>
+  </div>
 </body>
 </html>

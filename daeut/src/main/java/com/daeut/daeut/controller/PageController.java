@@ -40,29 +40,19 @@ public class PageController {
 		return "/reservation/reservationInsert";
 	}
 
-	// @GetMapping("/reservation/chat")
-	// public String chat() {
-	// 	return "/reservation/chat";
-	// }
+	// 결제 이동
+	@GetMapping("/payment")
+    public String payment() {
+        return "/reservation/payment";
+    }
 
-	// @GetMapping("/reservationInsert")
-	// public String reservation() {
-	// 	return "/reservation/reservationInsert";
-	// }
-	
-	
-    // @GetMapping("/chat")
-    // public String main() {
-    //     log.info("채팅 화면...");
-    //     return "chat";
-    // }
-
-	// 결제관련
+	// 결제 성공
 	@GetMapping("/paymentDone")
     public String paymentDone() {
         return "/reservation/paymentDone";
     }
 
+	// 결제 실패
     @GetMapping("/paymentFalse")
     public String paymentFalse() {
         return "/reservation/paymentFalse";

@@ -23,7 +23,7 @@
 	align-items: center; /* 수직 가운데 정렬을 위해 추가합니다 */
 }
 
-.partner-name {
+.partner-name-chat {
     font-size: 18px;
     font-weight: bold;
 	margin-top: 15px;
@@ -554,4 +554,197 @@ input[type="file"] {
 
 .search-container input[type="text"]:focus {
     outline-color: #8FA2CA;
+}
+
+.button-box {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+/* 예약 상세 페이지 */
+.reservation-image-box {
+    position: relative;
+    width: 777px; /* 슬라이드 박스 너비 */
+    height: 463px; /* 슬라이드 박스 높이 */
+    margin: auto;
+    overflow: hidden;
+}
+
+.reservation-image-slide {
+    display: none;
+    width: 777px; /* 슬라이드 박스 너비 */
+    height: 463px; /* 슬라이드 박스 높이 */
+}
+
+.reservation-image-slide img {
+    width: 777px; /* 이미지 너비 */
+    height: 463px; /* 이미지 높이 */
+    object-fit: cover; /* 이미지 비율을 유지하면서 슬라이드 크기에 맞게 조절 */
+}
+
+.active {
+    display: block;
+}
+
+/* 슬라이드 컨트롤 버튼 */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: #E4E8F4;
+    font-weight: bold;
+    font-size: 42px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    text-decoration: none; /* 밑줄 제거 */
+    opacity: 80%;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    color: #8FA2CA;
+}
+
+/* 예약 상세 페이지 li */ 
+.reservation-menu {
+    width: 775px;
+    height: 49px;
+    position: relative; /* 포지션을 상대적으로 설정하여 자식 요소의 위치를 조정 */
+    margin-bottom: 50px;
+}
+
+.reservation-menu::after {
+    content: ''; /* 가상 요소를 사용하여 선을 추가 */
+    position: absolute; /* 절대 위치 지정 */
+    bottom: 0; /* 아래쪽에 배치 */
+    left: 0; /* 좌측에 배치 */
+    width: 777px; /* 너비를 부모 요소의 100%로 설정 */
+    height: 3px; /* 높이는 1픽셀 */
+    background-color: #8FA2CA; /* 선의 색상 */
+    margin: -1px;
+}
+
+.reservation-menu li {
+    background-color: #E4E8F4;
+    padding: 10px;
+    overflow: hidden;
+    list-style-type: none;
+    display: inline-block;
+    width: 193.75px;
+    /* width: calc(25% - 5px); 전체 너비의 25%에서 마진 고려하여 계산 */
+    height: 49px;
+    text-align: center; /* 가운데 정렬 */
+    box-sizing: border-box; /* 너비에 padding과 border를 포함 */
+    margin: -2px; /* 기존의 마진 제거 */
+}
+.reservation-menu li:hover {
+    background-color: #8FA2CA; /* 호버 시 배경색 변경 */
+    color: #FFFFFF; /* 호버 시 글자색 변경 */
+}
+
+/* 게시판 세부 페이지 헤더 영역*/
+.header-area{
+    display: flex;
+    align-items: center;
+    margin-top: 80px;
+    margin-bottom: 10px;
+}
+
+.header-title{
+    font-size: 42px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+.review-star {
+    margin-right: 20px; /* 별점과 태그 사이 여백 조정 */
+}
+
+.fa-star {
+    color: #FFE68F;
+    width: 30px;
+    height: 30px;
+}
+
+.service-title-tag {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.service-tag-name {
+    display: inline-block;
+    width: 105px;
+    height: 30px;
+    background: #8FA2CA;
+    border-radius: 8px;
+    color:white;
+    text-align: center;
+    line-height: 30px; /* 텍스트 수직 가운데 정렬 */
+    margin-right: 10px; /* 태그 사이 여백 조정 */
+    margin-bottom: 10px; /* 태그 아래 여백 조정 */
+}
+
+/* 예약 화면 내용물 */
+.detail-form {
+    display: flex;
+}
+
+.detail-content,
+.box-form-right {
+    flex: 1;
+}
+
+/* 타이틀 + 채팅창 */
+.title-and-chat{
+    margin-top: 30px;
+    margin-bottom: 70px;
+}
+
+.content-title-name {
+    font-size: 48px;
+    font-weight: thin;
+}
+
+
+
+/*파트너 정보*/
+.partner-info {
+    overflow: hidden; /* 부모 요소의 크기에 맞춰 자식 요소들을 감출 때 사용 */
+}
+
+.partner-photo {
+    width: 192px;
+    height: 247px;
+    float: left; 
+    margin-right: 20px;
+}
+
+.partner-introduction-name {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.review-star2 {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 10px;
+    display: inline-block; /* 별표를 인라인 블록으로 표시 */
+    vertical-align: middle; /* 텍스트와 수직으로 중앙 정렬 */
+}
+
+.year-of-work {
+    margin-bottom: 10px; /* 경력 정보 아래 여백 추가 */
+}
+
+.partner-selfintroduction {
+    margin-bottom: 20px; /* 자기 소개 아래 여백 추가 */
 }

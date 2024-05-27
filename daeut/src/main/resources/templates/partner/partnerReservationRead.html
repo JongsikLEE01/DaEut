@@ -16,6 +16,33 @@
 </head>
 <body layout:fragment="content">
     <!-- ⭐ content -->
-
+    <div class="container">
+      <aside>
+          <div class="sidebar">
+              <h2>마이페이지</h2>
+              <ul>
+                  <li><a href="/partnerMypage">내 정보 변경</a></li>
+                  <li><a href="/partnerReservation" class="active">내 예약 보기</a></li>
+                  <li><a href="/partnerReview">내 리뷰 보기</a></li>
+              </ul>
+          </div>
+      </aside>
+      <main>
+          <h2>내 예약 보기</h2>
+          <div class="reservation-detail">
+              <p><strong>위치</strong> 인천시 부평구 어딘가</p>
+              <p><strong>일정</strong> 2024년 05월 20일 오전 10시 50분</p>
+              <p><strong>내역</strong> 인천시 부평구 어딘가</p>
+              <p><strong>결제금액</strong> 35,000원</p>
+              <p><strong>요청사항</strong> 깨끗하게 해주세요</p>
+              <p><strong>요청장소</strong> 홍길동</p>
+          </div>
+          <div class="buttons">
+              <button class="cancel-button">예약취소</button>
+              <button class="inquiry-button">문의하기</button>
+              <button class="edit-button">예약수정</button>
+          </div>
+      </main>
+  </div>
 </body>
 </html>

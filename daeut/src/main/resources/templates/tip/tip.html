@@ -147,7 +147,19 @@
         <div class="search-container">
             <input type="text" placeholder="검색어를 입력해주세요">
             <button type="submit">검색</button>
-        </div>    
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const heartButtons = document.querySelectorAll('.heart-button, .heart-button2');
+            heartButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.classList.toggle('active');
+                });
+            });
+        });
+    </script>
 
 
 </body>

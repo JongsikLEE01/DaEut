@@ -32,11 +32,13 @@
                     <input type="file" id="images" name="images" accept="image/*" multiple onchange="previewImages(event)">
                     <p class="file-upload-note">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</p>
                 </div>
-                <div id="image-preview-container"></div>
+                <div id="image-preview-wrapper">
+                    <div id="image-preview-container"></div>
+                </div>
             <!-- <p class="text-muted">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10개까지 첨부 가능합니다.</p> -->
             <div class="buttons">
-                <button type="submit" class="btn btn-primary">등록하기</button>
-                <button type="button" class="btn btn-outline-secondary">취소하기</button>
+                <button type="submit" class="btn-btn-primary">등록하기</button>
+                <button type="button" class="btn-btn-outline-secondary">취소하기</button>
             </div>
         </form>
     </div>
