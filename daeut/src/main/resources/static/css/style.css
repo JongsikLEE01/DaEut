@@ -107,6 +107,10 @@ button:focus {
     width: 50px;    /* 고정 폭을 50px로 설정 */
 }
 
+.logout {
+    all: unset;
+}
+
 /* 푸터 */
 .d-col-md-12 {
     flex: 0 0 85%;
@@ -213,4 +217,43 @@ h2 {
 .bg_color_main{ background-color: #8FA2CA !important; }
 .bg_color_sub1{ background-color: #E4E8F4 !important; }
 .bg_color_sub2{ background-color: #B5C6B8 !important; }
-.bg_color_pint{ background-color: #48523D !important; }
+.bg_color_point{ background-color: #48523D !important; }
+
+
+/* 버튼 */
+.sessuce{
+    background-color: #fff !important;
+    border: 1px solid #8FA2CA !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+}
+.sessuce:hover{
+    background-color: #8FA2CA !important;
+    border: 1px solid #8FA2CA !important;
+    color: white !important;
+}
+
+.cancel{
+    background-color: #fff !important;
+    color: red !important;
+    border: 1px solid red !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+}
+.cancel:hover{
+    background-color: red !important;
+    border: 1px solid red !important;
+    color: white !important;
+}
+
+.myBtn{
+    background-color: #fff !important;
+    color: #48523D !important;
+    border: 1px solid #48523D !important;
+    transition: 0.5s;
+}
+.myBtn:hover{
+    background-color: #48523D !important;
+    border: 1px solid #48523D !important;
+    color: white !important;
+}
