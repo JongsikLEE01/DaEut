@@ -91,10 +91,11 @@ main {
 
 .table th {
     background-color: #f2f2f2;
+}
+
 th {
     background-color: #E4E8F4;
 }
-
 .checked {
     text-align: center;
 }
@@ -320,7 +321,7 @@ a {
 }
 
 /* Small screen styles */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .sidebar {
         position: fixed;
         left: -250px;
@@ -346,7 +347,7 @@ a {
 }
 
 .transitionNone{
-    transform: !important;
+    transform: none !important;
 }
   
 /* 사이드바 */
