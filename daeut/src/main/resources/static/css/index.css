@@ -1462,7 +1462,7 @@ section {
 
 .cta-content {
   position: relative;
-  background-color: rgba(0, 0, 0, 0.4); /* 반투명 검정 배경 */
+  background-color: rgba(0, 0, 0, 0.3); /* 반투명 검정 배경 */
   padding: 50px;
 }
 

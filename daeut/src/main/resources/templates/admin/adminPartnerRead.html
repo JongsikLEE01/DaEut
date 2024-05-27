@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{/layout/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da E ut</title>
+</head>
+<body layout:fragment="content">
+    <div class="container container-fluid">
+        <button class="btn btn-primary toggle-btn menu mt-2 ml-2 myBtn d-md-none" id="toggle-btn" onclick="toggleSidebar()">메뉴</button>
+
+        <div class="row flex-nowarp">
+            <!-- 사이드바 -->
+            <nav class="col-md-3 col-lg-2 sidebar" id="sidebar">
+                <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
+                <h5>관리</h5>
+                <br>
+                <a href="/admin/adminUser">회원 관리</a>
+                <a href="/admin/adminPartner">파트너 관리</a>
+                <a href="/admin/adminReservation">예약 관리</a>
+            </nav>
+            <!-- 컨텐츠영역 -->
+            <div class="col-md-9 col-lg-10 text-center">
+                <div class="text-start mt-5 mb-5">
+                    <h3 class="color_main">파트너 조회</h3>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="col-md-3">
+                        <img src="/img/partner.png" alt="파트너 이미지" class="profile-img img-thumbnail">
+                    </div>
+                    <div class="col-md-8">
+                        <form><!-- form 작성 필요 -->
+                            <div class="form-group form-section">
+                                <label for="partnerName">이름</label>
+                                <input type="text" class="form-control" id="partnerName" value="김클린" readonly>
+                            </div>
+                            <div class="form-group form-section">
+                                <label for="partnerAddress">주소</label>
+                                <input type="text" class="form-control" id="partnerAddress" value="인천광역시 부평구" readonly>
+                            </div>
+                            <div class="form-group form-section">
+                                <label for="contact">연락처</label>
+                                <input type="text" class="form-control" id="contact" value="01012345678" readonly>
+                            </div>
+                            <div class="form-group form-section">
+                                <label for="experience">경력 사항</label>
+                                <input type="text" class="form-control" id="experience" value="특수 청소 3년 일반 청소 10년" readonly>
+                            </div>
+                            <div class="form-group form-section f-warp text-start">
+                                <label for="description">소개글</label>
+                                <textarea class="form-control" id="description" rows="3" readonly>청소 경력 도합 13년, 정부에서 한 번 배려 처리 이미지 교체 필요시 실험 작성 및 내용 전개 이어쓰기</textarea>
+                            </div>
+                            <div class="form-group form-section gallery">
+                                <label>소개 사진</label>
+                                <div>
+                                    <img src="https://via.placeholder.com/100" alt="파트너 설명 이미지" class="img-thumbnail">
+                                    <img src="https://via.placeholder.com/100" alt="파트너 설명 이미지" class="img-thumbnail">
+                                    <img src="https://via.placeholder.com/100" alt="파트너 설명 이미지" class="img-thumbnail">
+                                    <img src="https://via.placeholder.com/100" alt="파트너 설명 이미지" class="img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="buttons mb-5 d-flex gap-3 justify-content-end">
+                                <button type="button" class="btn btn-primary sessuce color_main">승인하기</button>
+                                <button type="button" class="btn btn-secondary cancel">승인취소</button>
+                                <button type="submit" class="btn btn-secondary myBtn">수정하기</button>
+                                <a href="/admin/adminPartner" class="btn btn-light myBtn">목록</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
