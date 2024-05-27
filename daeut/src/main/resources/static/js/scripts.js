@@ -177,4 +177,8 @@ $(document).ready(function() {
             }
         });
     }).scroll();
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> main
