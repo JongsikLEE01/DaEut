@@ -20,11 +20,12 @@ main {
 }
 .sidebar a:hover {
     background-color: #e9ecef;
-    color: #007bff;
+    color: #8FA2CA;
 }
 .form-section {
     padding: 20px;
     border-top: 40px;
+    padding-top: 81.135px;
 }
 .form-group {
     display: flex;

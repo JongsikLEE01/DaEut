@@ -1,0 +1,361 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+.sidebar {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+}
+
+.sidebar a {
+    display: block;
+    padding: 10px;
+    margin-left: 15px;
+    color: #333;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background-color: #e9ecef;
+    border-radius: 8px;
+    color: #8FA2CA;
+
+}
+
+.form-section {
+    padding: 20px;
+    border-top: 40px;
+    padding-top: 81.135px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.form-group input {
+    flex: 2;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.form-buttons button {
+    margin-left: 10px;
+}
+
+.toggle-btn {
+    position: fixed;
+    width: 60px !important;
+    left: 10px;
+    top: 70px;
+    z-index: 1001;
+}
+
+.close-btn {
+    display: none;
+    position: fixed;
+    right: 10px;
+    top: 70px;
+    z-index: 1001;
+}
+
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.table th, .table td {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #E4E8F4;
+}
+.checked {
+    text-align: center;
+}
+
+.pagination {
+    margin: 50px 0;
+    text-align: center;
+    justify-content: center;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination a.active {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+  
+.buttons {
+    text-align: right;
+    margin-top: 30px;
+ }
+
+.checkbox {
+    width: 20px !important;
+    height: 20px !important;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 1px solid #333;
+    border-radius: 3px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.checkbox:checked {
+    background-color: #2AB514;
+    position: relative;
+    border: 1px solid #2AB514;
+}
+
+.checkbox:checked::after {
+    content: '✔';
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.custom1 {
+    background-color: #8FA2CA !important;
+    border: #8FA2CA !important;
+}
+
+.custom2 {
+    background-color: white !important;
+    border-color: #8FA2CA !important;
+    color: #8FA2CA !important;
+}
+
+.f-warp {
+    flex-wrap: wrap;
+}
+
+.partnerManage {
+    background-color: #e9ecef;
+    color: #007bff !important;
+    border-radius: 8px;
+}
+
+.reservationManage {
+    background-color: #e9ecef;
+    color: #007bff !important;
+    border-radius: 8px;
+}
+
+.userManage {
+    background-color: #e9ecef;
+    color: #007bff !important;
+    border-radius: 8px;
+}
+
+.text-decoration-line {
+    color: black;
+}
+
+.info-row {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+.label {
+    color: #8FA2CA;
+}
+
+.size {
+    width: 86.73px;
+}
+.size2 {
+    width: 91.84px;
+}
+
+.reservation-card {
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 10px;
+    font-size: 18px;
+}
+
+.star-rating {
+    color: gold;
+    font-size: 1.5rem;
+    vertical-align: middle;
+}
+
+.f-warp{ flex-wrap: wrap;}
+
+.profile-img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.gallery img {
+    max-width: 100px;
+    margin-right: 10px;
+}
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    text-align: right;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+    .profile-img {
+        max-width: 120px;
+    }
+    .gallery img {
+        max-width: 80px;
+    }
+    .buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .buttons .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-img {
+        max-width: 100px;
+    }
+    .gallery img {
+        max-width: 60px;
+    }
+    .buttons .btn {
+        font-size: 0.85rem;
+        padding: 0.45rem 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .profile-img {
+        max-width: 80px;
+    }
+    .gallery img {
+        max-width: 50px;
+    }
+    .buttons .btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+    .toggle-btn {
+        font-size: 0.875rem;
+    }
+    .pagination a {
+        font-size: 0.875rem;
+        margin: 0 3px;
+    }
+}
+
+@media (max-width: 450px) {
+    .profile-img {
+        max-width: 60px;
+    }
+    .gallery img {
+        max-width: 40px;
+    }
+    .buttons .btn {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+    }
+    .pagination a {
+        font-size: 0.75rem;
+        margin: 0 2px;
+    }
+    .toggle-btn {
+        font-size: 0.75rem;
+    }
+}
+
+/* Small screen styles */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -250px;
+        top: 50px;
+        width: 250px !important;
+        height: calc(100% - 50px);
+        transition: left 0.3s;
+        z-index: 900;
+    }
+    .sidebar.active {
+        left: 0;
+    }
+    .sidebar .close-btn {
+        display: block;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1002;
+    }
+    .sidebar.active + .close-btn {
+        display: block;
+    }
+}
+
+.transitionNone{
+    transform: none !important;
+}
+  
+/* 사이드바 */
+.content-container {
+    transition: margin-left 0.5s; /* 사이드바 열림/닫힘 애니메이션을 위한 transition 추가 */
+}
+
+/* 사이드바가 열렸을 때 .content-container의 margin-left 값을 조정
+.sidebar.active ~ .content-container {
+    margin-left: 250px;
+} */
