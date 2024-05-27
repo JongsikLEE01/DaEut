@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>내 예약 보기</title>
+</head>
 <body layout:fragment="content">
+    <button class="btn btn-primary toggle-btn menu mt-2 ml-2" id="toggle-btn" onclick="toggleSidebar()">메뉴</button>
     <div class="container-fluid container">
         <div class="row">
             <nav class="col-md-3 col-lg-2 sidebar" id="sidebar">
@@ -15,7 +17,7 @@
                 <a href="userMypage">내 정보 변경</a>
                 <a href="userReservation">내 예약 보기</a>
                 <a href="userLikeTip">내가 좋아하는 글</a>
-                <a href="userReview">벌점 및 리뷰 작성</a>
+                <a href="userReview">별점 및 리뷰 작성</a>
                 <a href="userCoupon">쿠폰</a>
                 <a href="userPartner">파트너 신청</a>
             </nav>
@@ -23,18 +25,43 @@
                 <h3>내 예약 보기</h3>
                 <form>
                     <div>
-                        <h3>userName님의 예약 내역</h3>
+                        <h4>userName님의 예약 내역</h4>
+                    </div>
+                    <br>
+                    <div class="form-group mb-3">
+                        <label for="staticLocation" class="col-sm-2 col-form-label">위치</label>
+                        <div class="col-sm-10">
+                            <div id="staticLocation" class="custom-text">인천시 부평구</div>
+                        </div>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="staticLacation" class="col-sm-2 col-form-label" >위치</label>
+                        <label for="staticSchedule" class="col-sm-2 col-form-label">일정</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="staticLocation" value="">
-                          </div>
+                            <div id="staticSchedule" class="custom-text">2024년 5월 20일 오전 10시 50분</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="staticService" class="col-sm-2 col-form-label">서비스</label>
+                        <div class="col-sm-10">
+                            <div id="staticService" class="custom-text">[여름 맞이][특가]전체 청소 + 방역 서비스</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="staticAmount" class="col-sm-2 col-form-label">결제 금액</label>
+                        <div class="col-sm-10">
+                            <div id="staticAmount" class="custom-text">35,000원</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="staticPartner" class="col-sm-2 col-form-label">파트너</label>
+                        <div class="col-sm-10">
+                            <div id="staticPartner" class="custom-text">박은서 파트너</div>
+                        </div>
                     </div>
                     
                     <div class="form-buttons">
-                        <button type="submit" class="btn btn-primary">정보 수정</button>
-                        <button type="reset" class="btn btn-secondary">취소</button>
+                        <button type="submit" class="btn btn-danger">예약 취소</button>
+                        <button type="reset" class="btn btn-primary">예약 수정</button>
                     </div>
                 </form>
             </div>
