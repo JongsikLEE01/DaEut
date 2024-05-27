@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/admin_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da E ut</title>
+</head>
+
+<body layout:fragment="content">
+    <button class="btn btn-primary toggle-btn menu mt-2 ml-2 myBtn" id="toggle-btn" onclick="toggleSidebar()">메뉴</button>
+
+    <div class="container-fluid container">
+        <div class="row">
+            <!-- 사이드바 -->
+            <nav class="col-md-3 col-lg-2 sidebar" id="sidebar">
+                <button class="btn btn-danger d-block d-md-none cancel" onclick="toggleSidebar()">닫기</button>
+                <h5>관리</h5>
+                <br>
+                <a href="/admin/adminUser">회원 관리</a>
+                <a href="/admin/adminPartner">파트너 관리</a>
+                <a href="/admin/adminReservation">예약 관리</a>
+            </nav>
+            <!-- 컨텐츠 영역 -->
+            <div class="col-md-9 col-lg-10">
+                <h1 class="mt-5 mb-5">파트너 관리</h1>
+                <table class="table table-sm mb-5 table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th><input type="checkbox" id="selectAll"></th>
+                            <th>No.</th>
+                            <th>파트너</th>
+                            <th>주소</th>
+                            <th>경력</th>
+                            <th>등록 일자</th>
+                            <th>승인 상태</th>
+                        </tr>
+                    </thead>
+                    <tbody id="partnerList">
+                        <!-- 리스트 항목 추가 -->
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between mb-5">
+                    <div class="d-flex justify-content-end gap-3">
+                        <button class="btn btn-danger cancel" onclick="deleteSelected()">선택 삭제</button>
+                        <button class="btn btn-danger cancel" onclick="deleteAll()">전체 삭제</button>
+                    </div>
+                    <div>
+                        <!-- 페이징 처리 필요 -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div><!-- .row end -->
+    </div>
+
+
+    <script>
+        const partners = [
+            // TODO : 파트너 데이터 연결 필요
+            {
+                no: 1,
+                name: "박은서",
+                address: "인천광역시 부평구",
+                experience: "특수 청소 3년",
+                date: "2024-05-20 12:19:10",
+                status: "대기"
+            },
+            {
+                no: 2,
+                name: "전나연",
+                address: "인천광역시 부평구",
+                experience: "일반 청소 3년",
+                date: "2024-05-20 12:19:10",
+                status: "승인"
+            },
+            {
+                no: 3,
+                name: "윤준호",
+                address: "인천광역시 부평구",
+                experience: "특수 청소 3년",
+                date: "2024-05-20 12:19:10",
+                status: "취소"
+            },
+            {
+                no: 4,
+                name: "박은서",
+                address: "인천광역시 부평구",
+                experience: "특수 청소 3년",
+                date: "2024-05-20 12:19:10",
+                status: "대기"
+            },
+            {
+                no: 5,
+                name: "전나연",
+                address: "인천광역시 부평구",
+                experience: "일반 청소 3년",
+                date: "2024-05-20 12:19:10",
+                status: "승인"
+            },
+            {
+                no: 6,
+                name: "윤준호",
+                address: "인천광역시 부평구",
+                experience: "특수 청소 3년",
+                date: "2024-05-20 12:19:10",
+                status: "취소"
+            },
+            {
+                no: 7,
+                name: "박은서",
+                address: "인천광역시 부평구",
+                experience: "특수 청소 3년",
+                date: "2024-05-20 12:19:10",
+                status: "대기"
+            },
+            {
+                no: 8,
+                name: "전나연",
+                address: "인천광역시 부평구",
+                experience: "일반 청소 3년",
+                date: "2024-05-20 12:19:10",
+                status: "승인"
+            },
+            {
+                no: 9,
+                name: "윤준호",
+                address: "인천광역시 부평구",
+                experience: "특수 청소 3년",
+                date: "2024-05-20 12:19:10",
+                status: "취소"
+            },
+            {
+                no: 10,
+                name: "윤준호",
+                address: "인천광역시 부평구",
+                experience: "특수 청소 3년",
+                date: "2024-05-20 12:19:10",
+                status: "취소"
+            }
+        ];
+
+        const itemsPerPage = 5;
+        let currentPage = 1;
+
+        function renderTable() {
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedItems = partners.slice(start, end);
+
+            const tableBody = document.getElementById("partnerList");
+            tableBody.innerHTML = "";
+
+            paginatedItems.forEach((partner, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td><input type="checkbox" class="selectBox"></td>
+                    <td>${partner.no}</td>
+                    <td>${partner.name}</td>
+                    <td>${partner.address}</td>
+                    <td>${partner.experience}</td>
+                    <td>${partner.date}</td>
+                    <td>${partner.status}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // TODO : 페이징 처리 필요
+        // function prevPage() {
+        //     if (currentPage > 1) {
+        //         currentPage--;
+        //         renderTable();
+        //     }
+        // }
+
+        // function nextPage() {
+        //     if (currentPage * itemsPerPage < partners.length) {
+        //         currentPage++;
+        //         renderTable();
+        //     }
+        // }
+
+        // TODO : DB 삭제 필요
+        function deleteSelected() {
+            const selectedBoxes = document.querySelectorAll(".selectBox:checked");
+            selectedBoxes.forEach(box => {
+                const row = box.closest("tr");
+                const no = parseInt(row.children[1].innerText);
+                const index = partners.findIndex(partner => partner.no === no);
+                if (index !== -1) {
+                    partners.splice(index, 1);
+                }
+            });
+            renderTable();
+        }
+
+        // TODO : DB 삭제 필요
+        function deleteAll() {
+            partners.length = 0;
+            renderTable();
+        }
+
+        document.getElementById("selectAll").addEventListener("change", function () {
+            const selectBoxes = document.querySelectorAll(".selectBox");
+            selectBoxes.forEach(box => {
+                box.checked = this.checked;
+            });
+        });
+
+        renderTable();
+    </script>
+</body>
+
+</html>
