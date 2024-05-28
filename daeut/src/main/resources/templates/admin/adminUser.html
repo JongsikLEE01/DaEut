@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자 페이지</title>
+    <title>Da E ut</title>
 </head>
 <body layout:fragment="content">
-    <button class="btn btn-primary toggle-btn menu mt-2 ml-2" id="toggle-btn" onclick="toggleSidebar()">메뉴</button>
+    <button class="btn btn-primary toggle-btn menu mt-2 myBtn d-md-none transitionNone" id="toggle-btn" onclick="toggleSidebar()">메뉴</button>
 
     <main class="container-fluid container">
         <div class="row">
@@ -15,66 +15,142 @@
                 <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
                 <h5>관리</h5>
                 <br>
-                <a href="adminUser">회원 관리</a>
+                <a href="adminUser" class="userManage">회원 관리</a>
                 <a href="adminPartner">파트너 관리</a>
-                <a href="adminReservation" class="reservationManage">예약 관리</a>
+                <a href="adminReservation">예약 관리</a>
             </nav>
             <div class="col-md-9 col-lg-10 form-section">
-                <h3>예약 수정</h3>
-                <div class="container mt-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <form action="admin/adminReservationUpdate" method="POST">
-                                <div class="row info-row">
-                                    <label for="requester" class="col-3 label">요청자</label>
-                                    <div class="col-9">
-                                        <input type="text" id="requester" class="form-control" value="joeun">
-                                    </div>
-                                </div>
-                                <div class="row info-row">
-                                    <label for="partner" class="col-3 label">파트너</label>
-                                    <div class="col-9">
-                                        <input type="text" id="partner" class="form-control" value="홍길동">
-                                    </div>
-                                </div>
-                                <div class="row info-row">
-                                    <label for="date" class="col-3 label">일시</label>
-                                    <div class="col-9">
-                                        <input type="text" id="date" class="form-control" value="2024.05.21">
-                                    </div>
-                                </div>
-                                <div class="row info-row">
-                                    <label for="amount" class="col-3 label">금액</label>
-                                    <div class="col-9">
-                                        <input type="text" id="amount" class="form-control" value="77,000원">
-                                    </div>
-                                </div>
-                                <div class="row info-row">
-                                    <label for="address" class="col-3 label">주소</label>
-                                    <div class="col-9">
-                                        <input type="text" id="address" class="form-control" value="인천광역시 부평구">
-                                    </div>
-                                </div>
-                                <div class="row info-row">
-                                    <label for="request" class="col-3 label">요청사항</label>
-                                    <div class="col-9">
-                                        <input type="text" id="request" class="form-control" value="요청입니다">
-                                    </div>
-                                </div>
-                                <div class="row info-row">
-                                    <label for="phone" class="col-3 label">전화번호</label>
-                                    <div class="col-9">
-                                        <input type="text" id="phone" class="form-control" value="010-1111-1111">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <h3>회원 관리</h3>
+                <p>사용자 이름 클릭 시 조회 화면으로 이동합니다.</p>
+                <table class="table table-sm table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th width="30">No.</th>
+                            <th width="50">사용자 명</th>
+                            <th width="50">아이디</th>
+                            <th width="80">전화번호</th>
+                            <th width="100">등록 일자</th>
+                            <th width="30"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
+                            <td>2024-05-20 12:19:10</td>
+                            <td class="checked">
+                                <input type="checkbox" id="chk1" class="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
+                            <td>2024-05-20 12:19:10</td>
+                            <td class="checked">
+                                <input type="checkbox" id="chk1" class="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
+                            <td>2024-05-20 12:19:10</td>
+                            <td class="checked">
+                                <input type="checkbox" id="chk1" class="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
+                            <td>2024-05-20 12:19:10</td>
+                            <td class="checked">
+                                <input type="checkbox" id="chk1" class="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
+                            <td>2024-05-20 12:19:10</td>
+                            <td class="checked">
+                                <input type="checkbox" id="chk1" class="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
+                            <td>2024-05-20 12:19:10</td>
+                            <td class="checked">
+                                <input type="checkbox" id="chk1" class="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7.</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
+                            <td>2024-05-20 12:19:10</td>
+                            <td class="checked">
+                                <input type="checkbox" id="chk1" class="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>8.</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
+                            <td>2024-05-20 12:19:10</td>
+                            <td class="checked">
+                                <input type="checkbox" id="chk1" class="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>9.</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
+                            <td>2024-05-20 12:19:10</td>
+                            <td class="checked">
+                                <input type="checkbox" id="chk1" class="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10.</td>
+                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
+                            <td>joeun</td>
+                            <td>010-1111-1111</td>
+                            <td>2024-05-20 12:19:10</td>
+                            <td class="checked">
+                                <input type="checkbox" id="chk1" class="checkbox">
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
                 <div class="buttons">
-                    <button type="submit" class="btn btn-primary custom1 size">수정</button>
-                    <button type="button" class="btn btn-primary custom1 size" onclick="actionDelete()">삭제</button>
-                    <a href="/" class="btn btn-primary custom2 size">목록</a>
+                    <button class="btn btn-primary custom1">선택 삭제</button>
+                    <button class="btn btn-primary custom2">전체 삭제</button>
+                </div>
+                <div class="pagination">
+                    <a href="#">&laquo;</a>
+                    <a href="#">&lt;</a>
+                    <a href="#" th:classappend="${page == 1} ? 'active'">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">&gt;</a>
+                    <a href="#">&raquo;</a>
                 </div>
             </div>
         </div>

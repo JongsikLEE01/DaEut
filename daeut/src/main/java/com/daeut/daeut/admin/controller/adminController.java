@@ -45,6 +45,7 @@ public class adminController {
     public String adminUserUpdate() {
         return "/admin/adminUserUpdate";
     }
+
     @GetMapping("/adminPartnerRead")
     public String adminPartnerRead() {
         return "/admin/adminPartnerRead";
