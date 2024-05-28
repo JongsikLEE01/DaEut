@@ -12,7 +12,12 @@
         <section style="width: 1250px;">
             <div class="reservationTitles">
                 <h3 class="reservation-title">생활 속 편리함</h3>
-                <h2 class="reservation-subtitle">깔끔한 생활 도우미 예약 서비스</h2>
+                <div class="reservation-container">
+                    <h2 class="reservation-subtitle">깔끔한 생활 도우미 예약 서비스</h2>
+                    <th:block sec:authorize="hasRole('ROLE_PARTNER') and hasRole('ROLE_USER') and !hasRole('ROLE_ADMIN') ">
+                    <a href="/reservation/reservationInsert" class="reservation-insert-link"><button class="reservation-insert">글쓰기</button></a>
+                    </th:block>
+                </div>
             </div>
             <div class="reservation-card-grid">
                 <div class="col">

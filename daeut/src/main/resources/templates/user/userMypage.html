@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>유저 마이 페이지</title>
+    <title>Da E ut</title>
 </head>
 <body layout:fragment="content">
     <button class="btn btn-primary toggle-btn menu mt-2 ml-2 myBtn" id="toggle-btn" onclick="toggleSidebar()">메뉴</button>
@@ -14,7 +14,7 @@
                 <button class="btn btn-danger d-block d-md-none cancel" onclick="toggleSidebar()">닫기</button>
                 <h5>마이페이지</h5>
                 <br>
-                <a href="userMypage">내 정보 변경</a>
+                <a href="userMypage" class="userMypage">내 정보 변경</a>
                 <a href="userReservation">내 예약 보기</a>
                 <a href="userLikeTip">내가 좋아하는 글</a>
                 <a href="userReview">별점 및 리뷰 작성</a>
@@ -30,26 +30,26 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="userPassword">비밀번호</label>
-                        <input type="password" class="form-control" id="userPassword" placeholder="userPassword">
+                        <input type="text" class="form-control" id="userPassword" placeholder="userPassword" readonly>
                     </div>
                     <div class="form-group mb-3">
                         <label for="userName">이름</label>
-                        <input type="text" class="form-control" id="userName" placeholder="userName">
+                        <input type="text" class="form-control" id="userName" placeholder="userName" readonly>
                     </div>
                     <div class="form-group mb-3">
                         <label for="userPhone">전화번호</label>
-                        <input type="text" class="form-control" id="userPhone" placeholder="userPhone">
+                        <input type="text" class="form-control" id="userPhone" placeholder="userPhone" readonly>
                     </div>
                     <div class="form-group mb-3">
                         <label for="userAddress">주소</label>
-                        <input type="text" class="form-control" id="userAddress" placeholder="userAddress">
+                        <input type="text" class="form-control" id="userAddress" placeholder="userAddress" readonly>
                     </div>
                     <div class="form-group mb-3">
                         <label for="userBirth">생년월일</label>
-                        <input type="date" class="form-control" id="userBirth" placeholder="userBirth">
+                        <input type="date" class="form-control" id="userBirth" placeholder="userBirth" readonly>
                     </div>
                     <div class="form-buttons">
-                        <button type="submit" class="btn btn-primary sessuce color_main">정보 수정</button>
+                        <a href="userMypageUpdate" class="btn btn-primary sessuce color_main">정보 수정</a>
                         <button type="reset" class="btn btn-secondary cancel">취소</button>
                         <button type="button" class="btn btn-danger cancel">탈퇴하기</button>
                     </div>

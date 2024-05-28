@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/reserv_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da E ut</title>
+</head>
+<body layout:fragment="content">
+    <div class="container">
+        <div class="reservationInsertBox">
+            <form action="게시글_등록_처리_파일의_URL_입력" method="post" enctype="multipart/form-data">
+                <div>
+                    <label for="title" style="display: none;">제목:</label><br>
+                    <input type="text" id="title" name="title" placeholder="제목을 입력해주세요" required><br>
+                </div>
+                <div class="servicetag">
+                    <!-- <label>태그 선택:</label><br> -->
+                    <button class="tag-button" type="button" value="청소">청소</button>
+                    <button class="tag-button" type="button" value="빨래">빨래</button>
+                    <button class="tag-button" type="button" value="방역">방역</button>
+                    <button class="tag-button" type="button" value="보안">보안</button>
+                    <button class="tag-button" type="button" value="기타">기타</button>
+                </div>
+                <div>
+                    <!-- <label for="content">내용:</label><br> -->
+                    <textarea id="content" name="content" rows="4" cols="50" placeholder="부적절한 글로 판단되어 다른 사용자로부터 일정 수 이상의 신고를 받는 경우 글이 삭제처리 될 수 있습니다." required></textarea><br>
+                </div>
+                <div class="fileuploadbox">
+                    <label for="images" class="image-upload-title">첨부파일</label>
+                    <label for="images" class="file-upload-button">첨부하기</label>
+                    <input type="file" id="images" name="images" accept="image/*" multiple onchange="previewImages(event)">
+                    <p class="file-upload-note">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</p>
+                </div>
+                <div id="image-preview-container"></div>
+
+                <div class="option-form" id="option-form-container">
+                    <div class="option-input">
+                        <input type="text" name="optionName[]" placeholder="옵션명" required>
+                        <input type="number" name="price[]" placeholder="가격" required>
+                        <textarea name="description[]" rows="2" cols="50" placeholder="옵션 설명" required></textarea>
+                    </div>
+					<button type="button" onclick="addOptionForm()" class="addOption">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-plus-fill" viewBox="0 0 16 16">
+							<path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
+						</svg>
+					</button>
+                </div>
+                <div class="bottomButton">
+                    <input type="submit" class="reservationInsertOk" value="수정하기">
+                    <input type="button" value="취소하기" class="cancleInsert" onclick="window.location.href='취소할_페이지_주소'">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

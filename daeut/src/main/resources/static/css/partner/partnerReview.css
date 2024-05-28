@@ -1,0 +1,142 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex; 
+    flex-direction: row;
+    align-items: flex-start;
+    min-height: calc(100vh - 40px); 
+    margin-top: 5%; 
+    margin-bottom: 5%;
+}
+
+aside {
+    width: 15%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    /* position: fixed; */
+    /* top: 0; */
+    /* left: 0; */
+    height: 100%; 
+    overflow-y: auto; 
+}
+
+.sidebar {
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    float: right;
+}
+
+
+.sidebar ul li {
+    margin: 20px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 10px;
+    /* border-radius: 5px; */
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a.active {
+    font-weight: bold;
+    border-bottom: 1px solid #8FA2CA;
+}
+
+.sidebar ul li a:hover {
+    background-color: #e0e0e0;
+}
+
+main {
+    width: 75%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+main h2 {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000;
+}
+
+.review-list {
+    margin-top: 20px;
+}
+
+.review-item {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    /* justify-content: space-around; */
+    display: grid;
+    font-weight: bold;
+}
+
+.review-info {
+    flex: 1;
+}
+
+.review-info p {
+    margin: 5px 0;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; 
+    min-width: 100px; 
+    color: #ffd700;
+}
+
+.rating .fa {
+    color: #ffd700; 
+    margin-right: 5px;
+}
+
+.rating .rating-value {
+    font-size: 16px;
+    margin-left: 5px;
+    color: #000;
+}
+
+.pagination {
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination span {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #8FA2CA;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination span:hover {
+    background-color: #8FA2CA;
+    color: #fff;
+}
