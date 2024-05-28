@@ -12,6 +12,9 @@ import com.daeut.daeut.reservation.dto.Page;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.mapper.ReservationMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ReservationServiceImpl implements ReservationService{
 
@@ -25,9 +28,10 @@ public class ReservationServiceImpl implements ReservationService{
         // 게시글 데이터 개수 조회
         int total =  reservationMapper.count(option);
         page.setTotal(total);
-
+        
         // 목록
         List<Services> serviceList = reservationMapper.serviceList(page, option);
+        log.info("목록? "+serviceList);
 
         return serviceList;
     }

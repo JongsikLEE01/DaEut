@@ -47,9 +47,10 @@ public class ReservationController {
         log.info("page? "+page);
         // 검색
         log.info("option? "+ option);
+        log.info("목록? "+serviceList);
 
         // 모델 등록
-        model.addAttribute("boardList", serviceList);
+        model.addAttribute("serviceList", serviceList);
         model.addAttribute("page", page);
         model.addAttribute("option", option);
 
@@ -181,7 +182,7 @@ public class ReservationController {
 
         // 첨부 파일 삭제
         Files file = new Files();
-        file.setParentTable("board");
+        file.setParentTable("service");
         file.setParentNo(serviceNo);
         fileService.deleteByParent(file);
 
