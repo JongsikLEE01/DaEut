@@ -24,6 +24,12 @@ public class UserController {
         return "/user/userMypage";
     }
 
+    @GetMapping("/userMypageUpdate")
+    public String useruserMypageUpdateMypage() {
+        log.info("/user/userMypageUpdate");
+        return "/user/userMypageUpdate";
+    }
+
     @GetMapping("/userReservation")
     public String userReservation() {
         log.info("/user/userReservation");
