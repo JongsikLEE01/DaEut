@@ -1,0 +1,142 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex; /* Ensure flex layout */
+    flex-direction: row;
+    align-items: flex-start;
+    min-height: calc(100vh - 40px); /* Adjusting for header and footer */
+    margin-top: 5%; /* Adding margin to prevent overlap with header */
+    margin-bottom: 5%;
+}
+
+aside {
+    width: 15%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sidebar {
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    float: right;
+}
+
+.sidebar ul li {
+    margin: 20px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a.active {
+    font-weight: bold;
+    border-bottom: 1px solid #8FA2CA;
+}
+
+.sidebar ul li a:hover {
+    background-color: #e0e0e0;
+}
+
+main {
+    width: 75%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+main h2 {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    border: none;
+    padding: 12px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table td a.user-link {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.table td a.user-link:hover {
+    text-decoration: underline;
+}
+
+.detail-button {
+    padding: 5px 10px;
+    background-color: #8FA2CA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.detail-button:hover {
+    background-color: #6c8cbf;
+}
+
+.pagination {
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination span {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #8FA2CA;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination span:hover {
+    background-color: #8FA2CA;
+    color: #fff;
+}
