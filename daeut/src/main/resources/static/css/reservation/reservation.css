@@ -717,8 +717,14 @@ input[type="file"] {
 
 
 /*파트너 정보*/
-.partner-info {
+.partner-intro {
     overflow: hidden; /* 부모 요소의 크기에 맞춰 자식 요소들을 감출 때 사용 */
+    margin-bottom: 30px; /* 파트너 정보와 예약 현황 사이의 간격 */
+}
+
+.partner-info {
+    margin-top: 45px;
+    margin-bottom: 45px;
 }
 
 .partner-photo {
@@ -743,8 +749,307 @@ input[type="file"] {
 
 .year-of-work {
     margin-bottom: 10px; /* 경력 정보 아래 여백 추가 */
+    margin-top: 15px;
 }
 
 .partner-selfintroduction {
     margin-bottom: 20px; /* 자기 소개 아래 여백 추가 */
+    margin-top: 15px;
 }
+
+/* 예약 현황 스타일 */
+.reservation-status {
+    margin-bottom: 30px; /* 예약 현황과 환불 안내 사이의 간격 */
+}
+
+/* 환불 안내 스타일 */
+.refund-policy {
+    margin-bottom: 30px; /* 페이지 하단과의 간격 */
+}
+
+.partner-intro-name {
+    display: flex; /* flexbox를 사용하여 요소들을 가로로 배치 */
+    align-items: center; /* 요소들을 수직 가운데 정렬 */
+}
+
+.partner-introduction-name {
+    margin-right: 10px; /* 이름과 별표 사이에 간격을 줌 */
+    padding-top: 10px;
+}
+
+.review-star2 {
+    display: flex; /* 별표들을 가로로 나열하기 위해 flexbox 사용 */
+}
+
+.review-star2 .fa {
+    margin-right: 5px; /* 각 별표 사이에 간격을 줌 */
+}
+
+/* 리뷰 */
+.review-user-name {
+    display: flex; /* flexbox를 사용하여 요소들을 가로로 배치 */
+    align-items: center; /* 요소들을 수직 가운데 정렬 */
+    margin-right: 10px; /* 이름과 별표 사이에 간격을 줌 */
+    font-weight: 300;
+    padding-top: 18px;
+}
+
+.review-star3 {
+    display: flex; /* 별표들을 가로로 나열하기 위해 flexbox 사용 */
+    align-items: center; /* 별표들을 수직 가운데 정렬 */
+    flex-wrap: nowrap; /* 별표들이 한 줄에 모두 표시되도록 설정 */
+    width: 10px;
+    height: 10px;
+}
+
+.review-star3 .fa {
+    margin-right: 5px; /* 각 별표 사이에 간격을 줌 */
+    font-size: 16px;
+}
+
+/* 언더바 */
+.section-underbar {
+    color: #48523D;
+    border-width: 2px; /* 원하는 굵기로 조절 */
+}
+
+.btn-coupon {
+
+    box-sizing: border-box;
+
+    width: 340px;
+    height: 60px;
+    left: 901px;
+    top: 850px;
+
+    background: #FFFFFF;
+    border: 1px solid #48523D;
+
+}
+
+/* 오른쪽 표 + 쿠폰 */
+.box-form-right {
+    margin-left: 30px;
+}
+/* 예약 표 */
+.partner-service-table {
+    background-color: #E4E8F4;
+    border-collapse: collapse;
+    width: 340px;
+    height: flex;
+    margin-bottom: 30px;
+}
+
+.partner-service-table td, .partner-service-table th {
+    /* border: 1px solid #ddd; */
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #fff; /* 각 셀의 우측에 하얀색 분리선 추가 */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.partner-service-table td {
+    padding-left: 10px;
+}
+
+.partner-service-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #E4E8F4;
+}
+
+.partner-service-table input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid #000000;
+    outline: none;
+    cursor: pointer;
+}
+
+.partner-service-table input[type="checkbox"]:checked {
+    background-color: rgba(255, 255, 255, 0.8); /* 투명도를 적용한 흰색 배경 */
+    border: 1px solid #48523D;
+}
+
+
+.service-description {
+    text-align: center;
+    background-color: #E4E8F4;
+}
+
+/* 버튼들 */
+.reservation-buttons {
+    text-align: center;
+}
+
+.reservation-buttons {
+    text-align: center;
+}
+
+.service-description {
+    text-align: center;
+    background-color: #E4E8F4;
+}
+
+.reservation-calender {
+    background-color: #E4E8F4; /* 날짜 선택 버튼의 배경색 설정 */
+    color: black; /* 텍스트 색상 설정 */
+    padding: 10px 20px; /* 내부 여백 설정 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer; /* 커서 스타일 변경 */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.reservation-calender:hover {
+    background-color: #8FA2CA;
+    color: white;
+}
+
+.reservation-paybutton {
+    background-color: #8FA2CA; /* 바로 예약하기 버튼의 배경색 설정 */
+    color: white; /* 텍스트 색상 설정 */
+    padding: 10px 20px; /* 내부 여백 설정 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer; /* 커서 스타일 변경 */
+    transition: background-color 0.3s, color 0.3s;
+}
+.reservation-paybutton:hover {
+    background-color: #E4E8F4;
+    color: black;
+}
+
+.reservation-calender, .reservation-paybutton {
+    width: 170px; /* 버튼 가로 크기 설정 */
+    height: 64px; /* 버튼 세로 크기 설정 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer; /* 커서 스타일 변경 */
+}
+
+/* 채팅 */
+.title-and-chat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.content-title-name {
+    margin: 0;
+}
+
+.reservation-chat {
+    display: flex;
+    flex-direction: column;
+}
+
+.reservation-chat svg {
+    width: 55px;
+    height: 55px;
+    margin-right: 10px;
+    color: #8FA2CA;
+    margin-bottom: 5px;
+}
+
+
+/* 리뷰 */
+.review-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-date, .review-buttons button {
+    color: #8FA2CA;
+    font-weight: lighter;
+    font-size: 12px;
+    border: none;
+    background-color: transparent;
+}
+
+.review-date {
+    margin-right: auto;
+}
+
+.review-buttons {
+    display: flex;
+}
+
+.review-buttons button {
+    margin-left: 10px;
+}
+
+.review-user-title {
+    display: flex;
+    align-items: center;
+}
+
+/*리뷰 이미지 박스 */
+.review-image-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.review-image-container {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+}
+
+.review-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.review-section { 
+    margin-bottom: 50px;
+}
+
+/* 캘린더 */
+/* 캘린더 스타일 */
+/* #calendar {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #calendar th {
+    background-color: #B5C6B8;
+    color: white;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  #calendar td {
+    padding: 8px;
+    text-align: center;
+  }
+  
+  /* 예약 가능한 날짜 */
+  /* .available-day {
+    background-color: #8FA2CA;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+  } */
+  
+  /* 지나간 날짜 및 꽉 찬 날짜 */
+  /* .disabled-day {
+    background-color: #E4E8F4;
+    color: #8FA2CA;
+  } */
+  
+  /* 오늘 날짜 */
+  /* .today {
+    background-color: #B5C6B8;
+    color: white;
+  } */ 
