@@ -91,7 +91,7 @@
 }
 
 .goback {
-    padding: 5px 8px;
+    /* padding: 5px 8px;
     background: #8FA2CA;
     border-radius: 8px;
     color: #ffff;
@@ -99,12 +99,17 @@
     font-size: 14px;
     transition: background-color 0.3s, color 0.3s;
 	border: none;
-	margin-bottom: 30px;
+	margin-bottom: 30px; */
+    background-color: #fff !important;
+    border: 1px solid #8FA2CA !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
 }
 
 .goback:hover {
-    background: #E4E8F4;
-    color: #000000;
+    background-color: #8FA2CA !important;
+    border: 1px solid #8FA2CA !important;
+    color: white !important;
 }
 
 .opponent-message .bubble {
@@ -281,35 +286,50 @@ input[type="file"] {
 
 /* 하단 버튼*/ 
 .cancleInsert {
-	box-sizing: border-box;
+	/* box-sizing: border-box;
 	width: 120px;
 	height: 50px;
     background-color: #E4E8F4;
 	border-radius: 8px;
 	transition: background-color 0.3s, color 0.3s;
-    border: 1px solid #FFFFFF;
+    border: 1px solid #FFFFFF; */
+    background-color: #fff !important;
+    color: red !important;
+    border: 1px solid red !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
 }
 
 .reservationInsertOk {
-	box-sizing: border-box;
+	/* box-sizing: border-box;
 	width: 120px;
 	height: 50px;
 	background: #8FA2CA;
 	border: 1px solid #FFFFFF;
 	border-radius: 8px;
 	color: #FFFFFF;
-	transition: background-color 0.3s, color 0.3s;
+	transition: background-color 0.3s, color 0.3s; */
+    background-color: #fff !important;
+    border: 1px solid #8FA2CA !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
 }
 
 .reservationInsertOk:hover {
-	background: #E4E8F4;
+	/* background: #E4E8F4;
 	color: #000000;
-	text-decoration: none;
+	text-decoration: none; */
+    background-color: #8FA2CA !important;
+    border: 1px solid #8FA2CA !important;
+    color: white !important;
 }
 
 .cancleInsert:hover {
-	background: #ffff;
-	color: #8FA2CA;
+	/* background: #ffff;
+	color: #8FA2CA; */
+    background-color: red !important;
+    border: 1px solid red !important;
+    color: white !important;
 }
 
 .bottomButton {

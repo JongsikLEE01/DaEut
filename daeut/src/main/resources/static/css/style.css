@@ -226,6 +226,7 @@ h2 {
     border: 1px solid #8FA2CA !important;
     border-radius: 8px !important;
     transition: 0.5s !important;
+    color: black !important;
 }
 .sessuce:hover{
     background-color: #8FA2CA !important;
