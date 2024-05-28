@@ -18,27 +18,36 @@
     </resultMap>
 
     <!-- All Read -->
-    <select id="serviceList" resultMap="Service">
-        SELECT s.*
-                , f.no file_no
-                , f.file_name
-                , f.file_path
-                , f.file_code
-        FROM joeun.service b LEFT JOIN (  
-                                     SELECT *
-                                     FROM joeun.files
-                                     WHERE parent_table = "service"
-                                     AND file_code = 1
-                                     ) f
-                ON (s.no = f.parent_no)
-        WHERE
-            s.service_name LIKE CONCAT('%', #{option.keyword}, '%')
-        ORDER BY s.service_no DESC
-        LIMIT #{page.index}, #{page.rows}
+    <select id="serviceList" resultType="Service">
+        SELECT 
+            s.*, 
+            f.file_no, 
+            f.file_name, 
+            f.file_path, 
+            f.file_code 
+        FROM 
+            joeun.service s 
+        LEFT JOIN 
+            (  
+                SELECT * 
+                FROM joeun.files 
+                WHERE parent_table = 'service' 
+                AND file_code = 1
+            ) f 
+        ON 
+            s.service_no = f.parent_no 
+        WHERE 
+            s.service_name LIKE CONCAT('%', #{option.keyword}, '%') 
+        ORDER BY 
+            s.service_no DESC 
+        LIMIT 
+            #{page.index}, #{page.rows}
+        <!-- select *
+        from service -->
     </select>
 
     <!-- Read -->
-    <select id="serviceSelect" resultMap="Service">
+    <select id="serviceSelect" resultType="Service">
         select *
         from service
         where service_no = #{serviceNo}
@@ -61,14 +70,14 @@
     </update>
 
     <!-- Delete -->
-    <Delete id="serviceDelete">
+    <delete id="serviceDelete">
         Delete from service
         where service_no = #{serviceNo}
-    </Delete>
+    </delete>
 
     <!-- serviceNo max -->
     <select id="maxPk" resultType="int">
-        SELECT MAX(no)
+        SELECT MAX(service_no)
         FROM service
     </select>
 
