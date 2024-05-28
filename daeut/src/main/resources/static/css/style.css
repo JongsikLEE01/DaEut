@@ -46,6 +46,11 @@ nav {
     border-radius: 8px;
 }
 
+.dropdown-item:active {
+    background-color: #8FA2CA !important;
+    color: #ffffff; 
+}
+
 /* 햄버거 아이콘 색상 변경 */
 .navbar-toggler {
     color: rgba(0, 0, 0, .5) !important;
@@ -226,6 +231,7 @@ h2 {
     border: 1px solid #8FA2CA !important;
     border-radius: 8px !important;
     transition: 0.5s !important;
+    color: black !important;
 }
 .sessuce:hover{
     background-color: #8FA2CA !important;
@@ -250,7 +256,7 @@ h2 {
     background-color: #fff !important;
     color: #48523D !important;
     border: 1px solid #48523D !important;
-    transition: 0.5s !important;
+    transition: 0.5s;
 }
 .myBtn:hover{
     background-color: #48523D !important;

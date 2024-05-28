@@ -84,6 +84,14 @@ main {
     text-align: center;
 }
 
+
+.table-light tr th {
+    background-color: #8FA2CA;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
 .table th, .table td {
     padding: 10px;
     border: 1px solid #dee2e6;
@@ -91,6 +99,7 @@ main {
 
 .table th {
     background-color: #f2f2f2;
+
 }
 
 th {
@@ -174,19 +183,19 @@ th {
 
 .partnerManage {
     background-color: #e9ecef;
-    color: #007bff !important;
+    color: #8FA2CA !important;
     border-radius: 8px;
 }
 
 .reservationManage {
     background-color: #e9ecef;
-    color: #007bff !important;
+    color: #8FA2CA !important;
     border-radius: 8px;
 }
 
 .userManage {
     background-color: #e9ecef;
-    color: #007bff !important;
+    color: #8FA2CA !important;
     border-radius: 8px;
 }
 
@@ -311,12 +320,72 @@ a {
         font-size: 0.75rem;
         padding: 0.35rem 0.7rem;
     }
+}
+
+
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.pagination a.active {
+    font-weight: bold;
+    color: #000;
+}
+
+/* 테이블 반응형 스타일 */
+@media (max-width: 1400px) {
+    .table th, .table td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .table th, .table td {
+        padding: 6px;
+        font-size: 0.875rem;
+    }
+
     .pagination a {
         font-size: 0.75rem;
         margin: 0 2px;
+
     }
     .toggle-btn {
         font-size: 0.75rem;
+    }
+}
+
+/* 기본 textarea 스타일 */
+textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    textarea {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    textarea {
+        width: 100%;
     }
 }
 
@@ -353,9 +422,32 @@ a {
 /* 사이드바 */
 .content-container {
     transition: margin-left 0.5s; /* 사이드바 열림/닫힘 애니메이션을 위한 transition 추가 */
+} 
+
+/* 버튼 설정 */
+.btn.btn-primary.custom1 {
+    background-color: #fff !important;
+    border: 1px solid #8FA2CA !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+    color: black !important;
 }
 
-/* 사이드바가 열렸을 때 .content-container의 margin-left 값을 조정
-.sidebar.active ~ .content-container {
-    margin-left: 250px;
-} */
+.btn.btn-primary.custom1:hover{
+    background-color: #8FA2CA !important;
+    border: 1px solid #8FA2CA !important;
+    color: white !important;
+}
+
+.btn.btn-primary.custom2{
+    background-color: #fff !important;
+    color: red !important;
+    border: 1px solid red !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+}
+.btn.btn-primary.custom2:hover{
+    background-color: red !important;
+    border: 1px solid red !important;
+    color: white !important;
+}

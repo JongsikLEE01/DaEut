@@ -140,3 +140,48 @@ main {
     justify-content: center;
     cursor: pointer;
 }
+
+/* 내 예약보기 페이지 */
+.btn-danger { 
+    background-color: #fff !important;
+    color: red !important;
+    border: 1px solid red !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+}
+
+.btn-danger:hover{
+    background-color: red !important;
+    border: 1px solid red !important;
+    color: white !important;
+}
+
+.btn-secondary{
+    background-color: #fff !important;
+    color: red !important;
+    border: 1px solid red !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+}
+.btn-secondary:hover{
+    background-color: red !important;
+    border: 1px solid red !important;
+    color: white !important;
+}
+
+.btn-primary{
+    background-color: #fff !important;
+    border: 1px solid #8FA2CA !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+    color: black !important;
+}
+.btn-primary:hover{
+    background-color: #8FA2CA !important;
+    border: 1px solid #8FA2CA !important;
+    color: white !important;
+}
+
+.grid.review-form h4 {
+    margin-top: 30px;
+}
