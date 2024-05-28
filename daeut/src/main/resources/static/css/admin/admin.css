@@ -84,6 +84,14 @@ main {
     text-align: center;
 }
 
+
+.table-light tr th {
+    background-color: #8FA2CA;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+
 .table th, .table td {
     padding: 10px;
     border: 1px solid #dee2e6;
@@ -91,6 +99,7 @@ main {
 
 .table th {
     background-color: #f2f2f2;
+
 }
 
 th {
@@ -174,19 +183,19 @@ th {
 
 .partnerManage {
     background-color: #e9ecef;
-    color: #007bff !important;
+    color: #8FA2CA !important;
     border-radius: 8px;
 }
 
 .reservationManage {
     background-color: #e9ecef;
-    color: #007bff !important;
+    color: #8FA2CA !important;
     border-radius: 8px;
 }
 
 .userManage {
     background-color: #e9ecef;
-    color: #007bff !important;
+    color: #8FA2CA !important;
     border-radius: 8px;
 }
 
@@ -311,9 +320,47 @@ a {
         font-size: 0.75rem;
         padding: 0.35rem 0.7rem;
     }
+}
+
+
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.pagination a.active {
+    font-weight: bold;
+    color: #000;
+}
+
+/* 테이블 반응형 스타일 */
+@media (max-width: 1400px) {
+    .table th, .table td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .table th, .table td {
+        padding: 6px;
+        font-size: 0.875rem;
+
     .pagination a {
         font-size: 0.75rem;
         margin: 0 2px;
+
     }
     .toggle-btn {
         font-size: 0.75rem;
