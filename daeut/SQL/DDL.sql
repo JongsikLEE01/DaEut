@@ -1,7 +1,5 @@
--- Active: 1715242304860@@127.0.0.1@3306@joeun
+-- 결제 로직
 
-
-DROP TABLE IF EXISTS board;
 CREATE TABLE board
 (
   board_no       INT          NOT NULL AUTO_INCREMENT COMMENT '게시판 번호',
@@ -15,8 +13,24 @@ CREATE TABLE board
   PRIMARY KEY (board_no)
 ) COMMENT '팁게시판';
 
+CREATE TABLE cancel
+(
+  cancel_no      int          NOT NULL AUTO_INCREMENT COMMENT '취소 번호',
+  reason         TEXT         NULL     COMMENT '취소 사유',
+  cancel_amount  int          NULL     DEFAULT 0 COMMENT '환불 금액',
+  confirmed      TINYINT(1)   NOT NULL DEFAULT 0 COMMENT '취소 승인 여부',
+  refund         TINYINT(1)   NOT NULL DEFAULT 0 COMMENT '환불 처리 여부',
+  cancel_account VARCHAR(100) NULL     COMMENT '환불 계좌번호',
+  cancel_number  VARCHAR(100) NULL     COMMENT '환불 계좌은행',
+  cancel_name    VARCHAR(100) NULL     COMMENT '예금주',
+  cancel_date    TIMESTAMP    NULL     COMMENT '취소일자',
+  completed_date TIMESTAMP    NULL     COMMENT '처리일자',
+  reg_date       TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일자',
+  upd_date       TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '수정일자',
+  reservation_no INT          NOT NULL COMMENT '예약 번호',
+  PRIMARY KEY (cancel_no)
+) COMMENT '취소';
 
-DROP TABLE IF EXISTS chat;
 CREATE TABLE chat
 (
   chat_no       INT       NOT NULL AUTO_INCREMENT COMMENT '채팅 번호',
@@ -26,7 +40,6 @@ CREATE TABLE chat
   PRIMARY KEY (chat_no)
 ) COMMENT '채팅';
 
-DROP TABLE IF EXISTS files;
 CREATE TABLE files
 (
   file_no          INT         NOT NULL AUTO_INCREMENT COMMENT '파일 번호',
@@ -42,8 +55,6 @@ CREATE TABLE files
   PRIMARY KEY (file_no)
 ) COMMENT '파일';
 
-
-DROP TABLE IF EXISTS partner;
 CREATE TABLE partner
 (
   partner_no      INT          NOT NULL AUTO_INCREMENT COMMENT '파트너 번호',
@@ -56,19 +67,18 @@ CREATE TABLE partner
   PRIMARY KEY (partner_no)
 ) COMMENT '파트너';
 
-
-DROP TABLE IF EXISTS payment;
 CREATE TABLE payment
 (
   payment_no     INT          NOT NULL AUTO_INCREMENT COMMENT '결제 번호',
   payment_method VARCHAR(100) NOT NULL COMMENT '결제 방식',
-  payment_price  INT          NOT NULL COMMENT '결제 총 가격',
+  status         VARCHAR(100) NULL     COMMENT '상태',
+  pay_date       DATETIME     NULL     DEFAULT CURRENT_TIMESTAMP COMMENT '결제일',
+  reg_date       DATETIME     NULL     DEFAULT CURRENT_TIMESTAMP COMMENT '결제 등록일',
+  upd_date       DATETIME     NULL     DEFAULT CURRENT_TIMESTAMP COMMENT '결제 수정일',
   reservation_no INT          NOT NULL COMMENT '예약 번호',
   PRIMARY KEY (payment_no)
 ) COMMENT '결제';
 
-
-DROP TABLE IF EXISTS persistent_logins;
 CREATE TABLE persistent_logins
 (
   series    VARCHAR(64) NOT NULL COMMENT '로그인 시리즈',
@@ -78,13 +88,9 @@ CREATE TABLE persistent_logins
   PRIMARY KEY (series)
 ) COMMENT '자동로그인';
 
-
-
 ALTER TABLE persistent_logins
   ADD CONSTRAINT UQ_token UNIQUE (token);
 
-
-DROP TABLE IF EXISTS reply;
 CREATE TABLE reply
 (
   reply_no       INT       NOT NULL AUTO_INCREMENT COMMENT '댓글 번호',
@@ -97,21 +103,35 @@ CREATE TABLE reply
   PRIMARY KEY (reply_no)
 ) COMMENT '댓글';
 
-
-DROP TABLE IF EXISTS reservation;
 CREATE TABLE reservation
 (
   reservation_no     INT         NOT NULL AUTO_INCREMENT COMMENT '예약 번호',
-  reservation_status VARCHAR(50) NOT NULL COMMENT '예약 상태',
-  reservation_time   TIMESTAMP   NOT NULL COMMENT '예약 시간',
   user_no            INT         NOT NULL COMMENT '사용자 번호',
   service_no         INT         NOT NULL COMMENT '서비스 번호',
   partner_no         INT         NOT NULL COMMENT '파트너 번호',
+  reservation_status VARCHAR(50) NOT NULL COMMENT '예약 상태',
+  order_no           VARCHAR(50) NOT NULL COMMENT '주문 번호',
+  total_quantity     INT         NOT NULL COMMENT '총 수량',
+  total_price        INT         NOT NULL COMMENT '총 가격',
+  upd_date           TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '예약 수정일자',
+  reg_date           TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '예약 등록일자',
+  cancel_no          int         NOT NULL COMMENT '취소 번호',
   PRIMARY KEY (reservation_no)
 ) COMMENT '예약';
 
+CREATE TABLE reservation_item
+(
+  item_no        INT       NOT NULL AUTO_INCREMENT COMMENT '번호',
+  quantity       INT       NOT NULL DEFAULT 1 COMMENT '수량',
+  price          INT       NOT NULL DEFAULT 0 COMMENT '단가',
+  amount         INT       NULL     COMMENT '총계',
+  upd_date       TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '항목 수정일자',
+  reg_date       TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '항목 등록일자',
+  reservation_no INT       NOT NULL COMMENT '예약 번호',
+  service_no     INT       NOT NULL COMMENT '서비스 번호',
+  PRIMARY KEY (item_no)
+) COMMENT '예약항목';
 
-DROP TABLE IF EXISTS review;
 CREATE TABLE review
 (
   review_no       INT          NOT NULL AUTO_INCREMENT COMMENT '리뷰 번호',
@@ -125,8 +145,6 @@ CREATE TABLE review
   PRIMARY KEY (review_no)
 ) COMMENT '후기';
 
-
-DROP TABLE IF EXISTS service;
 CREATE TABLE service
 (
   service_no       INT          NOT NULL AUTO_INCREMENT COMMENT '서비스 번호',
@@ -134,21 +152,20 @@ CREATE TABLE service
   service_name     VARCHAR(100) NOT NULL COMMENT '서비스 이름',
   service_price    INT          NOT NULL COMMENT '서비스 가격',
   service_content  TEXT         NULL     COMMENT '서비스 내용',
+  upd_date         TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '서비스 수정일자',
+  reg_date         TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '서비스 등록일자',
   partner_no       INT          NOT NULL COMMENT '파트너 번호',
   PRIMARY KEY (service_no)
 ) COMMENT '서비스';
 
-
-DROP TABLE IF EXISTS user_auth;
 CREATE TABLE user_auth
 (
-  auth_no INT          NOT NULL AUTO_INCREMENT COMMENT '권한 번호',
+   auth_no INT          NOT NULL AUTO_INCREMENT COMMENT '권한 번호',
   auth     VARCHAR(100) NOT NULL COMMENT '권한 분류',
   user_no  INT          NOT NULL COMMENT '사용자 번호',
-  PRIMARY KEY ( auth_no )
+  PRIMARY KEY ( auth_no)
 ) COMMENT '권한';
 
-DROP TABLE IF EXISTS users;
 CREATE TABLE users
 (
   user_no       INT          NOT NULL AUTO_INCREMENT COMMENT '사용자 번호',
@@ -163,14 +180,11 @@ CREATE TABLE users
   user_reg_date TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '사용자 등록일자',
   user_coupon   VARCHAR(200) NULL     COMMENT '사용자 쿠폰',
   user_upd_date TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '사용자 수정일자',
-  enabled       INT DEFAULT 1,
+  enabled       INT          NULL     DEFAULT 1 COMMENT '계정 활성화',
   PRIMARY KEY (user_no)
 ) COMMENT '사용자';
 
-
-
-
-------------------------------------------------------------------------------
+---- 제약 조건 ----
 -- ALTER TABLE reply
 --   ADD CONSTRAINT FK_board_TO_reply
 --     FOREIGN KEY (board_no)
@@ -240,3 +254,18 @@ CREATE TABLE users
 --   ADD CONSTRAINT FK_users_TO_user_auth
 --     FOREIGN KEY (user_no)
 --     REFERENCES users (user_no);
+
+-- ALTER TABLE reservation_item
+--   ADD CONSTRAINT FK_reservation_TO_reservation_item
+--     FOREIGN KEY (reservation_no)
+--     REFERENCES reservation (reservation_no);
+
+-- ALTER TABLE reservation_item
+--   ADD CONSTRAINT FK_service_TO_reservation_item
+--     FOREIGN KEY (service_no)
+--     REFERENCES service (service_no);
+
+-- ALTER TABLE cancel
+--   ADD CONSTRAINT FK_reservation_TO_cancel
+--     FOREIGN KEY (reservation_no)
+--     REFERENCES reservation (reservation_no);
