@@ -2,8 +2,10 @@ package com.daeut.daeut.reservation.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.siot.IamportRestClient.IamportClient;
@@ -16,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
+@RequestMapping("/reservation")
 @RequiredArgsConstructor
 public class PaymentController {
     private IamportClient iamportClient;
@@ -25,6 +28,24 @@ public class PaymentController {
     private String apiKey;
     @Value("${import.secret}")
     private String secretKey;
+
+    // 결제 이동
+	@GetMapping("/payment")
+    public String payment() {
+        return "/reservation/payment";
+    }
+
+	// 결제 성공
+	@GetMapping("/paymentDone")
+    public String paymentDone() {
+        return "/reservation/paymentDone";
+    }
+
+	// 결제 실패
+    @GetMapping("/paymentFalse")
+    public String paymentFalse() {
+        return "/reservation/paymentFalse";
+    }
 
     // iamportClient 초기화
     @PostConstruct

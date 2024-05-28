@@ -8,33 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/reservation")
 public class PageController {
-	
-	@GetMapping("/{path}")
-	public String getMethodName(@PathVariable("path") String path ) {
-		return path;
-	}
-
-	@GetMapping("/reservation")
-	public String reservationlist() {
-		return "/reservation/reservation";
-	}
-
-	@GetMapping("/chat")
-	public String chat() {
-		return "/reservation/chat";
-	} 
-
-	@GetMapping("/reservationRead")
-	public String reservationread() {
-		return "/reservation/reservationRead";
-	}
-
-	
-	@GetMapping("/reservationInsert")
-	public String reservationinsert() {
-		return "/reservation/reservationInsert";
-	}
-
 
 	// 결제 이동
 	@GetMapping("/payment")
