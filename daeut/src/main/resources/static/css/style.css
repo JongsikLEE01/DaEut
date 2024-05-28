@@ -46,6 +46,11 @@ nav {
     border-radius: 8px;
 }
 
+.dropdown-item:active {
+    background-color: #8FA2CA !important;
+    color: #ffffff; 
+}
+
 /* 햄버거 아이콘 색상 변경 */
 .navbar-toggler {
     color: rgba(0, 0, 0, .5) !important;

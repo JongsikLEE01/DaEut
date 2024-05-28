@@ -182,7 +182,6 @@
 }
 
 .image-upload-title {
-	padding-top:10px;
 	font-size: 18pt;
 }
 
@@ -199,15 +198,17 @@
 }
 
 .file-upload-button {
-    box-sizing: border-box;
-    width: 109px;
-    height: 47.3px;
-    background: rgba(228, 232, 244, 0.533333);
-    border: 1px solid #FFFFFF;
-    border-radius: 8px;
-    line-height: 47.3px; /* 텍스트를 버튼의 가운데에 정렬하기 위해 */
-    text-align: center; /* 텍스트를 가운데에 정렬하기 위해 */
-    cursor: pointer;
+    background-color: #fff !important;
+    border: 1px solid #8FA2CA !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+    color: black !important;
+}
+
+.file-upload-button:hover {
+    background-color: #8FA2CA !important;
+    border: 1px solid #8FA2CA !important;
+    color: white !important;
 }
 
 /* 파일 선택 버튼 숨기기 */

@@ -116,6 +116,7 @@ function addOptionForm() {
     container.insertBefore(newOptionForm, document.querySelector('.addOption'));
 }
 
+// 태그 클릭 이벤트
 var tagButtons = document.querySelectorAll('.tag-button');
 
 tagButtons.forEach(function(button) {
@@ -164,3 +165,12 @@ function enterSend(e){
             }
         });
 });
+
+// 캘린더 
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth'
+    });
+    calendar.render();
+  });
