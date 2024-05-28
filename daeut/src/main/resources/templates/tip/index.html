@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/tip_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da E ut</title>
+</head>
+<body layout:fragment="content">
+    <!-- ⭐ content -->
+    <div class="container">
+        <div class="main">
+            <h2>오늘의 추천 생활 팁</h2>
+            <h3>쾌적한 생활을 위한 안내 <button class="more-button">더보기</button></h3>
+            <div class="tips">
+                <div class="card">
+                    <img src="/img/index02.png" alt="팁 이미지">
+                    <p>작성자<button class="heart-button"><i class="fa fa-heart" aria-hidden="true"></i></button></p>
+                </div>
+                <div class="card">
+                    <img src="/img/index02.png" alt="팁 이미지">
+                    <p>작성자<button class="heart-button"><i class="fa fa-heart" aria-hidden="true"></i></button></p>
+                </div>
+                <div class="card">
+                    <img src="/img/index02.png" alt="팁 이미지">
+                    <p>작성자<button class="heart-button"><i class="fa fa-heart" aria-hidden="true"></i></button></p>
+                </div>
+                <div class="card">
+                    <img src="/img/index02.png" alt="팁 이미지">
+                    <p>작성자<button class="heart-button"><i class="fa fa-heart" aria-hidden="true"></i></button></p>
+                </div>
+                <div class="card">
+                    <img src="/img/index02.png" alt="팁 이미지">
+                    <p>작성자<button class="heart-button"><i class="fa fa-heart" aria-hidden="true"></i></button></p>
+                </div>
+                <div class="card">
+                    <img src="/img/index02.png" alt="팁 이미지">
+                    <p>작성자<button class="heart-button"><i class="fa fa-heart" aria-hidden="true"></i></button></p>
+                </div>
+            </div>
+            <h2>생활 속 즐거움 <button class="more-button2" onclick="redirectToPage()">글쓰기</button></h2>
+            <div class="categories">
+                <div class="card">
+                    <div style="position: relative;">
+                        <img src="/img/index02.png" alt="카테고리 이미지">
+                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    </div>
+                    <p><span class="highlight-text">여름철 옷장 배치 방법</span> 방학동안에 추가 옷을 넣는 방법 보기</p>
+                </div>
+                <div class="card">
+                    <div style="position: relative;">
+                        <img src="/img/index02.png" alt="카테고리 이미지">
+                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    </div>
+                    <p><span class="highlight-text">여름철 옷장 배치 방법</span> 방학동안에 추가 옷을 넣는 방법 보기</p>
+                </div>
+                <div class="card">
+                    <div style="position: relative;">
+                        <img src="/img/index02.png" alt="카테고리 이미지">
+                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    </div>
+                    <p><span class="highlight-text">여름철 옷장 배치 방법</span> 방학동안에 추가 옷을 넣는 방법 보기</p>
+                </div>
+                <div class="card">
+                    <div style="position: relative;">
+                        <img src="/img/index02.png" alt="카테고리 이미지">
+                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    </div>
+                    <p><span class="highlight-text">여름철 옷장 배치 방법</span> 방학동안에 추가 옷을 넣는 방법 보기</p>
+                </div>
+                <div class="card">
+                    <div style="position: relative;">
+                        <img src="/img/index02.png" alt="카테고리 이미지">
+                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    </div>
+                    <p><span class="highlight-text">여름철 옷장 배치 방법</span> 방학동안에 추가 옷을 넣는 방법 보기</p>
+                </div>
+                <div class="card">
+                    <div style="position: relative;">
+                        <img src="/img/index02.png" alt="카테고리 이미지">
+                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    </div>
+                    <p><span class="highlight-text">여름철 옷장 배치 방법</span> 방학동안에 추가 옷을 넣는 방법 보기</p>
+                </div>
+                <div class="card">
+                    <div style="position: relative;">
+                        <img src="/img/index02.png" alt="카테고리 이미지">
+                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    </div>
+                    <p><span class="highlight-text">여름철 옷장 배치 방법</span> 방학동안에 추가 옷을 넣는 방법 보기</p>
+                </div>
+                <div class="card">
+                    <div style="position: relative;">
+                        <img src="/img/index02.png" alt="카테고리 이미지">
+                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    </div>
+                    <p><span class="highlight-text">여름철 옷장 배치 방법</span> 방학동안에 추가 옷을 넣는 방법 보기</p>
+                </div>
+                <div class="card">
+                    <div style="position: relative;">
+                        <img src="/img/index02.png" alt="카테고리 이미지">
+                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    </div>
+                    <p><span class="highlight-text">여름철 옷장 배치 방법</span> 방학동안에 추가 옷을 넣는 방법 보기</p>
+                </div>
+                <div class="card">
+                    <div style="position: relative;">
+                        <img src="/img/index02.png" alt="카테고리 이미지">
+                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    </div>
+                    <p><span class="highlight-text">여름철 옷장 배치 방법</span> 방학동안에 추가 옷을 넣는 방법 보기</p>
+                </div>
+                <div class="card">
+                    <div style="position: relative;">
+                        <img src="/img/index02.png" alt="카테고리 이미지">
+                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    </div>
+                    <p><span class="highlight-text">여름철 옷장 배치 방법</span> 방학동안에 추가 옷을 넣는 방법 보기</p>
+                </div>
+                <div class="card">
+                    <div style="position: relative;">
+                        <img src="/img/index02.png" alt="카테고리 이미지">
+                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    </div>
+                    <p><span class="highlight-text">여름철 옷장 배치 방법</span> 방학동안에 추가 옷을 넣는 방법 보기</p>
+                </div>
+            </div>
+        </div>
+        <div class="pagination">
+            <span>&laquo;</span>
+            <span class="active">1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>&raquo;</span>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" placeholder="검색어를 입력해주세요">
+            <button type="submit">검색</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const heartButtons = document.querySelectorAll('.heart-button, .heart-button2');
+            heartButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.classList.toggle('active');
+                });
+            });
+        });
+
+        function redirectToPage() {
+            window.location.href = "/tip/tipInsert";
+        }
+    </script>
+
+
+</body>
+</html>

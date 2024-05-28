@@ -1,0 +1,149 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+.main {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.main h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    height: 55px;
+}
+
+.button-container {
+    display: flex;
+}
+
+.delete, .update {
+    margin-left: 10px;
+}
+
+.delete {
+    padding: 8px 18px;
+    background-color: #8FA2CA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.update {
+    padding: 8px 18px;
+    background-color: white;
+    color: #8FA2CA;
+    border: 1px solid #8FA2CA;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.main h3 {
+    font-size: 16px;
+    color: #333;
+    margin-top: 50px; /* Adjusted to move the h3 tag down */
+    font-weight: 300;
+    /* margin-bottom: 10px; */
+}
+
+.main img {
+    display: block;
+    margin: 20px auto;
+    width: auto;
+    height: auto;
+}
+
+.main p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+.main ol {
+    padding-left: 20px;
+    font-size: 16px;
+    color: #555;
+}
+
+.comment-section {
+    margin-top: 40px;
+}
+
+.comment-section input[type=text] {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #8FA2CA;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.comment-section button[type=submit] {
+    padding: 10px 20px;
+    background-color: #8FA2CA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.comment-section button[type=submit]:hover {
+    background-color: #8FA2CA;
+}
+
+.comment {
+    margin-bottom: 5px;
+}
+
+.comment p {
+    margin: 2px 0;
+    color: #000;
+}
+
+.comment-actions {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 2px;
+}
+
+.comment-actions button {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.comment-actions button:hover {
+    text-decoration: underline;
+}
+
+.comment-response {
+    margin-left: 20px;
+    margin-top: 5px;
+    background-color: #b5c6b8;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.separator {
+    border: 0;
+    height: 1.5px;
+    background: #8FA2CA;
+    margin: 20px 0;
+}
