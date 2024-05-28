@@ -17,7 +17,7 @@ layout:decorate="~{/layout/admin_layout}">
                 <h5>관리</h5>
                 <br>
                 <a href="/admin/adminUser">회원 관리</a>
-                <a href="/admin/adminPartner">파트너 관리</a>
+                <a href="/admin/adminPartner" class="partnerManage">파트너 관리</a>
                 <a href="/admin/adminReservation">예약 관리</a>
             </nav>
             <!-- 컨텐츠영역 -->
@@ -31,27 +31,27 @@ layout:decorate="~{/layout/admin_layout}">
                     </div>
                     <div class="col-md-8">
                         <form><!-- form 작성 필요 -->
-                            <div class="form-group form-section">
+                            <div class="form-group form-section p-1">
                                 <label for="partnerName">이름</label>
                                 <input type="text" class="form-control" id="partnerName" value="김클린" readonly>
                             </div>
-                            <div class="form-group form-section">
+                            <div class="form-group form-section p-1">
                                 <label for="partnerAddress">주소</label>
                                 <input type="text" class="form-control" id="partnerAddress" value="인천광역시 부평구" readonly>
                             </div>
-                            <div class="form-group form-section">
+                            <div class="form-group form-section p-1">
                                 <label for="contact">연락처</label>
                                 <input type="text" class="form-control" id="contact" value="01012345678" readonly>
                             </div>
-                            <div class="form-group form-section">
+                            <div class="form-group form-section p-1">
                                 <label for="experience">경력 사항</label>
                                 <input type="text" class="form-control" id="experience" value="특수 청소 3년 일반 청소 10년" readonly>
                             </div>
-                            <div class="form-group form-section f-warp text-start">
+                            <div class="form-group form-section f-warp text-start p-1">
                                 <label for="description">소개글</label>
                                 <textarea class="form-control" id="description" rows="3" readonly>청소 경력 도합 13년, 정부에서 한 번 배려 처리 이미지 교체 필요시 실험 작성 및 내용 전개 이어쓰기</textarea>
                             </div>
-                            <div class="form-group form-section gallery">
+                            <div class="form-group form-section gallery p-1">
                                 <label>소개 사진</label>
                                 <div>
                                     <img src="https://via.placeholder.com/100" alt="파트너 설명 이미지" class="img-thumbnail">
