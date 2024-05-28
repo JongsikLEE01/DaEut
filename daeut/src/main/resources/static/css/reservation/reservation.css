@@ -1088,41 +1088,4 @@ input[type="file"] {
 .fc-day:not(.fc-day-selected):hover {
     background-color: #8FA2CA !important;
     color: white;
-}
-
-/* 지나간 날짜 */
-.fc-day.fc-day-past.fc-daygrid-day {
-    color: #888 !important; /* 글씨 색 변경 */
-    background-color: #EDF2F7 !important; /* 배경색 변경 */
-}
-
-/* 오늘 버튼 */
-.fc-today-button.fc-button.fc-button-primary {
-    background-color: #fff !important;
-    border: 1px solid #8FA2CA !important;
-    border-radius: 8px !important;
-    transition: 0.5s !important;
-    color: black !important;
-}
-
-/* 오늘 버튼 호버 상태 */
-.fc-today-button.fc-button.fc-button-primary:hover {
-    background-color: #8FA2CA !important;
-    border: 1px solid #8FA2CA !important;
-    color: white !important;
-}
-
-/* 이전 버튼 */
-.fc-prev-button.fc-button.fc-button-primary {
-    background-color: transparent;
-    color: #8FA2CA !important;
-    border: none;
-}
-
-/* 다음 버튼 */
-.fc-next-button.fc-button.fc-button-primary {
-    background-color: transparent;
-    color: #8FA2CA !important;
-    border: none;
-}
-
+  } */ 
