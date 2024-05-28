@@ -5,7 +5,7 @@
 
 <mapper namespace="com.daeut.daeut.reservation.mapper.ReservationMapper">
 
-    <resultMap type="service" id="serviceMap">
+    <!-- <resultMap type="service" id="serviceMap">
         <id property="serviceNo" column="service_no" />
         
         <result property="serviceCategory" column="service_category" />
@@ -14,40 +14,35 @@
         <result property="serviceContent" column="service_content" />
         <result property="updDate" column="upd_date" />
         <result property="regDate" column="reg_date" />
-        <!-- 제약 조건 추가 필요 -->
-    </resultMap>
+    </resultMap> -->
 
     <!-- All Read -->
-    <select id="serviceList" resultType="Service">
-        SELECT 
-            s.*, 
-            f.file_no, 
-            f.file_name, 
-            f.file_path, 
-            f.file_code 
-        FROM 
-            joeun.service s 
-        LEFT JOIN 
-            (  
-                SELECT * 
-                FROM joeun.files 
-                WHERE parent_table = 'service' 
-                AND file_code = 1
-            ) f 
-        ON 
-            s.service_no = f.parent_no 
-        WHERE 
-            s.service_name LIKE CONCAT('%', #{option.keyword}, '%') 
-        ORDER BY 
-            s.service_no DESC 
-        LIMIT 
-            #{page.index}, #{page.rows}
-        <!-- select *
-        from service -->
+    <select id="serviceList" resultType="services">
+        SELECT  s.*, 
+                u.user_no, 
+                u.user_name,
+                f.file_no, 
+                f.file_name, 
+                f.file_path, 
+                f.file_code 
+        FROM joeun.service s 
+            LEFT JOIN (  
+                      SELECT * 
+                      FROM joeun.files
+                      WHERE parent_table = 'service' 
+                      AND file_code = 1
+                  ) f 
+            ON  s.service_no = f.parent_no 
+            
+            LEFT JOIN joeun.users u
+            ON s.partner_no = u.user_no
+        WHERE  s.service_name LIKE CONCAT('%', #{option.keyword}, '%') 
+        ORDER BY s.service_no DESC 
+        LIMIT #{page.index}, #{page.rows};
     </select>
 
     <!-- Read -->
-    <select id="serviceSelect" resultType="Service">
+    <select id="serviceSelect" resultType="services">
         select *
         from service
         where service_no = #{serviceNo}
@@ -82,7 +77,7 @@
     </select>
 
     <!-- serch -->
-    <select id="search" resultType="service">
+    <select id="search" resultType="services">
         SELECT *
         FROM service
         WHERE

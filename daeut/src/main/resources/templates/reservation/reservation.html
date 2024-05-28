@@ -1,206 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{/layout/reserv_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Da E ut</title>
 </head>
+
 <body layout:fragment="content">
     <!-- TODO 파트너 로그인시 글쓰기 필요 -->
-      <div class="container">
+    <div class="container">
         <section style="width: 1250px;">
             <div class="reservationTitles">
                 <h3 class="reservation-title">생활 속 편리함</h3>
                 <div class="reservation-container">
                     <h2 class="reservation-subtitle">깔끔한 생활 도우미 예약 서비스</h2>
                     <th:block sec:authorize="hasRole('ROLE_PARTNER') and hasRole('ROLE_USER') and !hasRole('ROLE_ADMIN') ">
-                    <a href="/reservation/reservationInsert" class="reservation-insert-link"><button class="reservation-insert">글쓰기</button></a>
+                        <a href="/reservation/reservationInsert" class="reservation-insert-link"><button
+                                class="reservation-insert">글쓰기</button></a>
                     </th:block>
                 </div>
             </div>
+            <!-- 카드영역 -->
             <div class="reservation-card-grid">
                 <div class="col">
                     <div class="card-reservation-thumbnail">
                         <div class="thumbnail-reservation">
+                            <!-- 빈 경우 -->
+                            <th:block th:if="${serviceList.isEmpty()}">
+                                <span>조회된 게시글 정보가 없습니다.</span>
+                            </th:block>
+                            
+                            <!-- 반복 -->
+                            <th:block th:each="services : ${serviceList}">
+                            <th:block th:text="${service.serviceNo}"></th:block>
+                            
+                            <!-- 카테고리 -->
                             <div class="service-tag">
-                                <span class="reserve-sertvice-tag">방역</span>
-                                <span class="reserve-sertvice-tag">청소</span>
+                                <span class="reserve-sertvice-tag" th:text="${services.serviceCategory}"></span>
                             </div>
-                            <div class="like-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
-                                    <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1"/>
-                                </svg>
-                            </div>
-                            <img src="/img/slide02.png" alt="about" class="card-reservation-img">
+                            
+                            <!-- 이미지 -->
+                            <a id="img_link" th:href="|/reservation/reservationRead?serviceNo=${services.serviceNo}|">
+                                <img th:src="|/file/img/${services.fileNo}|" alt="썸네일" width="100">
+                            </a>
                         </div>
 
                         <div class="card-body">
-                            <p class="partner-title">서비스 안내 이름</p>
-                            <p class="partner-name">주식회사 청소꾼</p>
-                            <div class="num-of-like-review">
-                                <p class="reserveLike">좋아요 6</p>
-                                <p>·</p>
-                                <p class="reserveReview">후기 7</p>
-                            </div>
+                            <!-- 서비스 이름 -->
+                            <label for="img_link" class="partner-title" th:text="${services.serviceName}"></label>
+                            <!-- 유저(파트너) 이름 -->
+                            <p class="partner-name" th:text="${services.userName}"></p>
                         </div>
                     </div>
                 </div>
                 <!-- 나머지 카드들도 동일하게 설정 -->
-                <div class="col">
-                  <div class="card-reservation-thumbnail">
-                    <!-- TODO 게시글 썸네일, 제목, 좋아요 등 출력 후 클릭 후 Read페이지 이동 -->
-                    <a href="/reservation/reservationRead">
-                        <img src="/img/slide02.png" alt="about" class="card-reservation-img">
-                    </a>
-                      <div class="card-body">
-                        <a href="/reservation/reservationRead">
-                            <p class="partner-title">서비스 안내 이름</p>
-                        </a>
-                          <p class="partner-name">주식회사 청소꾼</p>
-                          <div class="num-of-like-review">
-                              <p class="reserveLike">좋아요 6</p>
-                              <p>·</p>
-                              <p class="reserveReview">후기 7</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col">
-                <div class="card-reservation-thumbnail">
-                    <img src="/img/slide02.png" alt="about" class="card-reservation-img">
-                    <div class="card-body">
-                        <p class="partner-title">서비스 안내 이름</p>
-                        <p class="partner-name">주식회사 청소꾼</p>
-                        <div class="num-of-like-review">
-                            <p class="reserveLike">좋아요 6</p>
-                            <p>·</p>
-                            <p class="reserveReview">후기 7</p>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="col">
-              <div class="card-reservation-thumbnail">
-                  <img src="/img/slide02.png" alt="about" class="card-reservation-img">
-                  <div class="card-body">
-                      <p class="partner-title">서비스 안내 이름</p>
-                      <p class="partner-name">주식회사 청소꾼</p>
-                      <div class="num-of-like-review">
-                          <p class="reserveLike">좋아요 6</p>
-                          <p>·</p>
-                          <p class="reserveReview">후기 7</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col">
-            <div class="card-reservation-thumbnail">
-                <img src="/img/slide02.png" alt="about" class="card-reservation-img">
-                <div class="card-body">
-                    <p class="partner-title">서비스 안내 이름</p>
-                    <p class="partner-name">주식회사 청소꾼</p>
-                    <div class="num-of-like-review">
-                        <p class="reserveLike">좋아요 6</p>
-                        <p>·</p>
-                        <p class="reserveReview">후기 7</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-          <div class="card-reservation-thumbnail">
-              <img src="/img/slide02.png" alt="about" class="card-reservation-img">
-              <div class="card-body">
-                  <p class="partner-title">서비스 안내 이름</p>
-                  <p class="partner-name">주식회사 청소꾼</p>
-                  <div class="num-of-like-review">
-                      <p class="reserveLike">좋아요 6</p>
-                      <p>·</p>
-                      <p class="reserveReview">후기 7</p>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="col">
-        <div class="card-reservation-thumbnail">
-            <img src="/img/slide02.png" alt="about" class="card-reservation-img">
-            <div class="card-body">
-                <p class="partner-title">서비스 안내 이름</p>
-                <p class="partner-name">주식회사 청소꾼</p>
-                <div class="num-of-like-review">
-                    <p class="reserveLike">좋아요 6</p>
-                    <p>·</p>
-                    <p class="reserveReview">후기 7</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-      <div class="card-reservation-thumbnail">
-          <img src="/img/slide02.png" alt="about" class="card-reservation-img">
-          <div class="card-body">
-              <p class="partner-title">서비스 안내 이름</p>
-              <p class="partner-name">주식회사 청소꾼</p>
-              <div class="num-of-like-review">
-                  <p class="reserveLike">좋아요 6</p>
-                  <p>·</p>
-                  <p class="reserveReview">후기 7</p>
-              </div>
-          </div>
-      </div>
-  </div>
-  <div class="col">
-    <div class="card-reservation-thumbnail">
-        <img src="/img/slide02.png" alt="about" class="card-reservation-img">
-        <div class="card-body">
-            <p class="partner-title">서비스 안내 이름</p>
-            <p class="partner-name">주식회사 청소꾼</p>
-            <div class="num-of-like-review">
-                <p class="reserveLike">좋아요 6</p>
-                <p>·</p>
-                <p class="reserveReview">후기 7</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col">
-  <div class="card-reservation-thumbnail">
-      <img src="/img/slide02.png" alt="about" class="card-reservation-img">
-      <div class="card-body">
-          <p class="partner-title">서비스 안내 이름</p>
-          <p class="partner-name">주식회사 청소꾼</p>
-          <div class="num-of-like-review">
-              <p class="reserveLike">좋아요 6</p>
-              <p>·</p>
-              <p class="reserveReview">후기 7</p>
-          </div>
-      </div>
-  </div>
-</div>
-<div class="col">
-  <div class="card-reservation-thumbnail">
-      <img src="/img/slide02.png" alt="about" class="card-reservation-img">
-      <div class="card-body">
-          <p class="partner-title">서비스 안내 이름</p>
-          <p class="partner-name">주식회사 청소꾼</p>
-          <div class="num-of-like-review">
-              <p class="reserveLike">좋아요 6</p>
-              <p>·</p>
-              <p class="reserveReview">후기 7</p>
-          </div>
-      </div>
-  </div>
-</div>
-
-             </div>
         </section>
 
         <div class="search-container">
             <input type="text" placeholder="키워드를 입력하세요">
             <button type="button">검색</button>
         </div>
-      </div>
-    
+    </div>
+
 </body>
+
 </html>

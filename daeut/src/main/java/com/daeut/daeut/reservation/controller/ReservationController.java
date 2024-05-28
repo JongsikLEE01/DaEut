@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.daeut.daeut.reservation.dto.Files;
 import com.daeut.daeut.reservation.dto.Option;
 import com.daeut.daeut.reservation.dto.Page;
-import com.daeut.daeut.reservation.dto.Service;
+import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.FileService;
 import com.daeut.daeut.reservation.service.ReservationService;
 
@@ -30,11 +30,6 @@ public class ReservationController {
     @Autowired
     private FileService fileService;
 
-    // @GetMapping("/{path}")
-	// public String getMethodName(@PathVariable("path") String path ) {
-	// 	return path;
-	// }
-
     /**
      * 전체 조회
      * @write jslee
@@ -46,7 +41,7 @@ public class ReservationController {
      */
 	@GetMapping("/reservation")
 	public String reservationList(Model model, Page page, Option option) throws Exception{
-        List<Service> serviceList = reservationService.serviceList(page, option);    // 검색 + 페이징
+        List<Services> serviceList = reservationService.serviceList(page, option);    // 검색 + 페이징
         
         // 페이징
         log.info("page? "+page);
@@ -79,14 +74,14 @@ public class ReservationController {
 	@GetMapping("/reservationRead")
 	public String reservationRead(@RequestParam("serviceNo") int serviceNo , Files file, Model model) throws Exception {
         // 데이터 요청
-        Service service = reservationService.serviceSelect(serviceNo);
+        Services services = reservationService.serviceSelect(serviceNo);
         
         // 파일 목록 요청
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
 
-        model.addAttribute("service", service);
+        model.addAttribute("service", services);
         model.addAttribute("fileList", fileList);
 
 		return "/reservation/reservationRead";
@@ -110,9 +105,9 @@ public class ReservationController {
      * @throws Exception
      */
     @PostMapping("/reservationInsert")
-    public String reservationInsert(Service service) throws Exception {
-        log.info(service.toString());
-        int result = reservationService.serviceInsert(service);
+    public String reservationInsert(Services services) throws Exception {
+        log.info(services.toString());
+        int result = reservationService.serviceInsert(services);
 
         if(result == 0){
             log.info("게시글 등록 실패...");
@@ -134,17 +129,17 @@ public class ReservationController {
      */
     @GetMapping("/reservationUpdate")
     public String reservationUpdate(@RequestParam("serviceNo") int serviceNo ,Model model, Files file) throws Exception{
-        Service service = reservationService.serviceSelect(serviceNo);
+        Services services = reservationService.serviceSelect(serviceNo);
 
         // 파일 목록 요청
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
 
-        model.addAttribute("service", service);
+        model.addAttribute("service", services);
         model.addAttribute("fileList", fileList);
 
-        model.addAttribute("service", service);
+        model.addAttribute("service", services);
         return "/reservation/reservationUpdate";
     }
 
@@ -155,9 +150,9 @@ public class ReservationController {
      * @throws Exception
      */
     @PostMapping("/reservationUpdate")
-    public String updatePro(Service service) throws Exception {
-        int result = reservationService.serviceUpdate(service);
-        int serviceNo = service.getServiceNo();
+    public String updatePro(Services services) throws Exception {
+        int result = reservationService.serviceUpdate(services);
+        int serviceNo = services.getServiceNo();
 
         if(result == 0){
             log.info("게시글 수정 실패...");
