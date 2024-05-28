@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -934.5391,
-    "scrollLeft": -1479.4673097087373,
-    "zoomLevel": 0.6,
+    "scrollTop": -1362.4178000000002,
+    "scrollLeft": -1393.9614999999997,
+    "zoomLevel": 0.3,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -19,7 +19,7 @@
     },
     "database": "MySQL",
     "databaseName": "daeut",
-    "canvasType": "@vuerd/builtin-sql-ddl",
+    "canvasType": "ERD",
     "language": "GraphQL",
     "tableCase": "pascalCase",
     "columnCase": "camelCase",
@@ -351,7 +351,7 @@
           "active": false,
           "left": 1016.4557,
           "top": 562.6026,
-          "zIndex": 1,
+          "zIndex": 15,
           "widthName": 60,
           "widthComment": 60
         },
@@ -876,36 +876,13 @@
               "widthDataType": 71.93212890625,
               "widthDefault": 111.35107421875
             }
-          },
-          {
-            "id": "96d042be-ee3f-45f3-9588-71e06e88f407",
-            "name": "cancel_no",
-            "comment": "취소 번호",
-            "dataType": "int",
-            "default": "",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": true
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": false,
-              "pfk": false,
-              "widthName": 60,
-              "widthComment": 60,
-              "widthDataType": 60,
-              "widthDefault": 60
-            }
           }
         ],
         "ui": {
           "active": false,
           "left": 1574.2098,
           "top": 27.333,
-          "zIndex": 12,
+          "zIndex": 21,
           "widthName": 66.94287109375,
           "widthComment": 60
         },
@@ -2182,7 +2159,7 @@
           {
             "id": "278e7f52-6116-4343-9410-f52bcfad3173",
             "name": "status",
-            "comment": "상태",
+            "comment": "결제 상태",
             "dataType": "VARCHAR(100)",
             "default": "",
             "option": {
@@ -2299,7 +2276,7 @@
           "active": false,
           "left": 2293.057,
           "top": 439.2702,
-          "zIndex": 13,
+          "zIndex": 19,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2900,7 +2877,7 @@
             "0df7dfd0-d390-4f55-8778-6c252edfe371"
           ],
           "x": 1574.2098,
-          "y": 248.208,
+          "y": 232.833,
           "direction": "left"
         },
         "constraintName": "fk_users_to_reservation",
@@ -2969,7 +2946,7 @@
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
           "x": 2113.24153828125,
-          "y": 248.208,
+          "y": 232.833,
           "direction": "right"
         },
         "end": {
@@ -3056,7 +3033,7 @@
             "e62de13a-bfdc-4804-8533-44743dd50137"
           ],
           "x": 1978.4836037109376,
-          "y": 321.83299999999997,
+          "y": 301.33299999999997,
           "direction": "bottom"
         },
         "constraintName": "fk_service_to_reservation",
@@ -3134,7 +3111,7 @@
             "62cd7980-e850-448f-9600-2a329e0ecc91"
           ],
           "x": 1708.9677345703126,
-          "y": 321.83299999999997,
+          "y": 301.33299999999997,
           "direction": "bottom"
         },
         "constraintName": "fk_partner_to_reservation",
@@ -3203,7 +3180,7 @@
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
           "x": 1574.2098,
-          "y": 100.958,
+          "y": 95.833,
           "direction": "left"
         },
         "end": {
@@ -3255,7 +3232,7 @@
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
           "x": 2113.24153828125,
-          "y": 100.958,
+          "y": 95.833,
           "direction": "right"
         },
         "end": {
