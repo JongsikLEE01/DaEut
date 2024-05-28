@@ -37,10 +37,10 @@ public class PageController {
 		return "/reservation/reservationInsert";
 	}
 
-	// @GetMapping("/reservationUpdate")
-	// public String reservationupdate() {
-	// 	return "/reservation/reservationUpdate";
-	// }
+	@GetMapping("/reservationUpdate")
+	public String reservationupdate() {
+		return "/reservation/reservationUpdate";
+	}
 
 
 	// 결제 이동

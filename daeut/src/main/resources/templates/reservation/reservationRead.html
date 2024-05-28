@@ -20,7 +20,11 @@
 				<i class="fa fa-star" aria-hidden="true"></i>
 				<i class="fa fa-star" aria-hidden="true"></i>
 			</div>
+			<th:block sec:authorize="hasRole('ROLE_PARTNER') and hasRole('ROLE_USER') and !hasRole('ROLE_ADMIN') ">
+				<a href="/reservation/reservationUpdate" class="reservation-link"><button class="reservation-update">수정하기</button></a>
+			</th:block>
 		</div>
+
 		<div class="service-title-tag">
 			<tag class="service-tag-name">청소</tag>
 			<tag class="service-tag-name">빨래</tag>
@@ -47,7 +51,7 @@
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
 								<path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
 							</svg>
-						<a href="chat">문의하기</a>
+						<a href="chat" class="contact-link">문의하기</a>
 						
 						</div>
 					</div>
@@ -90,8 +94,15 @@
 					<div class="reservation-status section" id="reservation-status">
 						<h4 class="reservation-intro2">예약 현황</h4>
 						<hr class="section-underbar">
+						<div class="calender-info">
 							<!-- 여기 캘린더 들어가 -->
 							<div id='calendar'></div>
+							<div class="calender-color-info">
+								<p><span class="color-box color-unavailable"></span>예약 불가</p>
+								<p><span class="color-box color-today"></span>오늘</p>
+								<p><span class="color-box color-selected"></span>선택일</p>
+							</div>
+						</div>
 					</div>
 
 					<div class="refund-policy section" id="refund-policy">
@@ -195,15 +206,15 @@
 						<tfoot>
 							<tr class="reservation-buttons">
 								
-									<button class="reservation-calender">날짜 선택</button>
+								<button class="reservation-calender" id="showCalendarBtn">날짜 선택</button>
 								  <a href="/reservation/payment"><button class="reservation-paybutton">바로 예약하기</button></a>
 								
 							</tr>
 						</tfoot>
 
 					</table>
-
-					<button class="btn-coupon">가입 기념 쿠폰</button>
+					<div id="calendarContainer" style="position: relative;"></div>
+					<button class="btn-coupon" id="couponBtn">가입 기념 쿠폰</button>
 					
 				</div>
 			</div>
@@ -214,4 +225,6 @@
 	</div>
 
 </body>
+
+
 </html>
