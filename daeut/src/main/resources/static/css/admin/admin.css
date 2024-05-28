@@ -91,7 +91,7 @@ main {
 th, td {
     border: 1px solid #ddd;
     padding: 8px;
-
+}
 .table th, .table td {
     padding: 10px;
     border: 1px solid #dee2e6;
@@ -356,6 +356,7 @@ a {
     .table th, .table td {
         padding: 6px;
         font-size: 0.875rem;
+    }
 
     .pagination a {
         font-size: 0.75rem;
@@ -364,6 +365,27 @@ a {
     }
     .toggle-btn {
         font-size: 0.75rem;
+    }
+}
+
+/* 기본 textarea 스타일 */
+textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    textarea {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    textarea {
+        width: 100%;
     }
 }
 
@@ -400,9 +422,4 @@ a {
 /* 사이드바 */
 .content-container {
     transition: margin-left 0.5s; /* 사이드바 열림/닫힘 애니메이션을 위한 transition 추가 */
-}
-
-/* 사이드바가 열렸을 때 .content-container의 margin-left 값을 조정
-.sidebar.active ~ .content-container {
-    margin-left: 250px;
-} */
+} 
