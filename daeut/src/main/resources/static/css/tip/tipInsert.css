@@ -12,6 +12,8 @@ body {
     /* box-shadow: 0 0 10px rgba(0,0,0,0.1); */
     /* max-width: 600px;
     width: 100%; */
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .form-group {
@@ -33,9 +35,9 @@ body {
 .fileuploadbox {
     display: flex;
     flex-wrap: nowrap;
-    align-items: center; /* 요소들을 세로 가운데 정렬 */
+    align-items: center;
     padding-top: 25px;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .file-upload-button, .image-upload-title, input[type="file"], .file-upload-note {

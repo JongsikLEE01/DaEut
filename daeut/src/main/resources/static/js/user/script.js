@@ -56,8 +56,4 @@ window.onresize = function() {
         // formSection.style.marginLeft = '250px'; // 폼 섹션 마진 조정
         toggleBtn.style.visibility = 'hidden'; // 토글 버튼 숨기기
     }
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> main

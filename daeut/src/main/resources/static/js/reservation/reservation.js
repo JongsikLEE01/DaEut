@@ -126,24 +126,41 @@ tagButtons.forEach(function(button) {
 
 // 이미지 슬라이드 
 var slideIndex = 0;
-showSlides(slideIndex);
+
+// 페이지 로딩이 완료되면 실행
+window.onload = function() {
+    showSlides(); // 슬라이드 표시
+};
 
 function plusSlides(n) {
     showSlides(slideIndex += n);
 }
 
-function showSlides(n) {
+function showSlides() {
     var i;
     var slides = document.getElementsByClassName("reservation-image-slide");
-    if (n >= slides.length) {slideIndex = 0}
-    if (n < 0) {slideIndex = slides.length - 1}
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+    if (slides.length > 0) {
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex].style.display = "block";
+    } else {
+        console.log("reservation-image-slide 클래스를 가진 요소가 없습니다.");
     }
-    slides[slideIndex].style.display = "block";
 }
 
 // 엔터키로 채팅보내기
 function enterSend(e){
     if(e.keyCode == 13) sendMessage()
 }
+
+// 화면 스크롤 이동
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector(".reservation-menu").addEventListener("click", function(e) {
+            if (e.target && e.target.nodeName === "LI") {
+                var targetId = e.target.getAttribute("data-target");
+                document.getElementById(targetId).scrollIntoView({ behavior: "smooth" });
+            }
+        });
+});

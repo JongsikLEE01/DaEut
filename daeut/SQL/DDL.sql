@@ -1,8 +1,4 @@
-<<<<<<< HEAD
--- Active: 1714007443343@@127.0.0.1@3306@joeun
-=======
 -- Active: 1715242304860@@127.0.0.1@3306@joeun
->>>>>>> main
 
 
 DROP TABLE IF EXISTS board;
@@ -243,8 +239,4 @@ CREATE TABLE users
 -- ALTER TABLE user_auth
 --   ADD CONSTRAINT FK_users_TO_user_auth
 --     FOREIGN KEY (user_no)
-<<<<<<< HEAD
 --     REFERENCES users (user_no);
-=======
---     REFERENCES users (user_no);
->>>>>>> main

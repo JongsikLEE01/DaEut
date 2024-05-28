@@ -13,14 +13,11 @@
         <div class="row">
             <nav class="col-md-3 col-lg-2 sidebar" id="sidebar">
                 <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
-                <h5>마이페이지</h5>
+                <h5>관리</h5>
                 <br>
-                <a href="userMypage">내 정보 변경</a>
-                <a href="userReservation">내 예약 보기</a>
-                <a href="userLikeTip">내가 좋아하는 글</a>
-                <a href="userReview">벌점 및 리뷰 작성</a>
-                <a href="userCoupon">쿠폰</a>
-                <a href="userPartner">파트너 신청</a>
+                <a href="adminUser">회원 관리</a>
+                <a href="adminPartner">파트너 관리</a>
+                <a href="adminReservation" class="reservationManage">예약 관리</a>
             </nav>
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>예약 관리</h3>
@@ -37,8 +34,8 @@
                     </thead>
                     <!-- <tbody>
                         <tr th:each="reservation : ${reservations}">
-                            <td th:text="${reservation.username}">정다운</td>
-                            <td th:text="${reservation.partnerName}">박은서</td>
+                            <td th:text="${reservation.username}">김조은</td>
+                            <td th:text="${reservation.partnerName}">홍길동</td>
                             <td th:text="${reservation.status}">예약 완료</td>
                             <td th:text="${reservation.time}">2024-05-20 12:19:10</td>
                             <td class="checked"><input type="checkbox" th:checked="${reservation.checked}"></td>
@@ -47,8 +44,8 @@
                     <tbody>
                         <tr>
                             <td>1.</td>
-                            <td>정다운</td>
-                            <td>박은서</td>
+                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
+                            <td>홍길동</td>
                             <td>예약 완료</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
@@ -57,8 +54,8 @@
                         </tr>
                         <tr>
                             <td>2.</td>
-                            <td>정다운</td>
-                            <td>박은서</td>
+                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
+                            <td>홍길동</td>
                             <td>예약 완료</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
@@ -67,8 +64,8 @@
                         </tr>
                         <tr>
                             <td>3.</td>
-                            <td>정다운</td>
-                            <td>박은서</td>
+                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
+                            <td>홍길동</td>
                             <td>예약 완료</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
@@ -77,8 +74,8 @@
                         </tr>
                         <tr>
                             <td>4.</td>
-                            <td>정다운</td>
-                            <td>박은서</td>
+                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
+                            <td>홍길동</td>
                             <td>예약 완료</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
@@ -87,8 +84,8 @@
                         </tr>
                         <tr>
                             <td>5.</td>
-                            <td>정다운</td>
-                            <td>박은서</td>
+                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
+                            <td>홍길동</td>
                             <td>예약 완료</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
@@ -97,8 +94,8 @@
                         </tr>
                         <tr>
                             <td>6.</td>
-                            <td>정다운</td>
-                            <td>박은서</td>
+                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
+                            <td>홍길동</td>
                             <td>예약 완료</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
@@ -107,8 +104,8 @@
                         </tr>
                         <tr>
                             <td>7.</td>
-                            <td>정다운</td>
-                            <td>박은서</td>
+                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
+                            <td>홍길동</td>
                             <td>예약 완료</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
@@ -117,8 +114,8 @@
                         </tr>
                         <tr>
                             <td>8.</td>
-                            <td>정다운</td>
-                            <td>박은서</td>
+                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
+                            <td>홍길동</td>
                             <td>예약 완료</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
@@ -127,8 +124,8 @@
                         </tr>
                         <tr>
                             <td>9.</td>
-                            <td>정다운</td>
-                            <td>박은서</td>
+                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
+                            <td>홍길동</td>
                             <td>예약 완료</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
@@ -137,8 +134,8 @@
                         </tr>
                         <tr>
                             <td>10.</td>
-                            <td>정다운</td>
-                            <td>박은서</td>
+                            <td><a href="adminReservationRead" class="text-decoration-line">김조은</a></td>
+                            <td>홍길동</td>
                             <td>예약 완료</td>
                             <td>2024-05-20 12:19:10</td>
                             <td class="checked">
