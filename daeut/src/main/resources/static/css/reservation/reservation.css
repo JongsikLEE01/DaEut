@@ -1074,3 +1074,9 @@ input[type="file"] {
     background-color: #B5C6B8;
     color: white;
   } */ 
+
+  a {
+    text-decoration: none !important;
+    color: black !important;
+  }
+

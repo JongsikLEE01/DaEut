@@ -185,3 +185,40 @@ main {
 .grid.review-form h4 {
     margin-top: 30px;
 }
+
+/* 사이드바 해당 페이지 고정 */
+.userMypage {
+    background-color: #e9ecef;
+    color: #8FA2CA !important;
+    border-radius: 8px;
+}
+
+.userReservation {
+    background-color: #e9ecef;
+    color: #8FA2CA !important;
+    border-radius: 8px;
+}
+
+.userLikeTip {
+    background-color: #e9ecef;
+    color: #8FA2CA !important;
+    border-radius: 8px;
+}
+
+.userReview {
+    background-color: #e9ecef;
+    color: #8FA2CA !important;
+    border-radius: 8px;
+}
+
+.userCoupon {
+    background-color: #e9ecef;
+    color: #8FA2CA !important;
+    border-radius: 8px;
+}
+
+.userPartner {
+    background-color: #e9ecef;
+    color: #8FA2CA !important;
+    border-radius: 8px;
+}
