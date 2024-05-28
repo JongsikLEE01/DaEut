@@ -423,3 +423,31 @@ textarea {
 .content-container {
     transition: margin-left 0.5s; /* 사이드바 열림/닫힘 애니메이션을 위한 transition 추가 */
 } 
+
+/* 버튼 설정 */
+.btn.btn-primary.custom1 {
+    background-color: #fff !important;
+    border: 1px solid #8FA2CA !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+    color: black !important;
+}
+
+.btn.btn-primary.custom1:hover{
+    background-color: #8FA2CA !important;
+    border: 1px solid #8FA2CA !important;
+    color: white !important;
+}
+
+.btn.btn-primary.custom2{
+    background-color: #fff !important;
+    color: red !important;
+    border: 1px solid red !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+}
+.btn.btn-primary.custom2:hover{
+    background-color: red !important;
+    border: 1px solid red !important;
+    color: white !important;
+}
