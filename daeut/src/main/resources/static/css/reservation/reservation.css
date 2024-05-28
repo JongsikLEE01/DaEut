@@ -1064,6 +1064,10 @@ input[type="file"] {
     color: #000;
 }
 
+.fc-daygrid-day-number.fc-day-today {
+    color: white !important;
+}
+
 /* 오늘 */
 .fc-day-today {
     background-color: #B5C6B8 !important;
@@ -1082,7 +1086,8 @@ input[type="file"] {
 
 /* 선택되지 않은 날짜 */
 .fc-day:not(.fc-day-selected):hover {
-    background-color: #E4E8F4 !important;
+    background-color: #8FA2CA !important;
+    color: white;
 }
 
 /* 지나간 날짜 */
