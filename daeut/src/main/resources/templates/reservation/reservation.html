@@ -16,7 +16,7 @@
                 <h3 class="reservation-title">생활 속 편리함</h3>
                 <div class="reservation-container">
                     <h2 class="reservation-subtitle">깔끔한 생활 도우미 예약 서비스</h2>
-                    <th:block sec:authorize="hasRole('ROLE_PARTNER') and hasRole('ROLE_USER') and !hasRole('ROLE_ADMIN') ">
+                    <th:block sec:authorize="hasRole('ROLE_PARTNER') and hasRole('ROLE_USER') and !hasRole('ROLE_ADMIN')">
                         <a href="/reservation/reservationInsert" class="reservation-insert-link"><button
                                 class="reservation-insert">글쓰기</button></a>
                     </th:block>
@@ -24,7 +24,7 @@
             </div>
             <!-- 카드영역 -->
             <div class="reservation-card-grid">
-                <div class="col">
+                <div class="col" th:each="service : ${serviceList}">
                     <div class="card-reservation-thumbnail">
                         <div class="thumbnail-reservation">
                             <!-- 빈 경우 -->
@@ -33,25 +33,24 @@
                             </th:block>
                             
                             <!-- 반복 -->
-                            <th:block th:each="services : ${serviceList}">
-                            <th:block th:text="${service.serviceNo}"></th:block>
-                            
-                            <!-- 카테고리 -->
-                            <div class="service-tag">
-                                <span class="reserve-sertvice-tag" th:text="${services.serviceCategory}"></span>
+                            <div th:if="${!serviceList.isEmpty()}">
+                                <!-- 카테고리 -->
+                                <div class="service-tag">
+                                    <span class="reserve-sertvice-tag" th:text="${service.serviceCategory}"></span>
+                                </div>
+                                
+                                <!-- 이미지 -->
+                                <a id="img_link" th:href="|/reservation/reservationRead?serviceNo=${service.serviceNo}|">
+                                    <img th:src="|/file/img/${service.fileNo}|" alt="썸네일" width="100">
+                                </a>
                             </div>
-                            
-                            <!-- 이미지 -->
-                            <a id="img_link" th:href="|/reservation/reservationRead?serviceNo=${services.serviceNo}|">
-                                <img th:src="|/file/img/${services.fileNo}|" alt="썸네일" width="100">
-                            </a>
                         </div>
 
                         <div class="card-body">
                             <!-- 서비스 이름 -->
-                            <label for="img_link" class="partner-title" th:text="${services.serviceName}"></label>
+                            <label for="img_link" class="partner-title" th:text="${service.serviceName}"></label>
                             <!-- 유저(파트너) 이름 -->
-                            <p class="partner-name" th:text="${services.userName}"></p>
+                            <!-- <p class="partner-name" th:text="${service.userName}"></p> -->
                         </div>
                     </div>
                 </div>

@@ -41,26 +41,23 @@ public class ReservationController {
      */
 	@GetMapping("/reservation")
 	public String reservationList(Model model, Page page, Option option) throws Exception{
-        List<Services> serviceList = reservationService.serviceList(page, option);    // 검색 + 페이징
-        
-        // 페이징
-        log.info("page? "+page);
-        // 검색
-        log.info("option? "+ option);
-        log.info("목록? "+serviceList);
+        List<Services> serviceList = reservationService.serviceList(page, option);
 
-        // 모델 등록
+        log.info("목록: {}", serviceList);
+        log.info("페이지: {}", page);
+        log.info("옵션: {}", option);
+
         model.addAttribute("serviceList", serviceList);
         model.addAttribute("page", page);
         model.addAttribute("option", option);
 
-		return "/reservation/reservation";
+        return "reservation/reservation";
 	}
 
     // 채팅 로직 작성 필요
 	@GetMapping("/chat")
 	public String chat() {
-		return "/reservation/chat";
+		return "reservation/chat";
 	} 
 
     /**
@@ -72,21 +69,20 @@ public class ReservationController {
      * @return
      * @throws Exception
      */
-	@GetMapping("/reservationRead")
-	public String reservationRead(@RequestParam("serviceNo") int serviceNo , Files file, Model model) throws Exception {
-        // 데이터 요청
-        Services services = reservationService.serviceSelect(serviceNo);
-        
-        // 파일 목록 요청
+    @GetMapping("/reservationRead")
+	public String reservationRead(@RequestParam("serviceNo") int serviceNo, Model model) throws Exception {
+        Services service = reservationService.serviceSelect(serviceNo);
+
+        Files file = new Files();
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
 
-        model.addAttribute("service", services);
+        model.addAttribute("service", service);
         model.addAttribute("fileList", fileList);
 
-		return "/reservation/reservationRead";
-	}
+        return "reservation/reservationRead";
+    }
 
 	/**
      * 글 등록 
@@ -95,7 +91,7 @@ public class ReservationController {
      */
 	@GetMapping("/reservationInsert")
 	public String moveToReservationInsert() {
-		return "/reservation/reservationInsert";
+		return "reservation/reservationInsert";
 	}
 
     /**
@@ -106,17 +102,17 @@ public class ReservationController {
      * @throws Exception
      */
     @PostMapping("/reservationInsert")
-    public String reservationInsert(Services services) throws Exception {
-        log.info(services.toString());
-        int result = reservationService.serviceInsert(services);
+    public String reservationInsert(Services service) throws Exception {
+        log.info("서비스 정보: {}", service);
+        int result = reservationService.serviceInsert(service);
 
-        if(result == 0){
+        if (result == 0) {
             log.info("게시글 등록 실패...");
             return "redirect:/reservation/reservationInsert";
         }
 
         log.info("게시글 등록 성공...");
-        return "redirect:/reservation/reservation";
+        return "redirect:/reservation";
     }
 
     /**
@@ -129,19 +125,18 @@ public class ReservationController {
      * @throws Exception
      */
     @GetMapping("/reservationUpdate")
-    public String reservationUpdate(@RequestParam("serviceNo") int serviceNo ,Model model, Files file) throws Exception{
-        Services services = reservationService.serviceSelect(serviceNo);
+    public String reservationUpdate(@RequestParam("serviceNo") int serviceNo, Model model) throws Exception {
+        Services service = reservationService.serviceSelect(serviceNo);
 
-        // 파일 목록 요청
+        Files file = new Files();
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
 
-        model.addAttribute("service", services);
+        model.addAttribute("service", service);
         model.addAttribute("fileList", fileList);
 
-        model.addAttribute("service", services);
-        return "/reservation/reservationUpdate";
+        return "reservation/reservationUpdate";
     }
 
     /**
@@ -151,17 +146,17 @@ public class ReservationController {
      * @throws Exception
      */
     @PostMapping("/reservationUpdate")
-    public String updatePro(Services services) throws Exception {
-        int result = reservationService.serviceUpdate(services);
-        int serviceNo = services.getServiceNo();
+    public String updatePro(Services service) throws Exception {
+        int result = reservationService.serviceUpdate(service);
+        int serviceNo = service.getServiceNo();
 
-        if(result == 0){
+        if (result == 0) {
             log.info("게시글 수정 실패...");
-            return "redirect:/reservation/reservationUpdate?serviceNo="+serviceNo+"&error";
+            return "redirect:/reservation/reservationUpdate?serviceNo=" + serviceNo + "&error";
         }
 
         log.info("게시글 수정 성공...");
-        return "redirect:/reservation/reservation";
+        return "redirect:/reservation";
     }
 
     /**
@@ -175,18 +170,17 @@ public class ReservationController {
     public String reservationDelete(@RequestParam("serviceNo") int serviceNo) throws Exception {
         int result = reservationService.serviceDelete(serviceNo);
 
-        if(result == 0){
+        if (result == 0) {
             log.info("게시글 삭제 실패...");
-            return "redirect:/reservation/reservationUpdate?serviceNo="+serviceNo+"&error";
+            return "redirect:/reservation/reservationUpdate?serviceNo=" + serviceNo + "&error";
         }
 
-        // 첨부 파일 삭제
         Files file = new Files();
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         fileService.deleteByParent(file);
 
         log.info("게시글 삭제 성공...");
-        return "redirect:/reservation/reservation";
+        return "redirect:/reservation";
     }
 }

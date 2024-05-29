@@ -33,9 +33,9 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public Files select(int no) throws Exception {
+    public Files select(int fileNo) throws Exception {
         //  파일 조회
-        Files file = fileMapper.select(no);
+        Files file = fileMapper.select(fileNo);
         return file;
     }
 
@@ -54,12 +54,12 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public int delete(int no) throws Exception {
+    public int delete(int fileNo) throws Exception {
         // 파일 정보 조회
-        Files file = fileMapper.select(no);
+        Files file = fileMapper.select(fileNo);
 
         //  DB에서 파일 삭제
-        int result = fileMapper.delete(no);
+        int result = fileMapper.delete(fileNo);
 
         // 실제 파일 삭제
         if(result > 0){
@@ -92,7 +92,7 @@ public class FileServiceImpl implements FileService {
         List<Files> fileList =  fileMapper.listByParent(file);
         
         for (Files deleteFile : fileList) {
-            int no = deleteFile.getNo();
+            int no = deleteFile.getFileNo();
             delete(no); 
         }
 
@@ -146,9 +146,9 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public Files download(int no) throws Exception {
+    public Files download(int fileNo) throws Exception {
         //  파일 다운로드
-        Files file = fileMapper.select(no);
+        Files file = fileMapper.select(fileNo);
 
         // 다운로드 시, 추가 작업
         // ...
