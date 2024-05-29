@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.daeut.daeut.reservation.dto.Files;
 import com.daeut.daeut.reservation.dto.Option;
 import com.daeut.daeut.reservation.dto.Page;
+import com.daeut.daeut.reservation.dto.Reservation;
 import com.daeut.daeut.reservation.dto.Service;
 import com.daeut.daeut.reservation.mapper.ReservationMapper;
 
@@ -102,6 +103,8 @@ public class ReservationServiceImpl implements ReservationService{
         return boardList;
     }
 
+
+    // 캘린더 DB 연동 
 
     
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.daeut.daeut.reservation.dto.Option;
 import com.daeut.daeut.reservation.dto.Page;
+import com.daeut.daeut.reservation.dto.Reservation;
 import com.daeut.daeut.reservation.dto.Service;
 
 public interface ReservationService {
@@ -15,4 +16,5 @@ public interface ReservationService {
     // 게시글 검색
     // public List<Board> search(String keyword) throws Exception;
     public List<Service> search(Option option) throws Exception;
+    // 캘린더 DB 연동
 }

@@ -170,8 +170,21 @@ function enterSend(e){
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth'
+      initialView: 'dayGridMonth',
+      customButtons:{
+        myCustonButton:{
+            text:"일정 선택하기"
+        },
+        mySaveButton: {
+            text:"저장하기"
+        }
+      }
     });
+    // 헤더에 표시할 툴바
+    headerToolbar: {
+        left: myCustonButton,mySaveButton
+    }
+    
     calendar.render();
   });
 
@@ -220,4 +233,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// 이미지 모달
+// 캘린더 DB 연동
