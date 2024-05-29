@@ -178,12 +178,13 @@ document.addEventListener('DOMContentLoaded', function() {
         mySaveButton: {
             text:"저장하기"
         }
-      }
-    });
-    // 헤더에 표시할 툴바
+      },
+       // 헤더에 표시할 툴바
     headerToolbar: {
         left: myCustonButton,mySaveButton
     }
+    });
+   
     
     calendar.render();
   });
