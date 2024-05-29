@@ -23,31 +23,31 @@
                 <form>
                     <div class="form-group mb-3">
                         <label for="userid">아이디</label>
-                        <input type="text" class="form-control" id="userid" placeholder="userid" disabled>
+                        <input type="text" class="form-control" id="userid" th:value="${user.userid}" disabled>
                     </div>
                     <div class="form-group mb-3">
                         <label for="userPassword">비밀번호</label>
-                        <input type="text" class="form-control" id="userPassword" placeholder="userPassword" readonly>
+                        <input type="text" class="form-control" id="userPassword" th:value="${user.userPassword}" readonly>
                     </div>
                     <div class="form-group mb-3">
                         <label for="userName">이름</label>
-                        <input type="text" class="form-control" id="userName" placeholder="userName" readonly>
+                        <input type="text" class="form-control" id="userName" th:value="&{user.userName}" readonly>
                     </div>
                     <div class="form-group mb-3">
                         <label for="userPhone">전화번호</label>
-                        <input type="text" class="form-control" id="userPhone" placeholder="userPhone" readonly>
+                        <input type="text" class="form-control" id="userPhone" th:value="&{user.userPhone}" readonly>
                     </div>
                     <div class="form-group mb-3">
                         <label for="userAddress">주소</label>
-                        <input type="text" class="form-control" id="userAddress" placeholder="userAddress" readonly>
+                        <input type="text" class="form-control" id="userAddress" th:value="&{user.userAddress}" readonly>
                     </div>
                     <div class="form-group mb-3">
                         <label for="userBirth">생년월일</label>
-                        <input type="date" class="form-control" id="userBirth" placeholder="userBirth" readonly>
+                        <input type="date" class="form-control" id="userBirth" th:value="&{user.userBirth}" readonly>
                     </div>
                     <div class="form-group form-section p-1 f-warp text-start">
                         <label for="description">소개 글</label>
-                        <textarea class="form-control w-75  input-readonly" id="description" rows="3" readonly> </textarea>
+                        <textarea class="form-control w-75  input-readonly" id="description" rows="3" th:value="&{partner.introduce}" readonly> </textarea>
                     </div>
                     <div class="form-group form-section p-1 f-warp text-start">
                         <label for="description">추가 소개 사진</label>

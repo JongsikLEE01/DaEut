@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daeut.daeut.partner.mapper.PartnerMapper">
+
+  <!-- 파트너 정보 가져오기 -->
+  <select id="select">
+  SELECT 
+        p.introduce, <!-- 소개 -->
+        p.user_no AS partner_user_no,
+        u.user_phone, <!-- 전화번호 -->
+        u.user_address, <!-- 주소 -->
+        u.user_birth,<!-- 생년월일 -->
+        u.user_name, <!-- 이름 -->
+        u.user_id, <!-- 아이디  -->
+        u.user_password, <!-- 비밀번호 -->
+        u.enabled
+    FROM 
+        partner p
+    JOIN 
+        users u ON p.user_no = u.user_no
+    WHERE 
+        p.partner_no = #{partnerNo}
+  </select>
+
+  <!-- 파트너 정보 수정하기 -->
+  <update id="update">
+    UPDATE Partner
+        introduce = #{introduce}
+    WHERE partner_no = #{partnerNo}
+  </update>
+
+</mapper>
