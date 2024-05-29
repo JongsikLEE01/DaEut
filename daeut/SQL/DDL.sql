@@ -78,7 +78,7 @@ CREATE TABLE partner
   partner_no      INT          NOT NULL AUTO_INCREMENT COMMENT '파트너 번호',
   partner_grade   INT          NULL     DEFAULT 0 COMMENT '파트너 별점',
   partner_reserve INT          NULL     DEFAULT 0 COMMENT '파트너 예약 횟수',
-  partner_career  TIMESTAMP    NOT NULL DEFAULT 0 COMMENT '파트너 경력',
+  partner_career  TIMESTAMP    NOT NULL COMMENT '파트너 경력',
   status          VARCHAR(100) NOT NULL DEFAULT '미승인' COMMENT '파트너 승인 상태',
   introduce       TEXT         NULL     COMMENT '파트너 소개글',
   user_no         INT          NOT NULL COMMENT '사용자 번호',
