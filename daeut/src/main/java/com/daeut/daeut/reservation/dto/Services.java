@@ -1,6 +1,6 @@
 package com.daeut.daeut.reservation.dto;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.Data;
 
 @Data
-public class Service {
+public class Services {
     private int serviceNo;
     private String serviceCategory;
     private String serviceName;
@@ -16,14 +16,16 @@ public class Service {
     private String serviceContent;
     private Date regDate;
     private Date updDate;
-    private int partnerNo;
 
     // 파일 정보
     List<MultipartFile> file;
-
     // 썸네일 이미지 파일
     MultipartFile thumbnail;
-    
     // 파일 번호
     private int fileNo;
+
+    // user 번호
+    private int userNo;
+    // user 이름
+    private String userName;
 }

@@ -9,8 +9,8 @@
     <!-- 파일 목록 -->
     <select id="list" resultType="Files">
         SELECT *
-        FROM file
-        ORDER BY reg_date DESC
+        FROM files
+        ORDER BY file_reg_date DESC
     </select>
 
     <!-- 파일 목록 - 부모 테이블 기준 -->
@@ -22,29 +22,29 @@
      -->
     <select id="listByParent" resultType="Files">
         SELECT *
-        FROM file
+        FROM files
         WHERE parent_table = #{parentTable}
           AND parent_no = #{parentNo}
           AND file_code = 0
-        ORDER BY reg_date DESC
+        ORDER BY file_reg_date DESC
     </select>
 
     <!-- 파일 조회 -->
     <select id="select" resultType="Files">
         SELECT *
-        FROM file
-        WHERE no = #{no}
+        FROM files
+        WHERE file_no = #{fileNo}
     </select>
 
     <!-- 파일 등록 -->
     <insert id="insert">
-        INSERT INTO file( parent_table, parent_no, file_name, origin_file_name, file_path, file_size, file_code )
+        INSERT INTO files( parent_table, parent_no, file_name, origin_file_name, file_path, file_size, file_code )
         VALUES ( #{parentTable}, #{parentNo}, #{fileName}, #{originFileName}, #{filePath}, #{fileSize}, #{fileCode} )
     </insert>
 
     <!-- 파일 수정 -->
     <update id="update">
-        UPDATE file
+        UPDATE files
            SET parent_table = #{parentTable}
               ,parent_no = #{parentNo}
               ,file_name = #{fileName}
@@ -52,18 +52,19 @@
               ,file_path = #{filePath}
               ,file_size = #{fileSize}
               ,file_code = #{fileCode}
-        WHERE no = #{no}
+              ,upd_date = now()
+        WHERE file_no = #{fileNo}
     </update>
 
     <!-- 파일 삭제 -->
     <delete id="delete">
-        DELETE FROM file
-        WHERE no = #{no}
+        DELETE FROM files
+        WHERE file_no = #{fileNo}
     </delete>
 
     <!-- 파일 목록 삭제 - 부모 테이블 기준 파일 목록 삭제 -->
     <delete id="deleteByParent">
-        DELETE FROM file
+        DELETE FROM files
         WHERE parent_table = #{parentTable}
           AND parent_no = #{parentNo}
     </delete>

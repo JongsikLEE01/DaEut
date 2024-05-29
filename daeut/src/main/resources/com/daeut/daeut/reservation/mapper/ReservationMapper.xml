@@ -5,97 +5,88 @@
 
 <mapper namespace="com.daeut.daeut.reservation.mapper.ReservationMapper">
 
-    <resultMap type="service" id="serviceMap">
-        <id property="serviceNo" column="service_no" />
-        
-        <result property="serviceCategory" column="service_category" />
-        <result property="serviceName" column="service_name" />
-        <result property="servicePrice" column="service_price" />
-        <result property="serviceContent" column="service_content" />
-        <result property="updDate" column="upd_date" />
-        <result property="regDate" column="reg_date" />
-        <!-- 제약 조건 추가 필요 -->
+    <!-- Result Map -->
+    <resultMap type="Services" id="serviceMap">
+        <id property="serviceNo" column="service_no"/>
+        <result property="serviceCategory" column="service_category"/>
+        <result property="serviceName" column="service_name"/>
+        <result property="servicePrice" column="service_price"/>
+        <result property="serviceContent" column="service_content"/>
+        <result property="updDate" column="upd_date"/>
+        <result property="regDate" column="reg_date"/>
     </resultMap>
 
-    <!-- All Read -->
-    <select id="serviceList" resultType="Service">
-        SELECT 
-            s.*, 
-            f.file_no, 
-            f.file_name, 
-            f.file_path, 
-            f.file_code 
-        FROM 
-            joeun.service s 
-        LEFT JOIN 
-            (  
-                SELECT * 
-                FROM joeun.files 
-                WHERE parent_table = 'service' 
-                AND file_code = 1
-            ) f 
-        ON 
-            s.service_no = f.parent_no 
-        WHERE 
-            s.service_name LIKE CONCAT('%', #{option.keyword}, '%') 
-        ORDER BY 
-            s.service_no DESC 
-        LIMIT 
-            #{page.index}, #{page.rows}
-        <!-- select *
-        from service -->
+    <!-- 전체 조회 -->
+    <select id="serviceList" resultMap="serviceMap">
+        SELECT  s.*, 
+        		u.user_name,
+        		f.file_no, 
+                f.file_name, 
+                f.file_path, 
+                f.file_code 
+        FROM joeun.service s    LEFT JOIN (  
+        	                    	    SELECT * 
+        	                    	    FROM joeun.files
+                                        WHERE parent_table = 'service' 
+                                        AND file_code = 1
+        	                    	    ) f
+        	                    ON s.service_no = f.parent_no
+        LEFT JOIN   joeun.users u
+        	    ON  s.partner_no = u.user_no
+                
+        ORDER BY s.service_no DESC 
+        LIMIT #{page.index}, #{page.rows};
     </select>
 
-    <!-- Read -->
-    <select id="serviceSelect" resultType="Service">
-        select *
-        from service
-        where service_no = #{serviceNo}
+    <!-- 단일 조회 -->
+    <select id="serviceSelect" resultMap="serviceMap">
+        SELECT *
+        FROM service
+        WHERE service_no = #{serviceNo}
     </select>
     
-    <!-- Create -->
+    <!-- 삽입 -->
     <insert id="serviceInsert">
         INSERT INTO service(service_category, service_name, service_price, service_content, partner_no)
         VALUES (#{serviceCategory}, #{serviceName}, #{servicePrice}, #{serviceContent}, #{partnerNo})
     </insert>
 
-    <!-- Update -->
+    <!-- 업데이트 -->
     <update id="serviceUpdate">
-        Update service
+        UPDATE service
         SET service_category = #{serviceCategory},
             service_name = #{serviceName},
             service_price = #{servicePrice},
             service_content = #{serviceContent}
+            upd_date = now()
         WHERE service_no = #{serviceNo}
     </update>
 
-    <!-- Delete -->
+    <!-- 삭제 -->
     <delete id="serviceDelete">
-        Delete from service
-        where service_no = #{serviceNo}
+        DELETE FROM service
+        WHERE service_no = #{serviceNo}
     </delete>
 
-    <!-- serviceNo max -->
+    <!-- 서비스 번호의 최대값 조회 -->
     <select id="maxPk" resultType="int">
         SELECT MAX(service_no)
         FROM service
     </select>
 
-    <!-- serch -->
-    <select id="search" resultType="service">
+    <!-- 검색 -->
+    <select id="search" resultMap="serviceMap">
         SELECT *
         FROM service
-        WHERE
-            service_name LIKE CONCAT('%', #{option.keyword}, '%')
+        WHERE service_name LIKE CONCAT('%', #{option.keyword}, '%')
         ORDER BY service_no DESC
     </select>
 
-    <!-- Count -->
+    <!-- 카운트 -->
     <select id="count" resultType="int">
         SELECT COUNT(*)
         FROM service
-        WHERE
-            service_name LIKE CONCAT('%', #{option.keyword}, '%')
+        WHERE service_name LIKE CONCAT('%', #{option.keyword}, '%')
     </select>
 
 </mapper>
