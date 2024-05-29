@@ -132,15 +132,6 @@ form input[type="radio"] {
     justify-content: flex-end;
 }
 
-.buttons button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    border-radius: 8px;
-}
-
-
 
 .buttons button:hover {
     background-color: #e0e0e0;
@@ -174,30 +165,43 @@ form input[type="radio"] {
 }
 
 .update {
-    padding: 10px 20px;
-    background-color: #8FA2CA;
-    color: white;
-    border: 1px solid #8FA2CA;
-    border-radius: 8px;
-    cursor: pointer;
+    background-color: #fff !important;
+    border: 1px solid #8FA2CA !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+    color: black !important;
+}
+
+.update:hover {
+    background-color: #8FA2CA !important;
+    border: 1px solid #8FA2CA !important;
+    color: white !important;
 }
 
 .cancel {
-    padding: 10px 20px;
-    background-color: white;
-    color: #8FA2CA;
-    border: none;
-    border: 1px solid #8FA2CA;
-    border-radius: 8px;
-    cursor: pointer;
+    background-color: #fff !important;
+    color: red !important;
+    border: 1px solid red !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+}
+
+.cancel.hover {
+    background-color: red !important;
+    border: 1px solid red !important;
+    color: white !important;
 }
 
 .delete {
-    padding: 10px 20px;
-    background-color: white;
-    color: #8FA2CA;
-    border: none;
-    border: 1px solid #8FA2CA;
-    border-radius: 8px;
-    cursor: pointer;
+    background-color: #fff !important;
+    color: red !important;
+    border: 1px solid red !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
+}
+
+.delete:hover {
+    background-color: red !important;
+    border: 1px solid red !important;
+    color: white !important;
 }

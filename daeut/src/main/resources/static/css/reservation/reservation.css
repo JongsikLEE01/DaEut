@@ -1,4 +1,7 @@
-
+.contact-link {
+    text-decoration: none;
+    color: black;
+}
 
 .chatbox {
     background-color: #fff;
@@ -384,6 +387,12 @@ input[type="file"] {
 .reservationTitles{
    margin-top: 50px;
    margin-bottom: 30px;
+   display: flex;
+   flex-direction: column; /* 세로 방향으로 배치 */
+}
+
+.reservation-container {
+    display: flex;
 }
 .reservation-title {
     font-size: 20px;
@@ -391,6 +400,15 @@ input[type="file"] {
     margin: 0 !important;
     padding: 0 !important;
     font-weight: bold;
+}
+.reservation-insert-link{
+    margin-left: auto;
+}
+.reservation-insert {
+    background-color: transparent;
+    border: none;
+    color: #8FA2CA;
+    margin-left: auto;
 }
 
 .partner-title {
@@ -695,6 +713,18 @@ input[type="file"] {
     height: 30px;
 }
 
+.reservation-link {
+    margin-left: auto;
+}
+.reservation-update {
+    background-color: transparent;
+    border: none;
+    color: #8FA2CA;
+    margin-left: auto;
+    margin-right: 145px;
+}
+
+/* 서비스 태그 */
 .service-title-tag {
     display: flex;
     align-items: center;
@@ -919,6 +949,12 @@ input[type="file"] {
     background-color: #E4E8F4;
 }
 
+/*캘린더 */
+.calender-info {
+    display: flex;
+    align-items: flex-start; /* 상단에 정렬 */
+    gap: 20px; /* 간격 추가 */
+}
 .reservation-calender {
     background-color: #E4E8F4; /* 날짜 선택 버튼의 배경색 설정 */
     color: black; /* 텍스트 색상 설정 */
@@ -1037,46 +1073,123 @@ input[type="file"] {
 
 /* 캘린더 */
 /* 캘린더 스타일 */
-/* #calendar {
-    font-family: Arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  #calendar th {
-    background-color: #B5C6B8;
-    color: white;
-    padding: 8px;
-    text-align: center;
-  }
-  
-  #calendar td {
-    padding: 8px;
-    text-align: center;
-  }
-  
-  /* 예약 가능한 날짜 */
-  /* .available-day {
-    background-color: #8FA2CA;
-    color: white;
-    border-radius: 50%;
-    cursor: pointer;
-  } */
-  
-  /* 지나간 날짜 및 꽉 찬 날짜 */
-  /* .disabled-day {
-    background-color: #E4E8F4;
-    color: #8FA2CA;
-  } */
-  
-  /* 오늘 날짜 */
-  /* .today {
-    background-color: #B5C6B8;
-    color: white;
-  } */ 
+.calender-color-info {
+    display: flex;
+    flex-direction: column; /* 수직으로 나열 */
+    gap: 10px; /* 간격 추가 */
+    width: 20%; /* 컬러 정보 너비를 20%로 설정 */
+    padding-top: 200px;
+}
 
-  a {
-    text-decoration: none !important;
+.color-box {
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    margin-right: 10px; /* 텍스트와 네모 박스 사이의 간격 */
+    vertical-align: middle; /* 텍스트와의 수직 정렬 */
+}
+
+.color-unavailable {
+    background-color: #E4E8F4;
+}
+
+.color-today {
+    background-color: #B5C6B8;
+}
+
+.color-selected {
+    background-color: #8FA2CA;
+}
+
+#calendar {
+    border-collapse: collapse;
+    width: 40%;
+    height: auto; /* 높이는 자동으로 설정 */
+    margin-top:30px;
+    margin-bottom:50px;
+    flex-grow: 1;
+    min-width: 200px;
+}
+  
+#calendar th {
+    background-color: #fff;
+    /* padding: 8px; */
+    text-align: center;
+}
+
+.fc-col-header-cell-cushion {
+    color: #000;
+}
+  
+#calendar td {
+    /* padding: 8px; */
+    text-align: center;
+}
+
+.fc-daygrid-day-number, .fc-col-header-cell-cushion {
+    text-decoration: none;
+    color: #000;
+}
+
+.fc-daygrid-day-number.fc-day-today {
+    color: white !important;
+}
+
+/* 오늘 */
+.fc-day-today {
+    background-color: #B5C6B8 !important;
+    color: white !important;
+}
+
+.fc-day-today.fc-daygrid-day-number {
+    color: white !important;
+}
+
+/* 클릭된 날짜 */
+.fc-day.fc-day-selected {
+    background-color: #8FA2CA !important;
+    color: white !important; /* 흰색으로 변경 */
+}
+
+/* 선택되지 않은 날짜 */
+.fc-day:not(.fc-day-selected):hover {
+    background-color: #8FA2CA !important;
+    color: white;
+}
+
+/* 지나간 날짜 */
+.fc-day.fc-day-past.fc-daygrid-day {
+    color: #d5d5d5 !important; /* 글씨 색 변경 */
+    background-color: #EDF2F7 !important; /* 배경색 변경 */
+}
+
+/* 오늘 버튼 */
+.fc-today-button.fc-button.fc-button-primary {
+    background-color: #fff !important;
+    border: 1px solid #8FA2CA !important;
+    border-radius: 8px !important;
+    transition: 0.5s !important;
     color: black !important;
-  }
+}
+
+/* 오늘 버튼 호버 상태 */
+.fc-today-button.fc-button.fc-button-primary:hover {
+    background-color: #8FA2CA !important;
+    border: 1px solid #8FA2CA !important;
+    color: white !important;
+}
+
+/* 이전 버튼 */
+.fc-prev-button.fc-button.fc-button-primary {
+    background-color: transparent;
+    color: #8FA2CA !important;
+    border: none;
+}
+
+/* 다음 버튼 */
+.fc-next-button.fc-button.fc-button-primary {
+    background-color: transparent;
+    color: #8FA2CA !important;
+    border: none;
+}
 
