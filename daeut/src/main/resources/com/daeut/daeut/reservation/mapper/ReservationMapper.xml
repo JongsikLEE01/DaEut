@@ -58,6 +58,7 @@
             service_name = #{serviceName},
             service_price = #{servicePrice},
             service_content = #{serviceContent}
+            upd_date = now()
         WHERE service_no = #{serviceNo}
     </update>
 
