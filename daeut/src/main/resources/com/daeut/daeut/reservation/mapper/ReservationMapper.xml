@@ -23,7 +23,7 @@
         		f.file_no, 
                 f.file_name, 
                 f.file_path, 
-                f.file_code 
+                f.file_code
         FROM joeun.service s    LEFT JOIN (  
         	                    	    SELECT * 
         	                    	    FROM joeun.files
@@ -31,9 +31,11 @@
                                         AND file_code = 1
         	                    	    ) f
         	                    ON s.service_no = f.parent_no
-        LEFT JOIN   joeun.users u
-        	    ON  s.partner_no = u.user_no
-                
+        <!-- 유저 번호 -->
+        LEFT JOIN   joeun.users u ON  s.partner_no = u.user_no
+        <!-- 파트너 번호 -->
+        <!-- LEFT JOIN joeun.partner p ON s.partner_no = p.user_no -->
+        WHERE s.service_name LIKE CONCAT('%', #{option.keyword}, '%') 
         ORDER BY s.service_no DESC 
         LIMIT #{page.index}, #{page.rows};
     </select>
@@ -47,8 +49,8 @@
     
     <!-- 삽입 -->
     <insert id="serviceInsert">
-        INSERT INTO service(service_category, service_name, service_price, service_content, partner_no)
-        VALUES (#{serviceCategory}, #{serviceName}, #{servicePrice}, #{serviceContent}, #{partnerNo})
+        INSERT INTO service(service_category, service_name, service_price, service_content, partner_no, reg_date, upd_date)
+        VALUES (#{serviceCategory}, #{serviceName}, #{servicePrice}, #{serviceContent}, #{partnerNo}, now(), now())
     </insert>
 
     <!-- 업데이트 -->
@@ -57,7 +59,7 @@
         SET service_category = #{serviceCategory},
             service_name = #{serviceName},
             service_price = #{servicePrice},
-            service_content = #{serviceContent}
+            service_content = #{serviceContent},
             upd_date = now()
         WHERE service_no = #{serviceNo}
     </update>
