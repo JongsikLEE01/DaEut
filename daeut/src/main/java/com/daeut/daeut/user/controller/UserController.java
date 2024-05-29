@@ -65,4 +65,5 @@ public class UserController {
         log.info("/user/userPartnerDone");
         return "/user/userPartnerDone";
     }
+    
 }
