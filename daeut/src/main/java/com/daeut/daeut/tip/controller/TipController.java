@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class TipController {
 
 
-    @GetMapping("/Index")
+    @GetMapping("/index")
     public String tipHome() {
         log.info("[tip] - /tip");
 
-        return "/tip/Index";
+        return "/tip/index";
     }
     
     @GetMapping("/tipInsert")
@@ -32,5 +32,11 @@ public class TipController {
 
         return "/tip/tipRead";
     }
-    
+
+    @GetMapping("/tipUpdate")
+    public String tipUpdate() {
+        log.info("[tip] - /tipUpdate");
+
+        return "/tip/tipUpdate";
+    }
 }
