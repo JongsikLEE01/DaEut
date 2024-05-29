@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daeut.daeut.tip.mapper.BoardMapper">
+
+    <select id="list" resultType="com.daeut.daeut.tip.dto.Board">
+        SELECT 
+            board_no AS boardNo,
+            board_title AS boardTitle,
+            board_content AS boardContent,
+            board_reg_date AS boardRegDate,
+            board_upd_date AS boardUpdDate,
+            board_views AS boardViews,
+            board_like AS boardLike,
+            user_no AS userNo
+        FROM 
+            board
+    </select>
+
+    <select id="select" parameterType="int" resultType="com.daeut.daeut.tip.dto.Board">
+        SELECT 
+            board_no AS boardNo,
+            board_title AS boardTitle,
+            board_content AS boardContent,
+            board_reg_date AS boardRegDate,
+            board_upd_date AS boardUpdDate,
+            board_views AS boardViews,
+            board_like AS boardLike,
+            user_no AS userNo
+        FROM 
+            board
+        WHERE 
+            board_no = #{boardNo}
+    </select>
+
+    <insert id="insert" parameterType="com.daeut.daeut.tip.dto.Board">
+    INSERT INTO board (board_title, board_content, board_reg_date, board_upd_date, board_views, board_like, user_no)
+    VALUES (#{boardTitle}, #{boardContent}, NOW(), NOW(), #{boardViews}, #{boardLike}, #{userNo})
+</insert>
+
+
+    <update id="update" parameterType="com.daeut.daeut.tip.dto.Board">
+        UPDATE board SET
+            board_title = #{boardTitle},
+            board_content = #{boardContent},
+            board_upd_date = #{boardUpdDate},
+            board_views = #{boardViews},
+            board_like = #{boardLike},
+            user_no = #{userNo}
+        WHERE 
+            board_no = #{boardNo}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM board WHERE board_no = #{boardNo}
+    </delete>
+</mapper>
