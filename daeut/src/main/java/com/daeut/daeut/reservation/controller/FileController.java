@@ -37,14 +37,14 @@ public class FileController {
 
     /**
      * 파일 다운로드
-     * @param no
+     * @param fileNo
      * @param response
      * @throws Exception
      */
-    @GetMapping("/{no}")
-    public void fileDownload(@PathVariable("no") int no
+    @GetMapping("/{fileNo}")
+    public void fileDownload(@PathVariable("fileNo") int fileNo
                             , HttpServletResponse response) throws Exception {
-        Files downloadFile = fileService.download(no);
+        Files downloadFile = fileService.download(fileNo);
 
         // 파일이 없는 경우 메소드 종료
         if(downloadFile == null) return;
@@ -71,12 +71,12 @@ public class FileController {
         sos.close();
     }
 
-    @DeleteMapping("/{no}")
-    public ResponseEntity<String> deleteFile(@PathVariable("no") int no) throws Exception{
-        log.info("DELETE - /file/"+no);
+    @DeleteMapping("/{fileNo}")
+    public ResponseEntity<String> deleteFile(@PathVariable("fileNo") int fileNo) throws Exception{
+        log.info("DELETE - /file/"+fileNo);
 
         //파일 삭제 요청
-        int result = fileService.delete(no);
+        int result = fileService.delete(fileNo);
 
         // 삭제 실패
         if(result == 0) return new ResponseEntity<>("FAIL",HttpStatus.OK);
@@ -85,16 +85,16 @@ public class FileController {
         return new ResponseEntity<>("SUCCESS",HttpStatus.OK);
     }
     
-    // /file/img/{no}
+    // /file/img/{fileNo}
     /**
      * 이미지 썸네일
      * @param param
      * @return
      */
-    @GetMapping("/img/{no}")
-    public ResponseEntity<byte[]> tumbnailImg(@PathVariable("no") int no) throws Exception{
+    @GetMapping("/img/{fileNo}")
+    public ResponseEntity<byte[]> tumbnailImg(@PathVariable("fileNo") int fileNo) throws Exception{
         // 파일번호로 파일 정보 조회
-        Files file = fileService.select(no);
+        Files file = fileService.select(fileNo);
 
         // 이미지 컨텐츠 타입 지정
         HttpHeaders headers = new HttpHeaders();
@@ -102,7 +102,7 @@ public class FileController {
 
         // null 체크
         if(file == null){
-            String filePath = path + "/no-image.png";
+            String filePath = path + "/fileNo-image.png";
             File noImgFile = new File(filePath);
             byte[] noImgFileData = FileCopyUtils.copyToByteArray(noImgFile);
 

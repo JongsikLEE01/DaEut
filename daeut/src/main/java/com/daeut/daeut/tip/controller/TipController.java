@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @Slf4j
 @Controller
 @RequestMapping("/tip")
@@ -40,5 +39,4 @@ public class TipController {
 
         return "/tip/tipUpdate";
     }
-    
 }
