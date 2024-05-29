@@ -1,4 +1,22 @@
+-- Active: 1715242304860@@127.0.0.1@3306@joeun
 -- 결제 로직
+
+
+-- DROP
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS partner;
+DROP TABLE IF EXISTS service;
+DROP TABLE IF EXISTS board ;
+DROP TABLE IF EXISTS reservation ;
+DROP TABLE IF EXISTS persistent_logins;
+DROP TABLE IF EXISTS files ;
+DROP TABLE IF EXISTS reply ;
+DROP TABLE IF EXISTS chat ;
+DROP TABLE IF EXISTS review ;
+DROP TABLE IF EXISTS user_auth ;
+DROP TABLE IF EXISTS payment ;
+DROP TABLE IF EXISTS reservation_item ;
+DROP TABLE IF EXISTS cancel ;
 
 CREATE TABLE board
 (
@@ -60,8 +78,8 @@ CREATE TABLE partner
   partner_no      INT          NOT NULL AUTO_INCREMENT COMMENT '파트너 번호',
   partner_grade   INT          NULL     DEFAULT 0 COMMENT '파트너 별점',
   partner_reserve INT          NULL     DEFAULT 0 COMMENT '파트너 예약 횟수',
-  partner_career  INT          NOT NULL COMMENT '파트너 경력',
-  status          VARCHAR(100) NOT NULL COMMENT '파트너 승인 상태',
+  partner_career  TIMESTAMP    NOT NULL COMMENT '파트너 경력',
+  status          VARCHAR(100) NOT NULL DEFAULT '미승인' COMMENT '파트너 승인 상태',
   introduce       TEXT         NULL     COMMENT '파트너 소개글',
   user_no         INT          NOT NULL COMMENT '사용자 번호',
   PRIMARY KEY (partner_no)
@@ -171,7 +189,7 @@ CREATE TABLE users
   user_no       INT          NOT NULL AUTO_INCREMENT COMMENT '사용자 번호',
   user_name     VARCHAR(100) NOT NULL COMMENT '사용자 이름',
   user_phone    VARCHAR(100) NOT NULL COMMENT '사용자 전화번호',
-  user_birth    VARCHAR(100) NOT NULL COMMENT '사용자 생년월일',
+  user_birth    TIMESTAMP NOT NULL COMMENT '사용자 생년월일',
   user_address  VARCHAR(300) NOT NULL COMMENT '사용자 주소',
   user_email    VARCHAR(100) NOT NULL COMMENT '사용자 이메일',
   user_gender   VARCHAR(50)  NULL     COMMENT '사용자 성별',
@@ -181,91 +199,92 @@ CREATE TABLE users
   user_coupon   VARCHAR(200) NULL     COMMENT '사용자 쿠폰',
   user_upd_date TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '사용자 수정일자',
   enabled       INT          NULL     DEFAULT 1 COMMENT '계정 활성화',
+  status        INT          NULL     COMMENT '상태',
   PRIMARY KEY (user_no)
 ) COMMENT '사용자';
 
----- 제약 조건 ----
--- ALTER TABLE reply
---   ADD CONSTRAINT FK_board_TO_reply
---     FOREIGN KEY (board_no)
---     REFERENCES board (board_no);
+-- 제약 조건 ----
+ALTER TABLE reply
+  ADD CONSTRAINT FK_board_TO_reply
+    FOREIGN KEY (board_no)
+    REFERENCES board (board_no);
 
--- ALTER TABLE service
---   ADD CONSTRAINT FK_partner_TO_service
---     FOREIGN KEY (partner_no)
---     REFERENCES partner (partner_no);
+ALTER TABLE service
+  ADD CONSTRAINT FK_partner_TO_service
+    FOREIGN KEY (partner_no)
+    REFERENCES partner (partner_no);
 
--- ALTER TABLE reservation
---   ADD CONSTRAINT FK_users_TO_reservation
---     FOREIGN KEY (user_no)
---     REFERENCES users (user_no);
+ALTER TABLE reservation
+  ADD CONSTRAINT FK_users_TO_reservation
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no);
 
--- ALTER TABLE chat
---   ADD CONSTRAINT FK_users_TO_chat
---     FOREIGN KEY (user_no)
---     REFERENCES users (user_no);
+ALTER TABLE chat
+  ADD CONSTRAINT FK_users_TO_chat
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no);
 
--- ALTER TABLE review
---   ADD CONSTRAINT FK_users_TO_review
---     FOREIGN KEY (user_no)
---     REFERENCES users (user_no);
+ALTER TABLE review
+  ADD CONSTRAINT FK_users_TO_review
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no);
 
--- ALTER TABLE payment
---   ADD CONSTRAINT FK_reservation_TO_payment
---     FOREIGN KEY (reservation_no)
---     REFERENCES reservation (reservation_no);
+ALTER TABLE payment
+  ADD CONSTRAINT FK_reservation_TO_payment
+    FOREIGN KEY (reservation_no)
+    REFERENCES reservation (reservation_no);
 
--- ALTER TABLE review
---   ADD CONSTRAINT FK_payment_TO_review
---     FOREIGN KEY (payment_no)
---     REFERENCES payment (payment_no);
+ALTER TABLE review
+  ADD CONSTRAINT FK_payment_TO_review
+    FOREIGN KEY (payment_no)
+    REFERENCES payment (payment_no);
 
--- ALTER TABLE partner
---   ADD CONSTRAINT FK_users_TO_partner
---     FOREIGN KEY (user_no)
---     REFERENCES users (user_no);
+ALTER TABLE partner
+  ADD CONSTRAINT FK_users_TO_partner
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no);
 
--- ALTER TABLE reservation
---   ADD CONSTRAINT FK_service_TO_reservation
---     FOREIGN KEY (service_no)
---     REFERENCES service (service_no);
+ALTER TABLE reservation
+  ADD CONSTRAINT FK_service_TO_reservation
+    FOREIGN KEY (service_no)
+    REFERENCES service (service_no);
 
--- ALTER TABLE board
---   ADD CONSTRAINT FK_users_TO_board
---     FOREIGN KEY (user_no)
---     REFERENCES users (user_no);
+ALTER TABLE board
+  ADD CONSTRAINT FK_users_TO_board
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no);
 
--- ALTER TABLE reply
---   ADD CONSTRAINT FK_users_TO_reply
---     FOREIGN KEY (user_no)
---     REFERENCES users (user_no);
+ALTER TABLE reply
+  ADD CONSTRAINT FK_users_TO_reply
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no);
 
--- ALTER TABLE reservation
---   ADD CONSTRAINT FK_partner_TO_reservation
---     FOREIGN KEY (partner_no)
---     REFERENCES partner (partner_no);
+ALTER TABLE reservation
+  ADD CONSTRAINT FK_partner_TO_reservation
+    FOREIGN KEY (partner_no)
+    REFERENCES partner (partner_no);
 
--- ALTER TABLE review
---   ADD CONSTRAINT FK_partner_TO_review
---     FOREIGN KEY (partner_no)
---     REFERENCES partner (partner_no);
+ALTER TABLE review
+  ADD CONSTRAINT FK_partner_TO_review
+    FOREIGN KEY (partner_no)
+    REFERENCES partner (partner_no);
 
--- ALTER TABLE user_auth
---   ADD CONSTRAINT FK_users_TO_user_auth
---     FOREIGN KEY (user_no)
---     REFERENCES users (user_no);
+ALTER TABLE user_auth
+  ADD CONSTRAINT FK_users_TO_user_auth
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no);
 
--- ALTER TABLE reservation_item
---   ADD CONSTRAINT FK_reservation_TO_reservation_item
---     FOREIGN KEY (reservation_no)
---     REFERENCES reservation (reservation_no);
+ALTER TABLE reservation_item
+  ADD CONSTRAINT FK_reservation_TO_reservation_item
+    FOREIGN KEY (reservation_no)
+    REFERENCES reservation (reservation_no);
 
--- ALTER TABLE reservation_item
---   ADD CONSTRAINT FK_service_TO_reservation_item
---     FOREIGN KEY (service_no)
---     REFERENCES service (service_no);
+ALTER TABLE reservation_item
+  ADD CONSTRAINT FK_service_TO_reservation_item
+    FOREIGN KEY (service_no)
+    REFERENCES service (service_no);
 
--- ALTER TABLE cancel
---   ADD CONSTRAINT FK_reservation_TO_cancel
---     FOREIGN KEY (reservation_no)
---     REFERENCES reservation (reservation_no);
+ALTER TABLE cancel
+  ADD CONSTRAINT FK_reservation_TO_cancel
+    FOREIGN KEY (reservation_no)
+    REFERENCES reservation (reservation_no);

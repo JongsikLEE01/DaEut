@@ -3,6 +3,8 @@ package com.daeut.daeut.auth.dto;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 
@@ -11,7 +13,8 @@ public class Users {
     private int userNo; // 사용자 번호
     private String userName; // 사용자 이름
     private String userPhone; // 사용자 전화번호
-    private String userBirth; // 사용자 생년월일
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date userBirth; // 사용자 생년월일
     private String userAddress; // 사용자 주소
     private String userEmail; // 사용자 이메일
     private String userGender; // 사용자 성별
