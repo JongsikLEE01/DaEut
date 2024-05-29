@@ -1,48 +1,104 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/partner_layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Da E ut</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
-  />
-    <link rel="stylesheet" href="/css/partner/partnerReservationRead.css">
 </head>
 <body layout:fragment="content">
-    <!-- ⭐ content -->
-    <div class="container">
-      <aside>
-          <div class="sidebar">
-              <h2>마이페이지</h2>
-              <ul>
-                  <li><a href="/partner/partnerMypage">내 정보 변경</a></li>
-                  <li><a href="/partner/partnerReservation" class="active">내 예약 보기</a></li>
-                  <li><a href="/partner/partnerReview">내 리뷰 보기</a></li>
-              </ul>
-          </div>
-      </aside>
-      <main>
-          <h2>내 예약 보기</h2>
-          <div class="reservation-detail">
-              <p><strong>위치</strong> 인천시 부평구 어딘가</p>
-              <p><strong>일정</strong> 2024년 05월 20일 오전 10시 50분</p>
-              <p><strong>내역</strong> 인천시 부평구 어딘가</p>
-              <p><strong>결제금액</strong> 35,000원</p>
-              <p><strong>요청사항</strong> 깨끗하게 해주세요</p>
-              <p><strong>요청장소</strong> 홍길동</p>
-          </div>
-          <div class="buttons">
-              <button class="cancel-button">예약취소</button>
-              <button class="inquiry-button">문의하기</button>
-              <button class="edit-button">예약수정</button>
-          </div>
-      </main>
-  </div>
+    <button class="btn btn-primary toggle-btn menu mt-2 ml-2 myBtn" id="toggle-btn" onclick="toggleSidebar()">메뉴</button>
+    <main class="container-fluid container">
+        <div class="row">
+            <nav class="col-md-3 col-lg-2 sidebar" id="sidebar">
+                <button class="btn btn-danger d-block d-md-none cancel" onclick="toggleSidebar()">닫기</button>
+                <h5>마이페이지</h5>
+                <br>
+                <a href="/partner/partnerMypage" class="active">내 정보 변경</a>
+                <a href="/partner/partnerReservation" class="partnerReservation">내 예약 보기</a>
+                <a href="/partner/partnerReview">내 리뷰 보기</a>
+            </nav>
+            <div class="col-md-9 col-lg-10 form-section">
+                <h3>내 예약 보기</h3>
+                <form>
+                    <div>
+                        <h4>userName님의 예약 현황</h4>
+                    </div>
+                    <br>
+                    <div class="form-group mb-3">
+                        <label for="staticLocation" class="col-sm-2 col-form-label">위치</label>
+                        <div class="col-sm-10">
+                            <div id="staticLocation" class="custom-text">인천시 부평구</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="staticSchedule" class="col-sm-2 col-form-label">일정</label>
+                        <div class="col-sm-10">
+                            <div id="staticSchedule" class="custom-text">2024년 5월 20일 오전 10시 50분</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="staticService" class="col-sm-2 col-form-label">내역</label>
+                        <div class="col-sm-10">
+                            <div id="staticService" class="custom-text">[여름 맞이][특가]전체 청소 + 방역 서비스</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="staticAmount" class="col-sm-2 col-form-label">결제 금액</label>
+                        <div class="col-sm-10">
+                            <div id="staticAmount" class="custom-text">35,000원</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="staticPartner" class="col-sm-2 col-form-label">요청자 명</label>
+                        <div class="col-sm-10">
+                            <div id="staticPartner" class="custom-text">김조은</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <a href="/reservation/chat" class="btn btn-primary">문의 하기</a>
+                        <button type="submit" class="btn btn-danger">예약 취소</button>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="staticLocation" class="col-sm-2 col-form-label">위치</label>
+                        <div class="col-sm-10">
+                            <div id="staticLocation" class="custom-text">인천시 부평구</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="staticSchedule" class="col-sm-2 col-form-label">일정</label>
+                        <div class="col-sm-10">
+                            <div id="staticSchedule" class="custom-text">2024년 5월 20일 오전 10시 50분</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="staticService" class="col-sm-2 col-form-label">내역</label>
+                        <div class="col-sm-10">
+                            <div id="staticService" class="custom-text">[여름 맞이][특가]전체 청소 + 방역 서비스</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="staticAmount" class="col-sm-2 col-form-label">결제 금액</label>
+                        <div class="col-sm-10">
+                            <div id="staticAmount" class="custom-text">35,000원</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="staticPartner" class="col-sm-2 col-form-label">요청자 명</label>
+                        <div class="col-sm-10">
+                            <div id="staticPartner" class="custom-text">김조은</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <a href="/reservation/chat" class="btn btn-primary">문의 하기</a>
+                        <button type="submit" class="btn btn-danger">예약 취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

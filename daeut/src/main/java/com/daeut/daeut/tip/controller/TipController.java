@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Slf4j
@@ -14,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class TipController {
 
 
-    @GetMapping("/Index")
+    @GetMapping("/index")
     public String tipHome() {
         log.info("[tip] - /tip");
 
-        return "/tip/Index";
+        return "/tip/index";
     }
     
     @GetMapping("/tipInsert")
@@ -33,6 +32,13 @@ public class TipController {
         log.info("[tip] - /tipRead");
 
         return "/tip/tipRead";
+    }
+
+    @GetMapping("/tipUpdate")
+    public String tipUpdate() {
+        log.info("[tip] - /tipUpdate");
+
+        return "/tip/tipUpdate";
     }
     
 }

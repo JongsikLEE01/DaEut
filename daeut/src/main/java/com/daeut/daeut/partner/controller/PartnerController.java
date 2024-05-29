@@ -18,6 +18,13 @@ public class PartnerController {
         return "/partner/partnerMypage";
     }
 
+    @GetMapping("/partnerMypageUpdate")
+    public String partnerMypageUpdate() {
+        log.info("[partner] - /partnerMypageUpdate");
+
+        return "/partner/partnerMypageUpdate";
+    }
+
     @GetMapping("/partnerReservation")
     public String partnerReservation() {
         log.info("[partner] - /partnerReservation");
