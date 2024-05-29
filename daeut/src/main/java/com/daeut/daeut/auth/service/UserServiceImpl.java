@@ -83,5 +83,11 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.insertAuth(userAuth);
         return result;
     }
+
+    @Override
+    public int delete(Users user) throws Exception {
+        int result = userMapper.delete(user);
+        return result;
+    }
     
 }
