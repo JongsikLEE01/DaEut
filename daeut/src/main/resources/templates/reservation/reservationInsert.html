@@ -36,14 +36,10 @@
                     <label for="serviceCategoryQuarantine">방역</label>
                     <input type="checkbox" name="serviceCategory" id="serviceCategorySecurity" class="tag-button" value="보안">
                     <label for="serviceCategorySecurity">보안</label>
-                    <input type="checkbox" name="serviceCategory" id="serviceCategoryEtc" class="tag-button" value="기타">
+                    <input type="checkbox" name="serviceCategory" id="serviceCategoryEtc" class="tag-button" value="기타" checked>
                     <label for="serviceCategoryEtc">기타</label>
 
-                    <!-- <button class="tag-button" type="button" value="청소">청소</button>
-                    <button class="tag-button" type="button" value="빨래">빨래</button>
-                    <button class="tag-button" type="button" value="방역">방역</button>
-                    <button class="tag-button" type="button" value="보안">보안</button>
-                    <button class="tag-button" type="button" value="기타">기타</button> -->
+                    <!-- <button class="tag-button" type="button" value="청소">청소</button> -->
                 </div>
 
                 <div>
@@ -51,14 +47,27 @@
                     <textarea id="content" name="serviceContent" rows="4" cols="50" placeholder="부적절한 글로 판단되어 다른 사용자로부터 일정 수 이상의 신고를 받는 경우 글이 삭제처리 될 수 있습니다." required></textarea><br>
                 </div>
 
+                <!-- 썸네일 -->
                 <div class="fileuploadbox">
-                    <label for="images" class="image-upload-title">첨부파일</label>
+                    <label for="thumbnail" class="image-upload-title">썸네일</label>
+                    <label for="thumbnail" class="file-upload-button sessuce">첨부하기</label>
+
+                    <!-- 이미지 -->
+                    <input type="file" id="thumbnail" name="thumbnail" accept="image/*" onchange="previewThumbnail(event)">
+                    <p class="file-upload-note">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</p>
+                </div>
+                <div id="image-thumbnail-container"></div>
+
+                <br>
+
+                <!-- 설명 이미지 -->
+                <div class="fileuploadbox">
+                    <label for="images" class="image-upload-title">설명이미지</label>
                     <label for="images" class="file-upload-button sessuce">첨부하기</label>
 
                     <!-- 이미지 -->
                     <input type="file" id="images" name="file" accept="image/*" multiple onchange="previewImages(event)">
                     <p class="file-upload-note">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</p>
-
                 </div>
                 <div id="image-preview-container"></div>
                 

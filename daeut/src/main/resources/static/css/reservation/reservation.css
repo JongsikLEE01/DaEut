@@ -215,7 +215,7 @@
 }
 
 /* 파일 선택 버튼 숨기기 */
-input[type="file"] {
+#thumbnail, #images {
     display: none;
 }
 
@@ -226,7 +226,7 @@ input[type="file"] {
 }
 
 /* 이미지 프리뷰 */
-#image-preview-container {
+#image-preview-container, #image-thumbnail-container{
     display: flex;
     gap: 10px;
     border: 1px solid #ccc;

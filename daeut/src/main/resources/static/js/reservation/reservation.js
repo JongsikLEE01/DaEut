@@ -97,31 +97,29 @@ function previewImages(event) {
         var image = document.createElement('img');
         image.src = URL.createObjectURL(files[i]);
         image.alt = '이미지 미리보기';
-        image.style.maxWidth = '200px';
+        image.style.maxWidth = '100px';
         image.style.marginTop = '10px';
         container.appendChild(image);
     }
 }
 
-function previewImagesUpdate(event) {
-    var container = document.getElementById('image-preview-container');
+function previewThumbnail(event) {
+    var container = document.getElementById('image-thumbnail-container');
     container.innerHTML = ''; // 기존 이미지 제거
     
     var files = event.target.files;
     for (var i = 0; i < files.length; i++) {
         var image = document.createElement('img');
-
-        var fileNo = getFileNoFromServer(); // 서버로부터 파일 번호를 가져오는 함수
-        image.src = '/file/img/' + fileNo; // Thymeleaf 코드가 이미 서버 측에서 해결됐다고 가정
+        image.src = URL.createObjectURL(files[i]);
         image.alt = '이미지 미리보기';
-        image.style.maxWidth = '200px';
+        image.style.maxWidth = '100px';
         image.style.marginTop = '10px';
         container.appendChild(image);
     }
 }
 
 // 파일 번호를 가져오는 함수
-function getFileNoFromServer() {
+function getFilesNoFromServer() {
     let fileNo = "[[${service.fileNo}]]"
     return fileNo;
 }

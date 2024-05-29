@@ -70,7 +70,6 @@ public class ReservationServiceImpl implements ReservationService{
                 if (file.isEmpty()) continue;
 
                 Files uploadFile = new Files();
-                uploadFile.setFileCode(THUMBNAIL_FILE_CODE);
                 uploadFile.setParentTable(parentTable);
                 uploadFile.setParentNo(parentNo);
                 uploadFile.setFile(file);

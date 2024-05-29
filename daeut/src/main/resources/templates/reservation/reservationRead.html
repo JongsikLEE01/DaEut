@@ -21,7 +21,7 @@
 				<i class="fa fa-star" aria-hidden="true"></i>
 			</div>
 			<th:block sec:authorize="hasRole('ROLE_PARTNER') and hasRole('ROLE_USER') and !hasRole('ROLE_ADMIN') ">
-				<a href="/reservation/reservationUpdate" class="reservation-link"><button class="reservation-update">수정하기</button></a>
+				<a th:href="|/reservation/reservationUpdate?serviceNo=${serviceNo}|" class="reservation-link"><button class="reservation-update">수정하기</button></a>
 			</th:block>
 		</div>
 
