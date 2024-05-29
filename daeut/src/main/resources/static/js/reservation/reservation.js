@@ -196,17 +196,17 @@ document.addEventListener('DOMContentLoaded', function () {
             calendarDiv = document.createElement('div');
             calendarDiv.id = 'calendar';
             calendarDiv.style.position = 'absolute';
-            calendarDiv.style.width = '306px'; // 캘린더의 가로 길이
-            calendarDiv.style.top = 'calc(100% + 10px)'; // 캘린더의 아래에 10px 여백 추가
+            calendarDiv.style.width = '306px'; 
+            // calendarDiv.style.top = 'calc(100% + 10px)';
             calendarDiv.style.left = '0';
             calendarDiv.style.display = 'none';
-            calendarDiv.style.zIndex = '1000'; // 캘린더가 위에 나타나도록 zIndex 설정
+            calendarDiv.style.zIndex = '1000'; 
             
             const calendar = new FullCalendar.Calendar(calendarDiv, {
-                initialView: 'dayGridMonth', // 월별 달력으로 설정
-                dayMaxEventRows: true, // 여러 이벤트를 한 줄로 표시
+                initialView: 'dayGridMonth', 
+                dayMaxEventRows: true, 
                 events: [
-                    // 캘린더에 표시할 이벤트를 추가하세요 (예: { title: '이벤트 이름', start: '시작 일자' })
+                   
                 ]
             });
 
@@ -219,3 +219,5 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleCalendar();
     });
 });
+
+// 이미지 모달
