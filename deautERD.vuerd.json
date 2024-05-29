@@ -3,8 +3,8 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-    "scrollTop": 0,
-    "scrollLeft": -29,
+    "scrollTop": -1023.3102999999999,
+    "scrollLeft": -2099.0711093834243,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -120,7 +120,7 @@
             "id": "032da214-28be-4cf1-bd10-96a7d61d8f98",
             "name": "user_birth",
             "comment": "사용자 생년월일",
-            "dataType": "VARCHAR(100)",
+            "dataType": "TIMESTAMP",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -135,7 +135,7 @@
               "pfk": false,
               "widthName": 60.24609375,
               "widthComment": 97.5703125,
-              "widthDataType": 89.29296875,
+              "widthDataType": 71.93212890625,
               "widthDefault": 60
             }
           },
@@ -349,9 +349,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 758.956,
-          "top": 760.1026,
-          "zIndex": 84,
+          "left": 1685.5321,
+          "top": 1549.9851,
+          "zIndex": 88,
           "widthName": 60,
           "widthComment": 60
         },
@@ -434,9 +434,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 102.3849,
-          "top": 905.7247,
-          "zIndex": 86,
+          "left": 1006.2442,
+          "top": 1668.1884,
+          "zIndex": 59,
           "widthName": 60,
           "widthComment": 60
         },
@@ -634,9 +634,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 39.2253,
-          "top": 326.3479,
-          "zIndex": 29,
+          "left": 997.0373,
+          "top": 978.914,
+          "zIndex": 57,
           "widthName": 60,
           "widthComment": 60
         },
@@ -880,9 +880,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 768.6545,
-          "top": 387.6113,
-          "zIndex": 83,
+          "left": 1805.9275,
+          "top": 1045.786,
+          "zIndex": 61,
           "widthName": 66.94287109375,
           "widthComment": 60
         },
@@ -988,9 +988,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 332.6447,
-          "top": 1117.074,
-          "zIndex": 88,
+          "left": 1010.1403,
+          "top": 1885.5798,
+          "zIndex": 68,
           "widthName": 60,
           "widthComment": 60,
           "color": "#000000"
@@ -1235,9 +1235,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 2099.2659,
-          "top": 719.1963,
-          "zIndex": 100,
+          "left": 3247.5196,
+          "top": 1275.9079,
+          "zIndex": 77,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1412,9 +1412,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 49.3868,
-          "top": 667.8721,
-          "zIndex": 85,
+          "left": 1007.3907,
+          "top": 1374.3824,
+          "zIndex": 58,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1498,8 +1498,8 @@
             "id": "0d2a33f6-461e-41dc-880f-edb0af55c10c",
             "name": "partner_career",
             "comment": "파트너 경력",
-            "dataType": "INT",
-            "default": "",
+            "dataType": "TIMESTAMP",
+            "default": "0",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
@@ -1513,7 +1513,7 @@
               "pfk": false,
               "widthName": 86.296875,
               "widthComment": 71.5703125,
-              "widthDataType": 60,
+              "widthDataType": 71.93212890625,
               "widthDefault": 60
             }
           },
@@ -1522,7 +1522,7 @@
             "name": "status",
             "comment": "파트너 승인 상태",
             "dataType": "VARCHAR(100)",
-            "default": "",
+            "default": "'미승인'",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
@@ -1589,9 +1589,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 1486.201,
-          "top": 585.658,
-          "zIndex": 95,
+          "left": 2615.7396,
+          "top": 1265.7194,
+          "zIndex": 74,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1789,9 +1789,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 1456.234,
-          "top": 901.5142,
-          "zIndex": 96,
+          "left": 2476.3597,
+          "top": 1799.4425,
+          "zIndex": 73,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1897,9 +1897,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 2128.5348,
-          "top": 1016.6451,
-          "zIndex": 101,
+          "left": 3245.9654,
+          "top": 1602.9964,
+          "zIndex": 78,
           "widthName": 99.93798828125,
           "widthComment": 67
         },
@@ -2097,9 +2097,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 763.0214,
-          "top": 32.222,
-          "zIndex": 82,
+          "left": 1797.1481,
+          "top": 631.7987,
+          "zIndex": 56,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2274,9 +2274,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 2110.0023,
-          "top": 470.6587,
-          "zIndex": 98,
+          "left": 3253.1395,
+          "top": 1003.2435,
+          "zIndex": 76,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2474,9 +2474,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 73.8416,
-          "top": 35.4226,
-          "zIndex": 79,
+          "left": 995.0024,
+          "top": 625.1538,
+          "zIndex": 55,
           "widthName": 98.4462890625,
           "widthComment": 60
         },
@@ -2789,9 +2789,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 1491.6369,
-          "top": 118.0551,
-          "zIndex": 97,
+          "left": 2639.6097,
+          "top": 628.8016,
+          "zIndex": 75,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2815,8 +2815,8 @@
           "columnIds": [
             "5bea0407-c9de-4b15-b34b-61d65f13d2f6"
           ],
-          "x": 327.3747140625,
-          "y": 559.3479,
+          "x": 1285.1867140625,
+          "y": 1211.914,
           "direction": "bottom"
         },
         "end": {
@@ -2824,8 +2824,8 @@
           "columnIds": [
             "1a728bd0-fc0a-4a25-bfb7-242b79d6a295"
           ],
-          "x": 326.04060859375,
-          "y": 667.8721,
+          "x": 1284.04450859375,
+          "y": 1374.3824,
           "direction": "top"
         },
         "constraintName": "fk_board_to_reply",
@@ -2841,8 +2841,8 @@
           "columnIds": [
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
-          "x": 1486.201,
-          "y": 621.0746666666668,
+          "x": 2615.7396,
+          "y": 1301.1360666666665,
           "direction": "left"
         },
         "end": {
@@ -2850,8 +2850,8 @@
           "columnIds": [
             "67fe38f3-6f95-46df-b183-cb2fc56b44c9"
           ],
-          "x": 1314.57071640625,
-          "y": 148.722,
+          "x": 2348.6974164062503,
+          "y": 748.2987,
           "direction": "right"
         },
         "constraintName": "fk_partner_to_service",
@@ -2867,8 +2867,8 @@
           "columnIds": [
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
-          "x": 1040.2658144531251,
-          "y": 760.1026,
+          "x": 2107.4968216796874,
+          "y": 1549.9851,
           "direction": "top"
         },
         "end": {
@@ -2876,8 +2876,8 @@
           "columnIds": [
             "0df7dfd0-d390-4f55-8778-6c252edfe371"
           ],
-          "x": 1038.170369140625,
-          "y": 661.6113,
+          "x": 2075.443369140625,
+          "y": 1319.786,
           "direction": "bottom"
         },
         "constraintName": "fk_users_to_reservation",
@@ -2893,17 +2893,17 @@
           "columnIds": [
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
-          "x": 1040.2658144531251,
-          "y": 1095.6026000000002,
-          "direction": "bottom"
+          "x": 1685.5321,
+          "y": 1829.5684333333331,
+          "direction": "left"
         },
         "end": {
           "tableId": "123b4f0a-a178-4815-9991-f756d1b073da",
           "columnIds": [
             "81a3b316-a926-4a9f-81ee-a11b0a0d3d4c"
           ],
-          "x": 860.5553445312501,
-          "y": 1192.574,
+          "x": 1538.05094453125,
+          "y": 1961.0798,
           "direction": "right"
         },
         "constraintName": "fk_users_to_chat",
@@ -2919,8 +2919,8 @@
           "columnIds": [
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
-          "x": 1321.5756289062501,
-          "y": 1011.7276,
+          "x": 2248.15172890625,
+          "y": 1801.6101,
           "direction": "right"
         },
         "end": {
@@ -2928,8 +2928,8 @@
           "columnIds": [
             "35ba0d25-e35c-4424-866e-8f34d8ce964a"
           ],
-          "x": 1456.234,
-          "y": 1018.0142,
+          "x": 2476.3597,
+          "y": 1915.9425,
           "direction": "left"
         },
         "constraintName": "fk_users_to_review",
@@ -2945,8 +2945,8 @@
           "columnIds": [
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
-          "x": 1307.68623828125,
-          "y": 524.6113,
+          "x": 2344.95923828125,
+          "y": 1182.786,
           "direction": "right"
         },
         "end": {
@@ -2954,8 +2954,8 @@
           "columnIds": [
             "377a7eea-bb38-4338-b674-817740c54db9"
           ],
-          "x": 2110.0023,
-          "y": 523.7837,
+          "x": 3253.1395,
+          "y": 1056.3685,
           "direction": "left"
         },
         "constraintName": "fk_reservation_to_payment",
@@ -2971,8 +2971,8 @@
           "columnIds": [
             "d7b12762-5fb5-48a7-9948-587421d24799"
           ],
-          "x": 2110.0023,
-          "y": 630.0337,
+          "x": 3253.1395,
+          "y": 1162.6185,
           "direction": "left"
         },
         "end": {
@@ -2980,8 +2980,8 @@
           "columnIds": [
             "b04acd84-39b6-4fc9-b9ae-5e56ac768abf"
           ],
-          "x": 2014.02941015625,
-          "y": 1018.0142,
+          "x": 3034.15511015625,
+          "y": 1915.9425,
           "direction": "right"
         },
         "constraintName": "fk_payment_to_review",
@@ -2997,8 +2997,8 @@
           "columnIds": [
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
-          "x": 1321.5756289062501,
-          "y": 843.9776,
+          "x": 2248.15172890625,
+          "y": 1633.8601,
           "direction": "right"
         },
         "end": {
@@ -3006,8 +3006,8 @@
           "columnIds": [
             "12d192ce-6eba-43e4-8dbd-cf6e5ce73f6d"
           ],
-          "x": 1486.201,
-          "y": 762.7413333333335,
+          "x": 2615.7396,
+          "y": 1442.802733333333,
           "direction": "left"
         },
         "constraintName": "fk_users_to_partner",
@@ -3023,8 +3023,8 @@
           "columnIds": [
             "3e59b84e-b5f7-4411-b8d8-5257282e8950"
           ],
-          "x": 1038.796058203125,
-          "y": 265.222,
+          "x": 2072.9227582031253,
+          "y": 864.7987,
           "direction": "bottom"
         },
         "end": {
@@ -3032,8 +3032,8 @@
           "columnIds": [
             "e62de13a-bfdc-4804-8533-44743dd50137"
           ],
-          "x": 1038.170369140625,
-          "y": 387.6113,
+          "x": 2075.443369140625,
+          "y": 1045.786,
           "direction": "top"
         },
         "constraintName": "fk_service_to_reservation",
@@ -3049,17 +3049,17 @@
           "columnIds": [
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
-          "x": 758.956,
-          "y": 816.0192666666668,
-          "direction": "left"
+          "x": 1826.1870072265624,
+          "y": 1549.9851,
+          "direction": "top"
         },
         "end": {
           "tableId": "4c96de77-b48d-4e54-a2f3-cf290f46c35a",
           "columnIds": [
             "2ebc3b6c-5f66-4696-b139-192d207bd8e3"
           ],
-          "x": 615.524128125,
-          "y": 442.8479,
+          "x": 1573.336128125,
+          "y": 1095.414,
           "direction": "right"
         },
         "constraintName": "fk_users_to_board",
@@ -3075,8 +3075,8 @@
           "columnIds": [
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
-          "x": 758.956,
-          "y": 927.8526000000002,
+          "x": 1685.5321,
+          "y": 1605.9017666666666,
           "direction": "left"
         },
         "end": {
@@ -3084,8 +3084,8 @@
           "columnIds": [
             "4f5a29b3-bb93-4bb8-94be-7594764cf175"
           ],
-          "x": 602.6944171875,
-          "y": 774.1221,
+          "x": 1560.6983171875,
+          "y": 1480.6324,
           "direction": "right"
         },
         "constraintName": "fk_users_to_reply",
@@ -3101,8 +3101,8 @@
           "columnIds": [
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
-          "x": 1486.201,
-          "y": 691.9080000000001,
+          "x": 2615.7396,
+          "y": 1371.9693999999997,
           "direction": "left"
         },
         "end": {
@@ -3110,8 +3110,8 @@
           "columnIds": [
             "62cd7980-e850-448f-9600-2a329e0ecc91"
           ],
-          "x": 1307.68623828125,
-          "y": 615.9446333333334,
+          "x": 2344.95923828125,
+          "y": 1274.1193333333333,
           "direction": "right"
         },
         "constraintName": "fk_partner_to_reservation",
@@ -3127,8 +3127,8 @@
           "columnIds": [
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
-          "x": 1735.316234375,
-          "y": 798.158,
+          "x": 2864.854834375,
+          "y": 1478.2194,
           "direction": "bottom"
         },
         "end": {
@@ -3136,8 +3136,8 @@
           "columnIds": [
             "26760f16-757d-4d1b-82f1-d4ea812271b4"
           ],
-          "x": 1735.131705078125,
-          "y": 901.5142,
+          "x": 2755.257405078125,
+          "y": 1799.4425,
           "direction": "top"
         },
         "constraintName": "fk_partner_to_review",
@@ -3153,8 +3153,8 @@
           "columnIds": [
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
-          "x": 758.956,
-          "y": 1039.6859333333334,
+          "x": 1685.5321,
+          "y": 1717.7350999999999,
           "direction": "left"
         },
         "end": {
@@ -3162,8 +3162,8 @@
           "columnIds": [
             "4d47d8b9-6b85-44a1-94d6-e474394d8fa0"
           ],
-          "x": 537.24818125,
-          "y": 970.9747,
+          "x": 1441.10748125,
+          "y": 1733.4384,
           "direction": "right"
         },
         "constraintName": "fk_users_to_user_auth",
@@ -3179,8 +3179,8 @@
           "columnIds": [
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
-          "x": 768.6545,
-          "y": 524.6113,
+          "x": 1805.9275,
+          "y": 1182.786,
           "direction": "left"
         },
         "end": {
@@ -3188,8 +3188,8 @@
           "columnIds": [
             "a73d5c76-f42c-41a2-a4ba-f4fee72d34d0"
           ],
-          "x": 583.4773421875,
-          "y": 210.1726,
+          "x": 1504.6381421874999,
+          "y": 799.9038,
           "direction": "right"
         },
         "constraintName": "fk_reservation_to_reservation_item",
@@ -3205,8 +3205,8 @@
           "columnIds": [
             "3e59b84e-b5f7-4411-b8d8-5257282e8950"
           ],
-          "x": 763.0214,
-          "y": 148.722,
+          "x": 1797.1481,
+          "y": 748.2987,
           "direction": "left"
         },
         "end": {
@@ -3214,8 +3214,8 @@
           "columnIds": [
             "277c64e3-51c7-489c-82ff-6310a8815278"
           ],
-          "x": 583.4773421875,
-          "y": 93.6726,
+          "x": 1504.6381421874999,
+          "y": 683.4038,
           "direction": "right"
         },
         "constraintName": "fk_service_to_reservation_item",
@@ -3231,8 +3231,8 @@
           "columnIds": [
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
-          "x": 1307.68623828125,
-          "y": 433.27796666666666,
+          "x": 2344.95923828125,
+          "y": 1091.4526666666668,
           "direction": "right"
         },
         "end": {
@@ -3240,8 +3240,8 @@
           "columnIds": [
             "359842ae-6efa-4b5d-a2a9-e7bb034f7efd"
           ],
-          "x": 1491.6369,
-          "y": 285.8051,
+          "x": 2639.6097,
+          "y": 796.5516,
           "direction": "left"
         },
         "constraintName": "fk_reservation_to_cancel",
