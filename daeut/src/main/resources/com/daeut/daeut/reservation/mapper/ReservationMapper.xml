@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daeut.daeut.reservation.mapper.ReservationMapper">
+
+    <resultMap type="service" id="serviceMap">
+        <id property="serviceNo" column="service_no" />
+        
+        <result property="serviceCategory" column="service_category" />
+        <result property="serviceName" column="service_name" />
+        <result property="servicePrice" column="service_price" />
+        <result property="serviceContent" column="service_content" />
+        <result property="updDate" column="upd_date" />
+        <result property="regDate" column="reg_date" />
+        <!-- 제약 조건 추가 필요 -->
+    </resultMap>
+
+    <!-- All Read -->
+    <select id="serviceList" resultType="Service">
+        SELECT 
+            s.*, 
+            f.file_no, 
+            f.file_name, 
+            f.file_path, 
+            f.file_code 
+        FROM 
+            joeun.service s 
+        LEFT JOIN 
+            (  
+                SELECT * 
+                FROM joeun.files 
+                WHERE parent_table = 'service' 
+                AND file_code = 1
+            ) f 
+        ON 
+            s.service_no = f.parent_no 
+        WHERE 
+            s.service_name LIKE CONCAT('%', #{option.keyword}, '%') 
+        ORDER BY 
+            s.service_no DESC 
+        LIMIT 
+            #{page.index}, #{page.rows}
+        <!-- select *
+        from service -->
+    </select>
+
+    <!-- Read -->
+    <select id="serviceSelect" resultType="Service">
+        select *
+        from service
+        where service_no = #{serviceNo}
+    </select>
+    
+    <!-- Create -->
+    <insert id="serviceInsert">
+        INSERT INTO service(service_category, service_name, service_price, service_content, partner_no)
+        VALUES (#{serviceCategory}, #{serviceName}, #{servicePrice}, #{serviceContent}, #{partnerNo})
+    </insert>
+
+    <!-- Update -->
+    <update id="serviceUpdate">
+        Update service
+        SET service_category = #{serviceCategory},
+            service_name = #{serviceName},
+            service_price = #{servicePrice},
+            service_content = #{serviceContent}
+        WHERE service_no = #{serviceNo}
+    </update>
+
+    <!-- Delete -->
+    <delete id="serviceDelete">
+        Delete from service
+        where service_no = #{serviceNo}
+    </delete>
+
+    <!-- serviceNo max -->
+    <select id="maxPk" resultType="int">
+        SELECT MAX(service_no)
+        FROM service
+    </select>
+
+    <!-- serch -->
+    <select id="search" resultType="service">
+        SELECT *
+        FROM service
+        WHERE
+            service_name LIKE CONCAT('%', #{option.keyword}, '%')
+        ORDER BY service_no DESC
+    </select>
+
+    <!-- Count -->
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM service
+        WHERE
+            service_name LIKE CONCAT('%', #{option.keyword}, '%')
+    </select>
+
+</mapper>
