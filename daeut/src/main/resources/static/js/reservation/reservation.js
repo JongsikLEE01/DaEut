@@ -167,27 +167,34 @@ function enterSend(e){
 });
 
 // 캘린더 
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth',
-      customButtons:{
-        myCustonButton:{
-            text:"일정 선택하기"
-        },
-        mySaveButton: {
-            text:"저장하기"
-        }
-      },
-       // 헤더에 표시할 툴바
-    headerToolbar: {
-        left: myCustonButton,mySaveButton
-    }
-    });
-   
-    
-    calendar.render();
-  });
+// document.addEventListener('DOMContentLoaded', function() {
+//     var calendarEl = document.getElementById('calendar');
+//     var calendar = new FullCalendar.Calendar(calendarEl, {
+//       initialView: 'dayGridMonth',
+//       height: '700px', // calendar 높이 설정
+//       expandRows: true, // 화면에 맞게 높이 재설정
+//       slotMinTime: '08:00', // Day 캘린더에서 시작 시간
+//       slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
+//       // 해더에 표시할 툴바
+//       headerToolbar: {
+//         right: 'prev,next today',
+//       },
+//       initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+//       selectable: true, // 달력 일자 드래그 설정가능
+//       nowIndicator: true, // 현재 시간 마크
+//       dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
+//       locale: 'ko', // 한국어 설정
+//       // 이벤트 
+//       events: [
+//         {
+//             title: 'Meeting',
+//             start: '2024-05-12T10:30:00',
+//             end: '2024-05-12T12:30:00'
+//         }
+//       ]
+//     });
+//     calendar.render();
+//   });
 
 // 캘린더 나오게 하기 
 document.addEventListener('DOMContentLoaded', function () {
@@ -219,6 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const calendar = new FullCalendar.Calendar(calendarDiv, {
                 initialView: 'dayGridMonth', 
                 dayMaxEventRows: true, 
+                locale: 'ko', // 한국어 설정
                 events: [
                    
                 ]
@@ -235,3 +243,68 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // 캘린더 DB 연동
+// Frontend JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        height: '700px', // calendar 높이 설정
+        expandRows: true, // 화면에 맞게 높이 재설정
+        slotMinTime: '08:00', // Day 캘린더에서 시작 시간
+        slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
+        headerToolbar: {
+            right: 'prev,next today',
+        },
+        selectable: true, // 달력 일자 드래그 설정가능
+        nowIndicator: true, // 현재 시간 마크
+        dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
+        locale: 'ko', // 한국어 설정
+        events: function(fetchInfo, successCallback, failureCallback) {
+            fetch('/reservations')
+                .then(response => response.json())
+                .then(data => {
+                    var events = [];
+                    data.forEach(reservation => {
+                        events.push({
+                            title: 'Reservation', // 예약을 나타내는 제목
+                            start: reservation.reg_date, // 예약의 등록일자를 시작 시간으로 사용
+                            allDay: true // 하루 종일 예약으로 설정
+                        });
+                    });
+                    successCallback(events); // 캘린더에 이벤트 추가
+                })
+                .catch(error => {
+                    console.error('Error fetching reservations:', error);
+                    failureCallback(error);
+                });
+        }
+    });
+    calendar.render();
+});
+
+// 캘린더 DB 연동2 
+// $(function () {
+//     var request = $.ajax({
+//         url: "/full-calendar/calendar-admin",
+//         method: "GET",
+//         dataType: "json"
+//     });
+
+//     request.done(function (data) {
+//         var calendarEl = document.getElementById('calendar');
+
+//         var calendar = new FullCalendar.Calendar(calendarEl, {
+//             initialDate: new Date(),
+//             initialView: 'dayGridMonth',
+//             events: data
+//         });
+
+//         calendar.render();
+//     });
+
+//     request.fail(function( jqXHR, textStatus ) {
+//         alert( "Request failed: " + textStatus );
+//     });
+// });
+
+

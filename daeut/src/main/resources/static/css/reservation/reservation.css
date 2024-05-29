@@ -925,7 +925,7 @@ input[type="file"] {
 }
 
 .partner-service-table input[type="checkbox"]:checked {
-    background-color: rgba(255, 255, 255, 0.8); /* 투명도를 적용한 흰색 배경 */
+    background-color: #48523D;
     border: 1px solid #48523D;
 }
 

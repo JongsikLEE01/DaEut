@@ -1,11 +1,13 @@
 package com.daeut.daeut.reservation.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+// import com.daeut.daeut.reservation.dao.ReservationRepository;
 import com.daeut.daeut.reservation.dto.Files;
 import com.daeut.daeut.reservation.dto.Option;
 import com.daeut.daeut.reservation.dto.Page;
@@ -22,6 +24,8 @@ public class ReservationServiceImpl implements ReservationService{
     private ReservationMapper reservationMapper;
     @Autowired
     private FileService fileService;
+    // @Autowired
+    // private ReservationRepository reservationRepository;
 
     private static final int THUMBNAIL_FILE_CODE = 1;
 
@@ -99,4 +103,9 @@ public class ReservationServiceImpl implements ReservationService{
         // 검색
         return reservationMapper.search(option);
     }
+
+    //     @Override
+    // public List<Map<String, Object>> getAllReservationsForCalendar() {
+    //     return reservationRepository.getAllReservationsForCalendar();
+    // }
 }

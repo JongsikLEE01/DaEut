@@ -1,6 +1,7 @@
 package com.daeut.daeut.reservation.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.daeut.daeut.reservation.dto.Option;
 import com.daeut.daeut.reservation.dto.Page;
@@ -19,4 +20,6 @@ public interface ReservationService {
     public int serviceDelete(int serviceNo) throws Exception;
     // 검색
     public List<Services> search(Option option) throws Exception;
+    // 캘린더
+    // List<Map<String, Object>> getAllReservationsForCalendar();
 }

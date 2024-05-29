@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.daeut.daeut.reservation.dto.Option;
 import com.daeut.daeut.reservation.dto.Page;
+import com.daeut.daeut.reservation.dto.Reservation;
 import com.daeut.daeut.reservation.dto.Services;
 
 @Mapper
@@ -27,4 +29,7 @@ public interface ReservationMapper {
     public int maxPk() throws Exception;
     // 개수 조회
     public int count(@Param("option") Option option) throws Exception;
+    // 예약 DB 연동
+    @Select("SELECT reg_date FROM reservation")
+    List<Reservation> getAllReservations();
 }

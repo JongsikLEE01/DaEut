@@ -3,6 +3,7 @@ package com.daeut.daeut.reservation.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.daeut.daeut.reservation.dto.Files;
 import com.daeut.daeut.reservation.dto.Option;
 import com.daeut.daeut.reservation.dto.Page;
+import com.daeut.daeut.reservation.dto.Reservation;
 import com.daeut.daeut.reservation.dto.Services;
+import com.daeut.daeut.reservation.mapper.ReservationMapper;
 import com.daeut.daeut.reservation.service.FileService;
 import com.daeut.daeut.reservation.service.ReservationService;
 
@@ -29,6 +32,9 @@ public class ReservationController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private ReservationMapper reservationMapper;
 
     /**
      * 전체 조회
@@ -182,5 +188,12 @@ public class ReservationController {
 
         log.info("게시글 삭제 성공...");
         return "redirect:/reservation";
+    }
+
+    // DB 연동
+    @GetMapping("/reservations")
+    public ResponseEntity<List<Reservation>> getAllReservations() {
+        List<Reservation> reservations = reservationMapper.getAllReservations();
+        return ResponseEntity.ok().body(reservations);
     }
 }
