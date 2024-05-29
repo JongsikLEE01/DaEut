@@ -9,7 +9,7 @@ import lombok.*;
 
 @Data
 public class Files {
-    private int no;
+    private int fileNo;
     private String parentTable;
     private int parentNo;
     private String fileName;

@@ -33,7 +33,7 @@
     <select id="select" resultType="Files">
         SELECT *
         FROM file
-        WHERE no = #{no}
+        WHERE file_no = #{fileNo}
     </select>
 
     <!-- 파일 등록 -->
@@ -52,13 +52,13 @@
               ,file_path = #{filePath}
               ,file_size = #{fileSize}
               ,file_code = #{fileCode}
-        WHERE no = #{no}
+        WHERE file_no = #{fileNo}
     </update>
 
     <!-- 파일 삭제 -->
     <delete id="delete">
         DELETE FROM file
-        WHERE no = #{no}
+        WHERE file_no = #{fileNo}
     </delete>
 
     <!-- 파일 목록 삭제 - 부모 테이블 기준 파일 목록 삭제 -->
