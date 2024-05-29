@@ -199,6 +199,7 @@ CREATE TABLE users
   user_coupon   VARCHAR(200) NULL     COMMENT '사용자 쿠폰',
   user_upd_date TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '사용자 수정일자',
   enabled       INT          NULL     DEFAULT 1 COMMENT '계정 활성화',
+  status        INT          NULL     COMMENT '상태',
   PRIMARY KEY (user_no)
 ) COMMENT '사용자';
 
