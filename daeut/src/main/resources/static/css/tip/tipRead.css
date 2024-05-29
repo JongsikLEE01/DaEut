@@ -1,5 +1,4 @@
 body {
-    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #fff;
@@ -34,8 +33,7 @@ body {
 .delete, .update {
     margin-left: 10px;
 }
-
-.delete {
+.list {
     padding: 8px 18px;
     background-color: #8FA2CA;
     color: white;
@@ -44,7 +42,16 @@ body {
     cursor: pointer;
 }
 
-.update {
+.boardList {
+    padding: 8px 18px;
+    background-color: #8FA2CA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.boardUpdate {
     padding: 8px 18px;
     background-color: white;
     color: #8FA2CA;
@@ -52,6 +59,14 @@ body {
     border-radius: 8px;
     cursor: pointer;
 }
+
+
+.input-readonly:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: var(--bs-border-color) !important;
+}
+
 
 .main h3 {
     font-size: 16px;
@@ -61,6 +76,9 @@ body {
     /* margin-bottom: 10px; */
 }
 
+#reply-input h3 {
+    font-size: 20px;
+}
 .main img {
     display: block;
     margin: 20px auto;
@@ -69,7 +87,7 @@ body {
 }
 
 .main p {
-    font-size: 16px;
+    font-size: 18px;
     color: #555;
     line-height: 1.5;
     text-align: justify;
@@ -81,28 +99,26 @@ body {
     color: #555;
 }
 
-.comment-section {
-    margin-top: 40px;
-}
 
-.comment-section input[type=text] {
-    width: 80%;
+#reply-input textarea {
+    width: 60%;
     padding: 10px;
     border: 1px solid #8FA2CA;
     border-radius: 5px;
-    margin-bottom: 20px;
 }
 
-.comment-section button[type=submit] {
+#reply-input button[type=button] {
     padding: 10px 20px;
     background-color: #8FA2CA;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-align: center;
+    margin-left: 20px;
 }
 
-.comment-section button[type=submit]:hover {
+.reply-input button[type=button]:hover {
     background-color: #8FA2CA;
 }
 
@@ -146,4 +162,26 @@ body {
     height: 1.5px;
     background: #8FA2CA;
     margin: 20px 0;
+}
+
+.reply-input {
+    width: 80% !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+#userId {
+    background: none !important;
+    border: none !important;
+}
+
+.delete {
+    padding: 8px 18px;
+    background-color: #8FA2CA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
 }

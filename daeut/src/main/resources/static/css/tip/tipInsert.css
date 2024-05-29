@@ -1,5 +1,4 @@
 body {
-    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #fff;
@@ -8,10 +7,7 @@ body {
 .container {
     background-color: white;
     padding: 20px;
-    /* border-radius: 8px; */
-    /* box-shadow: 0 0 10px rgba(0,0,0,0.1); */
-    /* max-width: 600px;
-    width: 100%; */
+    max-width: 1000px !important;
     margin-top: 40px;
     margin-bottom: 40px;
 }
@@ -50,14 +46,15 @@ body {
 
 .file-upload-button {
     box-sizing: border-box;
-    width: 109px;
-    height: 47.3px;
+    width: 80px;
+    height: 35px;
     background: rgba(228, 232, 244, 0.533333);
     border: 1px solid #FFFFFF;
     border-radius: 8px;
-    line-height: 47.3px; /* 텍스트를 버튼의 가운데에 정렬하기 위해 */
-    text-align: center; /* 텍스트를 가운데에 정렬하기 위해 */
+    line-height: 35px;
+    text-align: center;
     cursor: pointer;
+    font-size: 14px;
 }
 
 /* 파일 선택 버튼 숨기기 */
