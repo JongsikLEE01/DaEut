@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -1378.7523999999996,
-    "scrollLeft": -1191.7194093834216,
-    "zoomLevel": 0.9,
+    "scrollTop": -891.6433999999997,
+    "scrollLeft": -1960.2160093834216,
+    "zoomLevel": 1,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -371,10 +371,10 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 1685.5321,
           "top": 1549.9851,
-          "zIndex": 35,
+          "zIndex": 14,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1522,7 +1522,7 @@
             "name": "partner_career",
             "comment": "파트너 경력",
             "dataType": "TIMESTAMP",
-            "default": "0",
+            "default": "",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
@@ -1537,29 +1537,6 @@
               "widthName": 86.296875,
               "widthComment": 71.5703125,
               "widthDataType": 71.93212890625,
-              "widthDefault": 60
-            }
-          },
-          {
-            "id": "47d7433a-2032-4fc3-bce7-0301fb1ffdc3",
-            "name": "status",
-            "comment": "파트너 승인 상태",
-            "dataType": "VARCHAR(100)",
-            "default": "'미승인'",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": true
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": false,
-              "pfk": false,
-              "widthName": 60,
-              "widthComment": 102.140625,
-              "widthDataType": 89.29296875,
               "widthDefault": 60
             }
           },
@@ -1614,7 +1591,7 @@
           "active": false,
           "left": 2615.7396,
           "top": 1265.7194,
-          "zIndex": 9,
+          "zIndex": 19,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2865,7 +2842,7 @@
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
           "x": 2615.7396,
-          "y": 1301.1360666666665,
+          "y": 1297.7194,
           "direction": "left"
         },
         "end": {
@@ -3030,7 +3007,7 @@
             "12d192ce-6eba-43e4-8dbd-cf6e5ce73f6d"
           ],
           "x": 2615.7396,
-          "y": 1442.802733333333,
+          "y": 1425.7194,
           "direction": "left"
         },
         "constraintName": "fk_users_to_partner",
@@ -3125,7 +3102,7 @@
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
           "x": 2615.7396,
-          "y": 1371.9693999999997,
+          "y": 1361.7194,
           "direction": "left"
         },
         "end": {
@@ -3150,8 +3127,8 @@
           "columnIds": [
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
-          "x": 2864.854834375,
-          "y": 1478.2194,
+          "x": 2856.174414453125,
+          "y": 1457.7194,
           "direction": "bottom"
         },
         "end": {

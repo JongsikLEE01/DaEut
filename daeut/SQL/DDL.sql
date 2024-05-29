@@ -2,21 +2,21 @@
 -- 결제 로직
 
 
--- DROP
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS partner;
-DROP TABLE IF EXISTS service;
-DROP TABLE IF EXISTS board ;
-DROP TABLE IF EXISTS reservation ;
-DROP TABLE IF EXISTS persistent_logins;
-DROP TABLE IF EXISTS files ;
-DROP TABLE IF EXISTS reply ;
-DROP TABLE IF EXISTS chat ;
-DROP TABLE IF EXISTS review ;
-DROP TABLE IF EXISTS user_auth ;
-DROP TABLE IF EXISTS payment ;
-DROP TABLE IF EXISTS reservation_item ;
-DROP TABLE IF EXISTS cancel ;
+-- -- DROP
+-- DROP TABLE IF EXISTS users;
+-- DROP TABLE IF EXISTS partner;
+-- DROP TABLE IF EXISTS service;
+-- DROP TABLE IF EXISTS board ;
+-- DROP TABLE IF EXISTS reservation ;
+-- DROP TABLE IF EXISTS persistent_logins;
+-- DROP TABLE IF EXISTS files ;
+-- DROP TABLE IF EXISTS reply ;
+-- DROP TABLE IF EXISTS chat ;
+-- DROP TABLE IF EXISTS review ;
+-- DROP TABLE IF EXISTS user_auth ;
+-- DROP TABLE IF EXISTS payment ;
+-- DROP TABLE IF EXISTS reservation_item ;
+-- DROP TABLE IF EXISTS cancel ;
 
 CREATE TABLE board
 (
@@ -79,7 +79,6 @@ CREATE TABLE partner
   partner_grade   INT          NULL     DEFAULT 0 COMMENT '파트너 별점',
   partner_reserve INT          NULL     DEFAULT 0 COMMENT '파트너 예약 횟수',
   partner_career  TIMESTAMP    NOT NULL COMMENT '파트너 경력',
-  status          VARCHAR(100) NOT NULL DEFAULT '미승인' COMMENT '파트너 승인 상태',
   introduce       TEXT         NULL     COMMENT '파트너 소개글',
   user_no         INT          NOT NULL COMMENT '사용자 번호',
   PRIMARY KEY (partner_no)
