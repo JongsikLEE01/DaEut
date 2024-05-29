@@ -29,7 +29,6 @@
                     <input type="number" name="servicePrice" th:value="${service.servicePrice}">
 
                     <!-- 카테고리 -->
-                    <!-- 배열 데이터 어떻게 처리 ? -->
                     <input type="checkbox" name="serviceCategory" id="serviceCategoryClean" class="tag-button" value="청소">
                     <label for="serviceCategoryClean">청소</label>
                     <input type="checkbox" name="serviceCategory" id="serviceCategoryWash" class="tag-button" value="빨래">
@@ -41,11 +40,7 @@
                     <input type="checkbox" name="serviceCategory" id="serviceCategoryEtc" class="tag-button" value="기타">
                     <label for="serviceCategoryEtc">기타</label>
 
-                    <!-- <button class="tag-button" type="button" value="청소">청소</button>
-                    <button class="tag-button" type="button" value="빨래">빨래</button>
-                    <button class="tag-button" type="button" value="방역">방역</button>
-                    <button class="tag-button" type="button" value="보안">보안</button>
-                    <button class="tag-button" type="button" value="기타">기타</button> -->
+                    <!-- <button class="tag-button" type="button" value="청소">청소</button> -->
                 </div>
 
                 <div>
@@ -63,18 +58,20 @@
 
                 </div>
                 <div id="image-preview-container">
-                    <!-- <img th:src="|/file/img/${service.fileNo}|" alt="썸네일" width="100"> -->
+                    <!-- 썸네일 -->
+                    <img th:src="|/file/img/${service.fileNo}|" alt="썸네일" width="100">
+
                     <th:block th:each="file : ${fileList}">
-                            <!-- 파일명 -->
-                            <a th:href="|/file/${file.no}|" th:text="${file.originFileName}"></a>
-                            <!-- 파일 삭제 -->
-                            <button type="button" th:onclick="|deleteFile( this, ${ file.no })|">삭제</button>
+                        <!-- 파일명 -->
+                        <a th:href="|/file/${file.fileNo}|" th:text="${file.originFileName}"></a>
+                        <!-- 파일 삭제 -->
+                        <button type="button" th:onclick="|deleteFile( this, ${ file.fileNo })|">삭제</button>
                     </th:block>
                 </div>
                 
+                
                 <div class="bottomButton">
                     <input type="submit" class="reservationInsertOk sessuce" value="수정하기">
-                    <!-- <button type="button" class="btn btn-danger cancel" onclick="actionDelete()">삭제하기</button> -->
                     <input type="button" class="cancleInsert" value="삭제하기" data-bs-toggle="modal" data-bs-target="#cancelReservationModel">
                     <input type="button" value="취소하기" class="cancleInsert" onclick="window.location.href='/reservation/reservation'">
                 </div>
@@ -112,6 +109,27 @@
         function actionDelete(){
             form.action='/reservation/reservationDelete?serviceNo' + no 
             form.submit()
+        }
+
+        // 파일 삭제
+        function deleteFile(element ,no){
+            // AJAX 비동기 요청
+            let request = new XMLHttpRequest()
+
+            // 요청 세팅
+            // request.open(요청메서드, url)
+            request.open('DELETE','/file/'+no)
+            request.send()
+
+            request.onreadystatechange = function(){
+                // 요청 성공
+                if(request.readyState == request.DONE && request.status == 200){
+                    alert("파일 삭제")
+                    console.log('파일 삭제 성공!');
+                    // 파일 항목 제거
+                    element.parentNode.remove()
+                }
+            }
         }
     </script>
 </body>

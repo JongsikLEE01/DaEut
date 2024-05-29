@@ -19,11 +19,8 @@
     <!-- 전체 조회 -->
     <select id="serviceList" resultMap="serviceMap">
         SELECT  s.*, 
-        		u.user_name,
-        		f.file_no, 
-                f.file_name, 
-                f.file_path, 
-                f.file_code
+        		f.*,
+        		u.user_name
         FROM joeun.service s    LEFT JOIN (  
         	                    	    SELECT * 
         	                    	    FROM joeun.files

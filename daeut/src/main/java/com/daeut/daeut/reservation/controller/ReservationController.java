@@ -53,10 +53,6 @@ public class ReservationController {
 
         List<Services> serviceList = reservationService.serviceList(page, option);
         
-        log.info("목록: {}", serviceList);
-        log.info("페이지: {}", page);
-        log.info("옵션: {}", option);
-        
         model.addAttribute("serviceList", serviceList);
         model.addAttribute("page", page);
         
@@ -139,6 +135,9 @@ public class ReservationController {
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
+
+        log.info("fileList? {}", fileList);
+        log.info("service? {}", service);
 
         model.addAttribute("service", service);
         model.addAttribute("fileList", fileList);

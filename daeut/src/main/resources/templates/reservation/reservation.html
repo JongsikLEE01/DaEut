@@ -27,12 +27,11 @@
                 <div class="col" th:each="service : ${serviceList}">
                     <div class="card-reservation-thumbnail">
                         <div class="thumbnail-reservation">
-                            <!-- 빈 경우 -->
+
                             <th:block th:if="${serviceList.isEmpty()}">
                                 <span>조회된 게시글 정보가 없습니다.</span>
                             </th:block>
                             
-                            <!-- 반복 -->
                             <div th:if="${!serviceList.isEmpty()}">
                                 <!-- 카테고리 -->
                                 <div class="service-tag">
@@ -41,7 +40,7 @@
                                 
                                 <!-- 이미지 -->
                                 <a id="img_link" th:href="|/reservation/reservationRead?serviceNo=${service.serviceNo}|">
-                                    <img th:src="|/file/img/${service.fileNo}|" alt="썸네일" width="100">
+                                    <img th:src="|/file/img/${service.fileNo}|" alt="썸네일" width="250">
                                 </a>
                             </div>
                         </div>
@@ -69,20 +68,6 @@
 
         <!-- 페이징 -->
         <div class="pagination">
-            <!-- <a href="#">&laquo;</a>
-            <a href="#">&lt;</a>
-            <a href="#" th:classappend="${page == 1} ? 'active'">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">&gt;</a>
-            <a href="#">&raquo;</a> -->
-
-            <!--
-            #numbers.sequence(시작번호, 끝번호)
-            : 시작번호 부터 끝 번호까지 번호 리스트를 생성
-            -->
             <!-- 처음 -->
             <a th:href="|/reservation/reservation?page=${page.first}&keyword=${option.keyword}|">&laquo;</a> 
             <!-- 이전 -->
