@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/user_layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/partner_layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,12 +14,9 @@
                 <button class="btn btn-danger d-block d-md-none cancel" onclick="toggleSidebar()">닫기</button>
                 <h5>마이페이지</h5>
                 <br>
-                <a href="userMypage" class="userMypage">내 정보 변경</a>
-                <a href="userReservation">내 예약 보기</a>
-                <a href="userLikeTip">내가 좋아하는 글</a>
-                <a href="userReview">별점 및 리뷰 작성</a>
-                <a href="userCoupon">내 쿠폰</a>
-                <a href="userPartner">파트너 신청</a>
+                <a href="/partner/partnerMypage" class="active partnerMypage">내 정보 변경</a>
+                <a href="/partner/partnerReservation">내 예약 보기</a>
+                <a href="/partner/partnerReview">내 리뷰 보기</a>
             </nav>
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>내 정보 변경</h3>
@@ -48,14 +45,21 @@
                         <label for="userBirth">생년월일</label>
                         <input type="date" class="form-control" id="userBirth" placeholder="userBirth">
                     </div>
+                    <div class="form-group form-section p-1 f-warp text-start">
+                        <label for="description">소개 글</label>
+                        <textarea class="form-control w-75  input-readonly" id="description" rows="3"> </textarea>
+                    </div>
+                    <div class="form-group form-section p-1 f-warp text-start">
+                        <label for="description">추가 소개 사진</label>
+                        <input type="file" class="form-control" id="file" value="첨부 파일을 선택해주세요">
+                    </div>
                     <div class="form-buttons">
-                        <a href="userMypage" class="btn btn-secondary cancel">뒤로가기</a>
+                        <a href="partnerMypage" class="btn btn-secondary cancel">뒤로가기</a>
                         <button type="submit" class="btn btn-danger cancel">탈퇴하기</button>
                         <button type="submit" class="btn btn-primary sessuce color_main">정보 수정</button>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
-</body>
+    </main>
 </html>

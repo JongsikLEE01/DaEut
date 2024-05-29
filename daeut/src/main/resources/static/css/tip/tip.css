@@ -13,20 +13,10 @@ body {
     background-color: #fff;
 }
 
-.main h2 {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-}
-
-.main h3 {
-    font-size: 14px;
-    color: #333;
-}
 
 .tips {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 15px;
     margin-bottom: 40px;
 }
@@ -37,7 +27,7 @@ body {
 
 .categories {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 15px;
     margin-bottom: 40px;
 }
@@ -51,7 +41,7 @@ body {
 }
 
 .categories .card p .highlight-text {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     color: #8FA2CA; 
 }
@@ -77,6 +67,7 @@ body {
     width: 100%;
     height: auto;
     margin-bottom: 10px;
+    border-radius: 8px;
 }
 
 .card p {
@@ -198,21 +189,32 @@ body {
     opacity: 1;
 }
 
-.more-button {
-    color: #ABABAB;
-    background-color: transparent;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    float: right;
-}
 
 .more-button2 {
-    color: #ABABAB;
+    color: #48523D;
     background-color: transparent;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     float: right;
-    font-size: 14px;
+    font-size: 16px;
 }
+
+
+.tipH2 {
+    font-size: 14px !important;
+    color: #8FA2CA !important;
+}
+
+.tipH3 {
+    font-size: 20px !important;
+    text-align: left !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-weight: bold !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
