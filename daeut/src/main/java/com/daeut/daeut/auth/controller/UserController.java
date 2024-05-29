@@ -1,4 +1,4 @@
-package com.daeut.daeut.user.controller;
+package com.daeut.daeut.auth.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/user")
 public class UserController {
 
-    @GetMapping({"/", ""})
-    public String index() {
-        log.info("/user");
-        return "/user/index";
-    }
+    // @GetMapping({"/", ""})
+    // public String index() {
+    //     log.info("/user");
+    //     return "/user/index";
+    // }
 
     @GetMapping("/userMypage")
     public String userMypage() {
@@ -65,4 +65,5 @@ public class UserController {
         log.info("/user/userPartnerDone");
         return "/user/userPartnerDone";
     }
+    
 }
