@@ -17,7 +17,7 @@
             board
     </select>
 
-    <select id="select" parameterType="int" resultType="com.daeut.daeut.tip.dto.Board">
+    <select id="select" resultType="com.daeut.daeut.tip.dto.Board">
         SELECT 
             board_no AS boardNo,
             board_title AS boardTitle,
@@ -29,29 +29,35 @@
             user_no AS userNo
         FROM 
             board
-        WHERE 
-            board_no = #{boardNo}
+        WHERE board_no = #{boardNo}
     </select>
 
-    <insert id="insert" parameterType="com.daeut.daeut.tip.dto.Board">
-    INSERT INTO board (board_title, board_content, board_reg_date, board_upd_date, board_views, board_like, user_no)
-    VALUES (#{boardTitle}, #{boardContent}, NOW(), NOW(), #{boardViews}, #{boardLike}, #{userNo})
-</insert>
+    <insert id="insert">
+        INSERT INTO board (board_title, board_content, user_no)
+        VALUES (#{boardTitle}, #{boardContent}, #{userNo})
+    </insert>
 
-
-    <update id="update" parameterType="com.daeut.daeut.tip.dto.Board">
-        UPDATE board SET
-            board_title = #{boardTitle},
-            board_content = #{boardContent},
-            board_upd_date = #{boardUpdDate},
-            board_views = #{boardViews},
-            board_like = #{boardLike},
-            user_no = #{userNo}
-        WHERE 
-            board_no = #{boardNo}
+    <update id="update">
+        UPDATE board
+           SET board_title = #{boardTitle}
+              ,board_content = #{boardContent}
+              ,board_upd_date = now()
+        WHERE board_no = #{boardNo}
     </update>
 
-    <delete id="delete" parameterType="int">
-        DELETE FROM board WHERE board_no = #{boardNo}
+    <delete id="delete">
+        DELETE FROM board
+        WHERE board_no = #{boardNo}
     </delete>
+
+    <select id="maxPk" resultType="int">
+        SELECT MAX(board_no)
+        FROM board
+    </select>
+
+    <update id="view">
+        UPDATE board
+           SET board_views = board_views + 1
+        WHERE board_no = #{boardNo}
+    </update>
 </mapper>

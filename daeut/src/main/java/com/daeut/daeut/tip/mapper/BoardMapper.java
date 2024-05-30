@@ -20,4 +20,7 @@ public interface BoardMapper {
     public int delete(int boardNo) throws Exception;
 
     public int maxPk() throws Exception;
+
+    public int view(int boardNo) throws Exception;
+    
 }

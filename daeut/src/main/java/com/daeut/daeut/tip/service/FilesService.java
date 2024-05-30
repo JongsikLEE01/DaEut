@@ -2,8 +2,6 @@ package com.daeut.daeut.tip.service;
 
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.daeut.daeut.tip.dto.Files;
 
 public interface FilesService {
@@ -19,8 +17,11 @@ public interface FilesService {
     public int delete(int fileNo) throws Exception;
 
     // 파일 목록 - 부모 기준
-    public List<Files> listByParent(int parentNo) throws Exception;
+    public List<Files> listByParent(Files file) throws Exception;
     // 파일 삭제 - 부모 기준
-    public int deleteByParent(int parentNo) throws Exception;
-    public int upload(String parentTable, int parentNo, List<MultipartFile> fileList) throws Exception;
+    public int deleteByParent(Files file) throws Exception;
+
+    public boolean upload(Files file) throws Exception;
+
+    public Files download(int fileNo) throws Exception;
 }

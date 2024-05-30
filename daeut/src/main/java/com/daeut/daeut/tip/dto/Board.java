@@ -1,6 +1,9 @@
 package com.daeut.daeut.tip.dto;
 
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -14,4 +17,10 @@ public class Board {
     private int boardViews;
     private int boardLike;
     private int userNo;
+
+    MultipartFile thumbnail;
+
+    List<MultipartFile> file;
+
+    private int fileNo;
 }

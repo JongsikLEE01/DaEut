@@ -16,7 +16,6 @@ import com.daeut.daeut.tip.service.FilesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Controller
@@ -39,24 +38,73 @@ public class BoardController {
     @GetMapping("/tipRead")
     public String read(@RequestParam("no") int boardNo, Model model) throws Exception {
         Board board = boardService.select(boardNo);
-        List<Files> files = filesService.listByParent(boardNo);
+        int view = boardService.view(boardNo);
+
+        // file.setParentTable("board");
+        // file.setParentNo(boardNo);
+        // List<Files> fileList = filesService.listByParent(file);
+
         model.addAttribute("board", board);
-        model.addAttribute("files", files);
+        // model.addAttribute("fileList", fileList);
+
         return "tip/tipRead";
     }
 
     @GetMapping("/tipInsert")
     public String tipInsert() {
+
         return "tip/tipInsert";
     }
 
     @PostMapping("/tipInsert")
-    public String tipInsertPro(Board board, @RequestParam("files") List<MultipartFile> files) throws Exception {
+    public String tipInsertPro(Board board) throws Exception {
+        // log.info(board.toString());
         int result = boardService.insert(board);
         if (result > 0) {
-            filesService.upload("board", board.getBoardNo(), files);
             return "redirect:/tip/index";
         }
         return "redirect:/tip/tipInsert?error";
     }
+
+    @GetMapping("/tipUpdate")
+    public String tipUpdate(@RequestParam("no") int boardNo, Model model, Files file) throws Exception {
+        Board board = boardService.select(boardNo);
+
+        // file.setParentTable("board");
+        file.setParentNo(boardNo);
+        // List<Files> fileList = filesService.listByParent(file);
+
+        model.addAttribute("board", board);
+        // model.addAttribute("fileList", fileList);
+
+        return "/tip/tipUpdate";
+    }
+
+    @PostMapping("/tipUpdate")
+    public String tipUpdatePro(Board board) throws Exception {
+        int result = boardService.update(board);
+        if( result > 0 ) {
+            return "redirect:/tip/index";
+        }
+        int no = board.getBoardNo();
+        return "redirect:/tip/tipUpdate?no=" + no + "&error";   
+    }
+    
+    @PostMapping("/tipDelete")
+    public String tipDeletePro(@RequestParam("boardNo") int boardNo) throws Exception {
+        int result = boardService.delete(boardNo);
+        if( result > 0 ) {
+
+            // Files file = new Files();
+            // file.setParentTable("board");
+            // file.setParentNo(boardNo);
+            // filesService.deleteByParent(file);
+            
+            return "redirect:/tip/index";
+        }
+        return "redirect:/tip/tipUpdate?no=" + boardNo + "&error";
+        
+    }
+    
+    
 }

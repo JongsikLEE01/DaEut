@@ -1,6 +1,9 @@
 package com.daeut.daeut.tip.dto;
 
 import java.util.Date;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -11,8 +14,10 @@ public class Files {
     private String fileName;
     private String originFileName;
     private String filePath;
-    private int fileSize;
+    private long fileSize;
     private Date fileRegDate;
     private Date fileUpdDate;
     private int fileCode;
+
+    private MultipartFile file;
 }

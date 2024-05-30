@@ -5,6 +5,7 @@
 
     <select id="list" resultType="com.daeut.daeut.tip.dto.Files">
         SELECT * FROM files
+        ORDER BY reg_date DESC
     </select>
 
     <select id="select" parameterType="int" resultType="com.daeut.daeut.tip.dto.Files">
@@ -13,13 +14,13 @@
 
     <insert id="insert" parameterType="com.daeut.daeut.tip.dto.Files">
         INSERT INTO files (parent_table, parent_no, file_name, origin_file_name, file_path, file_size, file_reg_date, file_upd_date, file_code)
-        VALUES (#{parentTable}, #{parentNo}, #{fileName}, #{originFileName}, #{filePath}, #{fileSize}, NOW(), NOW(), #{fileCode})
+        VALUES (#{parentTable}, #{parentNo}, #{fileName}, #{originFileName}, #{filePath}, #{fileSize}, #{fileCode})
     </insert>
 
     <update id="update" parameterType="com.daeut.daeut.tip.dto.Files">
         UPDATE files
         SET parent_table = #{parentTable}, parent_no = #{parentNo}, file_name = #{fileName}, origin_file_name = #{originFileName},
-            file_path = #{filePath}, file_size = #{fileSize}, file_upd_date = NOW(), file_code = #{fileCode}
+            file_path = #{filePath}, file_size = #{fileSize}, file_code = #{fileCode}
         WHERE file_no = #{fileNo}
     </update>
 
@@ -28,10 +29,15 @@
     </delete>
 
     <select id="listByParent" parameterType="int" resultType="com.daeut.daeut.tip.dto.Files">
-        SELECT * FROM files WHERE parent_no = #{parentNo}
+        SELECT * FROM files
+        WHERE parent_no = #{parentNo}
+          AND parent_table = #{parentTable}
+        ORDER BY reg_date DESC
     </select>
 
     <delete id="deleteByParent" parameterType="int">
-        DELETE FROM files WHERE parent_no = #{parentNo}
+        DELETE FROM files
+        WHERE parent_no = #{parentNo}
+          AND parent_table = #{parentTable}
     </delete>
 </mapper>
