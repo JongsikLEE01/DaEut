@@ -15,6 +15,7 @@ import com.daeut.daeut.auth.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -52,24 +53,22 @@ public class UserController {
     }
 
     @PostMapping("/userMypageUpdateDone")
-    public String userMypageUpdateDone(@RequestParam("action") String action, Users user, RedirectAttributes redirectAttributes) throws Exception {
-        log.info("userMypageUpdateDone called with action: " + action);
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public String userMypageUpdateDone(@RequestParam("action") String action, @ModelAttribute Users user) throws Exception {
         if ("delete".equals(action)) {
             int result = userService.delete(user);
+            log.info("Delete result: " + result);
             if (result > 0) {
-                redirectAttributes.addFlashAttribute("message", "탈퇴가 성공적으로 처리되었습니다.");
                 return "redirect:/index";  // 탈퇴 처리 후 리다이렉트할 페이지
             } else {
-                redirectAttributes.addFlashAttribute("error", "탈퇴 처리에 실패했습니다. 다시 시도해주세요.");
-                return "redirect:/user/userMypageUpdate";
+                return "redirect:/user/userMypage";
             }
         } else if ("update".equals(action)) {
             int result = userService.update(user);
+            log.info("Update result: " + result);
             if (result > 0) {
-                redirectAttributes.addFlashAttribute("message", "정보가 성공적으로 수정되었습니다.");
                 return "redirect:/user/userMypage";
             } else {
-                redirectAttributes.addFlashAttribute("error", "정보 수정에 실패했습니다. 다시 시도해주세요.");
                 return "redirect:/user/userMypageUpdate";
             }
         }

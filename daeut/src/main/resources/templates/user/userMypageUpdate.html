@@ -14,19 +14,21 @@
                 <button class="btn btn-danger d-block d-md-none cancel" onclick="toggleSidebar()">닫기</button>
                 <h5>마이페이지</h5>
                 <br>
-                <a href="userMypage" class="userMypage">내 정보 변경</a>
-                <a href="userReservation">내 예약 보기</a>
-                <a href="userLikeTip">내가 좋아하는 글</a>
-                <a href="userReview">별점 및 리뷰 작성</a>
-                <a href="userCoupon">내 쿠폰</a>
-                <a href="userPartner">파트너 신청</a>
+                <a th:href="@{/user/userMypage}" class="userMypage">내 정보 변경</a>
+                <a th:href="@{/user/userReservation}">내 예약 보기</a>
+                <a th:href="@{/user/userLikeTip}">내가 좋아하는 글</a>
+                <a th:href="@{/user/userReview}">별점 및 리뷰 작성</a>
+                <a th:href="@{/user/userCoupon}">내 쿠폰</a>
+                <a th:href="@{/user/userPartner}">파트너 신청</a>
             </nav>
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>내 정보 변경</h3>
-                <form th:action="@{/userMypageUpdateDone}" method="post">
+                <form th:action="@{/user/userMypageUpdateDone}" method="post">
+                    <input type="hidden" name="userId" th:value="${user.userId}">
+                    <input type="hidden" name="userNo" th:value="${user.userNo}">
                 <div class="form-group mb-3">
                         <label for="userid">아이디</label>
-                        <input type="text" class="form-control" id="userid" th:placeholder="${user.userId}" disabled>
+                        <input type="text" class="form-control" id="userid" th:value="${user.userId}" disabled>
                     </div>
                     <div class="form-group mb-3">
                         <label for="userPassword">비밀번호</label>
@@ -49,7 +51,7 @@
                         <input type="date" class="form-control" id="userBirth" th:value="${#dates.format(user.userBirth, 'yyyy-MM-dd')}" name="userBirth">
                     </div>
                     <div class="form-buttons">
-                        <a href="userMypage" class="btn btn-secondary cancel">뒤로가기</a>
+                        <a th:href="@{/user/userMypage}" class="btn btn-secondary cancel">뒤로가기</a>
                         <button type="submit" class="btn btn-danger cancel" name="action" value="delete">탈퇴하기</button>
                         <button type="submit" class="btn btn-primary sessuce color_main" name="action" value="update">정보 수정</button>
                     </div>

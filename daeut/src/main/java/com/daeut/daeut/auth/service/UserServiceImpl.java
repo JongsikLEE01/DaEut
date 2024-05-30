@@ -7,11 +7,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -72,19 +76,24 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    @Transactional
     @Override
     public int update(Users user) throws Exception {
-        return userMapper.update(user);
+        int result = userMapper.update(user);
+        return result;
     }
 
     @Override
     public int insertAuth(UserAuth userAuth) throws Exception {
-        return userMapper.insertAuth(userAuth);
+        int result = userMapper.insertAuth(userAuth);
+        return result;
     }
 
+    @Transactional
     @Override
     public int delete(Users user) throws Exception {
-        return userMapper.delete(user);
+        int result = userMapper.delete(user);
+        return result;
     }
     
 }
