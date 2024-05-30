@@ -37,7 +37,7 @@
                     <label for="serviceCategoryQuarantine">방역</label>
                     <input type="checkbox" name="serviceCategory" id="serviceCategorySecurity" class="tag-button" value="보안">
                     <label for="serviceCategorySecurity">보안</label>
-                    <input type="checkbox" name="serviceCategory" id="serviceCategoryEtc" class="tag-button" value="기타" checked>
+                    <input type="checkbox" name="serviceCategory" id="serviceCategoryEtc" class="tag-button" value="기타" required>
                     <label for="serviceCategoryEtc">기타</label>
 
                     <!-- <button class="tag-button" type="button" value="청소">청소</button> -->
@@ -54,7 +54,7 @@
                     <label for="thumbnail" class="file-upload-button sessuce">첨부하기</label>
 
                     <!-- 이미지 -->
-                    <input type="file" id="thumbnail" name="thumbnail" accept="image/*" onchange="previewThumbnail(event)">
+                    <input type="file" id="thumbnail" name="thumbnail" accept="image/*" onchange="previewThumbnail(event)" required>
                     <p class="file-upload-note">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</p>
                 </div>
                 <div id="image-thumbnail-container"></div>
@@ -67,7 +67,7 @@
                     <label for="images" class="file-upload-button sessuce">첨부하기</label>
 
                     <!-- 이미지 -->
-                    <input type="file" id="images" name="file" accept="image/*" multiple onchange="previewImages(event)">
+                    <input type="file" id="images" name="file" accept="image/*" multiple onchange="previewImages(event)" required>
                     <p class="file-upload-note">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</p>
                 </div>
                 <div id="image-preview-container"></div>
