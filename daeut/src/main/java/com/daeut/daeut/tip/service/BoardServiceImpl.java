@@ -14,6 +14,7 @@ import com.daeut.daeut.tip.mapper.BoardMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class BoardServiceImpl implements BoardService {
 
@@ -56,7 +57,7 @@ public class BoardServiceImpl implements BoardService {
         List<MultipartFile> fileList = board.getFile();
         if( !fileList.isEmpty() ) {
             for(MultipartFile file : fileList) {
-
+                log.info("file : " + file.getOriginalFilename());
                 if( file.isEmpty() ) continue;
 
                 Files uploadFile = new Files();
@@ -64,7 +65,7 @@ public class BoardServiceImpl implements BoardService {
                 uploadFile.setParentNo(parentNo);
                 uploadFile.setFile(file);
                 uploadFile.setFileCode(0);
-                filesService.update(uploadFile);
+                filesService.upload(uploadFile);
             }
         }
 

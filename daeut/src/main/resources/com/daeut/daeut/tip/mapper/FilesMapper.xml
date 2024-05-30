@@ -13,7 +13,7 @@
     </select>
 
     <insert id="insert" parameterType="com.daeut.daeut.tip.dto.Files">
-        INSERT INTO files (parent_table, parent_no, file_name, origin_file_name, file_path, file_size, file_reg_date, file_upd_date, file_code)
+        INSERT INTO files (parent_table, parent_no, file_name, origin_file_name, file_path, file_size, file_code)
         VALUES (#{parentTable}, #{parentNo}, #{fileName}, #{originFileName}, #{filePath}, #{fileSize}, #{fileCode})
     </insert>
 
