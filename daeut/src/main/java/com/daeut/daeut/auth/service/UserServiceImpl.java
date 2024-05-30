@@ -13,7 +13,7 @@ import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
 
-import groovy.util.logging.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -48,10 +48,24 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    // id로 조회
     @Override
     public Users select(String username) throws Exception {
         Users user = userMapper.select(username);
         return user;
+    }
+
+    // email 로 조회
+    @Override
+    public Users findUserByEmail(String userEmail) throws Exception {
+        Users user = userMapper.findUserByEmail(userEmail);
+        return user;
+    }
+
+     // 아이디 찾기
+    @Override
+    public String findUserByDetails(String userName, String userEmail, String userPhone) throws Exception {
+        return userMapper.findUserByDetails(userName, userEmail, userPhone);
     }
 
     @Override
@@ -98,6 +112,5 @@ public class UserServiceImpl implements UserService {
     public void approvePartner(String userId) throws Exception {
         userMapper.approvePartnerAndAddAuth(userId);
     }
-
     
 }

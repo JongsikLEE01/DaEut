@@ -1,5 +1,6 @@
 // 회원가입
 let isIdChecked = false;
+let isEmailChecked = false;
 
 function checkDuplicateId() {
     var userId = document.getElementById('userId').value;
@@ -16,6 +17,26 @@ function checkDuplicateId() {
             } else {
                 alert("사용 가능한 아이디입니다.");
                 isIdChecked = true;
+            }
+        });
+}
+
+function checkDuplicateEmail() {
+    var userEmail = document.getElementById('userEmail').value;
+    if (!userEmail) {
+        alert("이메일을 입력해주세요.");
+        return;
+    }
+    fetch(`/auth/check-duplicate-email?userEmail=${userEmail}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.exists) {
+                alert("이미 사용 중인 이메일입니다.");
+                alert(response.json());
+                isEmailChecked = false;
+            } else {
+                alert("사용 가능한 이메일입니다.");
+                isEmailChecked = true;
             }
         });
 }
