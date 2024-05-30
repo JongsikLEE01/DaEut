@@ -41,16 +41,21 @@ public class ReservationController {
      */
 	@GetMapping("/reservation")
 	public String reservationList(Model model, Page page, Option option) throws Exception{
+        String keyword = option.getKeyword();
+
+        if(keyword == null || option.getKeyword() == ""){
+            keyword = "";
+            option.setKeyword(keyword);
+            
+            model.addAttribute("option", option);
+        }else
+            model.addAttribute("option", option);
+
         List<Services> serviceList = reservationService.serviceList(page, option);
-
-        log.info("목록: {}", serviceList);
-        log.info("페이지: {}", page);
-        log.info("옵션: {}", option);
-
+        
         model.addAttribute("serviceList", serviceList);
         model.addAttribute("page", page);
-        model.addAttribute("option", option);
-
+        
         return "reservation/reservation";
 	}
 
@@ -70,16 +75,22 @@ public class ReservationController {
      * @throws Exception
      */
     @GetMapping("/reservationRead")
-	public String reservationRead(@RequestParam("serviceNo") int serviceNo, Model model) throws Exception {
+	public String reservationRead(@RequestParam("serviceNo") int serviceNo, Model model, Files file) throws Exception {
         Services service = reservationService.serviceSelect(serviceNo);
+        Files thumbnail = reservationService.SelectThumbnail(serviceNo);
+        List<Files> files = reservationService.SelectFiles(serviceNo);
 
-        Files file = new Files();
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
 
+        log.info("service? {}",service);
+        log.info("fileList? {}",fileList);
+
         model.addAttribute("service", service);
         model.addAttribute("fileList", fileList);
+        model.addAttribute("thumbnail", thumbnail);
+        model.addAttribute("files", files);
 
         return "reservation/reservationRead";
     }
@@ -112,7 +123,7 @@ public class ReservationController {
         }
 
         log.info("게시글 등록 성공...");
-        return "redirect:/reservation";
+        return "redirect:/reservation/reservation";
     }
 
     /**
@@ -125,16 +136,19 @@ public class ReservationController {
      * @throws Exception
      */
     @GetMapping("/reservationUpdate")
-    public String reservationUpdate(@RequestParam("serviceNo") int serviceNo, Model model) throws Exception {
+    public String reservationUpdate(@RequestParam("serviceNo") int serviceNo, Model model, Files file) throws Exception {
         Services service = reservationService.serviceSelect(serviceNo);
+        Files thumbnail = reservationService.SelectThumbnail(serviceNo);
+        List<Files> files = reservationService.SelectFiles(serviceNo);
 
-        Files file = new Files();
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
 
         model.addAttribute("service", service);
         model.addAttribute("fileList", fileList);
+        model.addAttribute("thumbnail", thumbnail);
+        model.addAttribute("files", files);
 
         return "reservation/reservationUpdate";
     }
@@ -147,7 +161,15 @@ public class ReservationController {
      */
     @PostMapping("/reservationUpdate")
     public String updatePro(Services service) throws Exception {
+
+        Files file = new Files();
+        file.setParentTable("service");
+        file.setParentNo(service.getServiceNo());
+        fileService.deleteByParent(file);
+
         int result = reservationService.serviceUpdate(service);
+        log.info("service? {}",service);
+
         int serviceNo = service.getServiceNo();
 
         if (result == 0) {
@@ -156,7 +178,7 @@ public class ReservationController {
         }
 
         log.info("게시글 수정 성공...");
-        return "redirect:/reservation";
+        return "redirect:/reservation/reservation";
     }
 
     /**
@@ -181,6 +203,6 @@ public class ReservationController {
         fileService.deleteByParent(file);
 
         log.info("게시글 삭제 성공...");
-        return "redirect:/reservation";
+        return "redirect:/reservation/reservation";
     }
 }

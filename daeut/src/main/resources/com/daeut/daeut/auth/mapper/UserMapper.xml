@@ -103,13 +103,11 @@
     <!-- 회원 정보 수정 -->
     <update id="update">
         UPDATE users
-           SET user_name = #{userName}
+           SET user_password = #{userPassword}
+              ,user_name = #{userName}
               ,user_phone = #{userPhone}
-              ,user_birth = #{userBirth}
               ,user_address = #{userAddress}
-              ,user_gender = #{userGender}
-              ,user_email = #{userEmail}
-              ,user_coupon = #{userCoupon}
+              ,user_birth = #{userBirth}
               ,user_upd_date = now()
         WHERE user_id = #{userId}
     </update>
@@ -119,6 +117,13 @@
         INSERT INTO user_auth( user_no, auth )
         VALUES ( #{userNo}, #{auth} )
     </insert>
+
+    <!-- 회원 삭제 -->
+    <delete id="delete">
+        DELETE FROM users
+        WHERE user_no = #{userNo}
+          AND user_id = #{userId}
+    </delete>
 
     <!-- 파트너 신청 -->
     <update id="requestPartner">

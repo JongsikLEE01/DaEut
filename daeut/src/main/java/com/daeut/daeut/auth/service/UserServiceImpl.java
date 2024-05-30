@@ -90,6 +90,7 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    @Transactional
     @Override
     public int update(Users user) throws Exception {
         int result = userMapper.update(user);
@@ -99,6 +100,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public int insertAuth(UserAuth userAuth) throws Exception {
         int result = userMapper.insertAuth(userAuth);
+        return result;
+    }
+
+    @Transactional
+    @Override
+    public int delete(Users user) throws Exception {
+        int result = userMapper.delete(user);
         return result;
     }
 
@@ -112,5 +120,5 @@ public class UserServiceImpl implements UserService {
     public void approvePartner(String userId) throws Exception {
         userMapper.approvePartnerAndAddAuth(userId);
     }
-    
+
 }
