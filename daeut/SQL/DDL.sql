@@ -3,20 +3,20 @@
 
 
 -- -- DROP
--- DROP TABLE IF EXISTS users;
--- DROP TABLE IF EXISTS partner;
--- DROP TABLE IF EXISTS service;
--- DROP TABLE IF EXISTS board ;
--- DROP TABLE IF EXISTS reservation ;
--- DROP TABLE IF EXISTS persistent_logins;
--- DROP TABLE IF EXISTS files ;
--- DROP TABLE IF EXISTS reply ;
--- DROP TABLE IF EXISTS chat ;
--- DROP TABLE IF EXISTS review ;
--- DROP TABLE IF EXISTS user_auth ;
--- DROP TABLE IF EXISTS payment ;
--- DROP TABLE IF EXISTS reservation_item ;
--- DROP TABLE IF EXISTS cancel ;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS partner;
+DROP TABLE IF EXISTS service;
+DROP TABLE IF EXISTS board ;
+DROP TABLE IF EXISTS reservation ;
+DROP TABLE IF EXISTS persistent_logins;
+DROP TABLE IF EXISTS files ;
+DROP TABLE IF EXISTS reply ;
+DROP TABLE IF EXISTS chat ;
+DROP TABLE IF EXISTS review ;
+DROP TABLE IF EXISTS user_auth ;
+DROP TABLE IF EXISTS payment ;
+DROP TABLE IF EXISTS reservation_item ;
+DROP TABLE IF EXISTS cancel ;
 
 CREATE TABLE board
 (
@@ -198,7 +198,7 @@ CREATE TABLE users
   user_coupon   VARCHAR(200) NULL     COMMENT '사용자 쿠폰',
   user_upd_date TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '사용자 수정일자',
   enabled       INT          NULL     DEFAULT 1 COMMENT '계정 활성화',
-  status        INT          NULL     COMMENT '상태',
+  status        INT          NOT NULL DEFAULT 0 COMMENT '상태',
   PRIMARY KEY (user_no)
 ) COMMENT '사용자';
 

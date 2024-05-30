@@ -9,7 +9,7 @@
 </head>
 <body layout:fragment="content">
     <div class="container form-container">
-        <form id="form" method="post">
+        <form id="form" method="post" th:action="@{/login}">
             <!-- CSRF TOKEN -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
