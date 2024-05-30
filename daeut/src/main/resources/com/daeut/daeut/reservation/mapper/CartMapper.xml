@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" --> 
+<mapper namespace="com.daeut.daeut.reservation.mapper.CartMapper">
+
+    <!-- 카트 목록 -->
+    <!-- TODO : 장바구니 목록 만들기.. -->
+    <select id="cartList" resultType="cart">
+        SELECT 
+            *,  
+            u.user_name, 
+            s.service_name
+            <!-- r.reservation_date -->
+
+        FROM cart c
+            JOIN service s ON c.service_no = s.service_no
+            <!-- JOIN reservation r ON r.service_no = s.service_no -->
+            JOIN partner p ON s.partner_no = p.partner_no
+            JOIN users u ON p.user_no = u.user_no
+
+        WHERE c.user_no = #{userNo}
+        ORDER BY c.cart_reg_date DESC;
+    </select>
+
+    <!-- 카트 등록 -->
+    <insert id="cartInsert">
+        INSERT INTO cart( service_no, user_no )
+        VALUES ( #{serviceNo}, #{userNo} )
+    </insert>
+
+    <!-- 카트 선택 삭제 -->
+    <delete id="cartDelete">
+        DELETE FROM cart
+        WHERE cart_no = #{cartNo}
+    </delete>
+
+    <!-- 카트 전체 삭제 -->
+    <delete id="cartDeleteAll">
+        DELETE FROM cart
+        WHERE user_no = #{userNo}
+    </delete>
+</mapper>

@@ -17,6 +17,7 @@ DROP TABLE IF EXISTS user_auth ;
 DROP TABLE IF EXISTS payment ;
 DROP TABLE IF EXISTS reservation_item ;
 DROP TABLE IF EXISTS cancel ;
+DROP TABLE IF EXISTS cart ;
 
 CREATE TABLE board
 (
@@ -30,6 +31,17 @@ CREATE TABLE board
   user_no        INT          NOT NULL COMMENT '사용자 번호',
   PRIMARY KEY (board_no)
 ) COMMENT '팁게시판';
+
+CREATE TABLE cart
+(
+  cart_no       INT       NOT NULL AUTO_INCREMENT COMMENT '장바구니번호',
+  cart_amount   INT       NOT NULL DEFAULT 1 COMMENT '수량',
+  cart_reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일자',
+  cart_upd_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '수정일자',
+  service_no    INT       NOT NULL COMMENT '서비스 번호',
+  user_no       INT       NOT NULL COMMENT '사용자 번호',
+  PRIMARY KEY (cart_no)
+) COMMENT '장바구니';
 
 CREATE TABLE cancel
 (
@@ -130,8 +142,8 @@ CREATE TABLE reservation
   order_no           VARCHAR(50) NOT NULL COMMENT '주문 번호',
   total_quantity     INT         NOT NULL COMMENT '총 수량',
   total_price        INT         NOT NULL COMMENT '총 가격',
-  upd_date           TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '예약 수정일자',
   reg_date           TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '예약 등록일자',
+  upd_date           TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '예약 수정일자',
   cancel_no          int         NOT NULL COMMENT '취소 번호',
   PRIMARY KEY (reservation_no)
 ) COMMENT '예약';
@@ -287,3 +299,13 @@ CREATE TABLE users
 --   ADD CONSTRAINT FK_reservation_TO_cancel
 --     FOREIGN KEY (reservation_no)
 --     REFERENCES reservation (reservation_no);
+
+-- ALTER TABLE cart
+--   ADD CONSTRAINT FK_service_TO_cart
+--     FOREIGN KEY (service_no)
+--     REFERENCES service (service_no);
+
+-- ALTER TABLE cart
+--   ADD CONSTRAINT FK_users_TO_cart
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
