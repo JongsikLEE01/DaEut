@@ -95,5 +95,16 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.delete(user);
         return result;
     }
-    
+
+     @Override
+    public void requestPartner(String userId) throws Exception {
+        userMapper.requestPartner(userId);
+    }
+
+    @Override
+    @Transactional
+    public void approvePartner(String userId) throws Exception {
+        userMapper.approvePartnerAndAddAuth(userId);
+    }
+
 }

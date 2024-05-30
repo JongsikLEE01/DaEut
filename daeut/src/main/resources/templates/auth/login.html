@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/auth_layout}"
-      >
-<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+      layout:decorate="~{/layout/auth_layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Da E ut</title>
 </head>
-<!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
 <body layout:fragment="content">
     <div class="container form-container">
-        <form id="form" th:action="@{/auth/login}" method="post">
+        <form id="form" method="post" th:action="@{/login}">
             <!-- CSRF TOKEN -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
             <h2 class="text-center">로그인</h2>
             <p class="text-center">다이웃 이용을 위한 아이디, 비밀번호를 입력해주세요.</p>
-            <div class="mb-3"><input type="text" class="form-control" placeholder="아이디" name="userId"></div>
-            <div class="mb-3"><input type="password" class="form-control" placeholder="비밀번호" name="userPassword"></div>
+            <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                <p th:text="${errorMessage}"></p>
+            </div>
+            <div class="mb-3"><input type="text" class="form-control" placeholder="아이디" name="userId" id="userId"></div>
+            <div class="mb-3"><input type="password" class="form-control" placeholder="비밀번호" name="userPassword" id="userPassword"></div>
             <div class="mb-3">
                 <div class="row">
                    <div class="col-10">
                         <div class="gender-container d-flex justify-content-center column-gap-5">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="remember-id" id="remember-id">
+                                <input class="form-check-input" type="checkbox" name="remember-id" id="remember-id">
                                 <label class="form-check-label" for="remember-id">아이디 저장</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="remember-me" id="remember-me">
+                                <input class="form-check-input" type="checkbox" name="remember-me" id="remember-me">
                                 <label class="form-check-label" for="remember-me">자동 로그인</label>
                             </div>
                         </div>
@@ -36,7 +37,7 @@
                 </div>
             </div>
             <div class="d-grid gap-3">
-                <button type="submit" class="btn btn-dark">로그인</button>
+                <button type="submit" class="btn btn-dark">로그인</button> <!-- submit 하면 SecurityConfig.java로 넘어가서 처리 (action="/auth/login" 이 불필요) -->
                 <a href="/auth/join" class="btn btn-dark">회원 가입</a>
                 <button type="button" class="btn btn-light border" onclick="history.back()">돌아가기</button>
             </div>
@@ -53,23 +54,5 @@
             </div>
         </form>
     </div>
-
-    <script>
-        document.getElementById('form').onsubmit = function() {
-            const userId = document.getElementsByName('userId')[0].value;
-            const userPassword = document.getElementsByName('userPassword')[0].value;
-
-            if (!userId) {
-                alert("아이디를 입력해주세요.");
-                return false;
-            }
-            if (!userPassword) {
-                alert("비밀번호를 입력해주세요.");
-                return false;
-            }
-            return true;
-        };
-
-    </script>
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.daeut.daeut.reservation.dto.Files;
 import com.daeut.daeut.reservation.dto.Option;
 import com.daeut.daeut.reservation.dto.Page;
 import com.daeut.daeut.reservation.dto.Services;
@@ -27,4 +28,10 @@ public interface ReservationMapper {
     public int maxPk() throws Exception;
     // 개수 조회
     public int count(@Param("option") Option option) throws Exception;
+
+    // 썸네일
+    public Files SelectThumbnail(int serviceNo) throws Exception;
+    // 설명 파일
+    public List<Files> SelectFiles(int serviceNo) throws Exception;
+
 }

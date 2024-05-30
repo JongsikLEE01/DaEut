@@ -3,8 +3,8 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -1023.3102999999999,
-    "scrollLeft": -2099.0711093834243,
+    "scrollTop": -1234.6433999999997,
+    "scrollLeft": -1193.2160093834216,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -345,13 +345,36 @@
               "widthDataType": 60,
               "widthDefault": 60
             }
+          },
+          {
+            "id": "cf885534-f541-4277-ac5a-6ef9427e5550",
+            "name": "status",
+            "comment": "상태",
+            "dataType": "INT",
+            "default": "0",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
           "active": false,
           "left": 1685.5321,
           "top": 1549.9851,
-          "zIndex": 88,
+          "zIndex": 14,
           "widthName": 60,
           "widthComment": 60
         },
@@ -436,7 +459,7 @@
           "active": false,
           "left": 1006.2442,
           "top": 1668.1884,
-          "zIndex": 59,
+          "zIndex": 5,
           "widthName": 60,
           "widthComment": 60
         },
@@ -636,7 +659,7 @@
           "active": false,
           "left": 997.0373,
           "top": 978.914,
-          "zIndex": 57,
+          "zIndex": 3,
           "widthName": 60,
           "widthComment": 60
         },
@@ -882,7 +905,7 @@
           "active": false,
           "left": 1805.9275,
           "top": 1045.786,
-          "zIndex": 61,
+          "zIndex": 6,
           "widthName": 66.94287109375,
           "widthComment": 60
         },
@@ -990,7 +1013,7 @@
           "active": false,
           "left": 1010.1403,
           "top": 1885.5798,
-          "zIndex": 68,
+          "zIndex": 7,
           "widthName": 60,
           "widthComment": 60,
           "color": "#000000"
@@ -1237,7 +1260,7 @@
           "active": false,
           "left": 3247.5196,
           "top": 1275.9079,
-          "zIndex": 77,
+          "zIndex": 11,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1414,7 +1437,7 @@
           "active": false,
           "left": 1007.3907,
           "top": 1374.3824,
-          "zIndex": 58,
+          "zIndex": 4,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1499,7 +1522,7 @@
             "name": "partner_career",
             "comment": "파트너 경력",
             "dataType": "TIMESTAMP",
-            "default": "0",
+            "default": "",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
@@ -1514,29 +1537,6 @@
               "widthName": 86.296875,
               "widthComment": 71.5703125,
               "widthDataType": 71.93212890625,
-              "widthDefault": 60
-            }
-          },
-          {
-            "id": "47d7433a-2032-4fc3-bce7-0301fb1ffdc3",
-            "name": "status",
-            "comment": "파트너 승인 상태",
-            "dataType": "VARCHAR(100)",
-            "default": "'미승인'",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": true
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": false,
-              "pfk": false,
-              "widthName": 60,
-              "widthComment": 102.140625,
-              "widthDataType": 89.29296875,
               "widthDefault": 60
             }
           },
@@ -1591,7 +1591,7 @@
           "active": false,
           "left": 2615.7396,
           "top": 1265.7194,
-          "zIndex": 74,
+          "zIndex": 13,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1791,7 +1791,7 @@
           "active": false,
           "left": 2476.3597,
           "top": 1799.4425,
-          "zIndex": 73,
+          "zIndex": 8,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1899,7 +1899,7 @@
           "active": false,
           "left": 3245.9654,
           "top": 1602.9964,
-          "zIndex": 78,
+          "zIndex": 12,
           "widthName": 99.93798828125,
           "widthComment": 67
         },
@@ -2099,7 +2099,7 @@
           "active": false,
           "left": 1797.1481,
           "top": 631.7987,
-          "zIndex": 56,
+          "zIndex": 2,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2276,7 +2276,7 @@
           "active": false,
           "left": 3253.1395,
           "top": 1003.2435,
-          "zIndex": 76,
+          "zIndex": 10,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2476,7 +2476,7 @@
           "active": false,
           "left": 995.0024,
           "top": 625.1538,
-          "zIndex": 55,
+          "zIndex": 1,
           "widthName": 98.4462890625,
           "widthComment": 60
         },
@@ -2791,7 +2791,7 @@
           "active": false,
           "left": 2639.6097,
           "top": 628.8016,
-          "zIndex": 75,
+          "zIndex": 9,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2842,7 +2842,7 @@
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
           "x": 2615.7396,
-          "y": 1301.1360666666665,
+          "y": 1297.7194,
           "direction": "left"
         },
         "end": {
@@ -2894,7 +2894,7 @@
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
           "x": 1685.5321,
-          "y": 1829.5684333333331,
+          "y": 1846.651766666667,
           "direction": "left"
         },
         "end": {
@@ -2920,7 +2920,7 @@
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
           "x": 2248.15172890625,
-          "y": 1801.6101,
+          "y": 1816.9851,
           "direction": "right"
         },
         "end": {
@@ -2998,7 +2998,7 @@
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
           "x": 2248.15172890625,
-          "y": 1633.8601,
+          "y": 1638.9851,
           "direction": "right"
         },
         "end": {
@@ -3007,7 +3007,7 @@
             "12d192ce-6eba-43e4-8dbd-cf6e5ce73f6d"
           ],
           "x": 2615.7396,
-          "y": 1442.802733333333,
+          "y": 1425.7194,
           "direction": "left"
         },
         "constraintName": "fk_users_to_partner",
@@ -3076,7 +3076,7 @@
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
           "x": 1685.5321,
-          "y": 1605.9017666666666,
+          "y": 1609.3184333333336,
           "direction": "left"
         },
         "end": {
@@ -3102,7 +3102,7 @@
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
           "x": 2615.7396,
-          "y": 1371.9693999999997,
+          "y": 1361.7194,
           "direction": "left"
         },
         "end": {
@@ -3127,8 +3127,8 @@
           "columnIds": [
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
-          "x": 2864.854834375,
-          "y": 1478.2194,
+          "x": 2856.174414453125,
+          "y": 1457.7194,
           "direction": "bottom"
         },
         "end": {
@@ -3154,7 +3154,7 @@
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
           "x": 1685.5321,
-          "y": 1717.7350999999999,
+          "y": 1727.9851000000003,
           "direction": "left"
         },
         "end": {

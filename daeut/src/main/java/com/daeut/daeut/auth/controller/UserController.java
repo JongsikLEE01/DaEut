@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Slf4j
@@ -24,11 +25,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/user")
 public class UserController {
 
-    // @GetMapping({"/", ""})
-    // public String index() {
-    //     log.info("/user");
-    //     return "/user/index";
-    // }
     @Autowired
     private UserService userService;
 
@@ -81,7 +77,7 @@ public class UserController {
         log.info("/user/userReservation");
         return "/user/userReservation";
     }
-    
+
     @GetMapping("/userLikeTip")
     public String userLikeTip() {
         log.info("/user/userLikeTip");
@@ -111,5 +107,26 @@ public class UserController {
         log.info("/user/userPartnerDone");
         return "/user/userPartnerDone";
     }
-    
+
+    // 파트너 신청 엔드포인트
+    @PostMapping("/request-partner")
+    public String requestPartner(@RequestParam String userId) {
+        try {
+            userService.requestPartner(userId);
+        } catch (Exception e) {
+            log.error("Error requesting partner status", e);
+        }
+        return "redirect:/user/userPartnerDone";
+    }
+
+    // 관리자가 파트너 신청을 승인하는 엔드포인트
+    @PostMapping("/approve-partner")
+    public String approvePartner(@RequestParam String userId) {
+        try {
+            userService.approvePartner(userId);
+        } catch (Exception e) {
+            log.error("Error approving partner status", e);
+        }
+        return "redirect:/user/partnerApprovalDone";
+    }
 }

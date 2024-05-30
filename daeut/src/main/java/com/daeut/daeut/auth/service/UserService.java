@@ -4,7 +4,7 @@ import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 
 public interface UserService {
-    
+
     // 로그인
     public boolean login(Users user) throws Exception;
 
@@ -23,4 +23,9 @@ public interface UserService {
     // 회원 탈퇴
     public int delete(Users user) throws Exception;
 
+    // 파트너 신청
+    public void requestPartner(String userId) throws Exception;
+
+    // 파트너 승인
+    public void approvePartner(String userId) throws Exception;
 }
