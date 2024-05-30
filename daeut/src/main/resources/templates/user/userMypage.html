@@ -46,7 +46,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="userBirth">생년월일</label>
-                        <input type="date" class="form-control" id="userBirth" th:placeholder="${user.userBirth}" disabled>
+                        <input type="date" class="form-control" id="userBirth" th:value="${#dates.format(user.userBirth, 'yyyy-MM-dd')}" disabled>
                     </div>
                     <div class="form-buttons">
                         <a href="userMypageUpdate" class="btn btn-primary sessuce color_main">정보 수정</a>

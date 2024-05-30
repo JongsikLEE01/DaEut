@@ -13,7 +13,7 @@ import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
 
-import groovy.util.logging.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -76,6 +76,7 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    @Transactional
     @Override
     public int update(Users user) throws Exception {
         int result = userMapper.update(user);
@@ -85,6 +86,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public int insertAuth(UserAuth userAuth) throws Exception {
         int result = userMapper.insertAuth(userAuth);
+        return result;
+    }
+
+    @Transactional
+    @Override
+    public int delete(Users user) throws Exception {
+        int result = userMapper.delete(user);
         return result;
     }
 
@@ -99,5 +107,4 @@ public class UserServiceImpl implements UserService {
         userMapper.approvePartnerAndAddAuth(userId);
     }
 
-    
 }
