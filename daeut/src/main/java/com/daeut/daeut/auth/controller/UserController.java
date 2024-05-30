@@ -1,7 +1,5 @@
 package com.daeut.daeut.auth.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,8 +16,6 @@ import com.daeut.daeut.auth.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 
 @Slf4j
@@ -56,12 +52,17 @@ public class UserController {
     }
 
     @PostMapping("/userMypageUpdateDone")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public String userMypageUpdateDone(@RequestParam("action") String action, Users user, RedirectAttributes redirectAttributes) throws Exception {
+        log.info("userMypageUpdateDone called with action: " + action);
         if ("delete".equals(action)) {
-            userService.delete(user);
-            redirectAttributes.addFlashAttribute("message", "탈퇴가 성공적으로 처리되었습니다.");
-            return "redirect:/user/deletedPage";  // 탈퇴 처리 후 리다이렉트할 페이지
+            int result = userService.delete(user);
+            if (result > 0) {
+                redirectAttributes.addFlashAttribute("message", "탈퇴가 성공적으로 처리되었습니다.");
+                return "redirect:/index";  // 탈퇴 처리 후 리다이렉트할 페이지
+            } else {
+                redirectAttributes.addFlashAttribute("error", "탈퇴 처리에 실패했습니다. 다시 시도해주세요.");
+                return "redirect:/user/userMypageUpdate";
+            }
         } else if ("update".equals(action)) {
             int result = userService.update(user);
             if (result > 0) {
@@ -74,8 +75,6 @@ public class UserController {
         }
         return "redirect:/user/userMypage"; // 기본적으로 리다이렉트할 페이지
     }
-
-
     
 
     @GetMapping("/userReservation")

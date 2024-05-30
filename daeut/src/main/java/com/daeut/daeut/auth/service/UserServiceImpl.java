@@ -74,20 +74,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int update(Users user) throws Exception {
-        int result = userMapper.update(user);
-        return result;
+        return userMapper.update(user);
     }
 
     @Override
     public int insertAuth(UserAuth userAuth) throws Exception {
-        int result = userMapper.insertAuth(userAuth);
-        return result;
+        return userMapper.insertAuth(userAuth);
     }
 
     @Override
     public int delete(Users user) throws Exception {
-        int result = userMapper.delete(user);
-        return result;
+        return userMapper.delete(user);
     }
     
 }

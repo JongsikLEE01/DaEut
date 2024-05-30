@@ -33,8 +33,12 @@ public class SecurityConfig {
 
         // ✅ 인가 설정
         http.authorizeRequests(requests -> requests
+                                            .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
+                                            .antMatchers("/user", "/user/**").hasAnyRole("USER", "ADMIN", "PARTNER")
+                                            .antMatchers("/partner", "/partner/**").hasAnyRole("PARTNER", "ADMIN")
+                                            .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
                                             .antMatchers("/**").permitAll()
-                                            .anyRequest().permitAll()
+                                            .anyRequest().authenticated()
                                             );
 
         // 🔐 폼 로그인 설정
