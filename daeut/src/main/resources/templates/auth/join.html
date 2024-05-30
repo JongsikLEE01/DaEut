@@ -13,6 +13,9 @@
 <body layout:fragment="content">
     <div class="container form-container">
         <form id="signup-form" method="post" th:action="@{/auth/join}" th:object="${user}">
+            <!-- CSRF TOKEN -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
             <h2 class="text-center">계정 생성</h2>
             <p class="text-center">다양한 계정에 사용될 정보를 입력해주세요</p>
             <div class="mb-3 input-group">
@@ -25,7 +28,10 @@
             <div class="mb-3"><input type="date" class="form-control" id="userBirth" name="userBirth" style="color: gray;" placeholder="생년월일 (YYYYMMDD)"></div>
 
             <div class="mb-3"><input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="연락처 ('-' 제외)"></div>
-            <div class="mb-3"><input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="이메일"></div>
+            <div class="mb-3 input-group">
+                <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="이메일">
+                <button type="button" class="btn btn-primary custom-auth-btn" onclick="checkDuplicateEmail()">중복확인</button>
+            </div>
             <div class="mb-3"><input type="text" class="form-control" id="userAddress" name="userAddress" placeholder="주소"></div>
             <div class="mb-3">
                 <div class="gender-container d-flex justify-content-center column-gap-5">
