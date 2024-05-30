@@ -35,7 +35,8 @@ public class SecurityConfig {
 
         // ✅ 인가 설정
         http.authorizeRequests(requests -> requests
-                                            .antMatchers("/admin/**").hasRole("ADMIN")
+                                            .antMatchers("/admin/join").permitAll() // 관리자 회원가입 페이지는 누구나 접근 가능
+                                            // .antMatchers("/admin/**").hasRole("ADMIN")
                                             .antMatchers("/partner/**").hasAnyRole("PARTNER", "ADMIN")
                                             .antMatchers("/user/**").hasAnyRole("USER", "PARTNER", "ADMIN")
                                             .antMatchers("/auth/**", "/").permitAll()
