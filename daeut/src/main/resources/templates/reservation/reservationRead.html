@@ -12,6 +12,7 @@
 	<div class="container">
 
 		<div class="header-area">
+			<!-- 서비스 이름 -->
 			<h3 class="header-title">청소 일짱 도우미</h3>
 			<div class="review-star">
 				<i class="fa fa-star" aria-hidden="true"></i>
@@ -21,38 +22,42 @@
 				<i class="fa fa-star" aria-hidden="true"></i>
 			</div>
 			<th:block sec:authorize="hasRole('ROLE_PARTNER') and hasRole('ROLE_USER') and !hasRole('ROLE_ADMIN') ">
-				<a th:href="|/reservation/reservationUpdate?serviceNo=${serviceNo}|" class="reservation-link"><button class="reservation-update">수정하기</button></a>
+				<a th:href="|/reservation/reservationUpdate?serviceNo=${service.serviceNo}|" class="reservation-link">
+					<button class="reservation-update">수정하기</button>
+				</a>
 			</th:block>
 		</div>
 
 		<div class="service-title-tag">
+			<!-- 카테고리 -->
 			<tag class="service-tag-name">청소</tag>
-			<tag class="service-tag-name">빨래</tag>
-			<tag class="service-tag-name">방역</tag>
 		</div>
 
 		<div class="detail-form">
 			<div class="detail-content">
 				
+				<!-- 설명 이미지 슬라이드 -->
 				<div class="reservation-service-content">
 					<div>
 						<div class="reservation-image-box">
-							<img src="/img/slide01.png" alt="" class="reservation-image-slide">
-							<img src="/img/slide02.png" alt="" class="reservation-image-slide">
-							<img src="/img/slide03.png" alt="" class="reservation-image-slide">
+							<!-- <img src="/img/slide01.png" alt="" class="reservation-image-slide"> -->
+							<th:block th:each="file : ${files}">
+                            	<img th:src="|/file/img/${file.fileNo}|" class="reservation-image-slide" alt="설명이미지">
+                    		</th:block>
 							<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
 							<a class="next" onclick="plusSlides(1)">&#10095;</a>
 						</div>
 					</div>
 
 					<div class="title-and-chat">
+						<!-- 서비스 설명 -->
 						<p class="content-title-name">타이틀 이름</p>
+
 						<div class="reservation-chat">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
 								<path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
 							</svg>
-						<a href="chat" class="contact-link">문의하기</a>
-						
+							<a href="chat" class="contact-link">문의하기</a>
 						</div>
 					</div>
 
@@ -190,6 +195,7 @@
 					<table class="partner-service-table">
 
 						<tbody>
+							<!-- 서비스 옵션 대신 달력 input 달력 값으로 가야함~ -->
 							<tr>
 								<td><input type="checkbox" name="select-option-service"></td>
 								<td>돈만 내면 집이 깨끗해진다고? 5만원</td>
