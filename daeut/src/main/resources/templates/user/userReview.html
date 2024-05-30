@@ -14,13 +14,13 @@
                 <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
                 <h5>마이페이지</h5>
                 <br>
-                <a href="userMypage">내 정보 변경</a>
-                <a href="userReservation">내 예약 보기</a>
-                <a href="userLikeTip">내가 좋아하는 글</a>
-                <a href="userReview" class="userReview">별점 및 리뷰 작성</a>
-                <a href="userCoupon">내 쿠폰</a>
-                <a href="userPartner">파트너 신청</a>
-                <a href="userCart">장바구니</a>
+                <a th:href="@{/user/userMypage}">내 정보 변경</a>
+                <a th:href="@{/user/userReservation}">내 예약 보기</a>
+                <a th:href="@{/user/userLikeTip}">내가 좋아하는 글</a>
+                <a th:href="@{/user/userReview}" class="userReview">별점 및 리뷰 작성</a>
+                <a th:href="@{/user/userCoupon}">내 쿠폰</a>
+                <a th:href="@{/user/userPartner}">파트너 신청</a>
+                <a th:href="@{/user/userCart"}>장바구니</a>
             </nav>
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>별점 및 리뷰 작성</h3>
