@@ -32,11 +32,11 @@
                             <img src="/img/partner.png" alt="파트너 이미지" class="profile-img img-thumbnail">
                         </div>
                         <div class="col-md-8">
-                            <form class="ms-5">
+                            <form class="ms-5" th:action="@{/user/request-partner}" method="post">
                                 <!-- form 작성 필요 -->
                                 <div class="form-group form-section p-1 mt-5 text-start">
                                     <label for="partnerName">이름</label>
-                                    <input type="text" class="form-control" id="partnerName" placeholder="이름을 입력해주세요" th:value="${user.userName}" >
+                                    <input type="text" class="form-control" id="partnerName" placeholder="이름을 입력해주세요">
                                 </div>
                                 <div class="form-group form-section p-1 text-start">
                                     <label for="partnerAddress">주소</label>
@@ -60,7 +60,7 @@
                                 </div>
                                 
                                 <div class="buttons mb-5 d-flex gap-3 justify-content-end">
-                                    <button type="button" class="btn btn-primary sessuce color_main">신청하기</button>
+                                    <button type="submit" class="btn btn-primary sessuce color_main">신청하기</button>
                                 </div>
                             </form>
                         </div>
