@@ -142,8 +142,8 @@ CREATE TABLE reservation
   order_no           VARCHAR(50) NOT NULL COMMENT '주문 번호',
   total_quantity     INT         NOT NULL COMMENT '총 수량',
   total_price        INT         NOT NULL COMMENT '총 가격',
-  upd_date           TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '예약 수정일자',
   reg_date           TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '예약 등록일자',
+  upd_date           TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '예약 수정일자',
   cancel_no          int         NOT NULL COMMENT '취소 번호',
   PRIMARY KEY (reservation_no)
 ) COMMENT '예약';
