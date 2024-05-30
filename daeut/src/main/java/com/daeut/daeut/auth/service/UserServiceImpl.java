@@ -7,11 +7,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
 
+import groovy.util.logging.Slf4j;
+
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -83,5 +87,17 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.insertAuth(userAuth);
         return result;
     }
+
+     @Override
+    public void requestPartner(String userId) throws Exception {
+        userMapper.requestPartner(userId);
+    }
+
+    @Override
+    @Transactional
+    public void approvePartner(String userId) throws Exception {
+        userMapper.approvePartnerAndAddAuth(userId);
+    }
+
     
 }
