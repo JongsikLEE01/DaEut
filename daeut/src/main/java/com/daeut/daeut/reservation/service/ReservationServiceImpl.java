@@ -41,7 +41,9 @@ public class ReservationServiceImpl implements ReservationService{
     @Override
     public Services serviceSelect(int serviceNo) throws Exception {
         // 조회
-        return reservationMapper.serviceSelect(serviceNo);
+        Services service = reservationMapper.serviceSelect(serviceNo);
+
+        return service;
     }
 
     @Override
@@ -97,5 +99,23 @@ public class ReservationServiceImpl implements ReservationService{
     public List<Services> search(Option option) throws Exception {
         // 검색
         return reservationMapper.search(option);
+    }
+
+    @Override
+    public Files SelectThumbnail(int serviceNo) throws Exception {
+        // 썸네일
+        Files thumbnail = reservationMapper.SelectThumbnail(serviceNo);
+        log.info("thumbnail? {}",thumbnail);
+
+        return thumbnail;
+    }
+    
+    @Override
+    public List<Files> SelectFiles(int serviceNo) throws Exception {
+        // 파일
+        List<Files> files = reservationMapper.SelectFiles(serviceNo);
+        log.info("files? {}",files);
+        
+        return files;
     }
 }

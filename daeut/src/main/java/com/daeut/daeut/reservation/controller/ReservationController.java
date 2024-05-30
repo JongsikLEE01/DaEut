@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.daeut.daeut.reservation.dto.Files;
 import com.daeut.daeut.reservation.dto.Option;
@@ -131,16 +132,20 @@ public class ReservationController {
     @GetMapping("/reservationUpdate")
     public String reservationUpdate(@RequestParam("serviceNo") int serviceNo, Model model, Files file) throws Exception {
         Services service = reservationService.serviceSelect(serviceNo);
+        Files thumbnail = reservationService.SelectThumbnail(serviceNo);
+        List<Files> files = reservationService.SelectFiles(serviceNo);
 
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
 
-        log.info("fileList? {}", fileList);
-        log.info("service? {}", service);
+        log.info("service? {}",service);
+        log.info("fileList? {}",fileList);
 
         model.addAttribute("service", service);
         model.addAttribute("fileList", fileList);
+        model.addAttribute("thumbnail", thumbnail);
+        model.addAttribute("files", files);
 
         return "reservation/reservationUpdate";
     }

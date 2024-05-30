@@ -20,8 +20,10 @@
                     <input type="text" id="title" name="serviceName" th:value="${service.serviceName}"><br>
                 </div>
                 <div class="servicetag">
-                    <!-- 파트너 번호 -->
-                    <!-- <input type="hidden" name="partnerNo" th:value="${service.partnerNo}"> -->
+                    <!-- TODO : 파트너 Dto 완성 시 합니다 -->
+                    <!-- <input type="hidden" name="partnerNo" th:value="${partnerNo}"> -->
+                    <!-- <input type="hidden" name="partnerNo" value="3"> -->
+
                     <!-- 서비스 번호 -->
                     <input type="hidden" name="serviceNo" th:value="${service.serviceNo}">
 
@@ -58,13 +60,11 @@
                     <p class="file-upload-note">썸네일 사진은 최대 20MB 이하의 JPG, PNG, GIF 10장까지 첨부 가능합니다.</p>
                 </div>
                 <div id="image-thumbnail-container">
-                    <th:block th:if="${thumbnail.isEmpty()}">
-                        <span>썸네일 이미지가 존재하지 않습니다</span>
+                    <th:block th:if="${thumbnail == null}">
+                        <span>조회된 썸네일이 없습니다.</span>
                     </th:block>
 
-                    <th:block th:if="${!thumbnail.isEmpty()}">
-                        <img th:src="|/file/img/${service.fileNo}|" alt="썸네일" width="250">
-                    </th:block>
+                    <img th:src="|/file/img/${thumbnail.fileNo}|" alt="썸네일" width="250">
                 </div>
 
                 <br>
@@ -78,8 +78,15 @@
                     <input type="file" id="images" name="file" accept="image/*" multiple onchange="previewImages(event)">
                     <p class="file-upload-note">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</p>
                 </div>
-                <div id="image-preview-container"></div>
-                
+                <div id="image-preview-container">
+                    <th:block th:if="${files.isEmpty()}">
+                        <span>조회된 설명이미지가 없습니다.</span>
+                    </th:block>
+
+                    <th:block th:each="file : ${files}">
+                            <img th:src="|/file/img/${file.fileNo}|" alt="설명이미지" width="250">
+                    </th:block>
+                </div>
                 
                 <div class="bottomButton">
                     <input type="submit" class="reservationInsertOk sessuce" value="수정하기">

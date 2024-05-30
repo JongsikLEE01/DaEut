@@ -37,10 +37,38 @@
         LIMIT #{page.index}, #{page.rows};
     </select>
 
-    <!-- 단일 조회 -->
+    <!-- 글 내용 조회 -->
     <select id="serviceSelect" resultMap="serviceMap">
         SELECT *
         FROM service
+        WHERE service_no = #{serviceNo}
+    </select>
+
+    <!-- 썸네일 -->
+    <select id="SelectThumbnail">
+        SELECT  s.*, 
+        		f.*
+        FROM joeun.service s    LEFT JOIN (  
+        	                    	    SELECT * 
+        	                    	    FROM joeun.files
+                                        WHERE parent_table = 'service'
+                                        AND file_code = 1
+        	                    	    ) f
+        	                    ON s.service_no = f.parent_no
+        WHERE service_no = #{serviceNo}
+    </select>
+
+    <!-- 설명 이미지 -->
+    <select id="SelectFiles">
+        SELECT  s.*, 
+        		f.*
+        FROM joeun.service s    LEFT JOIN (  
+        	                    	    SELECT * 
+        	                    	    FROM joeun.files
+                                        WHERE parent_table = 'service'
+                                        AND file_code != 1
+        	                    	    ) f
+        	                    ON s.service_no = f.parent_no
         WHERE service_no = #{serviceNo}
     </select>
     
