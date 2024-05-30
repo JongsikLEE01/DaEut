@@ -1,29 +1,35 @@
 package com.daeut.daeut.partner.dto;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import lombok.Data;
 
 @Data
 public class Partner {
 
-    // 파트너 번호
     private int partnerNo;
-    // 파트너 별점 
     private int partnerGrade;
-    // 파트너 예약 횟수
-    private int partnerReserve;    
-    // 파트너 경력
-    private LocalDateTime partnerCareer;
-    // 파트너 승인 상태
-    private String status;         
-    // 파트너 소개글
+    private int partnerReserve;
+    private Timestamp partnerCareer;
+    private String status;
     private String introduce;
-    // 사용자 번호      
-    private int userNo;           
+    private int userNo;
 
-    public Partner() {
 
-	}
+    // 여기서부터는 user 정보
+    private String userName; // 사용자 이름
+    private String userPhone; // 사용자 전화번호
+    private Date userBirth; // 사용자 생년월일
+    private String userAddress; // 사용자 주소
+    private String userEmail; // 사용자 이메일
+    private String userGender; // 사용자 성별
+    private String userId; // 사용자 아이디
+    private String userPassword; // 사용자 비밀번호
+    private Date userRegDate; // 사용자 등록일자
+    private String userCoupon; // 사용자 쿠폰
+    private Date userUpdDate; // 사용자 수정일자
+    private int enabled;        // 활성화 여부
     
 }

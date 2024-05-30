@@ -1,5 +1,7 @@
 package com.daeut.daeut.partner.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.daeut.daeut.partner.dto.Partner;
@@ -8,9 +10,11 @@ import com.daeut.daeut.partner.dto.Partner;
 public interface PartnerMapper {
     
     // 파트너 조회
-    public Partner select(int partnerNo) throws Exception;
+    List<Partner> getPartners(int userNo);
 
     // 파트너 수정
     public int update(Partner partner) throws Exception;
+
+    // 사용자가 작성한 리뷰 모아보기
     
 }

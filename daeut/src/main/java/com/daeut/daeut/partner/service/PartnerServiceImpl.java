@@ -1,5 +1,7 @@
 package com.daeut.daeut.partner.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,8 @@ public class PartnerServiceImpl implements PartnerService {
     private PartnerMapper partnerMapper;
 
     @Override
-    public Partner select(int partnerNo) throws Exception {
-        Partner partner = partnerMapper.select(partnerNo);
-		return partner;
-       
+    public List<Partner> getPartners(int userNo) {
+        return partnerMapper.getPartners(userNo);
     }
 
     @Override

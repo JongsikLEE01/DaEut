@@ -6,30 +6,61 @@
 <mapper namespace="com.daeut.daeut.partner.mapper.PartnerMapper">
 
   <!-- 파트너 정보 가져오기 -->
-  <select id="select">
-  SELECT 
-        p.introduce, <!-- 소개 -->
-        p.user_no AS partner_user_no,
-        u.user_phone, <!-- 전화번호 -->
-        u.user_address, <!-- 주소 -->
-        u.user_birth,<!-- 생년월일 -->
-        u.user_name, <!-- 이름 -->
-        u.user_id, <!-- 아이디  -->
-        u.user_password, <!-- 비밀번호 -->
-        u.enabled
-    FROM 
-        partner p
-    JOIN 
-        users u ON p.user_no = u.user_no
-    WHERE 
-        p.partner_no = #{partnerNo}
-  </select>
+<select id="getPartners" resultType="com.daeut.daeut.partner.dto.Partner">
+    SELECT
+    u.user_no,
+    u.user_name,
+    u.user_phone,
+    u.user_birth,
+    u.user_address,
+    u.user_email,
+    u.user_gender,
+    u.user_id,
+    u.user_password,
+    u.user_reg_date,
+    u.user_coupon,
+    u.user_upd_date,
+    u.enabled,
+    p.partner_no,
+    p.partner_grade,
+    p.partner_reserve,
+    p.partner_career,
+    p.status,
+    p.introduce
+FROM
+    users u
+JOIN
+    partner p ON u.user_no = p.user_no;
+</select>
 
   <!-- 파트너 정보 수정하기 -->
-  <update id="update">
-    UPDATE Partner
-        introduce = #{introduce}
-    WHERE partner_no = #{partnerNo}
-  </update>
+<update id="update" parameterType="map">
+        <!-- user 테이블 업데이트 -->
+        UPDATE users
+        SET
+            user_name = #{userName},
+            user_password = #{userPassword},
+            user_phone = #{userPhone},
+            user_birth = #{userBirth},
+            user_address = #{userAddress},
+            user_gender = #{userGender},
+            user_email = #{userEmail},
+            user_coupon = #{userCoupon},
+            user_upd_date = NOW()
+        WHERE
+            user_id = #{userId};
+
+        <!-- partner 테이블 업데이트 -->
+        UPDATE partner p
+        JOIN users u ON p.user_no = u.user_no
+        SET
+            p.partner_grade = #{partnerGrade},
+            p.partner_reserve = #{partnerReserve},
+            p.partner_career = #{partnerCareer},
+            p.status = #{partnerStatus},
+            p.introduce = #{partnerIntroduce}
+        WHERE
+            u.user_id = #{userId};
+    </update>
 
 </mapper>
