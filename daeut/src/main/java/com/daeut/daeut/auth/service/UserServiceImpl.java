@@ -9,9 +9,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
+
+import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -121,4 +124,7 @@ public class UserServiceImpl implements UserService {
         userMapper.approvePartnerAndAddAuth(userId);
     }
 
+    public List<Reservation> getUserReservations(String userId) {
+        return userMapper.selectReservationsByUserId(userId);
+    }
 }
