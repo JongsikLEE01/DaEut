@@ -8,6 +8,12 @@ public interface UserService {
     // 로그인
     public boolean login(Users user) throws Exception;
 
+    // 아이디 찾기
+    public String findUserByDetails(String userName, String userEmail, String userPhone) throws Exception;
+
+    // 이메일 중복 검사
+    public Users findUserByEmail(String userEmail) throws Exception;
+
     // 조회
     public Users select(String username) throws Exception;
 

@@ -9,9 +9,11 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import com.daeut.daeut.auth.service.LoginSuccessHandler;
 import com.daeut.daeut.auth.service.UserDetailServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +52,8 @@ public class SecurityConfig {
                                     .usernameParameter("userId")
                                     .passwordParameter("userPassword")
                                     .failureUrl("/auth/login?error=true")
+                                    .successHandler( authenticationSuccessHandler() )
+                                    .permitAll()
                             );
 
         // ✅ 사용자 정의 인증 설정
@@ -101,5 +105,10 @@ public class SecurityConfig {
         }
         return repositoryImpl;
     }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new LoginSuccessHandler();
+    } 
     
 }
