@@ -2,6 +2,7 @@ package com.daeut.daeut.reservation.service;
 
 import java.util.List;
 
+import com.daeut.daeut.reservation.dto.Files;
 import com.daeut.daeut.reservation.dto.Option;
 import com.daeut.daeut.reservation.dto.Page;
 import com.daeut.daeut.reservation.dto.Services;
@@ -19,4 +20,8 @@ public interface ReservationService {
     public int serviceDelete(int serviceNo) throws Exception;
     // 검색
     public List<Services> search(Option option) throws Exception;
+    // 썸네일
+    public Files SelectThumbnail(int serviceNo) throws Exception;
+    // 설명 파일
+    public List<Files> SelectFiles(int serviceNo) throws Exception;
 }

@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{/layout/reserv_layout}">
+	layout:decorate="~{/layout/reserv_layout}">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>D e ut</title>
-
+	<!-- swiper 플러그인 -->
+	<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<!-- swiper 플러그인 -->
+	<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 </head>
+
 <body layout:fragment="content">
 
 	<div class="container">
 
 		<div class="header-area">
-			<h3 class="header-title">청소 일짱 도우미</h3>
+			<!-- 서비스 이름 -->
+			<h3 class="header-title" th:text="${service.serviceName}"></h3>
+
+			<!-- 게시글 리뷰 -->
 			<div class="review-star">
 				<i class="fa fa-star" aria-hidden="true"></i>
 				<i class="fa fa-star" aria-hidden="true"></i>
@@ -20,40 +30,44 @@
 				<i class="fa fa-star" aria-hidden="true"></i>
 				<i class="fa fa-star" aria-hidden="true"></i>
 			</div>
+			<div class="reservation-chat reservation-updat reservation-link">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+					class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+					<path
+						d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+				</svg>
+				<a href="/reservation/chat" class="contact-link">문의하기</a>
+			</div>
+
 			<th:block sec:authorize="hasRole('ROLE_PARTNER') and hasRole('ROLE_USER') and !hasRole('ROLE_ADMIN') ">
-				<a href="/reservation/reservationUpdate" class="reservation-link"><button class="reservation-update">수정하기</button></a>
+				<a th:href="|/reservation/reservationUpdate?serviceNo=${service.serviceNo}|" class="reservation-link">
+					<button class="reservation-update">수정하기</button>
+				</a>
 			</th:block>
 		</div>
 
+		<!-- 카테고리 -->
 		<div class="service-title-tag">
-			<tag class="service-tag-name">청소</tag>
-			<tag class="service-tag-name">빨래</tag>
-			<tag class="service-tag-name">방역</tag>
+			<span class="service-tag-name" th:text="${service.serviceCategory}" style="width: auto;"></span>
 		</div>
 
 		<div class="detail-form">
 			<div class="detail-content">
-				
-				<div class="reservation-service-content">
-					<div>
-						<div class="reservation-image-box">
-							<img src="/img/slide01.png" alt="" class="reservation-image-slide">
-							<img src="/img/slide02.png" alt="" class="reservation-image-slide">
-							<img src="/img/slide03.png" alt="" class="reservation-image-slide">
-							<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-							<a class="next" onclick="plusSlides(1)">&#10095;</a>
-						</div>
-					</div>
 
-					<div class="title-and-chat">
-						<p class="content-title-name">타이틀 이름</p>
-						<div class="reservation-chat">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
-								<path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
-							</svg>
-						<a href="chat" class="contact-link">문의하기</a>
-						
-						</div>
+				<div class="reservation-service-content">
+
+					<!-- 설명 이미지 슬라이드 -->
+					<div class="reservation-image-box mb-5">
+						<img id="slide0" th:src="|/file/img/${thumbnail.fileNo}|"
+							class="reservation-image-slide swiper-slide"
+							style="width: 777px; height: 463px; display: block;">
+						<th:block th:each="file, iterStat : ${files}">
+							<img id="slide[[${iterStat.index + 1}]]" th:src="|/file/img/${file.fileNo}|"
+								class="reservation-image-slide swiper-slide"
+								style="width: 777px; height: 463px; display: none;">
+						</th:block>
+						<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+						<a class="next" onclick="plusSlides(1)">&#10095;</a>
 					</div>
 
 					<div class="reservation-menu">
@@ -62,8 +76,8 @@
 						<li data-target="refund-policy">환불 안내</li>
 						<li data-target="review-box">이용 후기</li>
 					</div>
-					
-				
+
+					<!-- 파트너 소개 -->
 					<div class="partner-intro" id="partner-intro">
 						<h4 class="reservation-intro">파트너 소개</h4>
 
@@ -81,8 +95,8 @@
 								</div>
 							</div>
 							<p class="year-of-work"> 경력: n 년</p>
-							<p class="partner-selfintroduction">아무튼 본인 어필과 설명문을 여기에 넣습니다. 잘하는 거 못하는 거 꼼꼼하게 어쩌고 저쩌고 
-								그렇다고 해요 
+							<p class="partner-selfintroduction">아무튼 본인 어필과 설명문을 여기에 넣습니다. 잘하는 거 못하는 거 꼼꼼하게 어쩌고 저쩌고
+								그렇다고 해요
 								짜자잔
 								폰트 사이즈 더 작게가 낫나
 								아님 이게 적당한가</p>
@@ -90,7 +104,8 @@
 						</div>
 
 					</div>
-					
+
+					<!-- 캘린더 -->
 					<div class="reservation-status section" id="reservation-status">
 						<h4 class="reservation-intro2">예약 현황</h4>
 						<hr class="section-underbar">
@@ -105,59 +120,62 @@
 						</div>
 					</div>
 
+					<!-- 환불 -->
 					<div class="refund-policy section" id="refund-policy">
 						<h4 class="reservation-intro3">환불 안내</h4>
 						<hr class="section-underbar">
-						<p class="refund-legacy"><span style="color: red;">당일 취소 및 반복적인 예약 취소는 파트너 보호를 위해 이용에 제한을 받을 수 있습니다.</span> <br> <br>
-							소비자 권리 보호 및 분쟁 해결기준에 따라 결제 후 2시간 이내 취소 시 전액 환불이 가능합니다. 
+						<p class="refund-legacy"><span style="color: red;">당일 취소 및 반복적인 예약 취소는 파트너 보호를 위해 이용에 제한을 받을 수
+								있습니다.</span> <br> <br>
+							소비자 권리 보호 및 분쟁 해결기준에 따라 결제 후 2시간 이내 취소 시 전액 환불이 가능합니다.
 							아무튼 환불 규정
 							어쩌고 저쩌고
 							이용 8일 전 총 금액의 100% 환불
 							<br><br>
 							<span style="color: red;">이용 7일 전부터 취소 시 환불 불가</span>
-							
+
 						</p>
 					</div>
 				</div>
 
+				<!-- 후기 -->
 				<div class="review-box" id="review-box">
 					<h4 class="review-title">이용 후기</h4>
 					<hr class="section-underbar">
 
-				<div class="review-section">
-					<div class="review-user-title">
-						<p class="review-user-name">사용자01</p>
-						<div class="review-star3">
-							<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-							<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-							<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-							<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-							<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
+					<div class="review-section">
+						<div class="review-user-title">
+							<p class="review-user-name">사용자01</p>
+							<div class="review-star3">
+								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
+								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
+								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
+								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
+								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
+							</div>
 						</div>
-					</div>
-					<div class="review-image-box">
-						<div class="review-image-container">
-							<img src="/img/slide02.png" alt="이미지 1" class="review-image">
-						</div>
-						<div class="review-image-container">
-							<img src="/img/slide02.png" alt="이미지 2" class="review-image">
-						</div>
-						<div class="review-image-container">
-							<img src="/img/slide02.png" alt="이미지 3" class="review-image">
-						</div>
-						<div class="review-image-container">
-							<img src="/img/slide02.png" alt="이미지 4" class="review-image">
-						</div>
+						<div class="review-image-box">
+							<div class="review-image-container">
+								<img src="/img/slide02.png" alt="이미지 1" class="review-image">
+							</div>
+							<div class="review-image-container">
+								<img src="/img/slide02.png" alt="이미지 2" class="review-image">
+							</div>
+							<div class="review-image-container">
+								<img src="/img/slide02.png" alt="이미지 3" class="review-image">
+							</div>
+							<div class="review-image-container">
+								<img src="/img/slide02.png" alt="이미지 4" class="review-image">
+							</div>
 
-					</div>
-					<p class="review-content">주방 청소를 정말 깔끔하게 해주셨습니다. 입주할 때와 똑같아요.</p>	
+						</div>
+						<p class="review-content">주방 청소를 정말 깔끔하게 해주셨습니다. 입주할 때와 똑같아요.</p>
 						<div class="review-actions">
 							<p class="review-date">2024.05.17 13:57:54</p>
 							<div class="review-buttons">
 								<button class="review-edit">수정</button>
 								<button class="review-delete">삭제</button>
 							</div>
-						</div>	
+						</div>
 						<hr style="color: #8FA2CA;">
 
 
@@ -171,17 +189,17 @@
 								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
 							</div>
 						</div>
-						<p class="review-content">바쁠 때 믿고 맡길 수 있어요</p>	
-							<div class="review-actions">
-								<p class="review-date">2024.05.17 13:59:54</p>
-								<div class="review-buttons">
-									<button class="review-edit">수정</button>
-									<button class="review-delete">삭제</button>
-								</div>
-							</div>	
+						<p class="review-content">바쁠 때 믿고 맡길 수 있어요</p>
+						<div class="review-actions">
+							<p class="review-date">2024.05.17 13:59:54</p>
+							<div class="review-buttons">
+								<button class="review-edit">수정</button>
+								<button class="review-delete">삭제</button>
+							</div>
+						</div>
 
 
-				</div>
+					</div>
 				</div>
 			</div>
 
@@ -191,40 +209,33 @@
 
 						<tbody>
 							<tr>
-								<td><input type="checkbox" name="select-option-service"></td>
-								<td>돈만 내면 집이 깨끗해진다고? 5만원</td>
+								<td>가격 : </td>
+								<td th:text="${service.servicePrice}"></td>
 							</tr>
 							<tr>
-								<td><input type="checkbox" name="select-option-service"></td>
-								<td>집도 깨끗하게, 동시에 방역까지 10만원</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="select-option-service"></td>
-								<td>당신을 위한 방역 7만원</td>
+								<td>설명 :</td>
+								<td th:text="${service.serviceContent}"></td>
 							</tr>
 						</tbody>
 						<tfoot>
 							<tr class="reservation-buttons">
-								
 								<button class="reservation-calender" id="showCalendarBtn">날짜 선택</button>
-								  <a href="/reservation/payment"><button class="reservation-paybutton">바로 예약하기</button></a>
-								
+								<a href="|/reservation/payment?serviceNo=${service.serviceNo}|/"><button
+										class="reservation-paybutton">바로 예약하기</button></a>
 							</tr>
 						</tfoot>
 
 					</table>
 					<div id="calendarContainer" style="position: relative;"></div>
 					<button class="btn-coupon" id="couponBtn">가입 기념 쿠폰</button>
-					
+
 				</div>
 			</div>
-			
-			
+
+
 		</div>
 
 	</div>
 
 </body>
-
-
 </html>

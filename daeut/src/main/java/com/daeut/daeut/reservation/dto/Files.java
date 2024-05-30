@@ -16,8 +16,8 @@ public class Files {
     private String originFileName;
     private String filePath;
     private long fileSize;
-    private Date regDate;
-    private Date updDate;
+    private Date fileRegDate;
+    private Date fileUpdDate;
     private int fileCode;
 
     private MultipartFile file;
