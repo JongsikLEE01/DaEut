@@ -46,11 +46,11 @@
               ,u.user_coupon
               ,u.user_upd_date
               ,enabled
-              ,auth
-        FROM users u LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
+              ,auth.auth
+        FROM users u 
+        LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
         WHERE u.user_id = #{userId}
     </select>
-
 
     <!-- 회원 조회 - id -->
     <select id="select" resultMap="userMap">
@@ -67,27 +67,26 @@
               ,u.user_coupon
               ,u.user_upd_date
               ,enabled
-              ,auth
-        FROM users u LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
+              ,auth.auth
+        FROM users u 
+        LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
         WHERE u.user_id = #{userId}
     </select>
 
     <!-- 회원 가입 -->
-    <insert id="join">
+    <insert id="join" useGeneratedKeys="true" keyProperty="userNo">
         INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password, user_coupon)
         VALUES (#{userName}, #{userPhone}, #{userBirth}, #{userAddress}, #{userEmail}, #{userGender}, #{userId}, #{userPassword}, #{userCoupon})
     </insert>
 
     <!-- 회원 정보 수정 -->
     <update id="update">
-        UPDATE user
-           SET user_name = #{userName}
+        UPDATE users
+           SET user_password = #{userPassword}
+              ,user_name = #{userName}
               ,user_phone = #{userPhone}
-              ,user_birth = #{userBirth}
               ,user_address = #{userAddress}
-              ,user_gender = #{userGender}
-              ,user_email = #{userEmail}
-              ,user_coupon = #{userCoupon}
+              ,user_birth = #{userBirth}
               ,user_upd_date = now()
         WHERE user_id = #{userId}
     </update>
@@ -97,5 +96,42 @@
         INSERT INTO user_auth( user_no, auth )
         VALUES ( #{userNo}, #{auth} )
     </insert>
+
+    <!-- 회원 삭제 -->
+    <delete id="delete">
+        DELETE FROM users
+        WHERE user_no = #{userNo}
+          AND user_id = #{userId}
+    </delete>
+
+    <!-- 파트너 신청 -->
+    <update id="requestPartner">
+        UPDATE users
+        SET status = 1
+        WHERE user_no = (SELECT user_no FROM users WHERE user_id = #{userId})
+    </update>
+
+    <!-- 파트너 승인 -->
+    <update id="approvePartner">
+        UPDATE users
+        SET status = 2
+        WHERE user_no = (SELECT user_no FROM users WHERE user_id = #{userId})
+    </update>
+
+    <!-- 파트너 권한 추가 -->
+    <insert id="insertPartnerAuth">
+        INSERT INTO user_auth( user_no, auth )
+        VALUES ( (SELECT user_no FROM users WHERE user_id = #{userId}), 'role_partner' )
+    </insert>
+
+    <!-- 파트너 신청 승인 처리 -->
+    <update id="approvePartnerAndAddAuth">
+        UPDATE users
+        SET status = 2
+        WHERE user_no = (SELECT user_no FROM users WHERE user_id = #{userId});
+        
+        INSERT INTO user_auth( user_no, auth )
+        VALUES ( (SELECT user_no FROM users WHERE user_id = #{userId}), 'role_partner' );
+    </update>
 
 </mapper>

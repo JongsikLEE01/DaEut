@@ -76,19 +76,3 @@ function validateForm() {
 document.getElementById('signup-form').onsubmit = function() {
     return validateForm();
 };
-
-// 로그인
-document.getElementById('form').onsubmit = function() {
-    const userId = document.getElementsByName('userId')[0].value;
-    const userPassword = document.getElementsByName('userPassword')[0].value;
-
-    if (!userId) {
-        alert("아이디를 입력해주세요.");
-        return false;
-    }
-    if (!userPassword) {
-        alert("비밀번호를 입력해주세요.");
-        return false;
-    }
-    return true;
-};

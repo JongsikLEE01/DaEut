@@ -102,7 +102,7 @@ public class FileController {
 
         // null 체크
         if(file == null){
-            String filePath = path + "/fileNo-image.png";
+            String filePath = path + "/no-image.png";
             File noImgFile = new File(filePath);
             byte[] noImgFileData = FileCopyUtils.copyToByteArray(noImgFile);
 

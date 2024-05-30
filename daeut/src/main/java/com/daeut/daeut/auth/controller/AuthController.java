@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daeut.daeut.auth.dto.Users;
-import com.daeut.daeut.auth.mapper.UserMapper;
+import com.daeut.daeut.auth.service.UserService;
 
 @Controller
 @RequestMapping("/auth")
@@ -26,7 +26,7 @@ public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @GetMapping("/member")
     public String loginMain() {
@@ -39,7 +39,11 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(@RequestParam(value = "error", required = false) String error,
+                        Model model) {
+        if (error != null) {
+            model.addAttribute("errorMessage", "아이디 또는 비밀번호가 올바르지 않습니다.");
+        }
         return "/auth/login";
     }
 
@@ -62,38 +66,38 @@ public class AuthController {
     @GetMapping("/check-duplicate")
     @ResponseBody
     public Map<String, Boolean> checkDuplicateId(@RequestParam String userId) throws Exception {
-        Users user = userMapper.select(userId);
+        Users user = userService.select(userId);
         Map<String, Boolean> response = new HashMap<>();
         response.put("exists", user != null);
         return response;
     }
 
-    // 회원가입 처리
-    @PostMapping("/join")
-    public String saveUser(@ModelAttribute Users user, Model model) {
-        try {
-            if (userMapper.select(user.getUserId()) != null) {
-                model.addAttribute("errorMessage", "이미 사용 중인 아이디입니다.");
-                return "/auth/join";
-            }
-            // 비밀번호 암호화
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
-            
-            userMapper.join(user);
-            return "redirect:/auth/joinDone";
-        } catch (Exception e) {
-            logger.error("회원가입 중 오류가 발생했습니다.", e);
-            model.addAttribute("errorMessage", "회원가입 중 오류가 발생했습니다.");
-            return "/auth/join";
-        }
-    }
+      // 회원가입 처리
+      @PostMapping("/join")
+      public String saveUser(@ModelAttribute Users user, Model model) {
+          logger.info("회원가입 시작");
+          try {
+              if (userService.select(user.getUserId()) != null) {
+                  model.addAttribute("errorMessage", "이미 사용 중인 아이디입니다.");
+                  logger.info("아이디 중복");
+                  return "/auth/join";
+              }
+  
+              userService.join(user);
+              logger.info("회원가입 성공");
+              return "redirect:/auth/joinDone";
+          } catch (Exception e) {
+              logger.error("회원가입 중 오류가 발생했습니다.", e);
+              model.addAttribute("errorMessage", "회원가입 중 오류가 발생했습니다.");
+              return "/auth/join";
+          }
+      }
 
     // 로그인 처리
     @PostMapping("/login")
     public String loginUser(@RequestParam String userId, @RequestParam String userPassword, Model model) {
         try {
-            Users user = userMapper.login(userId);
+            Users user = userService.select(userId);
             if (user == null || !new BCryptPasswordEncoder().matches(userPassword, user.getUserPassword())) {
                 model.addAttribute("errorMessage", "아이디 또는 비밀번호가 올바르지 않습니다.");
                 return "/auth/login";

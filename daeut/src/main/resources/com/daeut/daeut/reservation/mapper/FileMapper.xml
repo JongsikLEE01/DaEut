@@ -52,7 +52,7 @@
               ,file_path = #{filePath}
               ,file_size = #{fileSize}
               ,file_code = #{fileCode}
-              ,upd_date = now()
+              ,file_upd_date = now()
         WHERE file_no = #{fileNo}
     </update>
 
