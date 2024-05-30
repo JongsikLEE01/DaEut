@@ -15,12 +15,12 @@
                 <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
                 <h5>마이페이지</h5>
                 <br>
-                <a href="userMypage">내 정보 변경</a>
-                <a href="userReservation">내 예약 보기</a>
-                <a href="userLikeTip">내가 좋아하는 글</a>
-                <a href="userReview">별점 및 리뷰 작성</a>
-                <a href="userCoupon">내 쿠폰</a>
-                <a href="userPartner" class="userPartner">파트너 신청</a>
+                <a th:href="@{/user/userMypage}">내 정보 변경</a>
+                <a th:href="@{/user/userReservation}">내 예약 보기</a>
+                <a th:href="@{/user/userLikeTip}">내가 좋아하는 글</a>
+                <a th:href="@{/user/userReview}">별점 및 리뷰 작성</a>
+                <a th:href="@{/user/userCoupon}">내 쿠폰</a>
+                <a th:href="@{/user/userPartner}" class="userPartner">파트너 신청</a>
             </nav>
 
             <!-- 컨텐츠영역 -->
@@ -36,7 +36,7 @@
                                 <!-- form 작성 필요 -->
                                 <div class="form-group form-section p-1 mt-5 text-start">
                                     <label for="partnerName">이름</label>
-                                    <input type="text" class="form-control" id="partnerName" placeholder="이름을 입력해주세요" >
+                                    <input type="text" class="form-control" id="partnerName" placeholder="이름을 입력해주세요" th:value="${user.userName}" >
                                 </div>
                                 <div class="form-group form-section p-1 text-start">
                                     <label for="partnerAddress">주소</label>
@@ -61,7 +61,6 @@
                                 
                                 <div class="buttons mb-5 d-flex gap-3 justify-content-end">
                                     <button type="button" class="btn btn-primary sessuce color_main">신청하기</button>
-                                    <a href="/user/userMypage" class="btn btn-light myBtn">목록</a>
                                 </div>
                             </form>
                         </div>
