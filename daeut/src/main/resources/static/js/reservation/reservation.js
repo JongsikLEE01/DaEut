@@ -141,17 +141,31 @@ tagButtons.forEach(function(button) {
     });
 });
 
-// 이미지 슬라이드 
-var slideIndex = 0;
+// 이미지 슬라이드
+let currentSlide = 0;
+const slides = document.getElementsByClassName('reservation-image-slide');
 
-// 페이지 로딩이 완료되면 실행
-window.onload = function() {
-    showSlides(); // 슬라이드 표시
-};
+function showSlide(index) {
+    if (index >= slides.length) {
+        currentSlide = 0;
+    } else if (index < 0) {
+        currentSlide = slides.length - 1;
+    } else {
+        currentSlide = index;
+    }
 
-function plusSlides(n) {
-    showSlides(slideIndex += n);
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = 'none';
+    }
+
+    slides[currentSlide].style.display = 'block';
 }
+
+function plusSlides(step) {
+    showSlide(currentSlide + step);
+}
+// 초기 슬라이드 표시
+showSlide(currentSlide);
 
 function showSlides() {
     var i;
