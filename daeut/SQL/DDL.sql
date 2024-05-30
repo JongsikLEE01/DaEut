@@ -2,7 +2,7 @@
 -- 결제 로직
 
 
--- DROP
+-- -- DROP
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS partner;
 DROP TABLE IF EXISTS service;
@@ -79,7 +79,6 @@ CREATE TABLE partner
   partner_grade   INT          NULL     DEFAULT 0 COMMENT '파트너 별점',
   partner_reserve INT          NULL     DEFAULT 0 COMMENT '파트너 예약 횟수',
   partner_career  TIMESTAMP    NOT NULL COMMENT '파트너 경력',
-  status          VARCHAR(100) NOT NULL DEFAULT '미승인' COMMENT '파트너 승인 상태',
   introduce       TEXT         NULL     COMMENT '파트너 소개글',
   user_no         INT          NOT NULL COMMENT '사용자 번호',
   PRIMARY KEY (partner_no)
@@ -199,6 +198,7 @@ CREATE TABLE users
   user_coupon   VARCHAR(200) NULL     COMMENT '사용자 쿠폰',
   user_upd_date TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '사용자 수정일자',
   enabled       INT          NULL     DEFAULT 1 COMMENT '계정 활성화',
+  status        INT          NOT NULL DEFAULT 0 COMMENT '상태',
   PRIMARY KEY (user_no)
 ) COMMENT '사용자';
 
