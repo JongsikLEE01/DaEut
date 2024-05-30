@@ -97,7 +97,7 @@ function previewImages(event) {
         var image = document.createElement('img');
         image.src = URL.createObjectURL(files[i]);
         image.alt = '이미지 미리보기';
-        image.style.maxWidth = '100px';
+        image.style.maxWidth = '250px';
         image.style.marginTop = '10px';
         container.appendChild(image);
     }
@@ -112,16 +112,10 @@ function previewThumbnail(event) {
         var image = document.createElement('img');
         image.src = URL.createObjectURL(files[i]);
         image.alt = '이미지 미리보기';
-        image.style.maxWidth = '100px';
+        image.style.maxWidth = '250px';
         image.style.marginTop = '10px';
         container.appendChild(image);
     }
-}
-
-// 파일 번호를 가져오는 함수
-function getFilesNoFromServer() {
-    let fileNo = "[[${service.fileNo}]]"
-    return fileNo;
 }
 
 
