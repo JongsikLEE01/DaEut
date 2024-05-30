@@ -22,6 +22,7 @@ import com.daeut.daeut.partner.service.PartnerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -51,14 +52,32 @@ public class PartnerController {
         int userNo = user.getUserNo();
         
         // 사용자의 파트너 정보 가져오기
-        Partner partner = partnerService.getPartners(userNo); // partnerService를 통해 파트너 정보 조회
+        Partner partner = partnerService.getPartners(userNo);
         
         // 모델에 사용자와 파트너 정보 추가
         model.addAttribute("user", user);
-        model.addAttribute("partner", partner); // 파트너 정보를 모델에 추가
+        model.addAttribute("partner", partner);
         
         return "/partner/partnerMypage";
     }
+
+    // @GetMapping("/partnerMypage")
+    // @PreAuthorize("hasRole('ROLE_PARTNER')")
+    // public String partnerMypage(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
+    //     Users user = customUser.getUser();
+        
+    //     // 사용자 번호 가져오기
+    //     int userNo = user.getUserNo();
+        
+    //     // 사용자의 파트너 정보 가져오기
+    //     Partner partner = partnerService.getPartners(userNo); // partnerService를 통해 파트너 정보 조회
+        
+    //     // 모델에 사용자와 파트너 정보 추가
+    //     model.addAttribute("user", user);
+    //     model.addAttribute("partner", partner); // 파트너 정보를 모델에 추가
+        
+    //     return "/partner/partnerMypage";
+    // }
     
 
 

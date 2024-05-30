@@ -15,8 +15,8 @@ public class PartnerServiceImpl implements PartnerService {
     private PartnerMapper partnerMapper;
 
     @Override
-    public Partner getPartners(int partnerNo) throws Exception {
-        Partner partner = partnerMapper.getPartners(partnerNo);
+    public Partner getPartners(int userNo) throws Exception {
+        Partner partner = partnerMapper.getPartners(userNo);
         return partner;
     }
 
