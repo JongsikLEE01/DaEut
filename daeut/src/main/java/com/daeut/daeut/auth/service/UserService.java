@@ -20,4 +20,7 @@ public interface UserService {
     // 회원 권한 등록
     public int insertAuth(UserAuth userAuth) throws Exception;
 
+    // 회원 탈퇴
+    public int delete(Users user) throws Exception;
+
 }

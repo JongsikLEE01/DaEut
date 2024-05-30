@@ -7,8 +7,8 @@ import com.daeut.daeut.partner.dto.Partner;
 public interface PartnerService {
     
     // 파트너 조회
-    List<Partner> getPartners(int userNo);
+    public Partner getPartners(int partnerNo) throws Exception;
     
     // 파트너 수정
-    public int update(Partner partner) throws Exception;
+    public int partnerUpdate(Partner partner) throws Exception;
 }

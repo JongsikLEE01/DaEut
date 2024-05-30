@@ -15,14 +15,14 @@ public class PartnerServiceImpl implements PartnerService {
     private PartnerMapper partnerMapper;
 
     @Override
-    public List<Partner> getPartners(int userNo) {
-        return partnerMapper.getPartners(userNo);
+    public Partner getPartners(int partnerNo) throws Exception {
+        Partner partner = partnerMapper.getPartners(partnerNo);
+        return partner;
     }
 
     @Override
-    public int update(Partner partner) throws Exception {
-        int result = partnerMapper.update(partner);
-        return result;
+    public int partnerUpdate(Partner partner) throws Exception {
+        return partnerMapper.partnerUpdate(partner);
     }
 
     

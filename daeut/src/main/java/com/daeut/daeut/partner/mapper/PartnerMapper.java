@@ -10,10 +10,10 @@ import com.daeut.daeut.partner.dto.Partner;
 public interface PartnerMapper {
     
     // 파트너 조회
-    List<Partner> getPartners(int userNo);
+    public Partner getPartners(int partnerNo) throws Exception;
 
     // 파트너 수정
-    public int update(Partner partner) throws Exception;
+    public int partnerUpdate(Partner partner) throws Exception;
 
     // 사용자가 작성한 리뷰 모아보기
     

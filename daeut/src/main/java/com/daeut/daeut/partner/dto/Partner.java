@@ -4,23 +4,27 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
 public class Partner {
 
+    // 파트너 정보
     private int partnerNo;
     private int partnerGrade;
     private int partnerReserve;
     private Timestamp partnerCareer;
-    private String status;
-    private String introduce;
+    private String partnerStatus;
+    private String partnerIntroduce;
     private int userNo;
 
 
     // 여기서부터는 user 정보
     private String userName; // 사용자 이름
     private String userPhone; // 사용자 전화번호
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date userBirth; // 사용자 생년월일
     private String userAddress; // 사용자 주소
     private String userEmail; // 사용자 이메일
