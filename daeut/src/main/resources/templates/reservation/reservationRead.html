@@ -216,7 +216,7 @@
 						<tfoot>
 							<tr class="reservation-buttons">
 								<button class="reservation-calender" id="showCalendarBtn">날짜 선택</button>
-								<button class="reservation-paybutton" id="addToCartBtn">장바구니 담기</button>
+								<button class="reservation-paybutton" onclick="addToCart()">장바구니 담기</button>
 							</tr>
 						</tfoot>
 
@@ -240,47 +240,5 @@
 		</div>
 
 	</div>
-
-	<button class="reservation-paybutton" id="addToCartBtn">장바구니 담기</button>
-
-	<script type="module">
-
-		function toLogin() {
-			location.href = "/auth/login"
-		}
-
-		// addToCart.js
-		document.addEventListener('DOMContentLoaded', () => {
-		    const addToCartBtn = document.getElementById('addToCartBtn')
-		
-		    addToCartBtn.addEventListener('click', () => {
-				const serviceNo = '[[${service.serviceNo}]]'
-				console.log('serviceNo? '+serviceNo)
-		        addToCart(serviceNo)
-		    });
-		});
-
-		function addToCart(serviceNo) {
-		    try {
-		        const response = fetch('/cart/add', {
-		            method: 'POST',
-		            headers: {
-		                'Content-Type': 'application/json'
-		            },
-		            body: JSON.stringify({ serviceNo })
-		        });
-			
-		        if (response.ok) {
-		            alert('장바구니에 추가되었습니다.');
-		        } else {
-		            alert('장바구니 추가에 실패했습니다.');
-		        }
-		    } catch (error) {
-		        console.error('Error adding to cart:', error);
-		        alert('장바구니 추가 중 오류가 발생했습니다.');
-		    }
-		}
-	</script>
-
 </body>
 </html>

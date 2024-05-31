@@ -20,12 +20,22 @@
     <select id="cartList" resultMap="cartMap">
         SELECT 
             c.*, 
-            u.user_name, 
             s.service_name
-        FROM cart c
-            JOIN service s ON c.service_no = s.service_no
-            JOIN users u ON c.user_no = u.user_no
-        WHERE c.user_no = #{userNo}
+        FROM 
+            cart c
+        JOIN 
+            service s ON c.service_no = s.service_no
+        WHERE 
+            c.user_no = #{userNo}
+            AND c.cart_no = (
+                SELECT 
+                    MIN(c2.cart_no) 
+                FROM 
+                    cart c2 
+                WHERE 
+                    c2.user_no = c.user_no 
+                    AND c2.service_no = c.service_no
+            )
         ORDER BY c.cart_reg_date DESC;
     </select>
 
@@ -36,9 +46,9 @@
     </insert>
 
     <!-- 카트 선택 삭제 -->
-    <delete id="cartDelete">
+    <delete id="cartDeleteSelected">
         DELETE FROM cart
-        WHERE cart_no = #{cartNo}
+        WHERE cart_no IN ( ${cartNo} )
     </delete>
 
     <!-- 카트 전체 삭제 -->
@@ -56,6 +66,4 @@
             , cart_upd_date = now()
         WHERE cart_no = #{cartNo}
     </update>
-
-
 </mapper>

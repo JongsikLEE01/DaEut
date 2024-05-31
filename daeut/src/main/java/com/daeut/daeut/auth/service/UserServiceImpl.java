@@ -14,6 +14,7 @@ import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
+import com.daeut.daeut.partner.dto.Parther;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -161,6 +162,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+
     // 모든 사용자 목록 조회
     @Override
     public List<Users> selectAllUsers() throws Exception {
@@ -168,6 +170,13 @@ public class UserServiceImpl implements UserService {
         // ROLE_USER만 필터링
         log.info("user: " + userList);
         return userList;
+    }
+
+
+    @Override
+    public Parther selectPartner(int userNo) throws Exception {
+        Parther parther = userMapper.selectPartner(userNo);
+        return parther;
     }
 
 }

@@ -10,9 +10,4 @@ public class HomeController {
     public String index() {
         return "index";
     }
-
-    @GetMapping("/userCart")
-    public String userCart() {
-        return "user/userCart";
-    }
 }
