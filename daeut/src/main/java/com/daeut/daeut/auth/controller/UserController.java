@@ -12,6 +12,8 @@ import com.daeut.daeut.auth.dto.CustomUser;
 import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
+import com.daeut.daeut.reservation.dto.Cart;
+import com.daeut.daeut.reservation.service.CartService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +21,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import java.security.Principal;
 
 @Slf4j
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+    @Autowired
+    private CartService cartService;
 
     @Autowired
     private UserService userService;
@@ -112,9 +120,23 @@ public class UserController {
         return "/user/userPartnerDone";
     }
 
+    // 장바구니
     @GetMapping("/userCart")
-    public String userCart() {
-        // log.info("/user/userReservation");
+        public String userCart(Model model, HttpSession session) {
+        Users user = (Users) session.getAttribute("user");
+        int userNo = user.getUserNo();
+        
+        // 사용자의 장바구니 목록을 서비스를 통해 가져옴
+        List<Cart> cartList;
+        try {
+            cartList = cartService.cartList(userNo);
+            model.addAttribute("cartList", cartList);
+            model.addAttribute("user", user);
+        } catch (Exception e) {
+            log.info("장바구니 조회 중 에러 발생...");
+            e.printStackTrace();
+        }
+    
         return "/user/userCart";
     }
 

@@ -129,7 +129,7 @@ public class ReservationServiceImpl implements ReservationService{
     }
     
     @Override
-    public List<Services> search(Option option) throws Exception {
+    public List<Services> serviceSearch(Option option) throws Exception {
         // 검색
         return reservationMapper.search(option);
     }

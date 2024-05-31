@@ -1,8 +1,10 @@
 package com.daeut.daeut.reservation.controller;
 
+import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.reservation.dto.Cart;
 import com.daeut.daeut.reservation.service.CartService;
 
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +15,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
+@Slf4j
 @Controller
 @RequestMapping("/cart")
 public class CartController {
@@ -27,19 +35,20 @@ public class CartController {
      * @return
      */
     @GetMapping("/{userNo}")
-    public ResponseEntity<?> getCartList(@PathVariable("userNo") int userNo) {
+    public ResponseEntity<?> getCartList(@PathVariable int userNo) {
         List<Cart> cartList;
         HttpHeaders headers = new HttpHeaders();
-
+    
         try {
             cartList = cartService.cartList(userNo);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>("장바구니 목록 조회 중 에러가 발생했습니다.", headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
+    
         return new ResponseEntity<>(cartList, headers, HttpStatus.OK);
     }
+    
 
     /**
      * 장바구니 추가
@@ -48,9 +57,11 @@ public class CartController {
      * @return
      */
     @PostMapping("/add")
-    public ResponseEntity<String> addCart(@RequestBody Cart cart) {
+    public ResponseEntity<String> addCart(@RequestBody Cart cart, HttpSession session) {
+        Users user = (Users) session.getAttribute("user");
+        cart.setUserNo(user.getUserNo());
+        cart.setCartAmount(1);
         int result = 0;
-        
         try {
             // 장바구니 추가 요청
             result = cartService.cartInsert(cart);
@@ -64,27 +75,39 @@ public class CartController {
         return new ResponseEntity<>("SUCCESS",HttpStatus.OK);
     }
 
+    @PostMapping("/delete")
+    public String deleteCart(@RequestParam("cartNos") List<Integer> cartNos) throws Exception {
+        log.info("cartNos :" + cartNos);
+        
+        int result = cartService.cartDeleteSelected(cartNos);
+
+
+
+        return "redirect:/user/userCart";
+    }
+    
+
     /**
      * 장바구니 선택 삭제
      * @writer jslee
      * @param cartNo
      * @return
      */
-    @DeleteMapping("/{cartNo}")
-    public ResponseEntity<String> removeCart(@PathVariable("cartNo") int cartNo) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> removeSelectedCarts(@RequestBody List<Integer> cartNos) {
         int result;
-        
+
         try {
-            // 장바구니 추가 요청
-            result = cartService.cartDelete(cartNo);
+            // 선택한 장바구니 항목들 삭제 요청
+            result = cartService.cartDeleteSelected(cartNos);
         } catch (Exception e) {
-            // 추가 실패
+            // 삭제 실패
             e.printStackTrace();
-            return new ResponseEntity<>("FAIL",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("FAIL", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        // 추가 성공
-        return new ResponseEntity<>("SUCCESS",HttpStatus.OK);
+        // 삭제 성공
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
     /**
@@ -93,20 +116,20 @@ public class CartController {
      * @param userNo
      * @return
      */
-    @DeleteMapping("/user/{userNo}")
+    @DeleteMapping("/delete/{userNo}")
     public ResponseEntity<String> removeAllCarts(@PathVariable("userNo") int userNo) {
         int result;
         
         try {
-            // 장바구니 추가 요청
+            // 해당 사용자의 모든 장바구니 항목 삭제 요청
             result = cartService.cartDeleteAll(userNo);
         } catch (Exception e) {
-            // 추가 실패
+            // 삭제 실패
             e.printStackTrace();
-            return new ResponseEntity<>("FAIL",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("FAIL", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        // 추가 성공
-        return new ResponseEntity<>("SUCCESS",HttpStatus.OK);
+    
+        // 삭제 성공
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 }
