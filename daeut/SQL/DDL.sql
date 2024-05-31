@@ -189,7 +189,7 @@ CREATE TABLE service
 
 CREATE TABLE user_auth
 (
-   auth_no INT          NOT NULL AUTO_INCREMENT COMMENT '권한 번호',
+  auth_no  INT          NOT NULL AUTO_INCREMENT COMMENT '권한 번호',
   auth     VARCHAR(100) NOT NULL COMMENT '권한 분류',
   user_no  INT          NOT NULL COMMENT '사용자 번호',
   PRIMARY KEY ( auth_no)
