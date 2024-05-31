@@ -12,8 +12,11 @@ import com.daeut.daeut.auth.dto.CustomUser;
 import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
+import com.daeut.daeut.partner.dto.Parther;
 import com.daeut.daeut.reservation.dto.Cart;
+import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.CartService;
+import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +39,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ReservationService reservationService;
 
     @GetMapping("/userMypage")
     public String userMypage(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
@@ -125,13 +131,18 @@ public class UserController {
         public String userCart(Model model, HttpSession session) {
         Users user = (Users) session.getAttribute("user");
         int userNo = user.getUserNo();
+        Parther parther;
+        Services service;
         
         // 사용자의 장바구니 목록을 서비스를 통해 가져옴
         List<Cart> cartList;
         try {
             cartList = cartService.cartList(userNo);
+            parther = userService.selectPartner(userNo);
+
             model.addAttribute("cartList", cartList);
             model.addAttribute("user", user);
+            model.addAttribute("parther", parther);
         } catch (Exception e) {
             log.info("장바구니 조회 중 에러 발생...");
             e.printStackTrace();
