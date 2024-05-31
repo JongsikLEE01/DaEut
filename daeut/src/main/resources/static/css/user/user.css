@@ -225,6 +225,12 @@ main {
     border-radius: 8px;
 }
 
+.userCart {
+    background-color: #e9ecef;
+    color: #8FA2CA !important;
+    border-radius: 8px;
+}
+
 .form-section {
     padding: 20px;
     border-top: 40px;

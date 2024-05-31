@@ -40,4 +40,7 @@ public interface UserService {
 
     // 예약
     public List<Reservation> getUserReservations(String userId) throws Exception;
+
+    // 관리자 회원가입
+    public void adminJoin(Users user, String systemPw) throws Exception;
 }
