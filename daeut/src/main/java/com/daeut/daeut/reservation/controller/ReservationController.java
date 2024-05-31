@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.main.dto.Files;
+import com.daeut.daeut.main.dto.Option;
+import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.main.service.FileService;
-import com.daeut.daeut.reservation.dto.Option;
-import com.daeut.daeut.reservation.dto.Page;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.ReservationService;
 
