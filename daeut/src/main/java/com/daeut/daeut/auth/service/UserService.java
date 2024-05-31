@@ -1,5 +1,6 @@
 package com.daeut.daeut.auth.service;
 
+import com.daeut.daeut.auth.dto.Partner;
 import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
@@ -34,7 +35,9 @@ public interface UserService {
     public int delete(Users user) throws Exception;
 
     // 파트너 신청
-    public void requestPartner(String userId) throws Exception;
+    public void requestPartner(Users users, Partner partner) throws Exception;
+
+    public Users getUserById(String userId);
 
     // 파트너 승인
     public void approvePartner(String userId) throws Exception;

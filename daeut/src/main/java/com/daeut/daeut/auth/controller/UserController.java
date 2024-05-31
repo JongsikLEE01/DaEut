@@ -1,15 +1,19 @@
 package com.daeut.daeut.auth.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.daeut.daeut.auth.dto.CustomUser;
-import com.daeut.daeut.auth.dto.Reservation;
+import com.daeut.daeut.auth.dto.Partner;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Parther;
@@ -24,9 +28,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import java.security.Principal;
 
 @Slf4j
@@ -88,11 +90,8 @@ public class UserController {
     
 
     @GetMapping("/userReservation")
-    public String userReservation(Model model, Principal principal) throws Exception {
+    public String userReservation() {
         log.info("/user/userReservation");
-        String userId = principal.getName();
-        List<Reservation> reservations = userService.getUserReservations(userId);
-        model.addAttribute("reservations", reservations);
         return "/user/userReservation";
     }
 
@@ -115,17 +114,15 @@ public class UserController {
     }
 
     @GetMapping("/userPartner")
-    public String userPartner() {
+    public String userPartner(@AuthenticationPrincipal CustomUser customUser, Model model) {
         log.info("/user/userPartner");
-        return "/user/userPartner";
-    }
 
-    @GetMapping("/userPartnerDone")
-    public String userPartnerDone() {
-        log.info("/user/userPartnerDone");
-        return "/user/userPartnerDone";
-    }
+        Users user = customUser.getUser();
+        model.addAttribute("user", user);
+        model.addAttribute("partner", new Partner());
 
+        return "user/userPartner";
+      
     // 장바구니
     @GetMapping("/userCart")
         public String userCart(Model model, HttpSession session) {
@@ -151,16 +148,28 @@ public class UserController {
         return "/user/userCart";
     }
 
-    // 파트너 신청 엔드포인트
     @PostMapping("/request-partner")
-    public String requestPartner(@RequestParam String userId) {
+    public String requestPartner(@ModelAttribute Partner partner, @AuthenticationPrincipal CustomUser customUser, Model model) {
         try {
-            userService.requestPartner(userId);
+            Users user = customUser.getUser(); // 사용자 정보를 가져옴
+            if (user != null) {
+                userService.requestPartner(user, partner);
+            }
         } catch (Exception e) {
             log.error("Error requesting partner status", e);
+            model.addAttribute("errorMessage", "파트너 신청 중 오류가 발생했습니다.");
+            return "error";
         }
         return "redirect:/user/userPartnerDone";
     }
+    
+    @GetMapping("/userPartnerDone")
+    public String userPartnerDone() {
+        log.info("/user/userPartnerDone");
+        return "/user/userPartnerDone";
+    }
+
+    
 
     // 관리자가 파트너 신청을 승인하는 엔드포인트
     @PostMapping("/approve-partner")
