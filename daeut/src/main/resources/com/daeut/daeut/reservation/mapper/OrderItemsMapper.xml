@@ -8,43 +8,45 @@
     <!-- 목록 -->
     <select id="list" resultType="OrderItems">
         SELECT *
-        FROM order_items
+        FROM order_item
     </select>
 
     <!-- 목록 - 주문ID -->
-    <select id="listByOrderId" resultType="OrderItems">
+    <select id="listByOrderNo" resultType="OrderItems">
         SELECT *
-        FROM order_items
-        WHERE orders_id = #{ordersId}
+        FROM order_item
+        WHERE orders_no = #{orders_no}
     </select>
 
     <!-- 조회 -->
     <select id="select" resultType="OrderItems">
-        SELECT *
-        FROM order_items
-        WHERE id = #{id}
+        SELECT * 
+        FROM order_item 
+        WHERE item_no = #{itemNo}
     </select>
 
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO order_items (id, orders_id, products_id, quantity, price, amount) 
-        VALUES ( #{id}, #{ordersId}, #{productsId}, #{quantity}, #{price}, #{amount} )
+        INSERT INTO order_item (quantity, price, amount, orders_no, service_no)
+        VALUES (#{quantity}, #{price}, #{amount}, #{ordersNo}, #{serviceNo})
     </insert>
 
     <!-- 수정 -->
     <update id="update">
-        UPDATE order_items
-           SET quantity = #{quantity}
-              ,price = #{price}
-              ,amount = #{amount}
-              ,updated_at = now()
-        WHERE id = #{id}
+        UPDATE order_item
+        SET 
+            quantity = #{quantity}
+            , price = #{price}
+            , amount = #{amount}
+            , orders_no = #{ordersNo}
+            , service_no = #{serviceNo}
+        WHERE item_no = #{itemNo}
     </update>
 
     <!-- 삭제 -->
     <delete id="delete">
-        DELETE FROM order_items
-        WHERE id = #{id}
+        DELETE FROM order_item 
+        WHERE item_no = #{itemNo}
     </delete>
 
 </mapper>
