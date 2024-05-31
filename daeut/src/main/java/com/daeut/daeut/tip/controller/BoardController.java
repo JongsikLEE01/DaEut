@@ -74,21 +74,31 @@ public class BoardController {
 
     @GetMapping("/tipUpdate")
     public String tipUpdate(@RequestParam("no") int boardNo, Model model, Files file) throws Exception {
+        // 데이터 요청
         Board board = boardService.select(boardNo);
 
-        // file.setParentTable("board");
-        file.setParentNo(boardNo);
-        // List<Files> fileList = filesService.listByParent(file);
+        log.info("------------------------------------");
+        log.info("-----------------/tip/tipUpdate-------------------");
+        log.info(board.toString());
 
+        // 파일 목록 요청
+        file.setParentTable("board");
+        file.setParentNo(boardNo);
+        List<Files> fileList = filesService.listByParent(file);
+        log.info(fileList.toString());
+
+        // 모델 등록
         model.addAttribute("board", board);
-        // model.addAttribute("fileList", fileList);
+        model.addAttribute("fileList", fileList);
 
         return "/tip/tipUpdate";
     }
 
     @PostMapping("/tipUpdate")
     public String tipUpdatePro(Board board) throws Exception {
+
         int result = boardService.update(board);
+
         if( result > 0 ) {
             return "redirect:/tip/index";
         }
@@ -101,10 +111,10 @@ public class BoardController {
         int result = boardService.delete(boardNo);
         if( result > 0 ) {
 
-            // Files file = new Files();
-            // file.setParentTable("board");
-            // file.setParentNo(boardNo);
-            // filesService.deleteByParent(file);
+            Files file = new Files();
+            file.setParentTable("board");
+            file.setParentNo(boardNo);
+            filesService.deleteByParent(file);
             
             return "redirect:/tip/index";
         }

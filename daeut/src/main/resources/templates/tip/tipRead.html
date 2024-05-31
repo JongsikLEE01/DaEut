@@ -8,6 +8,9 @@
 <body layout:fragment="content">
 
     <div class="container">
+        <form id="form" th:action="@{/tip/tipDelete}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <div class="main">
             <h2 class="mt-4" th:text="${board.boardTitle}">게시글 제목</h2>
             <div class="d-flex justify-content-between align-items-center mt-2">
@@ -21,7 +24,10 @@
             <hr>
      
            <div class="text-center my-4">
-                <img src="/img/logo_h.png" alt="모기 퇴치 방법" class="img-fluid">
+                <!-- ⭐ 파일 이미지 출력하기 -->
+                <th:block th:each="file : ${fileList}"> 
+                    <img th:src="|/file/img/${file.fileNo}|" alt="모기 퇴치 방법" class="img-fluid">
+                </th:block>
             </div> 
             <div class="col-15">
                 <textarea class="form-control w-100 input-readonly" rows="15" readonly th:text="${board.boardContent}">게시글 내용</textarea>
@@ -34,7 +40,7 @@
             <div id="reply-input">
                 <h3>댓글</h3>
                 <div class="input-group mt-1 mb-3 reply-input">
-                    <textarea class="form-control" placeholder="댓글을 입력하세요." rows="1"></textarea>
+                    <textarea name="replyContent" class="form-control" placeholder="댓글을 입력하세요." rows="1"></textarea>
                     <button class="btn btn-primary" type="button" id="btn-reply-insert" onclick="insertReply()">등록</button>
                 </div>
             </div>
@@ -63,6 +69,14 @@
             </div>
         </div>
     </div>
+    <div id="reply-list">
+    </div>
+
+
+    <script>
+        
+
+    </script>
 
 </body>
 </html>

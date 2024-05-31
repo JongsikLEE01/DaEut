@@ -71,8 +71,8 @@ public class FileServiceImpl implements FileService {
 
             // 파일 삭제
             if( deleteFile.delete() ){
-                log.info("파일이 정상적으로 삭제...");
-                log.info("file? "+path);
+                // log.info("파일이 정상적으로 삭제...");
+                // log.info("file? "+path);
             }else  log.info("파일 삭제 실패...");
         }
 
@@ -99,14 +99,14 @@ public class FileServiceImpl implements FileService {
         //  부모 테이블에 종속된 파일 목록 삭제
         int result = fileMapper.deleteByParent(file);
 
-        log.info(result+"개의 파일 삭제...");
+        // log.info(result+"개의 파일 삭제...");
         return result;
     }
 
     @Override
     public boolean upload(Files file) throws Exception {
         //  파일 업로드
-        log.info("file? "+ file);
+        // log.info("file? "+ file);
 
         MultipartFile mf = file.getFile();
          // 파일 정보 : 원본파일명, 파일 용량, 파일 데이터
@@ -114,9 +114,9 @@ public class FileServiceImpl implements FileService {
         long size = mf.getSize();
         byte[] fileData = mf.getBytes();
 
-        log.info("원본파일명? "+originFileName);
-        log.info("파일크기? "+size);
-        log.info("파일데이터? "+fileData);
+        // log.info("원본파일명? "+originFileName);
+        // log.info("파일크기? "+size);
+        // log.info("파일데이터? "+fileData);
 
         // 파일 업로드
         // - 파일 시스템에 해당 파일을 복사

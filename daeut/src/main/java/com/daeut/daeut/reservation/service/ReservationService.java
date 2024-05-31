@@ -19,7 +19,7 @@ public interface ReservationService {
     // 삭제
     public int serviceDelete(int serviceNo) throws Exception;
     // 검색
-    public List<Services> search(Option option) throws Exception;
+    public List<Services> serviceSearch(Option option) throws Exception;
     // 썸네일
     public Files SelectThumbnail(int serviceNo) throws Exception;
     // 설명 파일

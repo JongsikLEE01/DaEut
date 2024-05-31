@@ -27,8 +27,7 @@
             </nav>
 
             <!-- 컨텐츠 영역 -->
-            <div class="col-md-9 col-lg-10 form-section">
-                <input type="hidden" name="userNo" th:value="${user.userNo}">
+            <div class="col-md-9 col-lg-10 form-section" id="cartSection">
                 <h3>장바구니</h3>
                 <p>회원님의 집을 책임 질 파트너를 골라주세요</p>
                 <p>총 <span th:text="${cartList.size()}"></span>건이 장바구니에 담겨있어요</p>
@@ -39,98 +38,35 @@
                             <th></th>
                             <th>No.</th>
                             <th>서비스 이름</th>
-                            <th>예약일</th>
-                            <th></th>
-                            <th></th>
+                            <th>내가 담은 날짜</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="cart: ${cartList}">
-                            <td class="checked">
-                                <input type="checkbox" id="chk1" class="checkbox" name="cartCheckbox">
-                            </td>
-                            <td th:text="${cart.count}"></td>
-                            <td th:text="${cart.serviceName}"></td>
-                            <td th:text="${#dates.format(cart.reservationDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                            <td><button class="btn btn-primary" th:onclick="'location.href=\'/order?cartNo=' + ${cart.cartNo} + '\'"></button></td>
-                            <td><button class="btn btn-danger" th:onclick="'deleteCart(' + ${cart.cartNo} + ')'"></button></td>
-                        </tr>
+                        <form action="/cart/delete" method="post" id="form">
+                            <!-- CSRF TOKEN -->
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                            <tr th:each="cart: ${cartList}">
+                                <td class="checked">
+                                    <input type="checkbox" id="chk1" class="checkbox" name="cartNos"
+                                        th:value="${cart.cartNo}">
+                                </td>
+                                <td th:text="${cartStat.index + 1}"></td>
+                                <td th:text="${cart.serviceName}"></td>
+                                <td th:text="${#dates.format(cart.cartRegDate, 'MM-dd')}"></td>
+                            </tr>
+                        </form>
                     </tbody>
                 </table>
 
                 <div class="buttons">
+                    <button class="btn btn-danger" onclick="deleteSeleteCarts()">선택 삭제</button>
+                    <button class="btn btn-danger" onclick="deleteCarts()">전체 삭제</button>
                     <button class="btn btn-primary custom2">결제 하기</button>
-                    <button class="btn btn-danger" onclick="deleteSelectedCarts()">전체 삭제</button>
                 </div>
 
             </div>
         </div>
     </div>
 
-    <script>
-        // 전체 삭제
-        function deleteCart(cartNo) {
-            fetch('/cart/' + cartNo, {
-                method: 'DELETE'
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('장바구니 항목을 삭제하는데 문제가 발생했습니다.');
-                location.reload();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-
-        // 선택삭제
-        function deleteSelectedCarts() {
-            let selectedCarts = [];
-            document.querySelectorAll('input[name="cartCheckbox"]:checked').forEach(checkbox => {
-                selectedCarts.push(checkbox.value);
-            });
-
-            fetch('/cart/user/' + userNo, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({cartNos: selectedCarts})
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('선택한 장바구니 항목을 삭제하는데 문제가 발생했습니다.');
-                location.reload();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-
-        // 상품추가
-        document.getElementById('addToCartBtn').addEventListener('click', function() {
-            var serviceNo = 1;  // 예시로 서비스 번호를 1로 가정
-            var userNo = 1;     // 사용자 번호, 필요에 따라 동적으로 설정 가능
-            var requestData = {
-                serviceNo: serviceNo,
-                userNo: userNo
-            };
-
-            fetch('/cart/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestData)
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('상품을 추가하는데 문제가 발생했습니다.');
-
-                var check = confirm('장바구니로 이동하시겠습니까?');
-                if(check) window.location.href = '/cart/list?userNo=' + userNo;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-    </script>
 </body>
 </html>

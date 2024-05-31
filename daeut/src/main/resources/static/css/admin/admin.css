@@ -484,12 +484,12 @@ textarea {
     flex-wrap: wrap; /* 반응형 지원을 위한 wrap 설정 */
     gap: 20px; /* 요소 간의 간격 설정 */
 }
-.container {
+/* .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 680px; /* 화면 전체 높이 */
-}
+    min-height: 680px;
+} */
 .form-container {
     flex: 1;
     display: flex;
@@ -590,4 +590,3 @@ textarea {
 input[type="password"] {
     font-family:'Courier New', Courier, monospace;
   }
-
