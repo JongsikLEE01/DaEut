@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/auth_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da E ut</title>
+</head>
+<body layout:fragment="content">
+    <div class="container form-container">
+        <form id="form" th:action="@{/auth/resetPw}" method="post">
+            <!-- CSRF TOKEN -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <!-- userId hidden field -->
+            <input type="hidden" id="errorMessage" th:value="${errorMessage}"/>
+            <input type="hidden" name="userId" th:value="${userId}">
+
+            <h2 class="text-center">비밀번호 재설정</h2>
+            <p class="text-center">비밀번호를 재설정 해주세요.</p>
+            <hr>
+            <div class="mb-3">
+                <input type="password" class="form-control" id="userPassword" name="userPassword" placeholder="비밀번호" required>
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="비밀번호 확인" required>
+            </div>
+            
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-dark">확인</button>
+                <button type="button" class="btn btn-light border" onclick="history.back()">돌아가기</button>
+            </div>
+            <hr>
+        </form>
+    </div>
+</body>
+</html>
