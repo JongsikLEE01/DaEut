@@ -21,7 +21,10 @@
             <hr>
      
            <div class="text-center my-4">
-                <img src="/img/logo_h.png" alt="모기 퇴치 방법" class="img-fluid">
+                <!-- ⭐ 파일 이미지 출력하기 -->
+                <th:block th:each="file : ${fileList}"> 
+                    <img th:src="|/file/img/${file.fileNo}|" alt="모기 퇴치 방법" class="img-fluid">
+                </th:block>
             </div> 
             <div class="col-15">
                 <textarea class="form-control w-100 input-readonly" rows="15" readonly th:text="${board.boardContent}">게시글 내용</textarea>
