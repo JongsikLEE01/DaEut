@@ -1,5 +1,5 @@
 // 페이지
-package com.daeut.daeut.reservation.dto;
+package com.daeut.daeut.main.dto;
 
 import lombok.Data;
 

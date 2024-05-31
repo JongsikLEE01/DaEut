@@ -6,10 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
+import com.daeut.daeut.auth.dto.CustomUser;
+import com.daeut.daeut.auth.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,8 +51,19 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             response.addCookie(cookie);             // 응답에 쿠키 등록
         }
 
-         // 로그인 성공 후 기본 페이지로 리다이렉트
-         super.onAuthenticationSuccess(request, response, authentication);
+
+        // 인증된 사용자 정보 - (아이디/패스워드/권한)
+        // User user = (User) authentication.getPrincipal();
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        log.info("아이디 : " + customUser.getUsername());
+        log.info("패스워드 : " + customUser.getPassword());       // 보안상 노출❌
+        log.info("권한 : " + customUser.getAuthorities());    
+
+        HttpSession session = request.getSession();
+        Users user = customUser.getUser();
+        if( user != null ) session.setAttribute("user", user);
+
+        super.onAuthenticationSuccess(request, response, authentication);
 
     }
     

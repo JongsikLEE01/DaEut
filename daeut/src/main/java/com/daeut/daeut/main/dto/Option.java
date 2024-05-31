@@ -1,5 +1,5 @@
 // 검색
-package com.daeut.daeut.reservation.dto;
+package com.daeut.daeut.main.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -3,8 +3,8 @@ package com.daeut.daeut.reservation.service;
 import java.util.List;
 
 import com.daeut.daeut.main.dto.Files;
-import com.daeut.daeut.reservation.dto.Option;
-import com.daeut.daeut.reservation.dto.Page;
+import com.daeut.daeut.main.dto.Option;
+import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.reservation.dto.Services;
 
 public interface ReservationService {

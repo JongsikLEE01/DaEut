@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.daeut.daeut.main.dto.Files;
+import com.daeut.daeut.main.dto.Option;
+import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.main.service.FileService;
-import com.daeut.daeut.reservation.dto.Option;
-import com.daeut.daeut.reservation.dto.Page;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.mapper.ReservationMapper;
 
