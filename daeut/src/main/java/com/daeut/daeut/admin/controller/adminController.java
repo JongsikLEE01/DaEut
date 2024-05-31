@@ -1,12 +1,27 @@
 package com.daeut.daeut.admin.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+    @Value("${system.pw}")
+    private String systemPw;
+
+    @GetMapping("/join")
+    public String join() {
+        return "/admin/join";
+    }
+
+    @GetMapping("/joinDone")
+    public String joinDone() {
+        return "/admin/joinDone";
+    }
 
     @GetMapping("/adminReservation")
     public String adminReservation() {

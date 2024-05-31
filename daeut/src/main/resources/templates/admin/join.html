@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/auth_layout}"
+      layout:decorate="~{/layout/admin_layout}"
       >
 <!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
 <head>
@@ -12,7 +12,7 @@
 <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
 <body layout:fragment="content">
     <div class="container form-container">
-        <form id="signup-form" method="post" th:action="@{/auth/join}" th:object="${user}">
+        <form id="signup-form" method="post" th:action="@{/admin/join}" th:object="${user}">
             <!-- CSRF TOKEN -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
@@ -22,6 +22,7 @@
                 <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디">
                 <button type="button" class="btn btn-primary custom-auth-btn" onclick="checkDuplicateId()">중복확인</button>
             </div>
+            <div class="mb-3"><input type="password" class="form-control" id="systemPw" name="systemPw" placeholder="시스템 비밀번호"></div>
             <div class="mb-3"><input type="password" class="form-control" id="userPassword" name="userPassword" placeholder="비밀번호"></div>
             <div class="mb-3"><input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="비밀번호 확인"></div>
             <div class="mb-3"><input type="text" class="form-control" id="userName" name="userName" placeholder="이름"></div>
@@ -52,12 +53,6 @@
             <div class="d-grid gap-3">
                 <button type="submit" class="btn btn-dark">회원 가입</button>
                 <button type="button" class="btn btn-light border" onclick="history.back()">돌아가기</button>
-            </div>
-            <div class="text-center my-3"><hr>소셜계정으로 회원 가입</div>
-            <div class="d-grid gap-2">
-                <a href="#" class="btn btn-light google border"><img src="/img/google.png" alt="Google" class="img-fluid" style="max-height: 20px;"> Google</a>
-                <a href="#" class="btn btn-light kakao border"><img src="/img/kakao.png" alt="Kakao" class="img-fluid" style="max-height: 20px; width: 20px;"> Kakao</a>
-                <a href="#" class="btn btn-light naver border"><img src="/img/naver.png" alt="Naver" class="img-fluid" style="max-height: 20px;"> Naver</a>
             </div>
             <div>
                 <p class="description">
