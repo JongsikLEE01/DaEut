@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.daeut.daeut.auth.dto.CustomUser;
+import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
 
@@ -17,8 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+import java.security.Principal;
 
 @Slf4j
 @Controller
@@ -73,8 +74,11 @@ public class UserController {
     
 
     @GetMapping("/userReservation")
-    public String userReservation() {
+    public String userReservation(Model model, Principal principal) throws Exception {
         log.info("/user/userReservation");
+        String userId = principal.getName();
+        List<Reservation> reservations = userService.getUserReservations(userId);
+        model.addAttribute("reservations", reservations);
         return "/user/userReservation";
     }
 
@@ -106,6 +110,12 @@ public class UserController {
     public String userPartnerDone() {
         log.info("/user/userPartnerDone");
         return "/user/userPartnerDone";
+    }
+
+    @GetMapping("/userCart")
+    public String userCart() {
+        // log.info("/user/userReservation");
+        return "/user/userCart";
     }
 
     // 파트너 신청 엔드포인트

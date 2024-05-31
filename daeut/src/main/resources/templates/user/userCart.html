@@ -17,26 +17,27 @@
                 <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
                 <h5>마이페이지</h5>
                 <br>
-                <a href="userMypage">내 정보 변경</a>
-                <a href="userReservation">내 예약 보기</a>
-                <a href="userLikeTip">내가 좋아하는 글</a>
-                <a href="userReview">별점 및 리뷰 작성</a>
-                <a href="userCoupon" class="userCoupon">내 쿠폰</a>
-                <a href="userPartner">파트너 신청</a>
-                <a href="userCart">장바구니</a>
+                <a href="/user/userMypage">내 정보 변경</a>
+                <a href="/user/userReservation">내 예약 보기</a>
+                <a href="/user/userLikeTip">내가 좋아하는 글</a>
+                <a href="/user/userReview">별점 및 리뷰 작성</a>
+                <a href="/user/userCoupon">내 쿠폰</a>
+                <a href="/user/userPartner">파트너 신청</a>
+                <a href="/user/userCart" class="userCart">장바구니</a>
             </nav>
 
             <!-- 컨텐츠 영역 -->
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>장바구니</h3>
                 <p>회원님의 집을 책임 질 파트너를 골라주세요</p>
+                <p>총 N건이 장바구니에 담겨있어요</p>
+                <br>
                 <table class="table table-sm table-hover">
                     <thead class="table-light">
                         <tr>
                             <th>No.</th>
-                            <th>파트너</th>
                             <th>서비스 이름</th>
-                            <th>서비스일</th>
+                            <th>예약일</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -44,7 +45,6 @@
                     <tbody>
                         <tr>
                             <td>1.</td>
-                            <td>김조은</td>
                             <td>청소서비스</td>
                             <td>2024-05-20 12:19:10</td>
                             <td><button class="btn btn-primary">주문</button></td>
@@ -52,7 +52,6 @@
                         </tr>
                         <tr>
                             <td>2.</td>
-                            <td>김조은</td>
                             <td>청소서비스</td>
                             <td>2024-05-20 12:19:10</td>
                             <td><button class="btn btn-primary">주문</button></td>
@@ -60,7 +59,6 @@
                         </tr>
                         <tr>
                             <td>3.</td>
-                            <td>김조은</td>
                             <td>청소서비스</td>
                             <td>2024-05-20 12:19:10</td>
                             <td><button class="btn btn-primary">주문</button></td>
@@ -74,17 +72,6 @@
                     <button class="btn btn-danger">전체 삭제</button>
                 </div>
 
-                <div class="pagination">
-                    <a href="#">&laquo;</a>
-                    <a href="#">&lt;</a>
-                    <a href="#" th:classappend="${page == 1} ? 'active'">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">&gt;</a>
-                    <a href="#">&raquo;</a>
-                </div>
             </div>
 
 
