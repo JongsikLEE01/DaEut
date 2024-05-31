@@ -3,8 +3,12 @@ package com.daeut.daeut.auth.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.partner.dto.Parther;
+
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -40,5 +44,13 @@ public interface UserMapper {
 
     // 파트너 신청 승인 및 권한 추가
     public void approvePartnerAndAddAuth(@Param("userId") String userId) throws Exception;
+
+    public List<Reservation> selectReservationsByUserId(String userId);
+
+    // 관리자 회원가입
+    public  int adminJoin(Users user) throws Exception;
+    
+    // 파트너 찾기
+    public Parther selectPartner(int userNo) throws Exception;
 }
 

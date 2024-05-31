@@ -23,9 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.service.FileService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 @RequestMapping("/file")
 public class FileController {
@@ -73,7 +70,7 @@ public class FileController {
 
     @DeleteMapping("/{fileNo}")
     public ResponseEntity<String> deleteFile(@PathVariable("fileNo") int fileNo) throws Exception{
-        log.info("DELETE - /file/"+fileNo);
+        // log.info("DELETE - /file/"+fileNo);
 
         //파일 삭제 요청
         int result = fileService.delete(fileNo);

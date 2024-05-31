@@ -13,6 +13,8 @@
 	<div class="container">
 
 		<div class="header-area">
+			
+			
 			<!-- 서비스 이름 -->
 			<h3 class="header-title" th:text="${service.serviceName}"></h3>
 
@@ -214,14 +216,23 @@
 						<tfoot>
 							<tr class="reservation-buttons">
 								<button class="reservation-calender" id="showCalendarBtn">날짜 선택</button>
-								<button class="reservation-paybutton" id="addToCartBtn">장바구니 담기</button>
+								<button class="reservation-paybutton" onclick="addToCart()">장바구니 담기</button>
 							</tr>
 						</tfoot>
 
 					</table>
 					<div id="calendarContainer" style="position: relative;"></div>
-					<a href="|/reservation/payment?serviceNo=${service.serviceNo}|/"><button
-						class="btn-coupon" id="couponBtn">바로 예약하기</button></a>
+					<th:block th:if="${session.user == null}">
+						<a href="javascript:;" onclick="sweetConfirm('회원가입이 필요합니다.', '예약 서비스는 회원가입 후 가능합니다.', 'warning', '로그인', ()=>{location.href='/auth/login'})">
+						<!-- <a href="javascript:;" onclick="sweetAlert('경고', '회원가입이 필요합니다.', 'warning')"> -->
+							<button class="btn-coupon">바로 예약하기</button>
+						</a>
+					</th:block>
+					<th:block th:if="${session.user != null}">
+						<a href="|/reservation/payment?serviceNo=${service.serviceNo}|/">
+							<button class="btn-coupon" id="couponBtn">바로 예약하기</button>
+						</a>
+					</th:block>
 				</div>
 			</div>
 
@@ -229,35 +240,5 @@
 		</div>
 
 	</div>
-
-	<script>
-        document.getElementById('addToCartBtn').addEventListener('click', function() {
-    	    // 선택한 상품 정보를 서버로 전송하여 카트에 추가하는 요청
-    	    // var serviceNo = '[[service.servierNo]]' 	// 예시로 서비스 번호를 1로 가정
-    	    var serviceNo = 1 							// 예시로 서비스 번호를 1로 가정
-    	    var userNo = 1 								// 사용자 번호, 필요에 따라 동적으로 설정 가능
-    	    var requestData = {
-    	        serviceNo: serviceNo,
-    	        userNo: userNo
-    	    };
-
-    	    fetch('/cart/add', {
-    	        method: 'POST',
-    	        headers: {
-    	            'Content-Type': 'application/json'
-    	        },
-    	        body: JSON.stringify(requestData)
-    	    })
-    	    .then(response => {
-    	        if (!response.ok) throw new Error('상품을 추가하는데 문제가 발생했습니다.');
-
-				var check = confirm('장바구니로 이동하시겠습니까?')
-				if(check) window.location.href = '/cart/list?userNo=' + userNo;
-    	    })
-    	    .catch(error => {
-    	        console.error('Error:', error);
-    	    });
-    	});
-    </script>
 </body>
 </html>

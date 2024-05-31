@@ -1,7 +1,11 @@
 package com.daeut.daeut.auth.service;
 
+import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.partner.dto.Parther;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -34,4 +38,13 @@ public interface UserService {
 
     // 파트너 승인
     public void approvePartner(String userId) throws Exception;
+
+    // 예약
+    public List<Reservation> getUserReservations(String userId) throws Exception;
+
+    // 관리자 회원가입
+    public void adminJoin(Users user, String systemPw) throws Exception;
+
+    // 파트너 찾기
+    public Parther selectPartner(int userNo) throws Exception;
 }

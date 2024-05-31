@@ -43,3 +43,6 @@ VALUES ('관리자','010-7667-2354','2024-01-01','인천시','downy@gmail.com','
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 4, 'ROLE_USER' );
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 4, 'ROLE_PARTNER' );
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 4, 'ROLE_ADMIN' );
+
+-- 파트너 샘플 데이터
+INSERT INTO partner (partner_grade, partner_reserve, partner_career, introduce, user_no) VALUES (4, 5, NOW(), '테스트 파트너입니다.', 3);

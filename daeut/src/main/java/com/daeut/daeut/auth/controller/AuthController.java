@@ -101,6 +101,78 @@ public class AuthController {
         return "/auth/findPw";
     }
 
+    @PostMapping("/findPw")
+    public String findPw(@RequestParam String userName,
+                         @RequestParam String userId,
+                         @RequestParam String userEmail,
+                         @RequestParam String authCode,
+                         Model model) {
+        try {
+            // 인증 코드 검증 로직 추가
+            boolean isAuthCodeValid = "123456".equals(authCode); // 인증 코드가 '123456'인 경우만 유효함
+
+            if (isAuthCodeValid) {
+                model.addAttribute("userId", userId);
+                return "redirect:/auth/resetPw?userId=" + userId;
+            } else {
+                model.addAttribute("errorMessage", "인증 코드가 잘못되었습니다.");
+                return "/auth/findPw";
+            }
+        } catch (Exception e) {
+            log.error("비밀번호 찾기 중 오류가 발생했습니다.", e);
+            model.addAttribute("errorMessage", "비밀번호 찾기 중 오류가 발생했습니다.");
+            return "/auth/findPw";
+        }
+    }
+
+    @GetMapping("/resetPw")
+    public String resetPw(@RequestParam String userId, Model model) {
+        model.addAttribute("userId", userId);
+        return "/auth/resetPw";
+    }
+
+    @PostMapping("/resetPw")
+    public String resetPw(@RequestParam String userId,
+                        @RequestParam String userPassword,
+                        @RequestParam String confirmPassword,
+                        Model model) {
+        try {
+            Users user = userService.select(userId);
+            if (user != null) {
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+                if (passwordEncoder.matches(userPassword, user.getUserPassword())) {
+                    model.addAttribute("errorMessage", "기존의 비밀번호와 일치합니다.");
+                    model.addAttribute("userId", userId);
+                    return "/auth/resetPw";
+                }
+
+                if (!userPassword.equals(confirmPassword)) {
+                    model.addAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
+                    model.addAttribute("userId", userId);
+                    return "/auth/resetPw";
+                }
+
+                user.setUserPassword(passwordEncoder.encode(userPassword));
+                userService.update(user);
+                return "redirect:/auth/resetPwComplete";
+            } else {
+                model.addAttribute("errorMessage", "사용자를 찾을 수 없습니다.");
+                return "/auth/resetPw";
+            }
+        } catch (Exception e) {
+            log.error("비밀번호 재설정 중 오류가 발생했습니다.", e);
+            model.addAttribute("errorMessage", "비밀번호 재설정 중 오류가 발생했습니다.");
+            return "/auth/resetPw";
+        }
+    }
+
+    @GetMapping("/resetPwComplete")
+    public String resetPwComplete() {
+        return "/auth/resetPwComplete";
+    }
+    
+
     @GetMapping("/joinDone")
     public String joinDone() {
         return "/auth/joinDone";
