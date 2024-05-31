@@ -1,4 +1,4 @@
-package com.daeut.daeut.reservation.controller;
+package com.daeut.daeut.main.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.daeut.daeut.reservation.dto.Files;
-import com.daeut.daeut.reservation.service.FileService;
+import com.daeut.daeut.main.dto.Files;
+import com.daeut.daeut.main.service.FileService;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,5 +1,5 @@
 // 파일
-package com.daeut.daeut.reservation.dto;
+package com.daeut.daeut.main.dto;
 
 import java.util.Date;
 

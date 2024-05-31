@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.daeut.daeut.reservation.dto.Files;
+import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.reservation.dto.Option;
 import com.daeut.daeut.reservation.dto.Page;
 import com.daeut.daeut.reservation.dto.Services;
