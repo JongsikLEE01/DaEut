@@ -178,3 +178,19 @@ $(document).ready(function() {
         });
     }).scroll();
 });
+
+
+/**
+ * SweetAlert
+ * @param {제목} title 
+ * @param {내용} text 
+ * @param {아이콘} icon 아이콘 종류 : success,error,warning,info,question
+ */
+function sweetAlert(title, text, icon) {
+    Swal.fire({
+        title: title,
+        text: text,
+        icon: icon          
+    })
+}
+
