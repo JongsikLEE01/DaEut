@@ -23,18 +23,21 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private FileService fileService;
 
+    // 게시글 목록 조회
     @Override
     public List<Board> list() throws Exception {
         List<Board> boardList = boardMapper.list();
         return boardList;
     }
 
+    // 게시글 조회
     @Override
     public Board select(int boardNo) throws Exception {
         Board board = boardMapper.select(boardNo);
         return board;
     }
 
+    // 게시글 등록
     @Override
     public int insert(Board board) throws Exception {
         int result = boardMapper.insert(board);
@@ -63,7 +66,7 @@ public class BoardServiceImpl implements BoardService {
                 uploadFile.setParentTable(parentTable);
                 uploadFile.setParentNo(parentNo);
                 uploadFile.setFile(file);
-                uploadFile.setFileCode(0);
+                
                 fileService.upload(uploadFile);
             }
         }
@@ -74,34 +77,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public int update(Board board) throws Exception {
         int result = boardMapper.update(board);
-
-        String parentTable = "board";
-        int parentNo = boardMapper.maxPk();
-
-        MultipartFile thumbnailFile = board.getThumbnail();
-        if(thumbnailFile != null && !thumbnailFile.isEmpty()) {
-            Files thumbnail = new Files();
-            thumbnail.setFile(thumbnailFile);
-            thumbnail.setParentTable(parentTable);
-            thumbnail.setParentNo(parentNo);
-            thumbnail.setFileCode(0);
-            fileService.upload(thumbnail);
-        }
-
-        List<MultipartFile> fileList = board.getFile();
-        if(fileList != null && !fileList.isEmpty()) {
-            for(MultipartFile file : fileList) {
-                if(file.isEmpty()) continue;
-
-                Files uploadFile = new Files();
-                uploadFile.setParentTable(parentTable);
-                uploadFile.setParentNo(parentNo);
-                uploadFile.setFile(file);
-                uploadFile.setFileCode(0);
-
-                fileService.upload(uploadFile);
-            }
-        }
         return result;
     }
 
@@ -113,7 +88,22 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int view(int boardNo) throws Exception {
+        log.info(boardNo + "번 글 조회수 증가");
         return boardMapper.view(boardNo);
     }
+
+    @Override
+    public Files SelectThumbnail(int boardNo) throws Exception {
+        Files thumbnail = boardMapper.SelectThumbnail(boardNo);
+        return thumbnail;
+    }
+
+    @Override
+    public List<Files> SelectFiles(int boardNo) throws Exception {
+        List<Files> files = boardMapper.SelectFiles(boardNo);
+        return files;
+    }
+
+	
 
 }
