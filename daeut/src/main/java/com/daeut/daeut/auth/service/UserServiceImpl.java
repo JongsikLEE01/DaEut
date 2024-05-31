@@ -15,8 +15,11 @@ import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -157,4 +160,14 @@ public class UserServiceImpl implements UserService {
             userMapper.insertAuth(userAuthAdmin);
         }
     }
+
+    // 모든 사용자 목록 조회
+    @Override
+    public List<Users> selectAllUsers() throws Exception {
+        List<Users> userList = userMapper.selectAllUsers();
+        // ROLE_USER만 필터링
+        log.info("user: " + userList);
+        return userList;
+    }
+
 }

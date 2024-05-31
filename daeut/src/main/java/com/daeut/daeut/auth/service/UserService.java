@@ -43,4 +43,7 @@ public interface UserService {
 
     // 관리자 회원가입
     public void adminJoin(Users user, String systemPw) throws Exception;
+    
+    // 모든 사용자 목록 조회
+    public List<Users> selectAllUsers() throws Exception;
 }
