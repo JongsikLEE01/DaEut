@@ -98,7 +98,8 @@ document.addEventListener("DOMContentLoaded", function() {
     if (errorMessageElement) {
         const errorMessage = errorMessageElement.value;
         if (errorMessage) {
-            alert(errorMessage);
+            sweetAlert('경고', errorMessage, 'warning');
+            // alert(errorMessage);
         }
     }
 });
@@ -107,6 +108,5 @@ document.addEventListener("DOMContentLoaded", function() {
 document.getElementById('signup-form').onsubmit = function() {
     return validateForm();
 };
-
 
 
