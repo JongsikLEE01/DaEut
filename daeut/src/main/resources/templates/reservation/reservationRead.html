@@ -230,34 +230,39 @@
 
 	</div>
 
+	<button class="reservation-paybutton" id="addToCartBtn">장바구니 담기</button>
+
 	<script>
-        document.getElementById('addToCartBtn').addEventListener('click', function() {
-    	    // 선택한 상품 정보를 서버로 전송하여 카트에 추가하는 요청
-    	    // var serviceNo = '[[service.servierNo]]' 	// 예시로 서비스 번호를 1로 가정
-    	    var serviceNo = 1 							// 예시로 서비스 번호를 1로 가정
-    	    var userNo = 1 								// 사용자 번호, 필요에 따라 동적으로 설정 가능
-    	    var requestData = {
-    	        serviceNo: serviceNo,
-    	        userNo: userNo
-    	    };
+	// JavaScript 코드 삽입 위치
+	document.addEventListener("DOMContentLoaded", function() {
+	    document.getElementById('addToCartBtn').addEventListener('click', function() {
+	        var serviceNo = '[[${service.serviceNo}]]';
+	        var userNo = '[[${user.userNo}]]';
 
-    	    fetch('/cart/add', {
-    	        method: 'POST',
-    	        headers: {
-    	            'Content-Type': 'application/json'
-    	        },
-    	        body: JSON.stringify(requestData)
-    	    })
-    	    .then(response => {
-    	        if (!response.ok) throw new Error('상품을 추가하는데 문제가 발생했습니다.');
+	        var requestData = {
+	            serviceNo: serviceNo,
+	            userNo: userNo
+	        };
 
-				var check = confirm('장바구니로 이동하시겠습니까?')
-				if(check) window.location.href = '/cart/list?userNo=' + userNo;
-    	    })
-    	    .catch(error => {
-    	        console.error('Error:', error);
-    	    });
-    	});
-    </script>
+	        fetch('/cart/add', {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json'
+	            },
+	            body: JSON.stringify(requestData)
+	        })
+	        .then(response => {
+	            if (!response.ok) throw new Error('상품을 추가하는데 문제가 발생했습니다.');
+
+	            var check = confirm('장바구니로 이동하시겠습니까?');
+	            if(check) window.location.href = '/cart/list?userNo=' + userNo;
+	        })
+	        .catch(error => {
+	            console.error('Error:', error);
+	        });
+	    });
+	});
+	</script>
+
 </body>
 </html>
