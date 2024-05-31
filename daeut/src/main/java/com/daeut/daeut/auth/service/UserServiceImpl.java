@@ -5,11 +5,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.daeut.daeut.auth.dto.Partner;
 import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
@@ -115,8 +118,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void requestPartner(String userId) throws Exception {
-        userMapper.requestPartner(userId);
+    public void requestPartner(Users user, Partner partner) throws Exception {
+        String filePath = saveFile(partner.getFile());
+        partner.setFilePath(filePath);
+        userMapper.insertPartner(user.getUserNo(), partner);
+        userMapper.updateUserStatus(user.getUserNo());
+    }
+
+    @Override
+    public Users getUserById(String userId) {
+        return userMapper.getUserById(userId);
     }
 
     @Override
@@ -157,4 +168,9 @@ public class UserServiceImpl implements UserService {
             userMapper.insertAuth(userAuthAdmin);
         }
     }
+
+    private String saveFile(MultipartFile file) {
+        return "c:/upload";
+    }
+
 }
