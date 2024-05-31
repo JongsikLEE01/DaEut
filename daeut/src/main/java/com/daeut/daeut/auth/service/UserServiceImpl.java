@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-     @Override
+    @Override
     public void requestPartner(String userId) throws Exception {
         userMapper.requestPartner(userId);
     }
@@ -124,6 +124,7 @@ public class UserServiceImpl implements UserService {
         userMapper.approvePartnerAndAddAuth(userId);
     }
 
+    @Override
     public List<Reservation> getUserReservations(String userId) {
         return userMapper.selectReservationsByUserId(userId);
     }
