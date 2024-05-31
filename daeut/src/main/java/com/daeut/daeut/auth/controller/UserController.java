@@ -122,6 +122,7 @@ public class UserController {
         model.addAttribute("partner", new Partner());
 
         return "user/userPartner";
+    }
       
     // 장바구니
     @GetMapping("/userCart")
