@@ -3,32 +3,36 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- namespace="매퍼 인터페이스 경로" --> 
 <mapper namespace="com.daeut.daeut.reservation.mapper.CartMapper">
 
+    <resultMap type="cart" id="cartMap">
+        <id property="cartNo" column="cart_no"/>
+        <result property="cartAmount" column="cart_amount"/>
+        <result property="cartRegDate" column="cart_reg_date"/>
+        <result property="cartUpdDate" column="cart_upd_date"/>
+        <result property="serviceNo" column="service_no"/>
+        <result property="userNo" column="user_no"/>
+        <result property="userName" column="user_name"/>
+        <result property="serviceName" column="service_name"/>
+    </resultMap>
+
     <!-- 카트 목록 -->
-    <!-- TODO : 장바구니 목록 만들기.. -->
-    <select id="cartList" resultType="cart">
+    <select id="cartList" resultMap="cartMap">
         SELECT 
-            *,  
+            c.*, 
             u.user_name, 
             s.service_name
-            <!-- r.reservation_date -->
-
         FROM cart c
             JOIN service s ON c.service_no = s.service_no
-            <!-- JOIN reservation r ON r.service_no = s.service_no -->
-            JOIN partner p ON s.partner_no = p.partner_no
-            JOIN users u ON p.user_no = u.user_no
-
+            JOIN users u ON c.user_no = u.user_no
         WHERE c.user_no = #{userNo}
         ORDER BY c.cart_reg_date DESC;
     </select>
 
     <!-- 카트 등록 -->
-    <insert id="cartInsert">
-        INSERT INTO cart( service_no, user_no )
-        VALUES ( #{serviceNo}, #{userNo} )
+    <insert id="cartInsert" >
+        INSERT INTO cart(service_no, user_no, cart_amount)
+        VALUES (#{serviceNo}, #{userNo}, #{cartAmount})
     </insert>
 
     <!-- 카트 선택 삭제 -->
@@ -42,4 +46,16 @@
         DELETE FROM cart
         WHERE user_no = #{userNo}
     </delete>
+
+    <!-- 카트 업데이트 -->
+    <update id="cartUpdate">
+        UPDATE cart
+        SET service_no = #{serviceNo}
+            , user_no = #{userNo}
+            , cart_amount = #{cartAmount}
+            , cart_upd_date = now()
+        WHERE cart_no = #{cartNo}
+    </update>
+
+
 </mapper>

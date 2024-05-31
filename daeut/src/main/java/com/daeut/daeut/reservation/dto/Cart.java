@@ -9,7 +9,9 @@ public class Cart {
     private int cartAmount;
     private Date cartRegDate;
     private Date cartUpdDate;
-
-    private int serviceNo;
     private int userNo;
+    private int serviceNo;
+    
+    private String userName;
+    private String serviceName;
 }

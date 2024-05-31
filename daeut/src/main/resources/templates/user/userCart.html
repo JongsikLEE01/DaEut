@@ -17,23 +17,26 @@
                 <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
                 <h5>마이페이지</h5>
                 <br>
-                <a href="/user/userMypage">내 정보 변경</a>
+                <a href="/user/userMypage" class="userMypage">내 정보 변경</a>
                 <a href="/user/userReservation">내 예약 보기</a>
                 <a href="/user/userLikeTip">내가 좋아하는 글</a>
                 <a href="/user/userReview">별점 및 리뷰 작성</a>
                 <a href="/user/userCoupon">내 쿠폰</a>
                 <a href="/user/userPartner">파트너 신청</a>
-                <a href="/user/userCart" class="userCart">장바구니</a>
+                <a href="/user/userCart">장바구니</a>
             </nav>
 
             <!-- 컨텐츠 영역 -->
             <div class="col-md-9 col-lg-10 form-section">
+                <input type="hidden" name="userNo" th:value="${user.userNo}">
                 <h3>장바구니</h3>
                 <p>회원님의 집을 책임 질 파트너를 골라주세요</p>
-                <p>총 N건이 장바구니에 담겨있어요</p>
+                <p>총 <span th:text="${cartList.size()}"></span>건이 장바구니에 담겨있어요</p>
+                <br>
                 <table class="table table-sm table-hover">
                     <thead class="table-light">
                         <tr>
+                            <th></th>
                             <th>No.</th>
                             <th>서비스 이름</th>
                             <th>예약일</th>
@@ -42,41 +45,92 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1.</td>
-                            <td>청소서비스</td>
-                            <td>2024-05-20 12:19:10</td>
-                            <td><button class="btn btn-primary">주문</button></td>
-                            <td><button class="btn btn-danger">삭제</button></td>
-                        </tr>
-                        <tr>
-                            <td>2.</td>
-                            <td>청소서비스</td>
-                            <td>2024-05-20 12:19:10</td>
-                            <td><button class="btn btn-primary">주문</button></td>
-                            <td><button class="btn btn-danger">삭제</button></td>
-                        </tr>
-                        <tr>
-                            <td>3.</td>
-                            <td>청소서비스</td>
-                            <td>2024-05-20 12:19:10</td>
-                            <td><button class="btn btn-primary">주문</button></td>
-                            <td><button class="btn btn-danger">삭제</button></td>
+                        <tr th:each="cart: ${cartList}">
+                            <td class="checked">
+                                <input type="checkbox" id="chk1" class="checkbox" name="cartCheckbox">
+                            </td>
+                            <td th:text="${cart.count}"></td>
+                            <td th:text="${cart.serviceName}"></td>
+                            <td th:text="${#dates.format(cart.reservationDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td><button class="btn btn-primary" th:onclick="'location.href=\'/order?cartNo=' + ${cart.cartNo} + '\'"></button></td>
+                            <td><button class="btn btn-danger" th:onclick="'deleteCart(' + ${cart.cartNo} + ')'"></button></td>
                         </tr>
                     </tbody>
                 </table>
 
                 <div class="buttons">
                     <button class="btn btn-primary custom2">결제 하기</button>
-                    <button class="btn btn-danger">전체 삭제</button>
+                    <button class="btn btn-danger" onclick="deleteSelectedCarts()">전체 삭제</button>
                 </div>
 
             </div>
-
-
         </div>
     </div>
 
-</body>
+    <script>
+        // 전체 삭제
+        function deleteCart(cartNo) {
+            fetch('/cart/' + cartNo, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('장바구니 항목을 삭제하는데 문제가 발생했습니다.');
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
 
+        // 선택삭제
+        function deleteSelectedCarts() {
+            let selectedCarts = [];
+            document.querySelectorAll('input[name="cartCheckbox"]:checked').forEach(checkbox => {
+                selectedCarts.push(checkbox.value);
+            });
+
+            fetch('/cart/user/' + userNo, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({cartNos: selectedCarts})
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('선택한 장바구니 항목을 삭제하는데 문제가 발생했습니다.');
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // 상품추가
+        document.getElementById('addToCartBtn').addEventListener('click', function() {
+            var serviceNo = 1;  // 예시로 서비스 번호를 1로 가정
+            var userNo = 1;     // 사용자 번호, 필요에 따라 동적으로 설정 가능
+            var requestData = {
+                serviceNo: serviceNo,
+                userNo: userNo
+            };
+
+            fetch('/cart/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('상품을 추가하는데 문제가 발생했습니다.');
+
+                var check = confirm('장바구니로 이동하시겠습니까?');
+                if(check) window.location.href = '/cart/list?userNo=' + userNo;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
 </html>

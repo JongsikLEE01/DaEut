@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <!-- link -->
     <th:block th:replace="~{fragment/resev/link::link}"></th:block>
 
@@ -11,6 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.js"></script>
+    <!-- script -->
+    <th:block th:replace="~{fragment/common/script::script}"></th:block>
 </head>
 <body>
     <!-- header -->
@@ -23,7 +27,5 @@
     <!-- footer -->
     <th:block th:replace="~{fragment/common/footer::footer}"></th:block>
     
-    <!-- script -->
-    <th:block th:replace="~{fragment/common/script::script}"></th:block>
 </body>
 </html>
