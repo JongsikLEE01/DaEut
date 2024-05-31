@@ -2,7 +2,10 @@ package com.daeut.daeut.reservation.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.daeut.daeut.auth.dto.CustomUser;
+import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.reservation.dto.Files;
 import com.daeut.daeut.reservation.dto.Option;
 import com.daeut.daeut.reservation.dto.Page;
@@ -75,10 +80,11 @@ public class ReservationController {
      * @throws Exception
      */
     @GetMapping("/reservationRead")
-	public String reservationRead(@RequestParam("serviceNo") int serviceNo, Model model, Files file) throws Exception {
+	public String reservationRead(@RequestParam("serviceNo") int serviceNo, Model model, Files file, HttpSession session) throws Exception {
         Services service = reservationService.serviceSelect(serviceNo);
         Files thumbnail = reservationService.SelectThumbnail(serviceNo);
         List<Files> files = reservationService.SelectFiles(serviceNo);
+        Users user = (Users) session.getAttribute("user");
 
         file.setParentTable("service");
         file.setParentNo(serviceNo);
@@ -87,10 +93,12 @@ public class ReservationController {
         log.info("service? {}",service);
         log.info("fileList? {}",fileList);
 
+        
         model.addAttribute("service", service);
         model.addAttribute("fileList", fileList);
         model.addAttribute("thumbnail", thumbnail);
         model.addAttribute("files", files);
+        model.addAttribute("user", user);
 
         return "reservation/reservationRead";
     }

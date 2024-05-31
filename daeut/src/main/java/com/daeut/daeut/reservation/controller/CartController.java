@@ -47,7 +47,7 @@ public class CartController {
      * @param cart
      * @return
      */
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<String> addCart(@RequestBody Cart cart) {
         int result = 0;
         
