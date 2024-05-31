@@ -93,20 +93,7 @@ function validateForm() {
 
     return true;
 }
-document.addEventListener("DOMContentLoaded", function() {
-    const errorMessageElement = document.getElementById('errorMessage');
-    if (errorMessageElement) {
-        const errorMessage = errorMessageElement.value;
-        if (errorMessage) {
-            alert(errorMessage);
-        }
-    }
-});
-
 
 document.getElementById('signup-form').onsubmit = function() {
     return validateForm();
 };
-
-
-

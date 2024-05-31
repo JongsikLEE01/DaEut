@@ -24,12 +24,13 @@ button {
     border: none;
 }
 .custom-margin {
-    margin-right: 100px; /* 왼쪽 요소의 오른쪽 간격 설정 */
-    margin-left: 100px; /* 오른쪽 요소의 왼쪽 간격 설정 */
+    margin: 100px; /* 요소 간 간격 설정 */
 }
 .memberRow {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap; /* 반응형 지원을 위한 wrap 설정 */
+    gap: 20px; /* 요소 간의 간격 설정 */
 }
 .form-container {
     flex: 1;
@@ -108,14 +109,15 @@ button {
 }
 
 .custom-auth-btn.complete {
-    background-color: #8FA2CA !important;
-    border: none !important;
+    border-color: #8FA2CA ;
     margin-top: 60px;
     margin-bottom: 30px;
     width: 130px;
     height: 40px;
     font-size: 18px;
 }
+
+
 
 .completeHr {
     width: 100%;
@@ -150,4 +152,31 @@ input[type="password"] {
 }
 .signup-icon:hover .joinNormal {
     display: none;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 680px;; /* 화면 전체 높이 */
+}
+@media (max-width: 768px) {
+    .icon-box {
+        width: 150px;
+        height: 150px;
+        font-size: 60px;
+    }
+    .icon-text {
+        font-size: 16px;
+    }
+}
+@media (max-width: 576px) {
+    .icon-box {
+        width: 120px;
+        height: 120px;
+        font-size: 50px;
+    }
+    .icon-text {
+        font-size: 14px;
+    }
 }

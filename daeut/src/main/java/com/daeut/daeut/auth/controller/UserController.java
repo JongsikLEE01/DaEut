@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.daeut.daeut.auth.dto.CustomUser;
 import com.daeut.daeut.auth.dto.Reservation;
@@ -111,6 +110,12 @@ public class UserController {
     public String userPartnerDone() {
         log.info("/user/userPartnerDone");
         return "/user/userPartnerDone";
+    }
+
+    @GetMapping("/userCart")
+    public String userCart() {
+        // log.info("/user/userReservation");
+        return "/user/userCart";
     }
 
     // 파트너 신청 엔드포인트
