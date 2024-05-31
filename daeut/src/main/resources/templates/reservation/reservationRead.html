@@ -216,7 +216,7 @@
 						<tfoot>
 							<tr class="reservation-buttons">
 								<button class="reservation-calender" id="showCalendarBtn">날짜 선택</button>
-								<button class="reservation-paybutton" id="addToCartBtn">장바구니 담기</button>
+								<button class="reservation-paybutton" onclick="addToCart()">장바구니 담기</button>
 							</tr>
 						</tfoot>
 
@@ -241,46 +241,38 @@
 
 	</div>
 
-	<button class="reservation-paybutton" id="addToCartBtn">장바구니 담기</button>
+	<!-- <button class="reservation-paybutton" onclick="addToCart()">장바구니 담기</button> -->
 
-	<script type="module">
+	<script>
+		function addToCart() {
+    	const $serviceNo = '[[${service.serviceNo}]]';
+    	const serviceNo = $serviceNo;
 
-		function toLogin() {
-			location.href = "/auth/login"
+    	// CSRF 토큰 가져오기
+    	const csrfToken = document.querySelector("meta[name='_csrf']").content;
+    	const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
+
+    	let data = {
+    	    'serviceNo': serviceNo
+    	};
+
+    	// AJAX 비동기 요청
+    	let request = new XMLHttpRequest();
+    		request.open('POST', '/cart/add');
+    		request.setRequestHeader(csrfHeader, csrfToken); // CSRF 토큰을 헤더에 추가
+    		request.setRequestHeader('Content-Type', 'application/json');
+    		request.send(JSON.stringify(data));
+
+    		// 요청 상태가 변할 때 실행하는 메소드
+    		request.onreadystatechange = function() {
+    		    // 요청 성공
+    		    if (request.readyState == request.DONE && request.status == 201) {
+    		        alert('장바구니 담기 성공!'); // 응답 메세지 확인
+    		        console.log(request.responseText);
+    		    }
+    		};
 		}
 
-		// addToCart.js
-		document.addEventListener('DOMContentLoaded', () => {
-		    const addToCartBtn = document.getElementById('addToCartBtn')
-		
-		    addToCartBtn.addEventListener('click', () => {
-				const serviceNo = '[[${service.serviceNo}]]'
-				console.log('serviceNo? '+serviceNo)
-		        addToCart(serviceNo)
-		    });
-		});
-
-		function addToCart(serviceNo) {
-		    try {
-		        const response = fetch('/cart/add', {
-		            method: 'POST',
-		            headers: {
-		                'Content-Type': 'application/json'
-		            },
-		            body: JSON.stringify({ serviceNo })
-		        });
-			
-		        if (response.ok) {
-		            alert('장바구니에 추가되었습니다.');
-		        } else {
-		            alert('장바구니 추가에 실패했습니다.');
-		        }
-		    } catch (error) {
-		        console.error('Error adding to cart:', error);
-		        alert('장바구니 추가 중 오류가 발생했습니다.');
-		    }
-		}
 	</script>
-
 </body>
 </html>
