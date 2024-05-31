@@ -47,7 +47,8 @@
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                             <tr th:each="cart: ${cartList}">
                                 <td class="checked">
-                                    <input type="checkbox" id="chk1" class="checkbox" name="cartNos" th:value="${cart.cartNo}">
+                                    <input type="checkbox" id="chk1" class="checkbox" name="cartNos"
+                                        th:value="${cart.cartNo}">
                                 </td>
                                 <td th:text="${cartStat.index + 1}"></td>
                                 <td th:text="${cart.serviceName}"></td>
@@ -58,8 +59,8 @@
                 </table>
 
                 <div class="buttons">
-                    <button class="btn btn-danger" onclick="deleteSelectedCarts()">선택 삭제</button>
-                    <button class="btn btn-danger" onclick="deleteAllCarts()">전체 삭제</button>
+                    <button class="btn btn-danger" onclick="deleteSeleteCarts()">선택 삭제</button>
+                    <button class="btn btn-danger" onclick="deleteCarts()">전체 삭제</button>
                     <button class="btn btn-primary custom2">결제 하기</button>
                 </div>
 
@@ -67,79 +68,5 @@
         </div>
     </div>
 
-    <script>
-        const csrfToken = document.querySelector("meta[name='_csrf']").content
-    	const csrfHeader = document.querySelector("meta[name='_csrf_header']").content
-
-        const form = document.getElementById("form")
-
-        // 선택삭제
-        function deleteSelectedCarts() {
-            const check = confirm("정말로 삭제하시겠습니까?")
-            if(!check) return
-            form.submit()
-            // const checkboxes = document.querySelectorAll('input.checkbox');
-            // const cartNos = [];
-
-            // checkboxes.forEach(checkbox => {
-            //     if (checkbox.checked) {
-            //         cartNos.push(checkbox.value);
-            //     }
-            // });
-
-            // console.log('선택된 번호? ', cartNos);
-
-            // let data = {
-            //     'cartNos' : cartNos
-            // }
-
-            // // AJAX 비동기 요청
-    	    // let request = new XMLHttpRequest();
-    	    // 	request.open("DELETE",'/cart/delete')
-    	    // 	request.setRequestHeader(csrfHeader, csrfToken)
-    	    // 	request.setRequestHeader('Content-Type', 'application/json')
-    	    // 	request.send(JSON.stringify(data))
-
-    	    // 	// 요청 상태가 변할 때 실행하는 메소드
-    	    // 	request.onreadystatechange = function() {
-            //         // 요청 성공
-    	    // 	    if (request.readyState == request.DONE && request.status == 200) {
-            //             // location.reload()
-    	    // 	        alert('장바구니 선택 삭제 성공!'); // 응답 메세지 확인
-    	    // 	    }
-    	    // }
-        }
-
-        // 전체삭제
-        function deleteAllCarts() {
-
-            // TODO : 스윗얼롯으로 바꿔야함
-            const check = confirm("정말로 삭제하시겠습니까?")
-
-            if(!check) return
-
-             let userNo = '[[${user.userNo}]]'
-
-    	    let data = {
-    	        'userNo': userNo
-    	    }
-
-    	    // AJAX 비동기 요청
-    	    let request = new XMLHttpRequest();
-    	    	request.open("DELETE",'/cart/delete/' + userNo)
-    	    	request.setRequestHeader(csrfHeader, csrfToken)
-    	    	request.setRequestHeader('Content-Type', 'application/json')
-    	    	request.send(JSON.stringify(data))
-
-    	    	// 요청 상태가 변할 때 실행하는 메소드
-    	    	request.onreadystatechange = function() {
-                    // 요청 성공
-                    location.reload()
-    	    	if (request.readyState == request.DONE && request.status == 200) {
-    	    	    alert('장바구니 비우기 성공!'); // 응답 메세지 확인
-    	    	}
-    	    }
-		}
-    </script>
 </body>
 </html>

@@ -249,3 +249,33 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleCalendar();
     });
 });
+
+function addToCart() {
+    const $serviceNo = '[[${service.serviceNo}]]';
+    const serviceNo = $serviceNo;
+
+    // CSRF 토큰 가져오기
+    const csrfToken = document.querySelector("meta[name='_csrf']").content;
+    const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
+
+    let data = {
+        'serviceNo': serviceNo
+    };
+
+    // AJAX 비동기 요청
+    let request = new XMLHttpRequest();
+        request.open('POST', '/cart/add');
+        request.setRequestHeader(csrfHeader, csrfToken); // CSRF 토큰을 헤더에 추가
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify(data));
+
+        // 요청 상태가 변할 때 실행하는 메소드
+        request.onreadystatechange = function() {
+            // 요청 성공
+            sweetAlert('장바구니 담기 성공', '성공적으로 서비스가 장바구니에 담겼습니다.','success')
+            if (request.readyState == request.DONE && request.status == 201) {
+                sweetAlert('장바구니 담기 실패', '서비스가 장바구니에 담기지 못했어요.','error')
+                console.log(request.responseText);
+            }
+        };
+    }
