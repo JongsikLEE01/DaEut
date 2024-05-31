@@ -92,18 +92,4 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.view(boardNo);
     }
 
-    @Override
-    public Files SelectThumbnail(int boardNo) throws Exception {
-        Files thumbnail = boardMapper.SelectThumbnail(boardNo);
-        return thumbnail;
-    }
-
-    @Override
-    public List<Files> SelectFiles(int boardNo) throws Exception {
-        List<Files> files = boardMapper.SelectFiles(boardNo);
-        return files;
-    }
-
-	
-
 }

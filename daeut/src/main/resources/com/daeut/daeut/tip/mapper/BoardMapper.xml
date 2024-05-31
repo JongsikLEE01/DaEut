@@ -3,38 +3,31 @@
 
 <mapper namespace="com.daeut.daeut.tip.mapper.BoardMapper">
 
-    <select id="list" resultType="com.daeut.daeut.tip.dto.Board">
-        SELECT 
-            board_no AS boardNo,
-            board_title AS boardTitle,
-            board_content AS boardContent,
-            board_reg_date AS boardRegDate,
-            board_upd_date AS boardUpdDate,
-            board_views AS boardViews,
-            board_like AS boardLike,
-            user_no AS userNo
-        FROM 
-            board
+    <select id="list" resultType="Board">
+        SELECT b.*
+            ,f.file_no AS file_no
+            ,f.file_name
+            ,f.file_path
+            ,f.file_code
+        FROM board b LEFT JOIN (
+                                SELECT *
+                                FROM files
+                                WHERE parent_table = "board"
+                                AND file_code = 1
+                                ) f
+                    ON (b.board_no = f.parent_no)
+        ORDER BY b.board_reg_date DESC
     </select>
 
-    <select id="select" resultType="com.daeut.daeut.tip.dto.Board">
-        SELECT 
-            board_no AS boardNo,
-            board_title AS boardTitle,
-            board_content AS boardContent,
-            board_reg_date AS boardRegDate,
-            board_upd_date AS boardUpdDate,
-            board_views AS boardViews,
-            board_like AS boardLike,
-            user_no AS userNo
-        FROM 
-            board
+    <select id="select" resultType="Board">
+        SELECT *
+        FROM board
         WHERE board_no = #{boardNo}
     </select>
 
     <insert id="insert">
-        INSERT INTO board (board_title, board_content, user_no)
-        VALUES (#{boardTitle}, #{boardContent}, #{userNo})
+        INSERT INTO board( board_title, user_no, board_content)
+        VALUES ( #{boardTitle}, #{userNo}, #{boardContent} )
     </insert>
 
     <update id="update">

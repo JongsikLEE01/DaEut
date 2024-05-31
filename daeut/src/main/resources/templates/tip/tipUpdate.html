@@ -10,15 +10,16 @@
     <!-- ⭐ content -->
 
     <div class="container">
-        <form id="form" th:action="@{/tip/tipUpdate}" method="post">
+        <form id="form" th:action="@{/tip/tipUpdate}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
             <div class="mb-3">
                 <label for="title" class="form-label visually-hidden"></label>
-                <input type="text" id="title" class="form-control" placeholder="제목을 입력해주세요." th:value="${board.boardTitle}" />
+                <input type="text" id="title" class="form-control" name="boardTitle" th:value="${board.boardTitle}" />
             </div>
             <div class="mb-3">
-                <textarea class="form-control" id="content" rows="8" th:text="${board.boardContent}" ></textarea>
+                <textarea class="form-control" id="content" rows="8" name="boardContent" th:text="${board.boardContent}" ></textarea>
             </div>
             <div class="mb-3">
 

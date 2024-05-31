@@ -25,7 +25,4 @@ public interface BoardService {
     // 조회수 증가
     public int view(int boardViews) throws Exception;
     
-    public Files SelectThumbnail(int boardNo) throws Exception;
-
-    public List<Files> SelectFiles(int boardNo) throws Exception;
 }
