@@ -12,20 +12,20 @@
 <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
 <body layout:fragment="content">
     <div class="container form-container">
-        <form id="form" action="/auth/findPw" method="post">
+        <form id="form" th:action="@{/auth/findPw}" method="post">
             <!-- CSRF TOKEN -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
             <h2 class="text-center">비밀번호 찾기</h2>
             <p class="text-center">비밀번호 찾기를 위한 정보를 입력해주세요.</p>
             <hr>
-            <div class="mb-3"><input type="text" class="form-control" placeholder="이름"></div>
-            <div class="mb-3"><input type="text" class="form-control" placeholder="아이디"></div>
+            <div class="mb-3"><input type="text" name="userName" class="form-control" placeholder="이름" required></div>
+            <div class="mb-3"><input type="text" name="userId" class="form-control" placeholder="아이디" required></div>
             <div class="mb-3 input-group">
-                <input type="text" class="form-control" placeholder="이메일">
+                <input type="text" name="userEmail" class="form-control" placeholder="이메일" required>
                 <button type="button" class="btn btn-primary custom-auth-btn">인증하기</button>
             </div>
-            <div class="mb-3"><input type="text" class="form-control" placeholder="인증코드"></div>
+            <div class="mb-3"><input type="text" name="authCode" class="form-control" placeholder="인증코드" required></div>
 
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-dark">비밀번호 찾기</button>
