@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.daeut.daeut.main.dto.Files;
+import com.daeut.daeut.main.service.FileService;
 import com.daeut.daeut.tip.dto.Board;
-import com.daeut.daeut.tip.dto.Files;
 import com.daeut.daeut.tip.service.BoardService;
-import com.daeut.daeut.tip.service.FilesService;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Slf4j
 @Controller
@@ -26,7 +26,7 @@ public class BoardController {
     private BoardService boardService;
 
     @Autowired
-    private FilesService filesService;
+    private FileService filesService;
 
     @GetMapping("/index")
     public String index(Model model) throws Exception {
@@ -36,16 +36,22 @@ public class BoardController {
     }
 
     @GetMapping("/tipRead")
-    public String read(@RequestParam("no") int boardNo, Model model) throws Exception {
+    public String read(@RequestParam("no") int boardNo, Files file, Model model) throws Exception {
         Board board = boardService.select(boardNo);
+
         int view = boardService.view(boardNo);
 
-        // file.setParentTable("board");
-        // file.setParentNo(boardNo);
-        // List<Files> fileList = filesService.listByParent(file);
+        log.info("------------------------------------");
+        log.info("-----------------/tip/tipRead-------------------");
+        log.info(board.toString());
+        
+        file.setParentTable("board");
+        file.setParentNo(boardNo);
+        List<Files> fileList = filesService.listByParent(file);
+        log.info(fileList.toString());
 
         model.addAttribute("board", board);
-        // model.addAttribute("fileList", fileList);
+        model.addAttribute("fileList", fileList);
 
         return "tip/tipRead";
     }

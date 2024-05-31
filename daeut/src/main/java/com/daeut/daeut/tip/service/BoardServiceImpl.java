@@ -1,15 +1,14 @@
 package com.daeut.daeut.tip.service;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.daeut.daeut.main.dto.Files;
+import com.daeut.daeut.main.service.FileService;
 import com.daeut.daeut.tip.dto.Board;
-import com.daeut.daeut.tip.dto.Files;
 import com.daeut.daeut.tip.mapper.BoardMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
     private BoardMapper boardMapper;
 
     @Autowired
-    private FilesService filesService;
+    private FileService fileService;
 
     @Override
     public List<Board> list() throws Exception {
@@ -51,7 +50,7 @@ public class BoardServiceImpl implements BoardService {
             thumbnail.setParentTable(parentTable);
             thumbnail.setFileNo(parentNo);
             thumbnail.setFileCode(1);
-            filesService.upload(thumbnail);
+            fileService.upload(thumbnail);
         }
 
         List<MultipartFile> fileList = board.getFile();
@@ -65,7 +64,7 @@ public class BoardServiceImpl implements BoardService {
                 uploadFile.setParentNo(parentNo);
                 uploadFile.setFile(file);
                 uploadFile.setFileCode(0);
-                filesService.upload(uploadFile);
+                fileService.upload(uploadFile);
             }
         }
 
@@ -86,7 +85,7 @@ public class BoardServiceImpl implements BoardService {
             thumbnail.setParentTable(parentTable);
             thumbnail.setParentNo(parentNo);
             thumbnail.setFileCode(0);
-            filesService.upload(thumbnail);
+            fileService.upload(thumbnail);
         }
 
         List<MultipartFile> fileList = board.getFile();
@@ -100,7 +99,7 @@ public class BoardServiceImpl implements BoardService {
                 uploadFile.setFile(file);
                 uploadFile.setFileCode(0);
 
-                filesService.upload(uploadFile);
+                fileService.upload(uploadFile);
             }
         }
         return result;

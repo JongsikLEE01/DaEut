@@ -1,10 +1,14 @@
-package com.daeut.daeut.reservation.service;
+package com.daeut.daeut.main.mapper;
 
 import java.util.List;
 
-import com.daeut.daeut.reservation.dto.Files;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface FileService {
+import com.daeut.daeut.main.dto.Files;
+
+
+@Mapper
+public interface FileMapper {
     // 파일 목록
     public List<Files> list() throws Exception;
     // 파일 조회
@@ -15,15 +19,9 @@ public interface FileService {
     public int update(Files file) throws Exception;
     // 파일 삭제
     public int delete(int fileNo) throws Exception;
-
+    
     // 파일 목록 - 부모 기준
     public List<Files> listByParent(Files file) throws Exception;
     // 파일 삭제 - 부모 기준
     public int deleteByParent(Files file) throws Exception;
-    
-    // 파일 업로드
-    public boolean upload(Files file) throws Exception;
-
-    // 파일 다운로드
-    public Files download(int fileNo) throws Exception;   
 }

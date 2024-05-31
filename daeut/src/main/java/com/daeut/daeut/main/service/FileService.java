@@ -1,10 +1,10 @@
-package com.daeut.daeut.tip.service;
+package com.daeut.daeut.main.service;
 
 import java.util.List;
 
-import com.daeut.daeut.tip.dto.Files;
+import com.daeut.daeut.main.dto.Files;
 
-public interface FilesService {
+public interface FileService {
     // 파일 목록
     public List<Files> list() throws Exception;
     // 파일 조회
@@ -20,8 +20,10 @@ public interface FilesService {
     public List<Files> listByParent(Files file) throws Exception;
     // 파일 삭제 - 부모 기준
     public int deleteByParent(Files file) throws Exception;
-
+    
+    // 파일 업로드
     public boolean upload(Files file) throws Exception;
 
-    public Files download(int fileNo) throws Exception;
+    // 파일 다운로드
+    public Files download(int fileNo) throws Exception;   
 }
