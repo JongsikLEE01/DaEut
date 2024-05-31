@@ -45,5 +45,8 @@ public interface UserMapper {
     public void approvePartnerAndAddAuth(@Param("userId") String userId) throws Exception;
 
     public List<Reservation> selectReservationsByUserId(String userId);
+
+    // 관리자 회원가입
+    public  int adminJoin(Users user) throws Exception;
 }
 

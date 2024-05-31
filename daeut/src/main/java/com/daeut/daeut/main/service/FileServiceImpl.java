@@ -1,4 +1,4 @@
-package com.daeut.daeut.reservation.service;
+package com.daeut.daeut.main.service;
 
 import java.io.File;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.daeut.daeut.reservation.dto.Files;
-import com.daeut.daeut.reservation.mapper.FileMapper;
+import com.daeut.daeut.main.dto.Files;
+import com.daeut.daeut.main.mapper.FileMapper;
 
 import lombok.extern.slf4j.Slf4j;
 

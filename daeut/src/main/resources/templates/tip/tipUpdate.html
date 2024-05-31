@@ -10,7 +10,8 @@
     <!-- ⭐ content -->
 
     <div class="container">
-        <form>
+        <form th:action="@{/tip/tipDelete}" method="post">
+            <input type="hidden" name="boardNo" th:value="${board.boardNo}">
             <div class="mb-3">
                 <label for="title" class="form-label visually-hidden"></label>
                 <input type="text" id="title" class="form-control" placeholder="제목을 입력해주세요." value="게시글 제목" />
@@ -32,7 +33,7 @@
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn-btn-primary me-2">수정하기</button>
                 <button type="submit" class="btn-btn-primary me-2">삭제하기</button>
-                <a href="index" class="btn-btn-outline-secondary">목록</a>
+                <a href="/tip/index" class="btn-btn-outline-secondary">목록</a>
             </div>
         </form>
     </div>
@@ -50,6 +51,53 @@
                 image.classList.add('img-thumbnail');
                 image.style.maxWidth = '200px';
                 container.appendChild(image);
+            }
+        }
+
+        let form = document.getElementById('form')
+
+        // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
+        let no = "[[${board.boardNo}]]"
+        
+        // 수정 화면 이동
+        function moveUpdate() {
+            location.href = '/tip/tipUpdate?no=' + no
+        }
+ 
+        // 삭제 요청
+        function actionDelete() {
+            let check = confirm('정말로 삭제하시겠습니까?')
+            if( check ) {
+                form.action = '/tip/tipDelete'
+                form.submit()
+            }
+        }
+
+        // 목록 화면 이동
+        function moveList() {
+            location.href = '/tip/index'
+        }
+
+        // 파일 삭제
+        function deleteFile(element, no) {
+            // alert(no)
+            
+            // AJAX 비동기 요청
+            let request = new XMLHttpRequest()
+
+            // 요청 세팅
+            // request.open(요청메소드, URL)
+            request.open('DELETE', '/file/' + no)
+            request.send()
+
+            request.onreadystatechange = function() {
+
+                // 요청 성공 시,
+                if( request.readyState == request.DONE && request.status == 200 ) {
+                    console.log('파일 삭제 성공!');
+                    // 파일 항목 제거
+                    element.parentNode.remove()
+                }
             }
         }
     </script>

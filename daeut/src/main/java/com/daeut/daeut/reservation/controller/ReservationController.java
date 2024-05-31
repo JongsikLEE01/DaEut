@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,13 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.daeut.daeut.auth.dto.CustomUser;
 import com.daeut.daeut.auth.dto.Users;
-import com.daeut.daeut.reservation.dto.Files;
+import com.daeut.daeut.main.dto.Files;
+import com.daeut.daeut.main.service.FileService;
 import com.daeut.daeut.reservation.dto.Option;
 import com.daeut.daeut.reservation.dto.Page;
 import com.daeut.daeut.reservation.dto.Services;
-import com.daeut.daeut.reservation.service.FileService;
 import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;

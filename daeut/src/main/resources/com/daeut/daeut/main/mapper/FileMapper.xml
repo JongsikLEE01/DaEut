@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- namespace="매퍼 인터페이스 경로" --> 
-<mapper namespace="com.daeut.daeut.reservation.mapper.FileMapper">
+<mapper namespace="com.daeut.daeut.main.mapper.FileMapper">
 
     <!-- 파일 목록 -->
     <select id="list" resultType="Files">

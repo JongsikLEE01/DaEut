@@ -1,10 +1,10 @@
-package com.daeut.daeut.reservation.mapper;
+package com.daeut.daeut.main.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.daeut.daeut.reservation.dto.Files;
+import com.daeut.daeut.main.dto.Files;
 
 
 @Mapper

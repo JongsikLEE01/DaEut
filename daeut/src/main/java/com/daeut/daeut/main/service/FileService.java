@@ -1,8 +1,8 @@
-package com.daeut.daeut.reservation.service;
+package com.daeut.daeut.main.service;
 
 import java.util.List;
 
-import com.daeut.daeut.reservation.dto.Files;
+import com.daeut.daeut.main.dto.Files;
 
 public interface FileService {
     // 파일 목록

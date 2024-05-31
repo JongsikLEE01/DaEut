@@ -9,21 +9,22 @@
 
     <div class="container">
         <div class="main">
-            <h2 class="mt-4">게시글 제목</h2>
+            <h2 class="mt-4" th:text="${board.boardTitle}">게시글 제목</h2>
             <div class="d-flex justify-content-between align-items-center mt-2">
-                <input type="text" id="userId" placeholder="userId" disabled>
+                <input type="text" id="userId" th:value="${board.userNo}" placeholder="userId" disabled>
                 
                 <div class="d-flex gap-2">
-                    <a href="index" class="boardList">목록</a>
-                    <a href="tipUpdate" class="boardUpdate">수정</a>
+                    <a th:href="@{/tip/index}" class="boardList">목록</a>
+                    <a th:href="@{/tip/tipUpdate(no=${board.boardNo})}" class="boardUpdate">수정</a>
                 </div>
             </div>
             <hr>
-            <div class="text-center my-4">
+     
+           <div class="text-center my-4">
                 <img src="/img/logo_h.png" alt="모기 퇴치 방법" class="img-fluid">
-            </div>
+            </div> 
             <div class="col-15">
-                <textarea class="form-control w-100 input-readonly" rows="15" readonly>게시글 내용</textarea>
+                <textarea class="form-control w-100 input-readonly" rows="15" readonly th:text="${board.boardContent}">게시글 내용</textarea>
             </div>
 
             <hr class="separator">
@@ -39,42 +40,27 @@
             </div>
 
             <!-- 댓글 목록 -->
-            <!-- <div id="reply-list">
-
-            </div> -->
-            
-            <!-- 답글 목록 -->
-            <!-- 코드 가져오면서 수정 필요 -->
-            <div class="comment">
-                <p><strong>아이디</strong></p>
-                <p>좋은 내용 잘 보고 갑니다. ^^</p>
-                <div class="comment-actions">
-                    2023-05-22
-                    <button>답글달기</button>
-                    <button>수정</button>
-                    <button>삭제</button>
-                </div>
-                <div class="comment-response">
-                    <p><strong>운영자</strong></p>
-                    <p>답변: 네, 도움되셨다니 기쁩니다.</p>
+            <div id="reply-list">
+                <div th:each="reply : ${replies}" class="comment">
+                    <p><strong th:text="${reply.userNo}">아이디</strong></p>
+                    <p th:text="${reply.replyContent}">댓글 내용</p>
                     <div class="comment-actions">
-                        2023-05-22
+                        <span th:text="${#dates.format(reply.replyRegDate, 'yyyy-MM-dd')}">2023-05-22</span>
+                        <button>답글달기</button>
                         <button>수정</button>
                         <button>삭제</button>
                     </div>
+                    <div th:each="response : ${reply.responses}" class="comment-response">
+                        <p><strong th:text="${response.userNo}">운영자</strong></p>
+                        <p th:text="${response.replyContent}">답변 내용</p>
+                        <div class="comment-actions">
+                            <span th:text="${#dates.format(response.replyRegDate, 'yyyy-MM-dd')}">2023-05-22</span>
+                            <button>수정</button>
+                            <button>삭제</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="comment">
-                <p><strong>아이디2</strong></p>
-                <p>댓글 예시입니다.</p>
-                <div class="comment-actions">
-                    2023-05-22
-                    <button>답글달기</button>
-                    <button>수정</button>
-                    <button>삭제</button>
-                </div>
-            </div>
-
         </div>
     </div>
 
