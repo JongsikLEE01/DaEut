@@ -177,5 +177,12 @@
         WHERE u.user_id = #{userId}
     </select>
 
+    <!-- 파트너정보 가져오기 -->
+    <select id="selectPartner">
+        SELECT partner.*
+        FROM users
+        INNER JOIN partner ON users.user_no = partner.user_no
+        WHERE users.user_no = #{userId}
+    </select>
 
 </mapper>

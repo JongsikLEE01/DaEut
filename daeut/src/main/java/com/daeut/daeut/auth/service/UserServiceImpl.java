@@ -14,6 +14,7 @@ import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
+import com.daeut.daeut.partner.dto.Parther;
 
 import java.util.List;
 
@@ -156,5 +157,11 @@ public class UserServiceImpl implements UserService {
             userAuthAdmin.setAuth("ROLE_ADMIN");
             userMapper.insertAuth(userAuthAdmin);
         }
+    }
+
+    @Override
+    public Parther selectPartner(int userNo) throws Exception {
+        Parther parther = userMapper.selectPartner(userNo);
+        return parther;
     }
 }
