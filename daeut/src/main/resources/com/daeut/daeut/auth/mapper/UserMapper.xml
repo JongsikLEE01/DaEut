@@ -73,6 +73,27 @@
         WHERE u.user_id = #{userId}
     </select>
 
+    <!-- 이메일로 회원 조회 -->
+    <select id="findUserByEmail" resultMap="userMap">
+        SELECT u.user_no
+              ,u.user_name
+              ,u.user_phone
+              ,u.user_birth
+              ,u.user_address
+              ,u.user_email
+              ,u.user_gender
+              ,u.user_id
+              ,u.user_password
+              ,u.user_reg_date
+              ,u.user_coupon
+              ,u.user_upd_date
+              ,enabled
+              ,auth.auth
+        FROM users u 
+        LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
+        WHERE u.user_email = #{userEmail}
+    </select>
+
     <!-- 회원 가입 -->
     <insert id="join" useGeneratedKeys="true" keyProperty="userNo">
         INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password, user_coupon)
@@ -133,5 +154,13 @@
         INSERT INTO user_auth( user_no, auth )
         VALUES ( (SELECT user_no FROM users WHERE user_id = #{userId}), 'role_partner' );
     </update>
+
+    <!-- 아이디 찾기 -->
+    <select id="findUserByDetails" resultType="String">
+        SELECT u.user_id
+        FROM users u
+        LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
+        WHERE u.user_name = #{userName} AND u.user_email = #{userEmail} AND u.user_phone = #{userPhone}
+    </select>
 
 </mapper>

@@ -12,13 +12,18 @@
 <!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
 <body layout:fragment="content">
     <div class="container form-container">
-        <form id="form" action="/auth/findId" method="post">
+        <input type="hidden" id="errorMessage" th:value="${errorMessage}"/>
+        <form id="form" th:action="@{/auth/findId}" method="post">
+            <!-- CSRF TOKEN -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
             <h2 class="text-center">아이디 찾기</h2>
             <p class="text-center">아이디 찾기를 위한 정보를 입력해주세요.</p>
             <hr>
-            <div class="mb-3"><input type="text" class="form-control" placeholder="이름"></div>
-            <div class="mb-3"><input type="text" class="form-control" placeholder="이메일"></div>
-            <div class="mb-3"><input type="text" class="form-control" placeholder="전화번호"></div>
+
+            <div class="mb-3"><input type="text" class="form-control" name="userName" placeholder="이름" required></div>
+            <div class="mb-3"><input type="email" class="form-control" name="userEmail" placeholder="이메일" required></div>
+            <div class="mb-3"><input type="text" class="form-control" name="userPhone" placeholder="전화번호" required></div>
 
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-dark">아이디 찾기</button>
@@ -27,5 +32,7 @@
             <hr>
         </form>
     </div>
+
+
 </body>
 </html>
