@@ -21,9 +21,21 @@
         SELECT 
             c.*, 
             s.service_name
-        FROM cart c
-            JOIN service s ON c.service_no = s.service_no
-        WHERE c.user_no = #{userNo}
+        FROM 
+            cart c
+        JOIN 
+            service s ON c.service_no = s.service_no
+        WHERE 
+            c.user_no = #{userNo}
+            AND c.cart_no = (
+                SELECT 
+                    MIN(c2.cart_no) 
+                FROM 
+                    cart c2 
+                WHERE 
+                    c2.user_no = c.user_no 
+                    AND c2.service_no = c.service_no
+            )
         ORDER BY c.cart_reg_date DESC;
     </select>
 
@@ -54,6 +66,4 @@
             , cart_upd_date = now()
         WHERE cart_no = #{cartNo}
     </update>
-
-
 </mapper>
