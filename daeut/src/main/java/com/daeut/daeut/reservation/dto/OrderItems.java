@@ -6,12 +6,14 @@ import lombok.Data;
 
 @Data
 public class OrderItems {
-    private int itemNo;
-    private int quantity;
-    private int price;
-    private Integer amount;
-    private Date updDate;
-    private Date regDate;
-    private int ordersNo;
+    private String itemNo;
+    private String ordersNo; 
     private int serviceNo;
+    private int quantity = 1;
+    private int price = 0;
+    private Integer amount;
+    private Date regDate;
+    private Date updDate;
+
+    private Services service;
 }

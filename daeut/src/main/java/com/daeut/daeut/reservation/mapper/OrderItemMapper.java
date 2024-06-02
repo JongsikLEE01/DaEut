@@ -9,9 +9,15 @@ import com.daeut.daeut.reservation.dto.OrderItems;
 @Mapper
 public interface OrderItemMapper {
     public List<OrderItems> list() throws Exception;
-    public OrderItems select(int itemNo) throws Exception;
+
+    public OrderItems select(String itemNo) throws Exception;
+    
     public int insert(OrderItems orderItems) throws Exception;
+    
     public int update(OrderItems orderItems) throws Exception;
-    public int delete(int itemNo) throws Exception;
-    public OrderItems listByOrderNo(int ordersNo) throws Exception;
+    
+    public int delete(String itemNo) throws Exception;
+    
+    //------------------------------------------------------------------
+    public List<OrderItems> listByOrderId(String ordersNo) throws Exception;
 }

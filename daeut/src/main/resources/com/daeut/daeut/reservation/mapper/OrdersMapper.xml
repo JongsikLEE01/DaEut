@@ -7,29 +7,32 @@
 
     <!-- 모든 주문 조회 -->
     <select id="list" resultType="Orders">
-        SELECT * FROM orders
+        SELECT * 
+        FROM orders
     </select>
 
     <!-- 주문 상세 조회 -->
     <select id="select" resultType="Orders">
-        SELECT * FROM orders WHERE orders_no = #{ordersNo}
+        SELECT * 
+        FROM orders 
+        WHERE orders_no = #{ordersNo}
     </select>
 
      <!-- 주문 삽입 -->
     <insert id="insert">
-        INSERT INTO orders (user_no, partner_no, reservation_status, order_uid, total_quantity, total_price)
-        VALUES (#{userNo}, #{partnerNo}, #{reservationStatus}, #{orderUid}, #{totalQuantity}, #{totalPrice})
+        INSERT INTO orders (orders_no, user_no, partner_no, title, total_quantity, total_price, total_count)
+        VALUES (#{ordersNo}, #{userNo}, #{partnerNo}, #{title}, #{totalQuantity}, #{totalPrice}, #{totalCount})
     </insert>
 
     <!-- 주문 수정 -->
     <update id="update">
         UPDATE orders
-        SET user_no = #{userNo}
-            , partner_no = #{partnerNo}
-            , reservation_status = #{reservationStatus}
-            , order_uid = #{orderUid}
+        SET title = #{title}
             , total_quantity = #{totalQuantity}
             , total_price = #{totalPrice}
+            , total_count = #{totalCount}
+            , order_status = #{orderStatus}
+            , upd_date = now()
         WHERE orders_no = #{ordersNo}
     </update>
 

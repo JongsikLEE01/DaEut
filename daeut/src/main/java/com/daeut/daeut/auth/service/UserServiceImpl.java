@@ -164,4 +164,9 @@ public class UserServiceImpl implements UserService {
         Parther parther = userMapper.selectPartner(userNo);
         return parther;
     }
+
+    @Override
+    public Users selectByUserNo(int userNo) throws Exception {
+        return userMapper.selectByUserNo(userNo);
+    }
 }

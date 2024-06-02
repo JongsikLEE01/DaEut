@@ -15,7 +15,7 @@
     <select id="listByOrderNo" resultType="OrderItems">
         SELECT *
         FROM order_item
-        WHERE orders_no = #{orders_no}
+        WHERE orders_no = #{ordersNo}
     </select>
 
     <!-- 조회 -->
@@ -27,19 +27,17 @@
 
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO order_item (quantity, price, amount, orders_no, service_no)
-        VALUES (#{quantity}, #{price}, #{amount}, #{ordersNo}, #{serviceNo})
+        INSERT INTO order_item (item_no ,quantity, price, amount, orders_no, service_no)
+        VALUES (#{itemNo}, #{quantity}, #{price}, #{amount}, #{ordersNo}, #{serviceNo})
     </insert>
 
     <!-- 수정 -->
     <update id="update">
         UPDATE order_item
-        SET 
-            quantity = #{quantity}
+        SET quantity = #{quantity}
             , price = #{price}
             , amount = #{amount}
-            , orders_no = #{ordersNo}
-            , service_no = #{serviceNo}
+            , upd_date = now()
         WHERE item_no = #{itemNo}
     </update>
 
