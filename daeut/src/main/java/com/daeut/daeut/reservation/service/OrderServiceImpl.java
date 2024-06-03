@@ -10,16 +10,17 @@ import org.springframework.stereotype.Service;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.reservation.dto.OrderItems;
+import com.daeut.daeut.reservation.dto.OrderStatus;
 import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.Services;
-import com.daeut.daeut.reservation.mapper.OrdersMapper;
+import com.daeut.daeut.reservation.mapper.OrderMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
 @Service
-public class OrdersServiceImpl implements OrdersService{
+public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private ReservationService reservationService;
@@ -31,11 +32,11 @@ public class OrdersServiceImpl implements OrdersService{
     private UserService userService;
 
     @Autowired
-    private OrdersMapper ordersMapper;
+    private OrderMapper orderMapper;
 
     @Override
     public List<Orders> list() throws Exception {
-        List<Orders> ordersList = ordersMapper.list();
+        List<Orders> ordersList = orderMapper.list();
         for (Orders order : ordersList) {
             Users user = userService.selectByUserNo(order.getUserNo()); 
             order.setUser(user);
@@ -45,7 +46,7 @@ public class OrdersServiceImpl implements OrdersService{
 
     @Override
     public Orders select(String ordersNo) throws Exception {
-        Orders order = ordersMapper.select(ordersNo);
+        Orders order = orderMapper.select(ordersNo);
         int userNo = order.getUserNo();
         log.info("::::::::::: orders ~ user :::::::::::");
         log.info(" userNo : " + userNo);
@@ -64,8 +65,8 @@ public class OrdersServiceImpl implements OrdersService{
         if(quantityList == null) return 0;
         if(serviceNoList.size() != quantityList.size()) return 0;
 
-        String orderId = UUID.randomUUID().toString();
-        orders.setOrdersNo(orderId);
+        String orderNo = UUID.randomUUID().toString();
+        orders.setOrdersNo(orderNo);
 
         int totalCount = serviceNoList.size();
         int totalQuantity = 0;
@@ -80,7 +81,8 @@ public class OrdersServiceImpl implements OrdersService{
             if(i == 0) title = service.getServiceName();
             if(service == null) continue;
             OrderItems orderItem = new OrderItems();
-            orderItem.setOrdersNo(UUID.randomUUID().toString());
+            orderItem.setItemNo(UUID.randomUUID().toString());
+            orderItem.setOrdersNo(orderNo);
             orderItem.setServiceNo(serviceNo);
             int quantity = quantityList.get(i);
             int price = service.getServicePrice();
@@ -98,9 +100,10 @@ public class OrdersServiceImpl implements OrdersService{
         orders.setTotalPrice(totalPrice);
         orders.setTotalQuantity(totalQuantity);
         orders.setTotalCount(totalCount);
+        orders.setOrderStatus(OrderStatus.PENDING);
 
         // 주문 등록
-        int result = ordersMapper.insert(orders);
+        int result = orderMapper.insert(orders);
 
         if(result > 0){
             // 주문 항목 등록
@@ -114,19 +117,19 @@ public class OrdersServiceImpl implements OrdersService{
 
     @Override
     public int update(Orders orders) throws Exception {
-        int result = ordersMapper.update(orders);
+        int result = orderMapper.update(orders);
         return result;
     }
 
     @Override
     public int delete(String ordersNo) throws Exception {
-       int result = ordersMapper.delete(ordersNo);
+       int result = orderMapper.delete(ordersNo);
        return result;
     }
 
     @Override
-    public List<Orders> listByUserId(int userNo) throws Exception {
-        List<Orders> orderList = ordersMapper.listByUserId(userNo);
+    public List<Orders> listByUserNo(int userNo) throws Exception {
+        List<Orders> orderList = orderMapper.listByUserNo(userNo);
         for (Orders order : orderList) {
             Users user = userService.selectByUserNo(order.getUserNo());
             order.setUser(user);

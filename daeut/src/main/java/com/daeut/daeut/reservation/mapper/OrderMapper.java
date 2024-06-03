@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.daeut.daeut.reservation.dto.Orders;
 
 @Mapper
-public interface OrdersMapper {
+public interface OrderMapper {
     public List<Orders> list() throws Exception;
     
     public Orders select(String ordersNo) throws Exception;
@@ -19,5 +19,5 @@ public interface OrdersMapper {
     public int delete(String ordersNo) throws Exception;
 
     // ---------------------------------------------------------
-    public List<Orders> listByUserId(int userNo) throws Exception;
+    public List<Orders> listByUserNo(int userNo) throws Exception;
 }

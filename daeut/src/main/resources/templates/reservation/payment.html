@@ -18,7 +18,9 @@
         <div class="row g-5">
             <div class="col-md-5 col-lg-4 order-md-last">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-primary color_main">나의 예약</span>
+                    <span class="text-primary color_main">
+                        <span class="text-primary color_main" th:text="order.user.name"></span>
+                        의 예약</span>
                     <span class="badge bg-primary rounded-pill bg_color_main">N개</span>
                 </h4>
                 <ul class="list-group mb-3">

@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.reservation.dto.OrderItems;
 import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.dto.PaymentStatus;
+import com.daeut.daeut.reservation.dto.Payments;
 import com.daeut.daeut.reservation.service.OrderItemService;
-import com.daeut.daeut.reservation.service.OrdersService;
+import com.daeut.daeut.reservation.service.OrderService;
+import com.daeut.daeut.reservation.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +28,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 @Controller("orders")
 @RequestMapping("/orders")
-public class OrdersController {
+public class OrderController {
     @Autowired
-    private OrdersService ordersService;
+    private OrderService orderService;
 
     @Autowired
     private OrderItemService orderItemService;
 
-    // TODO : 주문 서비스 연동 필요
+    @Autowired
+    private PaymentService paymentService;
 
     /**
      * 주문하기
@@ -54,19 +58,19 @@ public class OrdersController {
                             @RequestParam List<String> serviceNo, 
                             @RequestParam List<Integer> quantity) throws Exception {
         log.info("::::::::: 주문 등록 - orderPost() ::::::::::");
-        log.info("productId : " + serviceNo);
+        log.info("serviceNo : " + serviceNo);
         log.info("quantity : " + quantity);
 
         // 주문 등록
-        int result = ordersService.insert(orders);
+        int result = orderService.insert(orders);
 
         log.info("신규 등록된 주문ID : " + orders.getOrdersNo() );
         if( result > 0 ) {
-            return "redirect:/orders/" + orders.getOrdersNo();
+            return "redirect:/reservation/" + orders.getOrdersNo();
         }
-        // TODO : 주문 실패시 어디로 가는게 좋을지? - 장바구니? 주문내역? 상품목록?
         else {
-            return "redirect:/orders";
+            // 주문 실패시 상품목록
+            return "redirect:/reservation/reservation";
         }
     }
     
@@ -80,24 +84,24 @@ public class OrdersController {
      */
     @GetMapping("/success")
     public String orderSuccess(Model model
-                            //   ,Payments payments
+                              ,Payments payments
                               ,HttpSession session
                               ,@RequestParam("orderNo") String orderNo) throws Exception {
 
-        // payments.setOrdersId(orderId);
-        // payments.setStatus(PaymentsStatus.PAID);
-        // paymentsService.merge(payments);
+        payments.setOrdersNo(orderNo);
+        payments.setStatus(PaymentStatus.PAID);
+        paymentService.merge(payments);
         
-        // payments = paymentsService.selectByOrdersId(orderId);
-        // log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
-        // log.info(payments.toString());
+        payments = paymentService.selectByOrdersNo(orderNo);
+        log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
+        log.info(payments.toString());
 
-        Orders order = ordersService.select(orderNo);
+        Orders order = orderService.select(orderNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
-        // log.info(payments.toString());
+        log.info(payments.toString());
 
         model.addAttribute("order", order);
-        return "/orders/success";
+        return "/reservation/paymentDone";
     }
 
     /**
@@ -110,30 +114,30 @@ public class OrdersController {
      */
     @GetMapping("/fail")
     public String orderFail(Model model
-                            //   ,Payments payments
+                              ,Payments payments
                               ,HttpSession session
                               ,@RequestParam("orderNo") String orderNo
                               ,@ModelAttribute String errorMsg) throws Exception {                    
-        // payments.setOrdersId(orderId);
-        // payments.setStatus(PaymentsStatus.PAID);
-        // paymentsService.insert(payments);
+        payments.setOrdersNo(orderNo);
+        payments.setStatus(PaymentStatus.PAID);
+        paymentService.insert(payments);
         
         // ⭐ 결제 실패 시, 결제 상태 PENDING 으로 변경
-        // payments = paymentsService.selectByOrdersId(orderId);
-        // payments.setStatus(PaymentsStatus.PENDING);
-        // paymentsService.merge(payments);
-        // log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
-        // log.info(payments.toString());
+        payments = paymentService.selectByOrdersNo(orderNo);
+        payments.setStatus(PaymentStatus.PENDING);
+        paymentService.merge(payments);
+        log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
+        log.info(payments.toString());
 
-        Orders order = ordersService.select(orderNo);
+        Orders order = orderService.select(orderNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
-        // log.info(payments.toString());
+        log.info(payments.toString());
 
         log.info("[결제 실패] 에러 메시지 : " + errorMsg);
 
-        // model.addAttribute("payments", payments);
+        model.addAttribute("payments", payments);
         model.addAttribute("order", order);
-        return "/orders/fail";
+        return "/reservation/paymentFalse";
     }
 
     /**
@@ -152,9 +156,9 @@ public class OrdersController {
         // 로그인 사용자
         Users user = (Users) session.getAttribute("user");
         // 주문 정보
-        Orders order = ordersService.select(orderNo);
+        Orders order = orderService.select(orderNo);
         // 주문 항목 정보
-        List<OrderItems> orderItems = orderItemService.listByOrderId(orderNo);
+        List<OrderItems> orderItems = orderItemService.listByOrderNo(orderNo);
         
         if( order == null ) return "redirect:/orders?error";
         log.info(":::::::::::::::::::: order ::::::::::::::::::::");
@@ -165,6 +169,6 @@ public class OrdersController {
 
         model.addAttribute("order", order);
         model.addAttribute("orderItems", orderItems);
-        return "/orders/checkout";
+        return "/reservation/payment";
     }
 }

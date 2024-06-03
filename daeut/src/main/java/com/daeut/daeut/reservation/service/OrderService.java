@@ -2,12 +2,9 @@ package com.daeut.daeut.reservation.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.daeut.daeut.reservation.dto.Orders;
 
-@Mapper
-public interface OrdersService {
+public interface OrderService {
     public List<Orders> list() throws Exception;
 
     public Orders select(String ordersNo) throws Exception;
@@ -19,5 +16,5 @@ public interface OrdersService {
     public int delete(String ordersNo) throws Exception;
 
     // ---------------------------------------------------------
-    public List<Orders> listByUserId(int userNo) throws Exception;
+    public List<Orders> listByUserNo(int userNo) throws Exception;
 }

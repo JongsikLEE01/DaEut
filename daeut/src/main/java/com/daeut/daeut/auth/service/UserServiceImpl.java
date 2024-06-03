@@ -11,12 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.daeut.daeut.auth.dto.Partner;
-import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
-import com.daeut.daeut.partner.dto.Parther;
+
+import com.daeut.daeut.main.dto.Page;
+import com.daeut.daeut.partner.dto.Partner;
+
+import com.daeut.daeut.reservation.dto.Reservation;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -171,6 +174,12 @@ public class UserServiceImpl implements UserService {
             userMapper.insertAuth(userAuthAdmin);
         }
     }
+
+    @Override
+    public int countUsers() throws Exception {
+        return userMapper.countUsers();
+    }
+    
   
     private String saveFile(MultipartFile file) {
         return "c:/upload";
@@ -178,17 +187,17 @@ public class UserServiceImpl implements UserService {
 
     // 모든 사용자 목록 조회
     @Override
-    public List<Users> selectAllUsers() throws Exception {
-        List<Users> userList = userMapper.selectAllUsers();
+    public List<Users> selectAllUsers(Page page) throws Exception {
+        List<Users> userList = userMapper.selectAllUsers(page);
         // ROLE_USER만 필터링
         log.info("user: " + userList);
         return userList;
     }
 
     @Override
-    public Parther selectPartner(int userNo) throws Exception {
-        Parther parther = userMapper.selectPartner(userNo);
-        return parther;
+    public Partner selectPartner(int userNo) throws Exception {
+        Partner partner = userMapper.selectPartner(userNo);
+        return partner;
 
     }
   
@@ -196,4 +205,17 @@ public class UserServiceImpl implements UserService {
     public Users selectByUserNo(int userNo) throws Exception {
         return userMapper.selectByUserNo(userNo);
     }
+    @Override
+    public Users findByUsername(String username) {
+        return userMapper.findByUsername(username);
+    }
+
+    @Override
+    public int deleteList(String[] deleteNoList) throws Exception {
+        String deleteNos = String.join(",", deleteNoList);
+        int result = userMapper.deleteList(deleteNos);
+        return result;
+    }
+
+
 }

@@ -3,11 +3,12 @@ package com.daeut.daeut.auth.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.daeut.daeut.auth.dto.Partner;
-import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
-import com.daeut.daeut.partner.dto.Parther;
+
+import com.daeut.daeut.main.dto.Page;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.reservation.dto.Reservation;
 
 import java.util.List;
 
@@ -59,12 +60,19 @@ public interface UserMapper {
 
 
     // 모든 사용자 목록 조회
-    public List<Users> selectAllUsers() throws Exception;
+    public int countUsers() throws Exception;
+    public List<Users> selectAllUsers(@Param("page") Page page) throws Exception;
 
     // 파트너 찾기
-    public Parther selectPartner(int userNo) throws Exception;
+    public Partner selectPartner(int userNo) throws Exception;
+
+    // 관리자 - 회원 선택 
+    public int deleteList(String deleteNoList) throws Exception;
 
     // 번호 유저찾기
     public Users selectByUserNo(int userNo) throws Exception;
-}
+    // 유저 정보 찾기
+    public Users findByUsername(String username);
 
+
+}

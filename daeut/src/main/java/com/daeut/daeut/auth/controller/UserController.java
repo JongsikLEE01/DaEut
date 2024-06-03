@@ -13,10 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.daeut.daeut.auth.dto.CustomUser;
-import com.daeut.daeut.auth.dto.Partner;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
-import com.daeut.daeut.partner.dto.Parther;
+import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.reservation.dto.Cart;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.CartService;
@@ -129,18 +128,18 @@ public class UserController {
         public String userCart(Model model, HttpSession session) {
         Users user = (Users) session.getAttribute("user");
         int userNo = user.getUserNo();
-        Parther parther;
+        com.daeut.daeut.partner.dto.Partner partner;
         Services service;
         
         // 사용자의 장바구니 목록을 서비스를 통해 가져옴
         List<Cart> cartList;
         try {
             cartList = cartService.cartList(userNo);
-            parther = userService.selectPartner(userNo);
+            partner = userService.selectPartner(userNo);
 
             model.addAttribute("cartList", cartList);
             model.addAttribute("user", user);
-            model.addAttribute("parther", parther);
+            model.addAttribute("partner", partner);
         } catch (Exception e) {
             log.info("장바구니 조회 중 에러 발생...");
             e.printStackTrace();

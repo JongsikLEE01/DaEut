@@ -15,10 +15,9 @@ public class Orders {
     private int totalQuantity = 1;
     private int totalCount = 1;
     private int totalPrice = 0;
-    private String orderStatus;
+    private OrderStatus orderStatus;
     private Date updDate;
     private Date regDate;
-    private int partnerNo;
 
     // params
     private List<String> serviceNo;

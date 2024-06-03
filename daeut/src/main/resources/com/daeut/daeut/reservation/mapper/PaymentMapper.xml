@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daeut.daeut.reservation.mapper.PaymentMapper">
+
+    <!-- 목록 조회 -->
+    <select id="list" resultType="Payments">
+        SELECT *
+        FROM PAYMENT
+    </select>
+
+    <!-- 단일 조회 -->
+    <select id="select" resultType="Payments">
+        SELECT *
+        FROM PAYMENT
+        WHERE payment_no = #{paymentNo}
+    </select>
+
+    <!-- 등록 -->
+    <insert id="insert">
+        INSERT INTO PAYMENT (payment_no, orders_no, payment_method, STATUS )
+        VALUES (UUID(), #{ordersNo}, #{paymentMethod}, #{status} )
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        UPDATE PAYMENT
+        SET orders_no = #{ordersNo},
+            payment_method = #{paymentMethod},
+            STATUS = #{status},
+            pay_date = #{payDate},
+            upd_date = now()
+        WHERE payment_no = #{paymentNo}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        DELETE FROM PAYMENT
+        WHERE payment_no = #{paymentNo}
+    </delete>
+
+
+    <!-- 단일 조회 -->
+    <select id="selectByOrdersNo" resultType="Payments">
+        SELECT *
+        FROM PAYMENT
+        WHERE orders_no = #{ordersNo}
+        LIMIT 0, 1
+    </select>
+
+</mapper>

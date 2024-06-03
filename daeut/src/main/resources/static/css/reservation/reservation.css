@@ -925,7 +925,7 @@
 }
 
 .partner-service-table input[type="checkbox"]:checked {
-    background-color: rgba(255, 255, 255, 0.8); /* 투명도를 적용한 흰색 배경 */
+    background-color: #48523D;
     border: 1px solid #48523D;
 }
 
@@ -1213,7 +1213,7 @@
 }
 
 .pagination a.active {
-    background-color: #007bff;
-    color: white;
-    border: 1px solid #007bff;
+    background-color: #ddd;;
+    color: #007bff !important;
+    border: 1px solid #ddd;;
 }
