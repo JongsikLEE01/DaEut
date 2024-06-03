@@ -12,41 +12,37 @@ function daumPostcode() {
     }).open();
 }
 
+var IMP = window.IMP
+IMP.init('imp48458232')             // 고객사 식별코드 입력
+
+var ordersNo = $("#ordersNo").val()
+var userName = $("#userName").val()
+var userAddress = $("#userAddress").val() + $("#userAddressDetail").val()
+var userPost = $("#userPost").val()
+var userPhone = $("#userPhone").val() 
+var userEmail = $('#userEmail').val()
+var title = $('#title').val()
+var totalCost = $('#totalPrice').val()
 
 // 포트원
 $("#paymentBtn").on("click", function () {
-    var ordersNo = $("#ordersNo").val()
-    var userName = $("#userName").val()
-    var userAddress = $("#userAddress").val() + $("#userAddressDetail").val()
-    var userPost = $("#userPost").val()
-    var userPhone1 = $("#userPhone").val() 
-    var userEmail = $('#userEmail').val()
-    var orderTitle = $('#orderTitle').val()
-    var totalCost = $('#totalPrice').val()
-
-    var today = new Date();   
-    var hours = today.getHours();       // 시
-    var minutes = today.getMinutes();  // 분
-    var seconds = today.getSeconds();  // 초
-    var milliseconds = today.getMilliseconds();
-    var makeMerchantUid = hours +  minutes + seconds + milliseconds; // 고유 주문번호 생성 
-
-    var IMP = window.IMP
-    IMP.init('imp48458232')             // 고객사 식별코드 입력 
 
     IMP.request_pay({
-        // 결제 정보 가져오기
-        pg: "kcp",                      // 등록된 pg사
-        pay_method: "card",             // 결제방식: card(신용카드), trans(실시간계좌이체), vbank(가상계좌), phone(소액결제)
-        buyer_name: userName,           // 주문자
-        buyer_addr: userAddress,        // 주소
-        buyer_postcode: userPost,       // 우편번호
-        buyer_tel: userPhone,           // 전화번호 (필수입력)
-        name: orderTitle,               // 상품명
-        amount: totalCost,              // 금액
-        merchant_uid: ordersNo           // 고유 주문번호
+        // 결제 정보 가져오기  
+        pg : 'kcp',                                 // PG사
+        pay_method : 'card',                        // 결제방식
+        merchant_uid: ordersNo,                     // 주문번호(상품ID)
+        name : title,                               // 상품명
+        amount : totalCost,                         // 결제금액
+        buyer_email : userEmail,                    // 결제자 이메일
+        buyer_name : userName,                      // 결제자 이름
+        buyer_tel : userPhone,                      // 결제자 전화번호
+        buyer_addr : userAddress,                   // 결제자 주소
+        buyer_postcode : userPost                  // 결제자 우편번호
         
     }, function (rsp) {
+        console.log(rsp)
+
         // 결제 성공
         if (rsp.success) {
             // 결제 성공
