@@ -125,8 +125,8 @@ public class OrdersServiceImpl implements OrdersService{
     }
 
     @Override
-    public List<Orders> listByUserId(int userNo) throws Exception {
-        List<Orders> orderList = ordersMapper.listByUserId(userNo);
+    public List<Orders> listByUserNo(int userNo) throws Exception {
+        List<Orders> orderList = ordersMapper.listByUserNo(userNo);
         for (Orders order : orderList) {
             Users user = userService.selectByUserNo(order.getUserNo());
             order.setUser(user);
