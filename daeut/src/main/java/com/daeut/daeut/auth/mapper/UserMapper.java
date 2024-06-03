@@ -7,11 +7,8 @@ import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 
 import com.daeut.daeut.main.dto.Page;
-import com.daeut.daeut.partner.dto.Parther;
+import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.reservation.dto.Reservation;
-
-
-import groovyjarjarantlr4.v4.codegen.model.ExceptionClause;
 
 import java.util.List;
 

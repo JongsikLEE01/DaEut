@@ -16,7 +16,7 @@ import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
 
 import com.daeut.daeut.main.dto.Page;
-import com.daeut.daeut.partner.dto.Parther;
+import com.daeut.daeut.partner.dto.Partner;
 
 import com.daeut.daeut.reservation.dto.Reservation;
 
