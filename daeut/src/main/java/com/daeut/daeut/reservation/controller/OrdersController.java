@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.reservation.dto.OrderItems;
 import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.dto.PaymentStatus;
+import com.daeut.daeut.reservation.dto.Payments;
 import com.daeut.daeut.reservation.service.OrderItemService;
 import com.daeut.daeut.reservation.service.OrdersService;
+import com.daeut.daeut.reservation.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +34,10 @@ public class OrdersController {
 
     @Autowired
     private OrderItemService orderItemService;
+
+    @Autowired
+    private PaymentService paymentService;
+
 
     // TODO : 주문 서비스 연동 필요
 
@@ -80,21 +87,21 @@ public class OrdersController {
      */
     @GetMapping("/success")
     public String orderSuccess(Model model
-                            //   ,Payments payments
+                              ,Payments payments
                               ,HttpSession session
                               ,@RequestParam("orderNo") String orderNo) throws Exception {
 
-        // payments.setOrdersId(orderId);
-        // payments.setStatus(PaymentsStatus.PAID);
-        // paymentsService.merge(payments);
+        payments.setOrdersNo(orderNo);
+        payments.setStatus(PaymentStatus.PAID);
+        paymentService.merge(payments);
         
-        // payments = paymentsService.selectByOrdersId(orderId);
-        // log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
-        // log.info(payments.toString());
+        payments = paymentService.selectByOrdersNo(orderNo);
+        log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
+        log.info(payments.toString());
 
         Orders order = ordersService.select(orderNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
-        // log.info(payments.toString());
+        log.info(payments.toString());
 
         model.addAttribute("order", order);
         return "/orders/success";
@@ -110,28 +117,28 @@ public class OrdersController {
      */
     @GetMapping("/fail")
     public String orderFail(Model model
-                            //   ,Payments payments
+                              ,Payments payments
                               ,HttpSession session
                               ,@RequestParam("orderNo") String orderNo
                               ,@ModelAttribute String errorMsg) throws Exception {                    
-        // payments.setOrdersId(orderId);
-        // payments.setStatus(PaymentsStatus.PAID);
-        // paymentsService.insert(payments);
+        payments.setOrdersNo(orderNo);
+        payments.setStatus(PaymentStatus.PAID);
+        paymentService.insert(payments);
         
         // ⭐ 결제 실패 시, 결제 상태 PENDING 으로 변경
-        // payments = paymentsService.selectByOrdersId(orderId);
-        // payments.setStatus(PaymentsStatus.PENDING);
-        // paymentsService.merge(payments);
-        // log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
-        // log.info(payments.toString());
+        payments = paymentService.selectByOrdersNo(orderNo);
+        payments.setStatus(PaymentStatus.PENDING);
+        paymentService.merge(payments);
+        log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
+        log.info(payments.toString());
 
         Orders order = ordersService.select(orderNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
-        // log.info(payments.toString());
+        log.info(payments.toString());
 
         log.info("[결제 실패] 에러 메시지 : " + errorMsg);
 
-        // model.addAttribute("payments", payments);
+        model.addAttribute("payments", payments);
         model.addAttribute("order", order);
         return "/orders/fail";
     }
@@ -154,7 +161,7 @@ public class OrdersController {
         // 주문 정보
         Orders order = ordersService.select(orderNo);
         // 주문 항목 정보
-        List<OrderItems> orderItems = orderItemService.listByOrderId(orderNo);
+        List<OrderItems> orderItems = orderItemService.listByOrderNo(orderNo);
         
         if( order == null ) return "redirect:/orders?error";
         log.info(":::::::::::::::::::: order ::::::::::::::::::::");
