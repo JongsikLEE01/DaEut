@@ -41,11 +41,21 @@ public class PartnerServiceImpl implements PartnerService {
         return partnerMapper.partnerUpdate(partner);
     }
 
+    // 리뷰 모아보기
     @Override
     public List<Review> getReviews(int partnerNo) throws Exception {
         return partnerMapper.getReviews(partnerNo);
     }
 
+    @Override
+    public Partner findByUserNo(int userNo) throws Exception {
+        return partnerMapper.findByUserNo(userNo);
+    }
+
+    @Override
+    public List<Review> getReviewsByPartnerNo(int partnerNo) throws Exception {
+        return partnerMapper.getReviewsByPartnerNo(partnerNo);
+    }
     
     
 }

@@ -56,4 +56,7 @@ public interface UserService {
     // 파트너 찾기
     public Parther selectPartner(int userNo) throws Exception;
 
+    // 유저 이름으로 찾기
+    public Users findByUsername(String username);
+
 }

@@ -136,14 +136,14 @@ public class PartnerController {
     @GetMapping("/partnerReview")
     public String getPartnerReviews(HttpSession session, Model model) throws Exception {
         Integer partnerNo = (Integer) session.getAttribute("partnerNo");
+
         if (partnerNo == null) {
-            // 로그인 페이지로 리디렉션 또는 에러 처리
             return "redirect:/login";
         }
+
         List<Review> reviews = partnerService.getReviews(partnerNo);
         model.addAttribute("reviews", reviews);
         return "partner/reviews";
-
     }
 
 

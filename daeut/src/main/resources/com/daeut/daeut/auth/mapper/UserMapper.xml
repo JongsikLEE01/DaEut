@@ -219,4 +219,10 @@
 
     </select>
 
+    <!--유저 이름-->
+    <select id="findByUsername">
+    SELECT * FROM users WHERE username = #{username}
+    </select>
+    
+
 </mapper>

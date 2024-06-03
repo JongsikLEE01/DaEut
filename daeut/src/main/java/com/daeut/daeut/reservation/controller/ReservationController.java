@@ -20,6 +20,7 @@ import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.main.service.FileService;
 import com.daeut.daeut.reservation.dto.Reservation;
 import com.daeut.daeut.reservation.dto.Services;
+import com.daeut.daeut.reservation.mapper.ReservationMapper;
 import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;

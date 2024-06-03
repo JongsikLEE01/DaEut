@@ -40,4 +40,31 @@ public interface UserMapper {
     // 회원 탈퇴
     public int delete(Users user) throws Exception;
 
+    // 파트너 신청
+    public void requestPartner(Users users, Partner partner) throws Exception;
+
+    public void insertPartner(@Param("userNo") int userNo, @Param("partner") Partner partner);
+
+    public void updateUserStatus(@Param("userNo") int userNo);
+
+    public Users getUserById(@Param("userId") String userId);
+
+    // 파트너 신청 승인 및 권한 추가
+    public void approvePartnerAndAddAuth(@Param("userId") String userId) throws Exception;
+
+    public List<Reservation> selectReservationsByUserId(String userId);
+
+    // 관리자 회원가입
+    public  int adminJoin(Users user) throws Exception;
+
+
+    // 모든 사용자 목록 조회
+    public List<Users> selectAllUsers() throws Exception;
+
+    // 파트너 찾기
+    public Parther selectPartner(int userNo) throws Exception;
+
+    // 유저 정보 찾기
+    public Users findByUsername(String username);
+
 }

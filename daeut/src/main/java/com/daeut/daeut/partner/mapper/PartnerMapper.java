@@ -18,4 +18,8 @@ public interface PartnerMapper {
 
     // 사용자가 작성한 리뷰 모아보기
     List<Review> getReviews(int partnerNo) throws Exception;
+
+    // 파트너 조회
+    public Partner findByUserNo(int userNo) throws Exception;
+    public List<Review> getReviewsByPartnerNo(int partnerNo);
 }

@@ -15,4 +15,8 @@ public interface PartnerService {
 
     // 리뷰 모아보기
     List<Review> getReviews(int partnerNo) throws Exception;
+
+    // 파트너 찾기
+    public Partner findByUserNo(int userNo) throws Exception;
+    public List<Review> getReviewsByPartnerNo(int partnerNo) throws Exception;
 }
