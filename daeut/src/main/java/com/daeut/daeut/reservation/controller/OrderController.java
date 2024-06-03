@@ -14,7 +14,7 @@ import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.PaymentStatus;
 import com.daeut.daeut.reservation.dto.Payments;
 import com.daeut.daeut.reservation.service.OrderItemService;
-import com.daeut.daeut.reservation.service.OrdersService;
+import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,18 +28,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 @Controller("orders")
 @RequestMapping("/orders")
-public class OrdersController {
+public class OrderController {
     @Autowired
-    private OrdersService ordersService;
+    private OrderService orderService;
 
     @Autowired
     private OrderItemService orderItemService;
 
     @Autowired
     private PaymentService paymentService;
-
-
-    // TODO : 주문 서비스 연동 필요
 
     /**
      * 주문하기
@@ -61,19 +58,19 @@ public class OrdersController {
                             @RequestParam List<String> serviceNo, 
                             @RequestParam List<Integer> quantity) throws Exception {
         log.info("::::::::: 주문 등록 - orderPost() ::::::::::");
-        log.info("productId : " + serviceNo);
+        log.info("serviceNo : " + serviceNo);
         log.info("quantity : " + quantity);
 
         // 주문 등록
-        int result = ordersService.insert(orders);
+        int result = orderService.insert(orders);
 
         log.info("신규 등록된 주문ID : " + orders.getOrdersNo() );
         if( result > 0 ) {
-            return "redirect:/orders/" + orders.getOrdersNo();
+            return "redirect:/reservation/" + orders.getOrdersNo();
         }
-        // TODO : 주문 실패시 어디로 가는게 좋을지? - 장바구니? 주문내역? 상품목록?
         else {
-            return "redirect:/orders";
+            // 주문 실패시 상품목록
+            return "redirect:/reservation/reservation";
         }
     }
     
@@ -99,12 +96,12 @@ public class OrdersController {
         log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
         log.info(payments.toString());
 
-        Orders order = ordersService.select(orderNo);
+        Orders order = orderService.select(orderNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
         log.info(payments.toString());
 
         model.addAttribute("order", order);
-        return "/orders/success";
+        return "/reservation/paymentDone";
     }
 
     /**
@@ -132,7 +129,7 @@ public class OrdersController {
         log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
         log.info(payments.toString());
 
-        Orders order = ordersService.select(orderNo);
+        Orders order = orderService.select(orderNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
         log.info(payments.toString());
 
@@ -140,7 +137,7 @@ public class OrdersController {
 
         model.addAttribute("payments", payments);
         model.addAttribute("order", order);
-        return "/orders/fail";
+        return "/reservation/paymentFalse";
     }
 
     /**
@@ -159,7 +156,7 @@ public class OrdersController {
         // 로그인 사용자
         Users user = (Users) session.getAttribute("user");
         // 주문 정보
-        Orders order = ordersService.select(orderNo);
+        Orders order = orderService.select(orderNo);
         // 주문 항목 정보
         List<OrderItems> orderItems = orderItemService.listByOrderNo(orderNo);
         
@@ -172,6 +169,6 @@ public class OrdersController {
 
         model.addAttribute("order", order);
         model.addAttribute("orderItems", orderItems);
-        return "/orders/checkout";
+        return "/reservation/payment";
     }
 }

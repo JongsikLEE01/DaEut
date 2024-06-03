@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.daeut.daeut.reservation.dto.Payments;
 
 @Mapper
-public interface PaymentsMapper {
+public interface PaymentMapper {
 
     public List<Payments> list();
 

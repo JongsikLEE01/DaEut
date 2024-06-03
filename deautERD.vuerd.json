@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -948.2634999999993,
-    "scrollLeft": -1982.924599999999,
-    "zoomLevel": 0.7,
+    "scrollTop": -1136.1787999999992,
+    "scrollLeft": -1762.678799999999,
+    "zoomLevel": 0.9,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -19,7 +19,7 @@
     },
     "database": "MySQL",
     "databaseName": "daeut",
-    "canvasType": "@vuerd/builtin-sql-ddl",
+    "canvasType": "ERD",
     "language": "GraphQL",
     "tableCase": "pascalCase",
     "columnCase": "camelCase",
@@ -659,7 +659,7 @@
           "active": false,
           "left": 997.0372,
           "top": 978.9139,
-          "zIndex": 16,
+          "zIndex": 15,
           "widthName": 60,
           "widthComment": 60
         },
@@ -711,29 +711,6 @@
               "fk": true,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 71.5703125,
-              "widthDataType": 60,
-              "widthDefault": 60
-            }
-          },
-          {
-            "id": "62cd7980-e850-448f-9600-2a329e0ecc91",
-            "name": "partner_no",
-            "comment": "파트너 번호",
-            "dataType": "INT",
-            "default": "",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": true
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": true,
-              "pfk": false,
-              "widthName": 65.77490234375,
               "widthComment": 71.5703125,
               "widthDataType": 60,
               "widthDefault": 60
@@ -905,7 +882,7 @@
           "active": false,
           "left": 2025.2845,
           "top": 1321.3578,
-          "zIndex": 15,
+          "zIndex": 16,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2276,7 +2253,7 @@
           "active": false,
           "left": 3253.1395,
           "top": 1003.2435,
-          "zIndex": 14,
+          "zIndex": 13,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2476,7 +2453,7 @@
           "active": false,
           "left": 995.0024,
           "top": 669.1538,
-          "zIndex": 12,
+          "zIndex": 11,
           "widthName": 65.0830078125,
           "widthComment": 60
         },
@@ -2791,7 +2768,7 @@
           "active": false,
           "left": 2741.4432,
           "top": 404.4682,
-          "zIndex": 13,
+          "zIndex": 12,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2996,7 +2973,7 @@
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
           "x": 2540.2396,
-          "y": 1038.7194,
+          "y": 1054.7194,
           "direction": "left"
         },
         "end": {
@@ -3031,7 +3008,7 @@
             "0df7dfd0-d390-4f55-8778-6c252edfe371"
           ],
           "x": 2025.2845,
-          "y": 1526.8578,
+          "y": 1511.4828,
           "direction": "left"
         },
         "constraintName": "fk_users_to_reservation",
@@ -3100,7 +3077,7 @@
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
           "x": 2546.8220976562498,
-          "y": 1526.8578,
+          "y": 1511.4828,
           "direction": "right"
         },
         "end": {
@@ -3161,7 +3138,7 @@
             "12d192ce-6eba-43e4-8dbd-cf6e5ce73f6d"
           ],
           "x": 2540.2396,
-          "y": 1166.7194,
+          "y": 1150.7194,
           "direction": "left"
         },
         "constraintName": "fk_users_to_partner",
@@ -3217,32 +3194,6 @@
           "direction": "right"
         },
         "constraintName": "fk_users_to_reply",
-        "visible": true
-      },
-      {
-        "id": "07d75780-d320-4567-9bc1-2bc04a8a4fc0",
-        "identification": false,
-        "relationshipType": "OneN",
-        "startRelationshipType": "Dash",
-        "start": {
-          "tableId": "05c68491-d8f7-468a-b248-e615b9c1cddb",
-          "columnIds": [
-            "a2d3d6f0-8fad-4123-81f5-cee84152400b"
-          ],
-          "x": 2540.2396,
-          "y": 1102.7194,
-          "direction": "left"
-        },
-        "end": {
-          "tableId": "665604d2-96fc-4152-9249-313a20a673fb",
-          "columnIds": [
-            "62cd7980-e850-448f-9600-2a329e0ecc91"
-          ],
-          "x": 2286.0532988281248,
-          "y": 1321.3578,
-          "direction": "top"
-        },
-        "constraintName": "fk_partner_to_reservation",
         "visible": true
       },
       {
@@ -3308,7 +3259,7 @@
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
           "x": 2025.2845,
-          "y": 1389.8578,
+          "y": 1384.7328,
           "direction": "left"
         },
         "end": {
@@ -3360,7 +3311,7 @@
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
           "x": 2546.8220976562498,
-          "y": 1389.8578,
+          "y": 1384.7328,
           "direction": "right"
         },
         "end": {
