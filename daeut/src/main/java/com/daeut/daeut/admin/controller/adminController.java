@@ -1,5 +1,8 @@
 package com.daeut.daeut.admin.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class adminController {
@@ -58,7 +63,10 @@ public class adminController {
 
 
     @GetMapping("/adminUser")
-    public String adminUser() {
+    public String adminUser(Model model) throws Exception {
+        List <Users> userList = userService.selectAllUsers();
+        model.addAttribute("userList", userList);
+        
         return "/admin/adminUser";
     }
 

@@ -132,6 +132,22 @@
         WHERE user_no = (SELECT user_no FROM users WHERE user_id = #{userId})
     </update>
 
+    <insert id="insertPartner">
+        INSERT INTO partner (partner_grade, partner_reserve, partner_career, introduce, user_no, file_path)
+        VALUES (#{partner.partnerGrade}, #{partner.partnerReserve}, #{partner.partnerCareer}, #{partner.introduce}, #{userNo}, #{partner.filePath})
+    </insert>
+
+    <update id="updateUserStatus">
+        UPDATE users
+        SET status = 1
+        WHERE user_no = #{userNo}
+    </update>
+
+    <select id="getUserById" resultType="Users">
+        SELECT * FROM users WHERE user_id = #{userId}
+    </select>
+
+
     <!-- 파트너 승인 -->
     <update id="approvePartner">
         UPDATE users
@@ -177,12 +193,30 @@
         WHERE u.user_id = #{userId}
     </select>
 
+
+    <!-- ROLE_USER만 가진 사람 가져오기 - 관리자 페이지에서 회원 관리 -->
+    <select id="selectAllUsers" resultType="Users">
+        SELECT 
+            a.user_no, a.user_name, a.user_phone, a.user_birth, a.user_address,
+            a.user_email, a.user_gender, a.user_id, a.user_password, a.user_reg_date,
+            a.user_coupon, a.user_upd_date, a.enabled, a.status
+        FROM 
+            users a
+        WHERE 
+            NOT EXISTS (
+                SELECT 1 
+                FROM user_auth b
+                WHERE b.user_no = a.user_no 
+                AND b.auth NOT IN "ROLE_USER"
+            )
+
     <!-- 파트너정보 가져오기 -->
     <select id="selectPartner">
         SELECT partner.*
         FROM users
         INNER JOIN partner ON users.user_no = partner.user_no
         WHERE users.user_no = #{userId}
+
     </select>
 
     <!-- userNo 유저 찾기 -->
