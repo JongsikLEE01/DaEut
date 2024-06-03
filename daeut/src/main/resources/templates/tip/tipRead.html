@@ -139,16 +139,16 @@
         
         // 댓글 등록
         function insertReply() {
-            let $writer = document.getElementById('reply-writer')
+            // let $wuserNo = document.getElementById('reply-writer')
             let $content = document.getElementById('reply-content')
 
-            let writer = $writer.value
-            let content = $content.value
+            // let userNo = $userNo.value
+            let replyContent = $content.value
             
             let data = {
                 'boardNo' : no,
-                'writer'  : writer,
-                'content' : content
+                // 'userNo'  : userNo,
+                'replyContent' : replyContent
             }
 
             let request = new XMLHttpRequest()

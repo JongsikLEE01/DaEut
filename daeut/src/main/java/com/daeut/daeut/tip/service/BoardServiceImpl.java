@@ -105,12 +105,14 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.view(boardNo);
     }
 
-    
-
     @Override
     public List<Board> search(Option2 option) throws Exception {
         List<Board> boardList = boardMapper.search(option);
         return boardList;
     }
 
+    // @Override
+    // public List<Board> getTop5BoardsByBoardViews() {
+    //     return boardMapper.findTop5ByBoardViews();
+    // }
 }

@@ -40,10 +40,7 @@ public interface BoardMapper {
 
     // 조회수 증가
     public int view(int boardNo) throws Exception;
-
-    // 썸네일
-    public Files SelectThumbnail(int boardNo) throws Exception;
-    // 설명 파일
-    public List<Files> SelectFiles(int boardNo) throws Exception;
     
+    // public List<Board> findTop5ByBoardViews();
+
 }

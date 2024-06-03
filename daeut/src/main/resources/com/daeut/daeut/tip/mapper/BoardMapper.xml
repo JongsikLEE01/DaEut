@@ -125,4 +125,8 @@
            SET board_views = board_views + 1
         WHERE board_no = #{boardNo}
     </update>
+
+    <!-- <select id="findTop5ByBoardViews" resultType="com.daeut.daeut.tip.dto.Board">
+        SELECT * FROM board ORDER BY board_views DESC LIMIT 5
+    </select> -->
 </mapper>

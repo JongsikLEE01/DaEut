@@ -146,6 +146,14 @@ public class BoardController {
         return "redirect:/tip/tipUpdate?no=" + boardNo + "&error";
         
     }
+
+    // 조회수 기준 상위 5개 게시글 조회 화면
+    // @GetMapping("/top5")
+    // public String getTop5Tips(Model model) throws Exception {
+    //     List<Board> boardList = boardService.getTop5BoardsByBoardViews();
+    //     model.addAttribute("boardList", boardList);
+    //     return "tip/index";
+    // }
     
     
 }

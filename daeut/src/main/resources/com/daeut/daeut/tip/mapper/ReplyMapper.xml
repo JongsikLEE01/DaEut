@@ -25,15 +25,15 @@
 
     <!-- 댓글 등록 -->
     <insert id="insert">
-        INSERT INTO reply (board_no, parent_no, writer, content)
-        VALUES (#{boardNo}, #{parentNo}, #{writer}, #{content} )
+        INSERT INTO reply (board_no, parent_no, user_no, reply_content)
+        VALUES (#{boardNo}, #{parentNo}, #{userNo}, #{replyContent} )
     </insert>
 
     <!-- 댓글 수정 -->
     <update id="update">
         UPDATE reply
-           SET writer = #{writer}
-              ,content = #{content}
+           SET reply_writer = #{replyWriter}
+              ,reply_content = #{replyContent}
               <if test="parentNo != 0">
                 ,parent_no = #{parentNo}
               </if>

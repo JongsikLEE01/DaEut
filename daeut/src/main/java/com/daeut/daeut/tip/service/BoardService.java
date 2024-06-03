@@ -29,4 +29,6 @@ public interface BoardService {
     // 게시글 목록 - [검색]
     public List<Board> search(Option2 option) throws Exception;
 
+    // public List<Board> getTop5BoardsByBoardViews();
+
 }
