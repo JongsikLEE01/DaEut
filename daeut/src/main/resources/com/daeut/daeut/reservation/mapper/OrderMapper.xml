@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.daeut.daeut.reservation.mapper.OrdersMapper">
+<mapper namespace="com.daeut.daeut.reservation.mapper.OrderMapper">
 
     <!-- 모든 주문 조회 -->
     <select id="list" resultType="Orders">
@@ -20,8 +20,8 @@
 
      <!-- 주문 삽입 -->
     <insert id="insert">
-        INSERT INTO orders (orders_no, user_no, partner_no, title, total_quantity, total_price, total_count)
-        VALUES (#{ordersNo}, #{userNo}, #{partnerNo}, #{title}, #{totalQuantity}, #{totalPrice}, #{totalCount})
+        INSERT INTO orders (orders_no, user_no, title, total_quantity, total_price, total_count, order_status)
+        VALUES (#{ordersNo}, #{userNo}, #{title}, #{totalQuantity}, #{totalPrice}, #{totalCount}, #{orderStatus})
     </insert>
 
     <!-- 주문 수정 -->
