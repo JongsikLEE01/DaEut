@@ -19,6 +19,9 @@ public interface PartnerMapper {
     // 사용자가 작성한 리뷰 모아보기
     List<Review> getReviews(int partnerNo) throws Exception;
 
+    // 파트너 번호를 기준으로 파트너 정보를 조회하는 메서드
+    Partner getPartnerByPartnerNo(int partnerNo);
+
     // 파트너 조회
     public Partner findByUserNo(int userNo) throws Exception;
 }
