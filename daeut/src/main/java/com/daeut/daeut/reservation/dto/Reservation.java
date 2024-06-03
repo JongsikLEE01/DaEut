@@ -1,14 +1,16 @@
-package com.daeut.daeut.auth.dto;
+package com.daeut.daeut.reservation.dto;
 
 import java.util.Date;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class Reservation {
     private int reservationNo;          // 예약 번호
     private int userNo;                 // 사용자 번호
-    private int serviceNo;              // 서비스 번호
-    private int partnerNo;              // 파트너 번호
+    
     private String reservationStatus;   // 예약 상태
     private String orderNo;             // 주문 번호
     private int totalQuantity;          // 총 수량

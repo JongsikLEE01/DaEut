@@ -197,13 +197,34 @@ function enterSend(e){
 });
 
 // 캘린더 
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth'
-    });
-    calendar.render();
-  });
+// document.addEventListener('DOMContentLoaded', function() {
+//     var calendarEl = document.getElementById('calendar');
+//     var calendar = new FullCalendar.Calendar(calendarEl, {
+//       initialView: 'dayGridMonth',
+//       height: '700px', // calendar 높이 설정
+//       expandRows: true, // 화면에 맞게 높이 재설정
+//       slotMinTime: '08:00', // Day 캘린더에서 시작 시간
+//       slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
+//       // 해더에 표시할 툴바
+//       headerToolbar: {
+//         right: 'prev,next today',
+//       },
+//       initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+//       selectable: true, // 달력 일자 드래그 설정가능
+//       nowIndicator: true, // 현재 시간 마크
+//       dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
+//       locale: 'ko', // 한국어 설정
+//       // 이벤트 
+//       events: [
+//         {
+//             title: 'Meeting',
+//             start: '2024-05-12T10:30:00',
+//             end: '2024-05-12T12:30:00'
+//         }
+//       ]
+//     });
+//     calendar.render();
+//   });
 
 // 캘린더 나오게 하기 
 document.addEventListener('DOMContentLoaded', function () {
@@ -226,17 +247,18 @@ document.addEventListener('DOMContentLoaded', function () {
             calendarDiv = document.createElement('div');
             calendarDiv.id = 'calendar';
             calendarDiv.style.position = 'absolute';
-            calendarDiv.style.width = '306px'; // 캘린더의 가로 길이
-            calendarDiv.style.top = 'calc(100% + 10px)'; // 캘린더의 아래에 10px 여백 추가
+            calendarDiv.style.width = '306px'; 
+            // calendarDiv.style.top = 'calc(100% + 10px)';
             calendarDiv.style.left = '0';
             calendarDiv.style.display = 'none';
-            calendarDiv.style.zIndex = '1000'; // 캘린더가 위에 나타나도록 zIndex 설정
+            calendarDiv.style.zIndex = '1000'; 
             
             const calendar = new FullCalendar.Calendar(calendarDiv, {
-                initialView: 'dayGridMonth', // 월별 달력으로 설정
-                dayMaxEventRows: true, // 여러 이벤트를 한 줄로 표시
+                initialView: 'dayGridMonth', 
+                dayMaxEventRows: true, 
+                locale: 'ko', // 한국어 설정
                 events: [
-                    // 캘린더에 표시할 이벤트를 추가하세요 (예: { title: '이벤트 이름', start: '시작 일자' })
+                   
                 ]
             });
 
