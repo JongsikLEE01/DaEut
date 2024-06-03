@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.daeut.daeut.auth.dto.Partner;
-import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.reservation.dto.Reservation;
 
 import lombok.extern.slf4j.Slf4j;
 

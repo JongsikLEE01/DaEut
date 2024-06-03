@@ -18,5 +18,4 @@ public interface PartnerService {
 
     // 파트너 찾기
     public Partner findByUserNo(int userNo) throws Exception;
-    public List<Review> getReviewsByPartnerNo(int partnerNo) throws Exception;
 }

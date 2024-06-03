@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -19,6 +20,9 @@ public class Partner {
     private String partnerStatus;
     private String introduce;
     private int userNo;
+
+    private MultipartFile file;
+    private String filePath;
 
 
     // 여기서부터는 user 정보

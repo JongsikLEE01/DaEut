@@ -33,8 +33,5 @@
         WHERE user_no = #{userNo}
     </select>
   
-  <select id="getReviewsByPartnerNo" parameterType="int" resultType="com.daeut.daeut.partner.dto.Partner">
-        SELECT * FROM review WHERE partner_no = #{partnerNo}
-    </select>
 
 </mapper>

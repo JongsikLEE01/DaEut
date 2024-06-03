@@ -52,10 +52,6 @@ public class PartnerServiceImpl implements PartnerService {
         return partnerMapper.findByUserNo(userNo);
     }
 
-    @Override
-    public List<Review> getReviewsByPartnerNo(int partnerNo) throws Exception {
-        return partnerMapper.getReviewsByPartnerNo(partnerNo);
-    }
     
     
 }

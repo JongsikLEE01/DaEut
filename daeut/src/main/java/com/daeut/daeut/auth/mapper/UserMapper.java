@@ -3,10 +3,10 @@ package com.daeut.daeut.auth.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.daeut.daeut.auth.dto.Partner;
-import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.reservation.dto.Reservation;
 
 import java.util.List;
 
