@@ -14,6 +14,7 @@ import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
+import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Parther;
 
 import lombok.extern.slf4j.Slf4j;
@@ -162,11 +163,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
+    @Override
+    public int countUsers() throws Exception {
+        return userMapper.countUsers();
+    }
+    
     // 모든 사용자 목록 조회
     @Override
-    public List<Users> selectAllUsers() throws Exception {
-        List<Users> userList = userMapper.selectAllUsers();
+    public List<Users> selectAllUsers(Page page) throws Exception {
+        List<Users> userList = userMapper.selectAllUsers(page);
         // ROLE_USER만 필터링
         log.info("user: " + userList);
         return userList;
@@ -178,5 +183,13 @@ public class UserServiceImpl implements UserService {
         Parther parther = userMapper.selectPartner(userNo);
         return parther;
     }
+
+    @Override
+    public int deleteList(String[] deleteNoList) throws Exception {
+        String deleteNos = String.join(",", deleteNoList);
+        int result = userMapper.deleteList(deleteNos);
+        return result;
+    }
+
 
 }

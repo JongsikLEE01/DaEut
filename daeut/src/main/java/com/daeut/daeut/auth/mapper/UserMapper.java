@@ -6,7 +6,10 @@ import org.apache.ibatis.annotations.Param;
 import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Parther;
+
+import groovyjarjarantlr4.v4.codegen.model.ExceptionClause;
 
 import java.util.List;
 
@@ -52,10 +55,17 @@ public interface UserMapper {
 
 
     // 모든 사용자 목록 조회
-    public List<Users> selectAllUsers() throws Exception;
+    public int countUsers() throws Exception;
+    public List<Users> selectAllUsers(@Param("page") Page page) throws Exception;
 
     // 파트너 찾기
     public Parther selectPartner(int userNo) throws Exception;
 
+    public int deleteList(String deleteNoList) throws Exception;
+
 }
+    
+    
+
+
 
