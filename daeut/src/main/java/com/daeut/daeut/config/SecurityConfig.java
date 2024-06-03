@@ -9,9 +9,11 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import com.daeut.daeut.auth.service.LoginSuccessHandler;
 import com.daeut.daeut.auth.service.UserDetailServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,17 +35,27 @@ public class SecurityConfig {
 
         // ✅ 인가 설정
         http.authorizeRequests(requests -> requests
+                                            .antMatchers("/admin/join").permitAll() // 관리자 회원가입 페이지는 누구나 접근 가능
+                                            // .antMatchers("/admin/**").hasRole("ADMIN")
+                                            .antMatchers("/partner/**").hasAnyRole("PARTNER", "ADMIN")
+                                            .antMatchers("/user/**").hasAnyRole("USER", "PARTNER", "ADMIN")
+                                            .antMatchers("/auth/**", "/").permitAll()
+                                            .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
                                             .antMatchers("/**").permitAll()
-                                            .anyRequest().permitAll()
-                                            );
+                                            .anyRequest().authenticated()
+                                    );
 
         // 🔐 폼 로그인 설정
         // ✅ 커스텀 로그인 페이지
-        http.formLogin(login -> login.loginPage("/auth/login")
-                                     .loginProcessingUrl("/auth/login")
-                                     .usernameParameter("userId")
-                                     .passwordParameter("userPassword")
-                                     );
+        http.formLogin(login -> login
+                                    .loginPage("/auth/login")
+                                    .loginProcessingUrl("/login")
+                                    .usernameParameter("userId")
+                                    .passwordParameter("userPassword")
+                                    .failureUrl("/auth/login?error=true")
+                                    .successHandler( authenticationSuccessHandler() )
+                                    .permitAll()
+                            );
 
         // ✅ 사용자 정의 인증 설정
         http.userDetailsService(userDetailServiceImpl);
@@ -57,9 +69,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-
-
 
     /**
     * 🍃 자동 로그인 저장소 빈 등록
@@ -97,5 +106,10 @@ public class SecurityConfig {
         }
         return repositoryImpl;
     }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new LoginSuccessHandler();
+    } 
     
 }

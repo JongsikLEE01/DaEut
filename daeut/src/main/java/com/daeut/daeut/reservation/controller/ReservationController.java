@@ -2,6 +2,8 @@ package com.daeut.daeut.reservation.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,13 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.daeut.daeut.reservation.dto.Files;
-import com.daeut.daeut.reservation.dto.Option;
-import com.daeut.daeut.reservation.dto.Page;
+import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.main.dto.Files;
+import com.daeut.daeut.main.dto.Option;
+import com.daeut.daeut.main.dto.Page;
+import com.daeut.daeut.main.service.FileService;
 import com.daeut.daeut.reservation.dto.Reservation;
 import com.daeut.daeut.reservation.dto.Services;
-import com.daeut.daeut.reservation.mapper.ReservationMapper;
-import com.daeut.daeut.reservation.service.FileService;
 import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -47,16 +49,21 @@ public class ReservationController {
      */
 	@GetMapping("/reservation")
 	public String reservationList(Model model, Page page, Option option) throws Exception{
+        String keyword = option.getKeyword();
+
+        if(keyword == null || option.getKeyword() == ""){
+            keyword = "";
+            option.setKeyword(keyword);
+            
+            model.addAttribute("option", option);
+        }else
+            model.addAttribute("option", option);
+
         List<Services> serviceList = reservationService.serviceList(page, option);
-
-        log.info("목록: {}", serviceList);
-        log.info("페이지: {}", page);
-        log.info("옵션: {}", option);
-
+        
         model.addAttribute("serviceList", serviceList);
         model.addAttribute("page", page);
-        model.addAttribute("option", option);
-
+        
         return "reservation/reservation";
 	}
 
@@ -76,16 +83,25 @@ public class ReservationController {
      * @throws Exception
      */
     @GetMapping("/reservationRead")
-	public String reservationRead(@RequestParam("serviceNo") int serviceNo, Model model) throws Exception {
+	public String reservationRead(@RequestParam("serviceNo") int serviceNo, Model model, Files file, HttpSession session) throws Exception {
         Services service = reservationService.serviceSelect(serviceNo);
+        Files thumbnail = reservationService.SelectThumbnail(serviceNo);
+        List<Files> files = reservationService.SelectFiles(serviceNo);
+        Users user = (Users) session.getAttribute("user");
 
-        Files file = new Files();
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
 
+        log.info("service? {}",service);
+        log.info("fileList? {}",fileList);
+
+        
         model.addAttribute("service", service);
         model.addAttribute("fileList", fileList);
+        model.addAttribute("thumbnail", thumbnail);
+        model.addAttribute("files", files);
+        model.addAttribute("user", user);
 
         return "reservation/reservationRead";
     }
@@ -118,7 +134,7 @@ public class ReservationController {
         }
 
         log.info("게시글 등록 성공...");
-        return "redirect:/reservation";
+        return "redirect:/reservation/reservation";
     }
 
     /**
@@ -131,16 +147,19 @@ public class ReservationController {
      * @throws Exception
      */
     @GetMapping("/reservationUpdate")
-    public String reservationUpdate(@RequestParam("serviceNo") int serviceNo, Model model) throws Exception {
+    public String reservationUpdate(@RequestParam("serviceNo") int serviceNo, Model model, Files file) throws Exception {
         Services service = reservationService.serviceSelect(serviceNo);
+        Files thumbnail = reservationService.SelectThumbnail(serviceNo);
+        List<Files> files = reservationService.SelectFiles(serviceNo);
 
-        Files file = new Files();
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
 
         model.addAttribute("service", service);
         model.addAttribute("fileList", fileList);
+        model.addAttribute("thumbnail", thumbnail);
+        model.addAttribute("files", files);
 
         return "reservation/reservationUpdate";
     }
@@ -153,7 +172,15 @@ public class ReservationController {
      */
     @PostMapping("/reservationUpdate")
     public String updatePro(Services service) throws Exception {
+
+        Files file = new Files();
+        file.setParentTable("service");
+        file.setParentNo(service.getServiceNo());
+        fileService.deleteByParent(file);
+
         int result = reservationService.serviceUpdate(service);
+        log.info("service? {}",service);
+
         int serviceNo = service.getServiceNo();
 
         if (result == 0) {
@@ -162,7 +189,7 @@ public class ReservationController {
         }
 
         log.info("게시글 수정 성공...");
-        return "redirect:/reservation";
+        return "redirect:/reservation/reservation";
     }
 
     /**
@@ -187,13 +214,6 @@ public class ReservationController {
         fileService.deleteByParent(file);
 
         log.info("게시글 삭제 성공...");
-        return "redirect:/reservation";
-    }
-
-    // DB 연동
-    @GetMapping("/reservations")
-    public ResponseEntity<List<Reservation>> getAllReservations() {
-        List<Reservation> reservations = reservationMapper.getAllReservations();
-        return ResponseEntity.ok().body(reservations);
+        return "redirect:/reservation/reservation";
     }
 }

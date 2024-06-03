@@ -16,6 +16,7 @@ public class Services {
     private String serviceContent;
     private Date regDate;
     private Date updDate;
+    private int partnerNo;
 
     // 파일 정보
     List<MultipartFile> file;

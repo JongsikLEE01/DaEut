@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import com.daeut.daeut.reservation.dto.Option;
-import com.daeut.daeut.reservation.dto.Page;
-import com.daeut.daeut.reservation.dto.Reservation;
+import com.daeut.daeut.main.dto.Files;
+import com.daeut.daeut.main.dto.Option;
+import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.reservation.dto.Services;
 
 @Mapper
@@ -29,7 +29,10 @@ public interface ReservationMapper {
     public int maxPk() throws Exception;
     // 개수 조회
     public int count(@Param("option") Option option) throws Exception;
-    // 예약 DB 연동
-    @Select("SELECT reg_date FROM reservation")
-    List<Reservation> getAllReservations();
+
+    // 썸네일
+    public Files SelectThumbnail(int serviceNo) throws Exception;
+    // 설명 파일
+    public List<Files> SelectFiles(int serviceNo) throws Exception;
+
 }

@@ -1,12 +1,23 @@
 package com.daeut.daeut.auth.service;
 
+import com.daeut.daeut.auth.dto.Partner;
+import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.partner.dto.Parther;
+
+import java.util.List;
 
 public interface UserService {
-    
+
     // 로그인
     public boolean login(Users user) throws Exception;
+
+    // 아이디 찾기
+    public String findUserByDetails(String userName, String userEmail, String userPhone) throws Exception;
+
+    // 이메일 중복 검사
+    public Users findUserByEmail(String userEmail) throws Exception;
 
     // 조회
     public Users select(String username) throws Exception;
@@ -22,5 +33,27 @@ public interface UserService {
 
     // 회원 탈퇴
     public int delete(Users user) throws Exception;
+
+    // 파트너 신청
+    public void requestPartner(Users users, Partner partner) throws Exception;
+
+    public Users getUserById(String userId);
+
+    // 파트너 승인
+    public void approvePartner(String userId) throws Exception;
+
+    // 예약
+    public List<Reservation> getUserReservations(String userId) throws Exception;
+
+    // 관리자 회원가입
+    public void adminJoin(Users user, String systemPw) throws Exception;
+
+    
+    // 모든 사용자 목록 조회
+    public List<Users> selectAllUsers() throws Exception;
+
+
+    // 파트너 찾기
+    public Parther selectPartner(int userNo) throws Exception;
 
 }

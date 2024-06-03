@@ -1,5 +1,5 @@
 // 파일
-package com.daeut.daeut.reservation.dto;
+package com.daeut.daeut.main.dto;
 
 import java.util.Date;
 
@@ -16,8 +16,8 @@ public class Files {
     private String originFileName;
     private String filePath;
     private long fileSize;
-    private Date regDate;
-    private Date updDate;
+    private Date fileRegDate;
+    private Date fileUpdDate;
     private int fileCode;
 
     private MultipartFile file;

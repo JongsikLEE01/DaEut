@@ -1,4 +1,4 @@
-package com.daeut.daeut.reservation.controller;
+package com.daeut.daeut.main.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,12 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.daeut.daeut.reservation.dto.Files;
-import com.daeut.daeut.reservation.service.FileService;
+import com.daeut.daeut.main.dto.Files;
+import com.daeut.daeut.main.service.FileService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 @RequestMapping("/file")
 public class FileController {
@@ -73,7 +70,7 @@ public class FileController {
 
     @DeleteMapping("/{fileNo}")
     public ResponseEntity<String> deleteFile(@PathVariable("fileNo") int fileNo) throws Exception{
-        log.info("DELETE - /file/"+fileNo);
+        // log.info("DELETE - /file/"+fileNo);
 
         //파일 삭제 요청
         int result = fileService.delete(fileNo);
@@ -102,7 +99,7 @@ public class FileController {
 
         // null 체크
         if(file == null){
-            String filePath = path + "/fileNo-image.png";
+            String filePath = path + "/no-image.png";
             File noImgFile = new File(filePath);
             byte[] noImgFileData = FileCopyUtils.copyToByteArray(noImgFile);
 

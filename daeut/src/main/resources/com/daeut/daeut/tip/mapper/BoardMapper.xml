@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daeut.daeut.tip.mapper.BoardMapper">
+
+    <select id="list" resultType="Board">
+        SELECT b.*
+            ,f.file_no AS file_no
+            ,f.file_name
+            ,f.file_path
+            ,f.file_code
+        FROM board b LEFT JOIN (
+                                SELECT *
+                                FROM files
+                                WHERE parent_table = "board"
+                                AND file_code = 1
+                                ) f
+                    ON (b.board_no = f.parent_no)
+        ORDER BY b.board_reg_date DESC
+    </select>
+
+    <select id="select" resultType="Board">
+        SELECT *
+        FROM board
+        WHERE board_no = #{boardNo}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO board( board_title, user_no, board_content)
+        VALUES ( #{boardTitle}, #{userNo}, #{boardContent} )
+    </insert>
+
+    <update id="update">
+        UPDATE board
+           SET board_title = #{boardTitle}
+              ,board_content = #{boardContent}
+              ,board_upd_date = now()
+        WHERE board_no = #{boardNo}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM board
+        WHERE board_no = #{boardNo}
+    </delete>
+
+    <select id="maxPk" resultType="int">
+        SELECT MAX(board_no)
+        FROM board
+    </select>
+
+    <update id="view">
+        UPDATE board
+           SET board_views = board_views + 1
+        WHERE board_no = #{boardNo}
+    </update>
+</mapper>

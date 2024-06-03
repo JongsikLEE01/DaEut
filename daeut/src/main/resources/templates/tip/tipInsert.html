@@ -8,23 +8,23 @@
 </head>
 <body layout:fragment="content">
     <!-- ⭐ content -->
-
     <div class="container">
-        <form>
+        <form th:action="@{/tip/tipInsert}" method="post" enctype="multipart/form-data">
+            <!-- CSRF-TOKEN -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <div class="mb-3">
                 <label for="title" class="form-label visually-hidden">제목을 입력해주세요.</label>
-                <input type="text" id="title" class="form-control" placeholder="제목을 입력해주세요.">
+                <input type="text" id="title" name="boardTitle" class="form-control" placeholder="제목을 입력해주세요.">
             </div>
             <div class="mb-3">
-                <textarea class="form-control" id="content" rows="8" placeholder="부적절한 글로 판단되어 다른 사용자로부터 일정 수 이상의 신고를 받은 경우 글이 삭제될 수 있습니다."></textarea>
+                <textarea class="form-control" id="content" name="boardContent" rows="8" placeholder="부적절한 글로 판단되어 다른 사용자로부터 일정 수 이상의 신고를 받은 경우 글이 삭제될 수 있습니다."></textarea>
             </div>
             <div class="mb-3">
                 <div>
                     <label for="images" class="form-label">첨부파일</label>
                     <label for="images" class="file-upload-button">첨부하기</label>
-
                 </div>
-                <input type="file" class="form-control" id="images" name="images" accept="image/*" multiple onchange="previewImages(event)">
+                <input type="file" class="form-control" id="images" name="file" accept="image/*" multiple onchange="previewImages(event)">
                 <div class="form-text">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</div>
             </div>
             <div id="image-preview-wrapper" class="mb-3">
@@ -32,7 +32,7 @@
             </div>
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn-btn-primary me-2">등록하기</button>
-                <a href="index" class="btn-btn-outline-secondary">목록</a>
+                <a th:href="@{/tip/index}" class="btn-btn-outline-secondary">목록</a>
             </div>
         </form>
     </div>
@@ -41,7 +41,7 @@
         function previewImages(event) {
             var container = document.getElementById('image-preview-container');
             container.innerHTML = ''; // 기존 이미지 제거
-            
+
             var files = event.target.files;
             for (var i = 0; i < files.length; i++) {
                 var image = document.createElement('img');

@@ -452,3 +452,141 @@ textarea {
     border: 1px solid red !important;
     color: white !important;
 }
+
+.icon-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    border-radius: 8px;
+    color: white;
+    font-size: 80px; /* 아이콘 크기 조정 */
+}
+.icon-text {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
+}
+.login-icon {
+    background-color: #8FA2CA;
+}
+.signup-icon {
+    background-color: #B5C6B8;
+}
+.custom-margin {
+    margin: 100px; /* 요소 간 간격 설정 */
+}
+.memberRow {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* 반응형 지원을 위한 wrap 설정 */
+    gap: 20px; /* 요소 간의 간격 설정 */
+}
+/* .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 680px;
+} */
+.form-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin: 20px auto;
+}
+.form-container form {
+    max-width: 500px;
+    width: 100%;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+}
+@media (max-width: 768px) {
+    .icon-box {
+        width: 150px;
+        height: 150px;
+        font-size: 60px;
+    }
+    .icon-text {
+        font-size: 16px;
+    }
+}
+@media (max-width: 576px) {
+    .icon-box {
+        width: 120px;
+        height: 120px;
+        font-size: 50px;
+    }
+    .icon-text {
+        font-size: 14px;
+    }
+}
+/* 아이콘 hover 변경 */
+.loginHover {
+    display: none;
+}
+.login-icon:hover .loginHover {
+    display: inline-block;
+}
+.login-icon:hover .loginNormal {
+    display: none;
+}
+.joinHover {
+    display: none;
+}
+.signup-icon:hover .joinHover {
+    display: inline-block;
+}
+.signup-icon:hover .joinNormal {
+    display: none;
+}
+
+.description {
+    word-break: keep-all;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.custom-auth-btn {
+    background-color: #8FA2CA !important;
+    border: none !important;
+    padding-top: 50px;
+}
+
+.custom-auth-btn.complete {
+    border-color: #8FA2CA ;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    width: 130px;
+    height: 40px;
+    font-size: 18px;
+}
+
+.form-container.complete {
+    max-width: 700px;
+    width: 100%;
+    margin: 20px;
+    padding: 70px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 18px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.completeHr {
+    width: 100%;
+}
+
+input[type="password"] {
+    font-family:'Courier New', Courier, monospace;
+  }

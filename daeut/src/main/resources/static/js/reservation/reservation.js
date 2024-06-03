@@ -97,11 +97,27 @@ function previewImages(event) {
         var image = document.createElement('img');
         image.src = URL.createObjectURL(files[i]);
         image.alt = '이미지 미리보기';
-        image.style.maxWidth = '200px';
+        image.style.maxWidth = '250px';
         image.style.marginTop = '10px';
         container.appendChild(image);
     }
 }
+
+function previewThumbnail(event) {
+    var container = document.getElementById('image-thumbnail-container');
+    container.innerHTML = ''; // 기존 이미지 제거
+    
+    var files = event.target.files;
+    for (var i = 0; i < files.length; i++) {
+        var image = document.createElement('img');
+        image.src = URL.createObjectURL(files[i]);
+        image.alt = '이미지 미리보기';
+        image.style.maxWidth = '250px';
+        image.style.marginTop = '10px';
+        container.appendChild(image);
+    }
+}
+
 
 function addOptionForm() {
     var container = document.getElementById('option-form-container');
@@ -125,17 +141,31 @@ tagButtons.forEach(function(button) {
     });
 });
 
-// 이미지 슬라이드 
-var slideIndex = 0;
+// 이미지 슬라이드
+let currentSlide = 0;
+const slides = document.getElementsByClassName('reservation-image-slide');
 
-// 페이지 로딩이 완료되면 실행
-window.onload = function() {
-    showSlides(); // 슬라이드 표시
-};
+function showSlide(index) {
+    if (index >= slides.length) {
+        currentSlide = 0;
+    } else if (index < 0) {
+        currentSlide = slides.length - 1;
+    } else {
+        currentSlide = index;
+    }
 
-function plusSlides(n) {
-    showSlides(slideIndex += n);
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = 'none';
+    }
+
+    slides[currentSlide].style.display = 'block';
 }
+
+function plusSlides(step) {
+    showSlide(currentSlide + step);
+}
+// 초기 슬라이드 표시
+showSlide(currentSlide);
 
 function showSlides() {
     var i;
@@ -242,69 +272,32 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// 캘린더 DB 연동
-// Frontend JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        height: '700px', // calendar 높이 설정
-        expandRows: true, // 화면에 맞게 높이 재설정
-        slotMinTime: '08:00', // Day 캘린더에서 시작 시간
-        slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
-        headerToolbar: {
-            right: 'prev,next today',
-        },
-        selectable: true, // 달력 일자 드래그 설정가능
-        nowIndicator: true, // 현재 시간 마크
-        dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
-        locale: 'ko', // 한국어 설정
-        events: function(fetchInfo, successCallback, failureCallback) {
-            fetch('/reservations')
-                .then(response => response.json())
-                .then(data => {
-                    var events = [];
-                    data.forEach(reservation => {
-                        events.push({
-                            title: 'Reservation', // 예약을 나타내는 제목
-                            start: reservation.reg_date, // 예약의 등록일자를 시작 시간으로 사용
-                            allDay: true // 하루 종일 예약으로 설정
-                        });
-                    });
-                    successCallback(events); // 캘린더에 이벤트 추가
-                })
-                .catch(error => {
-                    console.error('Error fetching reservations:', error);
-                    failureCallback(error);
-                });
-        }
-    });
-    calendar.render();
-});
+function addToCart() {
+    const $serviceNo = '[[${service.serviceNo}]]';
+    const serviceNo = $serviceNo;
 
-// 캘린더 DB 연동2 
-// $(function () {
-//     var request = $.ajax({
-//         url: "/full-calendar/calendar-admin",
-//         method: "GET",
-//         dataType: "json"
-//     });
+    // CSRF 토큰 가져오기
+    const csrfToken = document.querySelector("meta[name='_csrf']").content;
+    const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
 
-//     request.done(function (data) {
-//         var calendarEl = document.getElementById('calendar');
+    let data = {
+        'serviceNo': serviceNo
+    };
 
-//         var calendar = new FullCalendar.Calendar(calendarEl, {
-//             initialDate: new Date(),
-//             initialView: 'dayGridMonth',
-//             events: data
-//         });
+    // AJAX 비동기 요청
+    let request = new XMLHttpRequest();
+        request.open('POST', '/cart/add');
+        request.setRequestHeader(csrfHeader, csrfToken); // CSRF 토큰을 헤더에 추가
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify(data));
 
-//         calendar.render();
-//     });
-
-//     request.fail(function( jqXHR, textStatus ) {
-//         alert( "Request failed: " + textStatus );
-//     });
-// });
-
-
+        // 요청 상태가 변할 때 실행하는 메소드
+        request.onreadystatechange = function() {
+            // 요청 성공
+            sweetAlert('장바구니 담기 성공', '성공적으로 서비스가 장바구니에 담겼습니다.','success')
+            if (request.readyState == request.DONE && request.status == 201) {
+                sweetAlert('장바구니 담기 실패', '서비스가 장바구니에 담기지 못했어요.','error')
+                console.log(request.responseText);
+            }
+        };
+    }

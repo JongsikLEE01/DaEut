@@ -15,9 +15,9 @@
                 <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
                 <h5>관리</h5>
                 <br>
-                <a href="adminUser" class="userManage">회원 관리</a>
-                <a href="adminPartner">파트너 관리</a>
-                <a href="adminReservation">예약 관리</a>
+                <a href="/admin/adminUser" class="userManage">회원 관리</a>
+                <a href="/admin/adminPartner">파트너 관리</a>
+                <a href="/admin/adminReservation">예약 관리</a>
             </nav>
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>회원 관리</h3>
@@ -34,107 +34,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1.</td>
-                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
-                            <td>joeun</td>
-                            <td>010-1111-1111</td>
-                            <td>2024-05-20 12:19:10</td>
+                        <th:block th:if="${userList == null || userList.isEmpty()}">
+                            <tr>
+                                <td colspan="6"> 
+                                    조회된 회원 정보가 없습니다.
+                                </td>
+                            </tr>
+                        </th:block>
+                        <tr th:each="user : ${userList}">
+                            <td th:text="${user.userNo}"></td>
+                            <td>
+                                <a th:href="@{/adminUserRead(no=${user.userNo})}" th:text="${user.userName}" class="text-decoration-line"></a>
+                            </td>
+                            <td th:text="${user.userId}"></td>
+                            <td th:text="${user.userPhone}"></td>
+                            <td>
+                                <span th:text="${#dates.format(user.userRegDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                            </td>
                             <td class="checked">
                                 <input type="checkbox" id="chk1" class="checkbox">
                             </td>
                         </tr>
-                        <tr>
-                            <td>2.</td>
-                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
-                            <td>joeun</td>
-                            <td>010-1111-1111</td>
-                            <td>2024-05-20 12:19:10</td>
-                            <td class="checked">
-                                <input type="checkbox" id="chk1" class="checkbox">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3.</td>
-                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
-                            <td>joeun</td>
-                            <td>010-1111-1111</td>
-                            <td>2024-05-20 12:19:10</td>
-                            <td class="checked">
-                                <input type="checkbox" id="chk1" class="checkbox">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4.</td>
-                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
-                            <td>joeun</td>
-                            <td>010-1111-1111</td>
-                            <td>2024-05-20 12:19:10</td>
-                            <td class="checked">
-                                <input type="checkbox" id="chk1" class="checkbox">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5.</td>
-                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
-                            <td>joeun</td>
-                            <td>010-1111-1111</td>
-                            <td>2024-05-20 12:19:10</td>
-                            <td class="checked">
-                                <input type="checkbox" id="chk1" class="checkbox">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>6.</td>
-                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
-                            <td>joeun</td>
-                            <td>010-1111-1111</td>
-                            <td>2024-05-20 12:19:10</td>
-                            <td class="checked">
-                                <input type="checkbox" id="chk1" class="checkbox">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>7.</td>
-                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
-                            <td>joeun</td>
-                            <td>010-1111-1111</td>
-                            <td>2024-05-20 12:19:10</td>
-                            <td class="checked">
-                                <input type="checkbox" id="chk1" class="checkbox">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8.</td>
-                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
-                            <td>joeun</td>
-                            <td>010-1111-1111</td>
-                            <td>2024-05-20 12:19:10</td>
-                            <td class="checked">
-                                <input type="checkbox" id="chk1" class="checkbox">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>9.</td>
-                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
-                            <td>joeun</td>
-                            <td>010-1111-1111</td>
-                            <td>2024-05-20 12:19:10</td>
-                            <td class="checked">
-                                <input type="checkbox" id="chk1" class="checkbox">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>10.</td>
-                            <td><a href="adminUserRead" class="text-decoration-line">김조은</a></td>
-                            <td>joeun</td>
-                            <td>010-1111-1111</td>
-                            <td>2024-05-20 12:19:10</td>
-                            <td class="checked">
-                                <input type="checkbox" id="chk1" class="checkbox">
-                            </td>
-                        </tr>
-
                     </tbody>
                 </table>
                 <div class="buttons">
@@ -155,5 +75,7 @@
             </div>
         </div>
     </main>
+
+
 </body>
 </html>
