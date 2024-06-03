@@ -38,13 +38,15 @@
             </div>
         </div>
         <div class="pagination">
-            <span>&laquo;</span>
-            <span class="active">1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span>5</span>
-            <span>&raquo;</span>
+            <a href="#">&laquo;</a>
+            <a href="#">&lt;</a>
+            <a href="#" th:classappend="${page == 1} ? 'active'">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">&gt;</a>
+            <a href="#">&raquo;</a>
         </div>
         
         <div class="search-container">

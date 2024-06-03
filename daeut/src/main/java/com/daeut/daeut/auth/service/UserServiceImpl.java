@@ -14,8 +14,12 @@ import org.springframework.beans.factory.annotation.Value;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
+
+import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
+
 import com.daeut.daeut.reservation.dto.Reservation;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -170,6 +174,12 @@ public class UserServiceImpl implements UserService {
             userMapper.insertAuth(userAuthAdmin);
         }
     }
+
+    @Override
+    public int countUsers() throws Exception {
+        return userMapper.countUsers();
+    }
+    
   
     private String saveFile(MultipartFile file) {
         return "c:/upload";
@@ -177,8 +187,8 @@ public class UserServiceImpl implements UserService {
 
     // 모든 사용자 목록 조회
     @Override
-    public List<Users> selectAllUsers() throws Exception {
-        List<Users> userList = userMapper.selectAllUsers();
+    public List<Users> selectAllUsers(Page page) throws Exception {
+        List<Users> userList = userMapper.selectAllUsers(page);
         // ROLE_USER만 필터링
         log.info("user: " + userList);
         return userList;
@@ -199,5 +209,13 @@ public class UserServiceImpl implements UserService {
     public Users findByUsername(String username) {
         return userMapper.findByUsername(username);
     }
+
+    @Override
+    public int deleteList(String[] deleteNoList) throws Exception {
+        String deleteNos = String.join(",", deleteNoList);
+        int result = userMapper.deleteList(deleteNos);
+        return result;
+    }
+
 
 }

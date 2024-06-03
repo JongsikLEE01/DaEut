@@ -14,7 +14,7 @@ import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.PaymentStatus;
 import com.daeut.daeut.reservation.dto.Payments;
 import com.daeut.daeut.reservation.service.OrderItemService;
-import com.daeut.daeut.reservation.service.OrdersService;
+import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,18 +28,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 @Controller("orders")
 @RequestMapping("/orders")
-public class OrdersController {
+public class OrderController {
     @Autowired
-    private OrdersService ordersService;
+    private OrderService orderService;
 
     @Autowired
     private OrderItemService orderItemService;
 
     @Autowired
     private PaymentService paymentService;
-
-
-    // TODO : 주문 서비스 연동 필요
 
     /**
      * 주문하기
@@ -61,23 +58,26 @@ public class OrdersController {
                             @RequestParam List<String> serviceNo, 
                             @RequestParam List<Integer> quantity) throws Exception {
         log.info("::::::::: 주문 등록 - orderPost() ::::::::::");
-        log.info("productId : " + serviceNo);
+        log.info("serviceNo : " + serviceNo);
         log.info("quantity : " + quantity);
 
+        Users user = (Users) session.getAttribute("user");
+        orders.setUserNo(user.getUserNo());
+
         // 주문 등록
-        int result = ordersService.insert(orders);
+        int result = orderService.insert(orders);
 
         log.info("신규 등록된 주문ID : " + orders.getOrdersNo() );
         if( result > 0 ) {
             return "redirect:/orders/" + orders.getOrdersNo();
         }
-        // TODO : 주문 실패시 어디로 가는게 좋을지? - 장바구니? 주문내역? 상품목록?
         else {
-            return "redirect:/orders";
+            // 주문 실패시 상품목록
+            return "redirect:/reservation/reservation";
         }
     }
     
-/**
+    /**
      * 주문 완료
      * @param model
      * @param session
@@ -89,22 +89,23 @@ public class OrdersController {
     public String orderSuccess(Model model
                               ,Payments payments
                               ,HttpSession session
-                              ,@RequestParam("orderNo") String orderNo) throws Exception {
+                              ,@RequestParam("ordersNo") String ordersNo) throws Exception {
 
-        payments.setOrdersNo(orderNo);
+        payments.setOrdersNo(ordersNo);
+        payments.setPaymentMethod("card");
         payments.setStatus(PaymentStatus.PAID);
         paymentService.merge(payments);
         
-        payments = paymentService.selectByOrdersNo(orderNo);
+        payments = paymentService.selectByOrdersNo(ordersNo);
         log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
         log.info(payments.toString());
 
-        Orders order = ordersService.select(orderNo);
+        Orders order = orderService.select(ordersNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
         log.info(payments.toString());
 
         model.addAttribute("order", order);
-        return "/orders/success";
+        return "/reservation/paymentDone";
     }
 
     /**
@@ -119,20 +120,21 @@ public class OrdersController {
     public String orderFail(Model model
                               ,Payments payments
                               ,HttpSession session
-                              ,@RequestParam("orderNo") String orderNo
+                              ,@RequestParam("ordersNo") String ordersNo
                               ,@ModelAttribute String errorMsg) throws Exception {                    
-        payments.setOrdersNo(orderNo);
+        payments.setOrdersNo(ordersNo);
+        payments.setPaymentMethod("card");
         payments.setStatus(PaymentStatus.PAID);
         paymentService.insert(payments);
         
         // ⭐ 결제 실패 시, 결제 상태 PENDING 으로 변경
-        payments = paymentService.selectByOrdersNo(orderNo);
+        payments = paymentService.selectByOrdersNo(ordersNo);
         payments.setStatus(PaymentStatus.PENDING);
         paymentService.merge(payments);
         log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
         log.info(payments.toString());
 
-        Orders order = ordersService.select(orderNo);
+        Orders order = orderService.select(ordersNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
         log.info(payments.toString());
 
@@ -140,7 +142,7 @@ public class OrdersController {
 
         model.addAttribute("payments", payments);
         model.addAttribute("order", order);
-        return "/orders/fail";
+        return "reservation/paymentFalse";
     }
 
     /**
@@ -151,27 +153,28 @@ public class OrdersController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/{orderId}")
+    @GetMapping("/{ordersNo}")
     public String checkout(Model model
                           ,HttpSession session
-                          ,@PathVariable("orderNo") String orderNo) throws Exception {
+                          ,@PathVariable("ordersNo") String ordersNo) throws Exception {
         
         // 로그인 사용자
         Users user = (Users) session.getAttribute("user");
         // 주문 정보
-        Orders order = ordersService.select(orderNo);
+        Orders order = orderService.select(ordersNo);
         // 주문 항목 정보
-        List<OrderItems> orderItems = orderItemService.listByOrderNo(orderNo);
+        List<OrderItems> orderItems = orderItemService.listByOrderNo(ordersNo);
         
         if( order == null ) return "redirect:/orders?error";
         log.info(":::::::::::::::::::: order ::::::::::::::::::::");
         log.info(order.toString());
         log.info(":::::::::::::::::::: order items ::::::::::::::::::::");
         log.info(orderItems.toString());
-
+        
+        
 
         model.addAttribute("order", order);
         model.addAttribute("orderItems", orderItems);
-        return "/orders/checkout";
+        return "/reservation/payment";
     }
 }
