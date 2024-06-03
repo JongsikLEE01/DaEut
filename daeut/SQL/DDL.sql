@@ -1,13 +1,12 @@
 -- Active: 1715242304860@@127.0.0.1@3306@joeun
 -- 결제 로직
 
-
 -- -- DROP
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS partner;
 DROP TABLE IF EXISTS service;
 DROP TABLE IF EXISTS board ;
-DROP TABLE IF EXISTS reservation ;
+DROP TABLE IF EXISTS orders ;
 DROP TABLE IF EXISTS persistent_logins;
 DROP TABLE IF EXISTS files ;
 DROP TABLE IF EXISTS reply ;
@@ -15,10 +14,9 @@ DROP TABLE IF EXISTS chat ;
 DROP TABLE IF EXISTS review ;
 DROP TABLE IF EXISTS user_auth ;
 DROP TABLE IF EXISTS payment ;
-DROP TABLE IF EXISTS reservation_item ;
+DROP TABLE IF EXISTS order_item ;
 DROP TABLE IF EXISTS cancel ;
 DROP TABLE IF EXISTS cart ;
-
 
         
 CREATE TABLE board
@@ -48,7 +46,7 @@ CREATE TABLE cancel
   completed_date TIMESTAMP    NULL     COMMENT '처리일자',
   reg_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '등록일자',
   upd_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '수정일자',
-  reservation_no INT          NOT NULL COMMENT '예약 번호',
+  orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
   PRIMARY KEY (cancel_no)
 ) COMMENT '취소';
 
@@ -87,6 +85,34 @@ CREATE TABLE files
   PRIMARY KEY (file_no)
 ) COMMENT '파일';
 
+CREATE TABLE order_item
+(
+  item_no    VARCHAR(50) NOT NULL COMMENT '예약 항목 번호',
+  quantity   INT         NOT NULL DEFAULT 1 COMMENT '수량',
+  price      INT         NOT NULL DEFAULT 0 COMMENT '단가',
+  amount     INT         NULL     COMMENT '총계',
+  upd_date   TIMESTAMP   NOT NULL DEFAULT current_timestamp COMMENT '항목 수정일자',
+  reg_date   TIMESTAMP   NOT NULL DEFAULT current_timestamp COMMENT '항목 등록일자',
+  orders_no  VARCHAR(50) NOT NULL COMMENT '예약 번호',
+  service_no INT         NOT NULL COMMENT '서비스 번호',
+  PRIMARY KEY (item_no)
+) COMMENT '예약항목';
+
+CREATE TABLE orders
+(
+  orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
+  user_no        INT          NOT NULL COMMENT '사용자 번호',
+  partner_no     INT          NOT NULL COMMENT '파트너 번호',
+  order_status   VARCHAR(50)  NOT NULL COMMENT '예약 상태',
+  total_quantity INT          NOT NULL COMMENT '총 수량',
+  total_price    INT          NOT NULL COMMENT '총 가격',
+  upd_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 수정일자',
+  reg_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 등록일자',
+  total_count    INT          NOT NULL COMMENT '총 항목수',
+  title          VARCHAR(100) NULL     COMMENT '예약 제목',
+  PRIMARY KEY (orders_no)
+) COMMENT '예약';
+
 CREATE TABLE partner
 (
   partner_no      INT       NOT NULL AUTO_INCREMENT COMMENT '파트너 번호',
@@ -106,7 +132,7 @@ CREATE TABLE payment
   pay_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제일',
   reg_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 등록일',
   upd_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 수정일',
-  reservation_no INT          NOT NULL COMMENT '예약 번호',
+  orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
   PRIMARY KEY (payment_no)
 ) COMMENT '결제';
 
@@ -133,33 +159,6 @@ CREATE TABLE reply
   user_no        INT       NOT NULL COMMENT '사용자 번호',
   PRIMARY KEY (reply_no)
 ) COMMENT '댓글';
-
-CREATE TABLE orders
-(
-  orders_no          INT         NOT NULL AUTO_INCREMENT COMMENT '예약 번호',
-  user_no            INT         NOT NULL COMMENT '사용자 번호',
-  partner_no         INT         NOT NULL COMMENT '파트너 번호',
-  reservation_status VARCHAR(50) NOT NULL COMMENT '예약 상태',
-  order_uid          VARCHAR(50) NOT NULL COMMENT '주문 번호',
-  total_quantity     INT         NOT NULL COMMENT '총 수량',
-  total_price        INT         NOT NULL COMMENT '총 가격',
-  upd_date           TIMESTAMP   NOT NULL DEFAULT current_timestamp COMMENT '예약 수정일자',
-  reg_date           TIMESTAMP   NOT NULL DEFAULT current_timestamp COMMENT '예약 등록일자',
-  PRIMARY KEY (orders_no)
-) COMMENT '예약';
-
-CREATE TABLE order_item
-(
-  item_no        INT       NOT NULL AUTO_INCREMENT COMMENT '번호',
-  quantity       INT       NOT NULL DEFAULT 1 COMMENT '수량',
-  price          INT       NOT NULL DEFAULT 0 COMMENT '단가',
-  amount         INT       NULL     COMMENT '총계',
-  upd_date       TIMESTAMP NOT NULL DEFAULT current_timestamp COMMENT '항목 수정일자',
-  reg_date       TIMESTAMP NOT NULL DEFAULT current_timestamp COMMENT '항목 등록일자',
-  reservation_no INT       NOT NULL COMMENT '예약 번호',
-  service_no     INT       NOT NULL COMMENT '서비스 번호',
-  PRIMARY KEY (item_no)
-) COMMENT '예약항목';
 
 CREATE TABLE review
 (
@@ -214,6 +213,7 @@ CREATE TABLE users
   PRIMARY KEY (user_no)
 ) COMMENT '사용자';
 
+
 -- ALTER TABLE reply
 --   ADD CONSTRAINT FK_board_TO_reply
 --     FOREIGN KEY (board_no)
@@ -241,7 +241,7 @@ CREATE TABLE users
 
 -- ALTER TABLE payment
 --   ADD CONSTRAINT FK_orders_TO_payment
---     FOREIGN KEY (reservation_no)
+--     FOREIGN KEY (orders_no)
 --     REFERENCES orders (orders_no);
 
 -- ALTER TABLE review
@@ -281,7 +281,7 @@ CREATE TABLE users
 
 -- ALTER TABLE order_item
 --   ADD CONSTRAINT FK_orders_TO_order_item
---     FOREIGN KEY (reservation_no)
+--     FOREIGN KEY (orders_no)
 --     REFERENCES orders (orders_no);
 
 -- ALTER TABLE order_item
@@ -291,7 +291,7 @@ CREATE TABLE users
 
 -- ALTER TABLE cancel
 --   ADD CONSTRAINT FK_orders_TO_cancel
---     FOREIGN KEY (reservation_no)
+--     FOREIGN KEY (orders_no)
 --     REFERENCES orders (orders_no);
 
 -- ALTER TABLE cart
@@ -303,5 +303,3 @@ CREATE TABLE users
 --   ADD CONSTRAINT FK_users_TO_cart
 --     FOREIGN KEY (user_no)
 --     REFERENCES users (user_no);
-
-        

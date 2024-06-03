@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aloha.shop.shop.mapper.OrdersMapper">
+
+    <!-- 모든 주문 조회 -->
+    <select id="list" resultType="Orders">
+        SELECT * 
+        FROM orders
+    </select>
+
+    <!-- 주문 상세 조회 -->
+    <select id="select" resultType="Orders">
+        SELECT * 
+        FROM orders 
+        WHERE orders_no = #{ordersNo}
+    </select>
+
+     <!-- 주문 삽입 -->
+    <insert id="insert">
+        INSERT INTO orders (orders_no, user_no, partner_no, title, total_quantity, total_price, total_count)
+        VALUES (#{ordersNo}, #{userNo}, #{partnerNo}, #{title}, #{totalQuantity}, #{totalPrice}, #{totalCount})
+    </insert>
+
+    <!-- 주문 수정 -->
+    <update id="update">
+        UPDATE orders
+        SET title = #{title}
+            , total_quantity = #{totalQuantity}
+            , total_price = #{totalPrice}
+            , total_count = #{totalCount}
+            , order_status = #{orderStatus}
+            , upd_date = now()
+        WHERE orders_no = #{ordersNo}
+    </update>
+
+    <!-- 주문 삭제 -->
+    <delete id="delete">
+        DELETE FROM orders 
+        WHERE orders_no = #{ordersNo}
+    </delete>
+
+
+    <!-- 목록 - userId -->
+    <select id="listByUserNo" resultType="Orders">
+        SELECT *
+        FROM orders
+        WHERE user_no = #{userNo}
+    </select>
+
+</mapper>

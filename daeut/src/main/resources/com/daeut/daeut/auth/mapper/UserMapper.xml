@@ -219,4 +219,11 @@
 
     </select>
 
+    <!-- userNo 유저 찾기 -->
+    <select id="selectByUserNo">
+        select *
+        from users
+        WHERE user_no = #{userNo}
+    </select>
+
 </mapper>
