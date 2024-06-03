@@ -309,20 +309,20 @@ CREATE TABLE users
 --     FOREIGN KEY (user_no)
 --     REFERENCES users (user_no);
 
--- ALTER TABLE chat_rooms
---   ADD CONSTRAINT FK_users_TO_chat_rooms
---     FOREIGN KEY (user_no)
---     REFERENCES users (user_no);
-
 -- ALTER TABLE chat
 --   ADD CONSTRAINT FK_chat_rooms_TO_chat
 --     FOREIGN KEY (room_no)
 --     REFERENCES chat_rooms (room_no);
 
 -- ALTER TABLE chat_rooms
---   ADD CONSTRAINT FK_partner_TO_chat_rooms
+--   ADD CONSTRAINT FK_users_TO_chat_rooms
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE chat_rooms
+--   ADD CONSTRAINT FK_users_TO_chat_rooms1
 --     FOREIGN KEY (partner_no)
---     REFERENCES partner (partner_no);
+--     REFERENCES users (user_no);
 
         
       
