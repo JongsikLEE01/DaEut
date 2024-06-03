@@ -15,20 +15,14 @@ function daumPostcode() {
 
 // 포트원
 $("#paymentBtn").on("click", function () {
+    var ordersNo = $("#ordersNo").val()
     var userName = $("#userName").val()
-
     var userAddress = $("#userAddress").val() + $("#userAddressDetail").val()
-
     var userPost = $("#userPost").val()
-
-    var userPhone1 = $("#userPhone1").val() 
-    var userPhone2 = $("#userPhone2").val() 
-    var userPhone = userPhone1 + userPhone2
- 
-    var serviceName = 'serviceName'
-
-    // var productCost = $("#service_price").val() + $("#service_price").val()
-    var totalCost = 300
+    var userPhone1 = $("#userPhone").val() 
+    var userEmail = $('#userEmail').val()
+    var orderTitle = $('#orderTitle').val()
+    var totalCost = $('#totalPrice').val()
 
     var today = new Date();   
     var hours = today.getHours();       // 시
@@ -38,7 +32,7 @@ $("#paymentBtn").on("click", function () {
     var makeMerchantUid = hours +  minutes + seconds + milliseconds; // 고유 주문번호 생성 
 
     var IMP = window.IMP
-    IMP.init('imp52301113')             // 고객사 식별코드 입력 
+    IMP.init('imp48458232')             // 고객사 식별코드 입력 
 
     IMP.request_pay({
         // 결제 정보 가져오기
@@ -48,27 +42,24 @@ $("#paymentBtn").on("click", function () {
         buyer_addr: userAddress,        // 주소
         buyer_postcode: userPost,       // 우편번호
         buyer_tel: userPhone,           // 전화번호 (필수입력)
-        name: serviceName,              // 상품명
+        name: orderTitle,               // 상품명
         amount: totalCost,              // 금액
-        merchant_uid: makeMerchantUid   // 고유 주문번호
+        merchant_uid: ordersNo           // 고유 주문번호
         
-    }, function (res) {
+    }, function (rsp) {
         // 결제 성공
-        if (res.success) {
-            axios({
-                method: "post",
-                url: `/payment/validation/${res.imp_uid}`
-                // DB 연동 및 저장 필요
-            }).then(function (response) {
-                window.location.href = `/reservation/paymentDone`; // url 뒤 주문번호 추가
-            }).catch(function (error) {
-                console.error(error);
-                alert("결제 성공 후 처리 중 오류가 발생...");
-            });
+        if (rsp.success) {
+            // 결제 성공
+            console.log(rsp);
+            // 결제 완료 페이지로 이동
+            location.href = `/orders/success?ordersNo=${ordersNo}`
         } else {
-            // 결제 실패
-            alert("결제 실패... " + res.error_msg);
-            window.location.href = "/reservation/paymentFalse";
+             // 결제 실패
+             console.log(rsp);
+             let errorMsg = rsp.error_msg;
+             errorMsg = errorMsg.replace(/\[|\]/g, '');
+             // 결제 실패 페이지로 이동
+             location.href = `/orders/fail?ordersNo=${ordersNo}&errorMsg=${errorMsg}`
         }
     })
 })

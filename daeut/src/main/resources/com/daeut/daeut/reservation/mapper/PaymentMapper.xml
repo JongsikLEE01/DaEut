@@ -20,8 +20,8 @@
 
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO PAYMENT (payment_no, orders_no, payment_method, STATUS )
-        VALUES (UUID(), #{ordersNo}, #{paymentMethod}, #{status} )
+        INSERT INTO PAYMENT (orders_no, payment_method, STATUS )
+        VALUES (#{ordersNo}, #{paymentMethod}, #{status} )
     </insert>
 
     <!-- 수정 -->
