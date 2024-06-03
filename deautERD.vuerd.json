@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -1231.3737999999985,
-    "scrollLeft": -1709,
-    "zoomLevel": 1,
+    "scrollTop": -948.2634999999993,
+    "scrollLeft": -1982.924599999999,
+    "zoomLevel": 0.7,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -374,7 +374,7 @@
           "active": false,
           "left": 1695.5323,
           "top": 1722.8417,
-          "zIndex": 10,
+          "zIndex": 7,
           "widthName": 60,
           "widthComment": 60
         },
@@ -459,7 +459,7 @@
           "active": false,
           "left": 1006.2442,
           "top": 1668.1884,
-          "zIndex": 3,
+          "zIndex": 2,
           "widthName": 60,
           "widthComment": 60
         },
@@ -657,9 +657,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 997.0373,
-          "top": 978.914,
-          "zIndex": 9,
+          "left": 997.0372,
+          "top": 978.9139,
+          "zIndex": 16,
           "widthName": 60,
           "widthComment": 60
         },
@@ -674,10 +674,10 @@
             "id": "429ebeae-8d59-4180-b93a-dc925699316a",
             "name": "orders_no",
             "comment": "예약 번호",
-            "dataType": "INT",
+            "dataType": "VARCHAR(50)",
             "default": "",
             "option": {
-              "autoIncrement": true,
+              "autoIncrement": false,
               "primaryKey": true,
               "unique": false,
               "notNull": true
@@ -689,7 +689,7 @@
               "pfk": false,
               "widthName": 60.14453125,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 82.1328125,
               "widthDefault": 60
             }
           },
@@ -741,7 +741,7 @@
           },
           {
             "id": "9e61bedb-b05f-433c-8702-5e05e44697f9",
-            "name": "reservation_status",
+            "name": "order_status",
             "comment": "예약 상태",
             "dataType": "VARCHAR(50)",
             "default": "",
@@ -756,30 +756,7 @@
               "pk": false,
               "fk": false,
               "pfk": false,
-              "widthName": 106.9775390625,
-              "widthComment": 60,
-              "widthDataType": 82.1328125,
-              "widthDefault": 60
-            }
-          },
-          {
-            "id": "7c54678b-ce3c-430f-b908-d3d6869fbab3",
-            "name": "order_uid",
-            "comment": "주문 번호",
-            "dataType": "VARCHAR(50)",
-            "default": "",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": true
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": false,
-              "pfk": false,
-              "widthName": 60,
+              "widthName": 73.6142578125,
               "widthComment": 60,
               "widthDataType": 82.1328125,
               "widthDefault": 60
@@ -876,13 +853,59 @@
               "widthDataType": 71.93212890625,
               "widthDefault": 111.35107421875
             }
+          },
+          {
+            "id": "fdc99acd-019d-48eb-94e1-fb94ebb91752",
+            "name": "total_count",
+            "comment": "총 항목수",
+            "dataType": "INT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 67.583984375,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "id": "2fc28ced-c916-4ddf-a857-471d5e00335b",
+            "name": "title",
+            "comment": "예약 제목",
+            "dataType": "VARCHAR(100)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 2025.2845,
           "top": 1321.3578,
-          "zIndex": 49,
+          "zIndex": 15,
           "widthName": 60,
           "widthComment": 60
         },
@@ -990,7 +1013,7 @@
           "active": false,
           "left": 1010.1403,
           "top": 1885.5798,
-          "zIndex": 4,
+          "zIndex": 3,
           "widthName": 60,
           "widthComment": 60,
           "color": "#000000"
@@ -1237,7 +1260,7 @@
           "active": false,
           "left": 3247.5196,
           "top": 1275.9079,
-          "zIndex": 7,
+          "zIndex": 5,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1414,7 +1437,7 @@
           "active": false,
           "left": 1007.3907,
           "top": 1374.3824,
-          "zIndex": 2,
+          "zIndex": 1,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1566,9 +1589,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 2546.2396,
-          "top": 1031.7194,
-          "zIndex": 12,
+          "left": 2540.2396,
+          "top": 1006.7194,
+          "zIndex": 10,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1768,7 +1791,7 @@
           "active": false,
           "left": 2476.3597,
           "top": 1799.4425,
-          "zIndex": 5,
+          "zIndex": 4,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1876,7 +1899,7 @@
           "active": false,
           "left": 3245.9654,
           "top": 1602.9964,
-          "zIndex": 8,
+          "zIndex": 6,
           "widthName": 99.93798828125,
           "widthComment": 67
         },
@@ -2076,7 +2099,7 @@
           "active": false,
           "left": 2057.1481,
           "top": 406.7987,
-          "zIndex": 11,
+          "zIndex": 8,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2227,9 +2250,9 @@
           },
           {
             "id": "377a7eea-bb38-4338-b674-817740c54db9",
-            "name": "reservation_no",
+            "name": "orders_no",
             "comment": "예약 번호",
-            "dataType": "INT",
+            "dataType": "VARCHAR(50)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -2242,9 +2265,9 @@
               "pk": false,
               "fk": true,
               "pfk": false,
-              "widthName": 87.7822265625,
+              "widthName": 60.14453125,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 82.1328125,
               "widthDefault": 60
             }
           }
@@ -2253,7 +2276,7 @@
           "active": false,
           "left": 3253.1395,
           "top": 1003.2435,
-          "zIndex": 6,
+          "zIndex": 14,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2267,11 +2290,11 @@
           {
             "id": "e93f8676-440e-4d81-87b8-5abb57cca919",
             "name": "item_no",
-            "comment": "번호",
-            "dataType": "INT",
+            "comment": "예약 항목 번호",
+            "dataType": "VARCHAR(50)",
             "default": "",
             "option": {
-              "autoIncrement": true,
+              "autoIncrement": false,
               "primaryKey": true,
               "unique": false,
               "notNull": true
@@ -2282,8 +2305,8 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
-              "widthDataType": 60,
+              "widthComment": 89.140625,
+              "widthDataType": 82.1328125,
               "widthDefault": 60
             }
           },
@@ -2404,9 +2427,9 @@
           },
           {
             "id": "a73d5c76-f42c-41a2-a4ba-f4fee72d34d0",
-            "name": "reservation_no",
+            "name": "orders_no",
             "comment": "예약 번호",
-            "dataType": "INT",
+            "dataType": "VARCHAR(50)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -2419,9 +2442,9 @@
               "pk": false,
               "fk": true,
               "pfk": false,
-              "widthName": 87.7822265625,
+              "widthName": 60.14453125,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 82.1328125,
               "widthDefault": 60
             }
           },
@@ -2451,9 +2474,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 994.0024,
-          "top": 670.1538,
-          "zIndex": 41,
+          "left": 995.0024,
+          "top": 669.1538,
+          "zIndex": 12,
           "widthName": 65.0830078125,
           "widthComment": 60
         },
@@ -2742,9 +2765,9 @@
           },
           {
             "id": "359842ae-6efa-4b5d-a2a9-e7bb034f7efd",
-            "name": "reservation_no",
+            "name": "orders_no",
             "comment": "예약 번호",
-            "dataType": "INT",
+            "dataType": "VARCHAR(50)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -2757,9 +2780,9 @@
               "pk": false,
               "fk": true,
               "pfk": false,
-              "widthName": 87.7822265625,
+              "widthName": 60.14453125,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 82.1328125,
               "widthDefault": 60
             }
           }
@@ -2922,7 +2945,7 @@
           "active": false,
           "left": 1673.7266,
           "top": 818.2011,
-          "zIndex": 14,
+          "zIndex": 9,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2946,8 +2969,8 @@
           "columnIds": [
             "5bea0407-c9de-4b15-b34b-61d65f13d2f6"
           ],
-          "x": 1285.1867140625,
-          "y": 1211.914,
+          "x": 1285.1866140625,
+          "y": 1211.9139,
           "direction": "bottom"
         },
         "end": {
@@ -2972,8 +2995,8 @@
           "columnIds": [
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
-          "x": 2546.2396,
-          "y": 1079.7194,
+          "x": 2540.2396,
+          "y": 1038.7194,
           "direction": "left"
         },
         "end": {
@@ -3008,7 +3031,7 @@
             "0df7dfd0-d390-4f55-8778-6c252edfe371"
           ],
           "x": 2025.2845,
-          "y": 1511.4828,
+          "y": 1526.8578,
           "direction": "left"
         },
         "constraintName": "fk_users_to_reservation",
@@ -3076,8 +3099,8 @@
           "columnIds": [
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
-          "x": 2564.3162382812498,
-          "y": 1448.1078,
+          "x": 2546.8220976562498,
+          "y": 1526.8578,
           "direction": "right"
         },
         "end": {
@@ -3137,8 +3160,8 @@
           "columnIds": [
             "12d192ce-6eba-43e4-8dbd-cf6e5ce73f6d"
           ],
-          "x": 2546.2396,
-          "y": 1175.7194,
+          "x": 2540.2396,
+          "y": 1166.7194,
           "direction": "left"
         },
         "constraintName": "fk_users_to_partner",
@@ -3163,8 +3186,8 @@
           "columnIds": [
             "2ebc3b6c-5f66-4696-b139-192d207bd8e3"
           ],
-          "x": 1573.336128125,
-          "y": 1095.414,
+          "x": 1573.336028125,
+          "y": 1095.4139,
           "direction": "right"
         },
         "constraintName": "fk_users_to_board",
@@ -3206,18 +3229,18 @@
           "columnIds": [
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
-          "x": 2666.4570072265624,
-          "y": 1223.7194,
-          "direction": "bottom"
+          "x": 2540.2396,
+          "y": 1102.7194,
+          "direction": "left"
         },
         "end": {
           "tableId": "665604d2-96fc-4152-9249-313a20a673fb",
           "columnIds": [
             "62cd7980-e850-448f-9600-2a329e0ecc91"
           ],
-          "x": 2564.3162382812498,
-          "y": 1532.6078,
-          "direction": "right"
+          "x": 2286.0532988281248,
+          "y": 1321.3578,
+          "direction": "top"
         },
         "constraintName": "fk_partner_to_reservation",
         "visible": true
@@ -3232,8 +3255,8 @@
           "columnIds": [
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
-          "x": 2906.8918216796874,
-          "y": 1223.7194,
+          "x": 2780.674414453125,
+          "y": 1198.7194,
           "direction": "bottom"
         },
         "end": {
@@ -3285,7 +3308,7 @@
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
           "x": 2025.2845,
-          "y": 1384.7328,
+          "y": 1389.8578,
           "direction": "left"
         },
         "end": {
@@ -3293,8 +3316,8 @@
           "columnIds": [
             "a73d5c76-f42c-41a2-a4ba-f4fee72d34d0"
           ],
-          "x": 1503.6381421874999,
-          "y": 844.9038,
+          "x": 1494.8500562499999,
+          "y": 843.9038,
           "direction": "right"
         },
         "constraintName": "fk_reservation_to_reservation_item",
@@ -3319,8 +3342,8 @@
           "columnIds": [
             "277c64e3-51c7-489c-82ff-6310a8815278"
           ],
-          "x": 1503.6381421874999,
-          "y": 728.4038,
+          "x": 1494.8500562499999,
+          "y": 727.4038,
           "direction": "right"
         },
         "constraintName": "fk_service_to_reservation_item",
@@ -3336,8 +3359,8 @@
           "columnIds": [
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
-          "x": 2564.3162382812498,
-          "y": 1363.6078,
+          "x": 2546.8220976562498,
+          "y": 1389.8578,
           "direction": "right"
         },
         "end": {

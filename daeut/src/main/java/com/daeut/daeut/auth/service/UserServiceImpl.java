@@ -191,5 +191,9 @@ public class UserServiceImpl implements UserService {
         return parther;
 
     }
-
+  
+    @Override
+    public Users selectByUserNo(int userNo) throws Exception {
+        return userMapper.selectByUserNo(userNo);
+    }
 }
