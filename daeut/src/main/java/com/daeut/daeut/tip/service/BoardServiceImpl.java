@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.daeut.daeut.main.dto.Files;
+import com.daeut.daeut.tip.dto.Option2;
+import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.main.service.FileService;
 import com.daeut.daeut.tip.dto.Board;
 import com.daeut.daeut.tip.mapper.BoardMapper;
@@ -23,10 +25,16 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private FileService fileService;
 
+    @Autowired
+    private ReplyService replyService;
+
     // 게시글 목록 조회
     @Override
-    public List<Board> list() throws Exception {
-        List<Board> boardList = boardMapper.list();
+    public List<Board> list(Page page, Option2 option) throws Exception {
+        int total = boardMapper.count(option);
+        page.setTotal(total);
+
+        List<Board> boardList = boardMapper.list(page, option);
         return boardList;
     }
 
@@ -66,7 +74,7 @@ public class BoardServiceImpl implements BoardService {
                 uploadFile.setParentTable(parentTable);
                 uploadFile.setParentNo(parentNo);
                 uploadFile.setFile(file);
-                
+                uploadFile.setFileCode(0);
                 fileService.upload(uploadFile);
             }
         }
@@ -74,15 +82,20 @@ public class BoardServiceImpl implements BoardService {
         return result;
     }
 
+    // 게시글 수정
     @Override
     public int update(Board board) throws Exception {
         int result = boardMapper.update(board);
         return result;
     }
 
+    // 게시글 삭제
     @Override
     public int delete(int boardNo) throws Exception {
         int result = boardMapper.delete(boardNo);
+        if( result > 0 ){
+            result += replyService.deleteByBoardNo(boardNo);
+        }
         return result;
     }
 
@@ -92,4 +105,14 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.view(boardNo);
     }
 
+    @Override
+    public List<Board> search(Option2 option) throws Exception {
+        List<Board> boardList = boardMapper.search(option);
+        return boardList;
+    }
+
+    // @Override
+    // public List<Board> getTop5BoardsByBoardViews() {
+    //     return boardMapper.findTop5ByBoardViews();
+    // }
 }

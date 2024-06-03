@@ -63,8 +63,8 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public int deleByBoardNo(int boardNo) throws Exception {
-        int result = replyMapper.deleByBoardNo(boardNo);
+    public int deleteByBoardNo(int boardNo) throws Exception {
+        int result = replyMapper.deleteByBoardNo(boardNo);
         return result;
     }
 
