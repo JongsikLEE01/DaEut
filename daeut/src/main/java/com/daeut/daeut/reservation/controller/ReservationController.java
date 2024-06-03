@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,9 @@ import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Option;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.main.service.FileService;
+import com.daeut.daeut.reservation.dto.Reservation;
 import com.daeut.daeut.reservation.dto.Services;
+import com.daeut.daeut.reservation.mapper.ReservationMapper;
 import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +35,9 @@ public class ReservationController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private ReservationMapper reservationMapper;
 
     /**
      * 전체 조회

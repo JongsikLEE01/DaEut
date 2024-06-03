@@ -3,11 +3,13 @@ package com.daeut.daeut.auth.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
+
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Parther;
+import com.daeut.daeut.reservation.dto.Reservation;
+
 
 import groovyjarjarantlr4.v4.codegen.model.ExceptionClause;
 
@@ -43,7 +45,13 @@ public interface UserMapper {
     public int delete(Users user) throws Exception;
 
     // 파트너 신청
-    public void requestPartner(@Param("userId") String userId) throws Exception;
+    public void requestPartner(Users users, Partner partner) throws Exception;
+
+    public void insertPartner(@Param("userNo") int userNo, @Param("partner") Partner partner);
+
+    public void updateUserStatus(@Param("userNo") int userNo);
+
+    public Users getUserById(@Param("userId") String userId);
 
     // 파트너 신청 승인 및 권한 추가
     public void approvePartnerAndAddAuth(@Param("userId") String userId) throws Exception;
@@ -59,13 +67,15 @@ public interface UserMapper {
     public List<Users> selectAllUsers(@Param("page") Page page) throws Exception;
 
     // 파트너 찾기
-    public Parther selectPartner(int userNo) throws Exception;
+    public Partner selectPartner(int userNo) throws Exception;
 
+    // 관리자 - 회원 선택 
     public int deleteList(String deleteNoList) throws Exception;
 
+    // 번호 유저찾기
+    public Users selectByUserNo(int userNo) throws Exception;
+    // 유저 정보 찾기
+    public Users findByUsername(String username);
+
+
 }
-    
-    
-
-
-

@@ -1,10 +1,13 @@
 package com.daeut.daeut.auth.service;
 
-import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
+
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Parther;
+
+import com.daeut.daeut.reservation.dto.Reservation;
+
 
 import groovyjarjarantlr4.v4.codegen.model.ExceptionClause;
 
@@ -37,7 +40,9 @@ public interface UserService {
     public int delete(Users user) throws Exception;
 
     // 파트너 신청
-    public void requestPartner(String userId) throws Exception;
+    public void requestPartner(Users users, Partner partner) throws Exception;
+
+    public Users getUserById(String userId);
 
     // 파트너 승인
     public void approvePartner(String userId) throws Exception;
@@ -55,7 +60,12 @@ public interface UserService {
 
 
     // 파트너 찾기
-    public Parther selectPartner(int userNo) throws Exception;
+    public Partner selectPartner(int userNo) throws Exception;
+
+    // 번호 유저찾기
+    public Users selectByUserNo(int userNo) throws Exception;
+    // 유저 이름으로 찾기
+    public Users findByUsername(String username);
 
     public int deleteList(String[] deleteNoList) throws Exception;
 

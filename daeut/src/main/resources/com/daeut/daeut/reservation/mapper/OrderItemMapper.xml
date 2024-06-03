@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daeut.daeut.reservation.mapper.OrderItemMapper">
+
+    <!-- 목록 -->
+    <select id="list" resultType="OrderItems">
+        SELECT *
+        FROM order_item
+    </select>
+
+    <!-- 목록 - 주문ID -->
+    <select id="listByOrderNo" resultType="OrderItems">
+        SELECT *
+        FROM order_item
+        WHERE orders_no = #{ordersNo}
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="OrderItems">
+        SELECT * 
+        FROM order_item 
+        WHERE item_no = #{itemNo}
+    </select>
+
+    <!-- 등록 -->
+    <insert id="insert">
+        INSERT INTO order_item (item_no ,quantity, price, amount, orders_no, service_no)
+        VALUES (#{itemNo}, #{quantity}, #{price}, #{amount}, #{ordersNo}, #{serviceNo})
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        UPDATE order_item
+        SET quantity = #{quantity}
+            , price = #{price}
+            , amount = #{amount}
+            , upd_date = now()
+        WHERE item_no = #{itemNo}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        DELETE FROM order_item 
+        WHERE item_no = #{itemNo}
+    </delete>
+
+</mapper>

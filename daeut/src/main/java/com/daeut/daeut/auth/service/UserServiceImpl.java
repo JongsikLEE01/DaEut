@@ -8,14 +8,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
+
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Parther;
+
+import com.daeut.daeut.reservation.dto.Reservation;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -120,8 +124,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void requestPartner(String userId) throws Exception {
-        userMapper.requestPartner(userId);
+    public void requestPartner(Users user, Partner partner) throws Exception {
+        String filePath = saveFile(partner.getFile());
+        partner.setFilePath(filePath);
+        userMapper.insertPartner(user.getUserNo(), partner);
+        userMapper.updateUserStatus(user.getUserNo());
+    }
+
+    @Override
+    public Users getUserById(String userId) {
+        return userMapper.getUserById(userId);
     }
 
     @Override
@@ -168,6 +180,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.countUsers();
     }
     
+  
+    private String saveFile(MultipartFile file) {
+        return "c:/upload";
+    }
+
     // 모든 사용자 목록 조회
     @Override
     public List<Users> selectAllUsers(Page page) throws Exception {
@@ -177,11 +194,20 @@ public class UserServiceImpl implements UserService {
         return userList;
     }
 
-
     @Override
-    public Parther selectPartner(int userNo) throws Exception {
-        Parther parther = userMapper.selectPartner(userNo);
-        return parther;
+    public Partner selectPartner(int userNo) throws Exception {
+        Partner partner = userMapper.selectPartner(userNo);
+        return partner;
+
+    }
+  
+    @Override
+    public Users selectByUserNo(int userNo) throws Exception {
+        return userMapper.selectByUserNo(userNo);
+    }
+    @Override
+    public Users findByUsername(String username) {
+        return userMapper.findByUsername(username);
     }
 
     @Override
