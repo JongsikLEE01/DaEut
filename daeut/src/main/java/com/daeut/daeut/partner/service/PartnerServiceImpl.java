@@ -51,7 +51,6 @@ public class PartnerServiceImpl implements PartnerService {
     public Partner findByUserNo(int userNo) throws Exception {
         return partnerMapper.findByUserNo(userNo);
     }
-
     
     
 }

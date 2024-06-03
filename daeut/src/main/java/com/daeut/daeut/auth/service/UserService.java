@@ -63,6 +63,7 @@ public interface UserService {
 
     // 번호 유저찾기
     public Users selectByUserNo(int userNo) throws Exception;
+    
     // 유저 이름으로 찾기
     public Users findByUsername(String username);
 

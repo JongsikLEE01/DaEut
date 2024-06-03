@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.service.PartnerService;
 
 import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
@@ -28,6 +31,9 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PartnerService partnerService;
 
     @GetMapping("/member")
     public String loginMain() {
@@ -221,14 +227,28 @@ public class AuthController {
 
     // 로그인 처리
     @PostMapping("/login")
-    public String loginUser(@RequestParam String userId, @RequestParam String userPassword, Model model) {
+    public String loginUser(@RequestParam String userId, @RequestParam String userPassword, HttpSession session, Model model) {
         try {
             Users user = userService.select(userId);
             if (user == null || !new BCryptPasswordEncoder().matches(userPassword, user.getUserPassword())) {
                 model.addAttribute("errorMessage", "아이디 또는 비밀번호가 올바르지 않습니다.");
                 return "/auth/login";
             }
-            // 로그인 성공 처리 (예: 세션에 사용자 정보 저장)
+            
+            // 로그인 성공 시 세션에 사용자 정보 저장
+            session.setAttribute("user", user);
+            
+            // 파트너 정보가 있는 경우 세션에 파트너 번호 저장
+            Partner partner = partnerService.findByUserNo(user.getUserNo());
+            if (partner != null) {
+                session.setAttribute("partnerNo", partner.getPartnerNo());
+                // 세션에 partnerNo가 제대로 저장되었는지 로그로 확인
+                log.info("PartnerNo {} successfully stored in session for user {}", partner.getPartnerNo(), userId);
+            } else {
+                // 파트너 정보가 없는 경우에 대한 로그
+                log.info("Partner information not found for user {}", userId);
+            }
+            
             return "redirect:/";
         } catch (Exception e) {
             log.error("로그인 중 오류가 발생했습니다.", e);
@@ -236,4 +256,28 @@ public class AuthController {
             return "/auth/login";
         }
     }
+    
+    // @PostMapping("/login")
+    // public String loginUser(@RequestParam String userId, @RequestParam String userPassword, HttpSession session, Model model) {
+    //     try {
+    //         Users user = userService.select(userId);
+    //         if (user == null || !new BCryptPasswordEncoder().matches(userPassword, user.getUserPassword())) {
+    //             model.addAttribute("errorMessage", "아이디 또는 비밀번호가 올바르지 않습니다.");
+    //             return "/auth/login";
+    //         }
+    //         // 로그인 성공 처리 (예: 세션에 사용자 정보 저장)
+    //         session.setAttribute("user", user);
+    //         // 로그인 성공시 파트너 넘버 저장
+    //         Partner partner = partnerService.findByUserNo(user.getUserNo());
+    //         if (partner != null) {
+    //         session.setAttribute("partnerNo", partner.getPartnerNo());
+    //     }
+
+    //         return "redirect:/";
+    //     } catch (Exception e) {
+    //         log.error("로그인 중 오류가 발생했습니다.", e);
+    //         model.addAttribute("errorMessage", "로그인 중 오류가 발생했습니다.");
+    //         return "/auth/login";
+    //     }
+    // }
 }

@@ -61,6 +61,7 @@ public class CartController {
         Users user = (Users) session.getAttribute("user");
         cart.setUserNo(user.getUserNo());
         cart.setCartAmount(1);
+
         int result = 0;
         try {
             // 장바구니 추가 요청
@@ -75,14 +76,18 @@ public class CartController {
         return new ResponseEntity<>("SUCCESS",HttpStatus.OK);
     }
 
+    /**
+     * 장바구니 선택 삭제
+     * @writer jslee
+     * @param cartNos
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/delete")
     public String deleteCart(@RequestParam("cartNos") List<Integer> cartNos) throws Exception {
         log.info("cartNos :" + cartNos);
         
         int result = cartService.cartDeleteSelected(cartNos);
-
-
-
         return "redirect:/user/userCart";
     }
     
