@@ -19,5 +19,5 @@ public interface OrdersService {
     public int delete(String ordersNo) throws Exception;
 
     // ---------------------------------------------------------
-    public List<Orders> listByUserId(int userNo) throws Exception;
+    public List<Orders> listByUserNo(int userNo) throws Exception;
 }

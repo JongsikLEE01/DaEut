@@ -47,8 +47,8 @@ public class OrderItemServiceImpl implements OrderItemService{
     }
 
     @Override
-    public List<OrderItems> listByOrderId(String ordersNo) throws Exception {
-        List<OrderItems> orderItems = orderItemMapper.listByOrderId(ordersNo);
+    public List<OrderItems> listByOrderNo(String ordersNo) throws Exception {
+        List<OrderItems> orderItems = orderItemMapper.listByOrderNo(ordersNo);
 
         // 주문 항목 - 상품 정보 추가
         for (OrderItems orderItem : orderItems) {
