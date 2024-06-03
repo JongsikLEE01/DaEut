@@ -109,7 +109,6 @@ CREATE TABLE orders
   order_status   VARCHAR(50)  NOT NULL COMMENT '예약 상태',
   upd_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 수정일자',
   reg_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 등록일자',
-  partner_no     INT          NOT NULL COMMENT '파트너 번호',
   PRIMARY KEY (orders_no)
 ) COMMENT '예약';
 
