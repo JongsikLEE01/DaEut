@@ -3,10 +3,12 @@ package com.daeut.daeut.reservation.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.daeut.daeut.reservation.dto.Payments;
 import com.daeut.daeut.reservation.mapper.PaymentsMapper;
 
+@Service
 public class PaymentServiceImpl implements PaymentService{
 
     @Autowired
