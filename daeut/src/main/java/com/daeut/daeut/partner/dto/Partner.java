@@ -17,7 +17,7 @@ public class Partner {
     private int partnerReserve;
     private Timestamp partnerCareer;
     private String partnerStatus;
-    private String partnerIntroduce;
+    private String introduce;
     private int userNo;
 
 

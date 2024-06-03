@@ -16,7 +16,6 @@ import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
-import com.daeut.daeut.partner.dto.Parther;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -186,9 +185,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Parther selectPartner(int userNo) throws Exception {
-        Parther parther = userMapper.selectPartner(userNo);
-        return parther;
+    public Partner selectPartner(int userNo) throws Exception {
+        Partner partner = userMapper.selectPartner(userNo);
+        return partner;
 
     }
   

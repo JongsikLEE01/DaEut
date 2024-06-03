@@ -21,5 +21,7 @@ public interface PartnerMapper {
 
     // 파트너 조회
     public Partner findByUserNo(int userNo) throws Exception;
+
     public List<Review> getReviewsByPartnerNo(int partnerNo);
+    
 }
