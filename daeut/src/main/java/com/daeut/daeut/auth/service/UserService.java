@@ -36,7 +36,6 @@ public interface UserService {
     // 파트너 신청
     public void requestPartner(Users users, Partner partner) throws Exception;
 
-
     // 파트너 승인
     public void approvePartner(String userId) throws Exception;
 
@@ -46,10 +45,8 @@ public interface UserService {
     // 관리자 회원가입
     public void adminJoin(Users user, String systemPw) throws Exception;
 
-    
     // 모든 사용자 목록 조회
     public List<Users> selectAllUsers() throws Exception;
-
 
     // 파트너 찾기
     public Partner selectPartner(int userNo) throws Exception;

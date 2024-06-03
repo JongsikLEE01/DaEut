@@ -127,8 +127,8 @@
 
     <!-- 파트너 신청 -->
     <insert id="insertPartner">
-        INSERT INTO partner (partner_grade, partner_reserve, partner_career, partner_status, introduce, user_no, file_path)
-        VALUES (#{partnerGrade}, #{partnerReserve}, #{partnerCareer}, #{partnerStatus}, #{introduce}, #{userNo}, #{filePath})
+        INSERT INTO partner (partner_career, introduce, user_no)
+        VALUES (#{partnerCareer}, #{introduce}, #{userNo})
     </insert>
 
     <update id="updateUserStatus">

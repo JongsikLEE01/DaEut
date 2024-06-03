@@ -121,8 +121,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void requestPartner(Users user, Partner partner) throws Exception {
-        String filePath = saveFile(partner.getFile());
-        partner.setFilePath(filePath);
         userMapper.insertPartner(partner);
         userMapper.updateUserStatus(user.getUserNo());
     }
