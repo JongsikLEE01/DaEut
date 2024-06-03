@@ -1,6 +1,7 @@
 package com.daeut.daeut.reservation.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ public class ReservationServiceImpl implements ReservationService{
     private ReservationMapper reservationMapper;
     @Autowired
     private FileService fileService;
+    // @Autowired
+    // private ReservationRepository reservationRepository;
 
     private static final int THUMBNAIL_FILE_CODE = 1;
 

@@ -1,10 +1,9 @@
 package com.daeut.daeut.auth.service;
 
-import com.daeut.daeut.auth.dto.Partner;
-import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
-import com.daeut.daeut.partner.dto.Parther;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.reservation.dto.Reservation;
 
 import java.util.List;
 
@@ -54,8 +53,11 @@ public interface UserService {
 
 
     // 파트너 찾기
-    public Parther selectPartner(int userNo) throws Exception;
+    public Partner selectPartner(int userNo) throws Exception;
 
     // 번호 유저찾기
     public Users selectByUserNo(int userNo) throws Exception;
+    // 유저 이름으로 찾기
+    public Users findByUsername(String username);
+
 }
