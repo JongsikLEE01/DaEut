@@ -11,12 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.daeut.daeut.auth.dto.Partner;
-import com.daeut.daeut.auth.dto.Reservation;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
-import com.daeut.daeut.partner.dto.Parther;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.reservation.dto.Reservation;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -186,9 +185,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Parther selectPartner(int userNo) throws Exception {
-        Parther parther = userMapper.selectPartner(userNo);
-        return parther;
+    public Partner selectPartner(int userNo) throws Exception {
+        Partner partner = userMapper.selectPartner(userNo);
+        return partner;
 
     }
   
@@ -196,4 +195,9 @@ public class UserServiceImpl implements UserService {
     public Users selectByUserNo(int userNo) throws Exception {
         return userMapper.selectByUserNo(userNo);
     }
+    @Override
+    public Users findByUsername(String username) {
+        return userMapper.findByUsername(username);
+    }
+
 }
