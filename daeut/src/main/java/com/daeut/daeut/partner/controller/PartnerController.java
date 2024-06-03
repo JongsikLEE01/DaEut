@@ -150,9 +150,13 @@ public class PartnerController {
             }
             
             List<Review> reviews = partnerService.getReviews(partnerNo);
+            
+            // Add reviews to the log
+            log.info("Reviews retrieved: {}", reviews);
+            
             model.addAttribute("reviews", reviews);
             
-            return "partner/reviews";
+            return "/partner/partnerReview";
         } catch (Exception e) {
             log.error("Error in getReviewsByPartnerNo method", e);
             throw e;

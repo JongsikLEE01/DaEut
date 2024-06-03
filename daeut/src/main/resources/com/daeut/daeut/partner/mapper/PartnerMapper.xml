@@ -23,10 +23,11 @@ SELECT partner.*
 </update>
 
 <!-- 리뷰 정보 가져오기 -->
- <select id="getReviews" resultType="com.daeut.daeut.partner.dto.Partner">
-        SELECT * 
-        FROM review 
-        WHERE partner_no = #{partnerNo}
+ <select id="getReviews" parameterType="int" resultType="com.daeut.daeut.partner.dto.Review">
+SELECT r.*, u.user_name AS reviewer_name
+FROM review r
+JOIN users u ON r.user_no = u.user_no
+WHERE r.partner_no = #{partnerNo}
     </select>
 
 <!-- 유저 NO로 파트너 정보 가져오기-->
