@@ -91,75 +91,51 @@
                         <div class="col-12">
                             <label for="userName" class="form-label">이름</label>
                             <input type="text" class="form-control" id="userName" placeholder="이름" th:value="${order.user.userName}" required>
-                            <div class="invalid-feedback">
-                                이름을 입력해주세요.
-                            </div>
                         </div>
 
                         <div class="col-12">
                             <label for="serviceDate" class="form-label">서비스 일정</label>
                             <input type="date" class="form-control" id="serviceDate" placeholder="일정" value="" required>
-                            <div class="invalid-feedback">
-                                일정을 입력해주세요
-                            </div>
                         </div>
 
                         <div class="col-12">
                             <label for="serviceTime" class="form-label">서비스 시간</label>
                             <input type="time" class="form-control" id="serviceTime" placeholder="일정" required>
-                            <div class="invalid-feedback">
-                                일정을 입력해주세요
-                            </div>
                         </div>
 
                         <div class="col-12">
                             <label for="userEmail" class="form-label">이메일</label>
                             <input type="email" class="form-control" id="userEmail" placeholder="daeut@example.com" th:value="${order.user.userEmail}">
-                            <div class="invalid-feedback">
-                                이메일을 입력해주세요.
-                            </div>
                         </div>
 
                         <div class="col-md-12">
                             <label for="userPhone" class="form-label">전화번호</label>
                             <input type="text" class="form-control" id="userPhone" placeholder="전화번호를 입력해주세요" th:value="${order.user.userPhone}"
                                 required>
-                            <div class="invalid-feedback">
-                                전화번호를 입력해주세요.
-                            </div>
                         </div>
 
                         <div class="col-12">
                             <label for="userPost" class="form-label">우편번호</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="userPost" placeholder="우편번호" required>
-                                <button type="button" class="btn btn-secondary myBtn" onclick="daumPostcode()">우편번호
-                                    찾기</button>
-                                <div class="invalid-feedback">
-                                    우편번호를 입력해주세요.
-                                </div>
+                                <button type="button" class="btn btn-secondary myBtn" onclick="daumPostcode()">우편번호 찾기</button>
                             </div>
                         </div>
 
                         <div class="col-12">
                             <label for="userAddress" class="form-label">주소</label>
                             <input type="text" class="form-control" id="userAddress" placeholder="주소를 입력해주세요" required>
-                            <div class="invalid-feedback">
-                                주소를 입력해주세요.
-                            </div>
                         </div>
 
                         <div class="col-12">
                             <label for="userAddressDetail" class="form-label">상세주소</label>
                             <input type="text" class="form-control" id="userAddressDetail" placeholder="상세주소를 입력해주세요" required>
-                            <div class="invalid-feedback">
-                                상세주소를 입력해주세요.
-                            </div>
                         </div>
 
                         <div class="d-flex justify-content-end gap-5 mb-3 mt-4 btn-container">
                             <input type="hidden" name="ordersNo" id="ordersNo" th:value="${order.ordersNo}">
                             <input type="hidden" name="totalPrice" id="totalPrice" th:value="${order.totalPrice}">
+                            <input type="hidden" name="title" id="title" th:value="${order.title}">
                             <button class="btn btn-primary btn-lg sessuce color_main " type="button" id="paymentBtn">결제하기</button>
                             <button class="btn btn-danger btn-lg cancel " type="button" data-bs-toggle="modal"
                                 data-bs-target="#cancelPaymentModel">취소하기</button>
