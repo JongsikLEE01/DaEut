@@ -12,32 +12,25 @@
     <div class="container">
         <div class="py-5 text-center">
             <h2 class="color_main size_4rem">결제 화면</h2>
-            <p class="lead">user_name 결제 화면입니다.</p>
+            <p class="lead" th:text="${order.title}"></p>
         </div>
 
         <div class="row g-5">
             <div class="col-md-5 col-lg-4 order-md-last">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-primary color_main">
-                        <span class="text-primary color_main" th:text="order.user.name"></span>
-                        의 예약</span>
-                    <span class="badge bg-primary rounded-pill bg_color_main">N개</span>
+                    <span class="color_main">주문 내역</span>
                 </h4>
                 <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">serviceName</h6>
-                            <small class="text-body-secondary">설명</small>
-                        </div>
-                        <span class="text-body-secondary">servicePrice</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">serviceName</h6>
-                            <small class="text-body-secondary">설명</small>
-                        </div>
-                        <span class="text-body-secondary">servicePrice</span>
-                    </li>
+                    <th:block th:each="orderItem : ${orderItems}">
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <a th:href="|/reservation/reservationRead|" style="text-decoration: none; pointer-events: none; cursor: default;" class="color_point bold">
+                                <h6 class="my-0" th:text="${orderItem.service.serviceName}"></h6>
+                                <small class="text-body-secondary" th:text="${orderItem.service.serviceContent}"></small>
+                            </a>
+                            <span class="text-body-secondary" th:text="|&#8361; ${#numbers.formatInteger(orderItem.price, 0, 'COMMA')} 원|"></span>
+                        </li>
+                    </th:block>
+
                     <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
                         <div class="text-success">
                             <h6 class="my-0">사용한 쿠폰</h6>
@@ -45,9 +38,10 @@
                         </div>
                         <span class="text-success">-5,000원</span>
                     </li>
+
                     <li class="list-group-item d-flex justify-content-between">
                         <span>총 가격 (원)</span>
-                        <strong id="paymentPrice">65,000</strong>
+                        <strong id="paymentPrice" th:text="|&#8361; ${#numbers.formatInteger(order.totalPrice, 0, 'COMMA')} 원|"></strong>
                     </li>
                 </ul>
 
@@ -96,7 +90,7 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="userName" class="form-label">이름</label>
-                            <input type="text" class="form-control" id="userName" placeholder="이름" value="" required>
+                            <input type="text" class="form-control" id="userName" placeholder="이름" th:value="${order.user.userName}" required>
                             <div class="invalid-feedback">
                                 이름을 입력해주세요.
                             </div>
@@ -112,36 +106,23 @@
 
                         <div class="col-12">
                             <label for="serviceTime" class="form-label">서비스 시간</label>
-                            <input type="time" class="form-control" id="serviceTime" placeholder="일정" value="" required>
+                            <input type="time" class="form-control" id="serviceTime" placeholder="일정" required>
                             <div class="invalid-feedback">
                                 일정을 입력해주세요
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <label for="userEmal" class="form-label">이메일</label>
-                            <input type="email" class="form-control" id="userEmal" placeholder="daeut@example.com">
+                            <label for="userEmail" class="form-label">이메일</label>
+                            <input type="email" class="form-control" id="userEmail" placeholder="daeut@example.com" th:value="${order.user.userEmail}">
                             <div class="invalid-feedback">
                                 이메일을 입력해주세요.
                             </div>
                         </div>
 
-                        <div class="col-md-2">
-                            <label for="userPhone1" class="form-label">전화번호</label>
-                            <select class="form-select" id="userPhone1" required>
-                                <option value="010">010</option>
-                                <option value="011">011</option>
-                                <option value="017">017</option>
-                                <option value="019">019</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                전화번호를 입력해주세요.
-                            </div>
-                        </div>
-
-                        <div class="col-md-10">
-                            <label for="userPhone2" class="form-label">전화번호</label>
-                            <input type="text" class="form-control" id="userPhone2" placeholder="'-'는 제외하고 입력해주세요"
+                        <div class="col-md-12">
+                            <label for="userPhone" class="form-label">전화번호</label>
+                            <input type="text" class="form-control" id="userPhone" placeholder="전화번호를 입력해주세요" th:value="${order.user.userPhone}"
                                 required>
                             <div class="invalid-feedback">
                                 전화번호를 입력해주세요.
@@ -162,7 +143,7 @@
 
                         <div class="col-12">
                             <label for="userAddress" class="form-label">주소</label>
-                            <input type="text" class="form-control" id="userAddress" placeholder="서울시 강서구" required>
+                            <input type="text" class="form-control" id="userAddress" placeholder="주소를 입력해주세요" required>
                             <div class="invalid-feedback">
                                 주소를 입력해주세요.
                             </div>
@@ -170,13 +151,15 @@
 
                         <div class="col-12">
                             <label for="userAddressDetail" class="form-label">상세주소</label>
-                            <input type="text" class="form-control" id="userAddressDetail" placeholder="상세주소" required>
+                            <input type="text" class="form-control" id="userAddressDetail" placeholder="상세주소를 입력해주세요" required>
                             <div class="invalid-feedback">
                                 상세주소를 입력해주세요.
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-end gap-5 mb-3 mt-4 btn-container">
+                            <input type="hidden" name="ordersNo" id="ordersNo" th:value="${order.ordersNo}">
+                            <input type="hidden" name="totalPrice" id="totalPrice" th:value="${order.totalPrice}">
                             <button class="btn btn-primary btn-lg sessuce color_main " type="button" id="paymentBtn">결제하기</button>
                             <button class="btn btn-danger btn-lg cancel " type="button" data-bs-toggle="modal"
                                 data-bs-target="#cancelPaymentModel">취소하기</button>
