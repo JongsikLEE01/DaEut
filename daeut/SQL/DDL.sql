@@ -267,10 +267,10 @@ CREATE TABLE users
 --     FOREIGN KEY (partner_no)
 --     REFERENCES partner (partner_no);
 
--- ALTER TABLE user_auth
---   ADD CONSTRAINT FK_users_TO_user_auth
---     FOREIGN KEY (user_no)
---     REFERENCES users (user_no);
+ALTER TABLE user_auth
+  ADD CONSTRAINT FK_users_TO_user_auth
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no) ON DELETE CASCADE;
 
 -- ALTER TABLE order_item
 --   ADD CONSTRAINT FK_orders_TO_order_item
