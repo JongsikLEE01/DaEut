@@ -191,7 +191,11 @@ public class UserServiceImpl implements UserService {
         return parther;
 
     }
-
+  
+    @Override
+    public Users selectByUserNo(int userNo) throws Exception {
+        return userMapper.selectByUserNo(userNo);
+    }
     @Override
     public Users findByUsername(String username) {
         return userMapper.findByUsername(username);

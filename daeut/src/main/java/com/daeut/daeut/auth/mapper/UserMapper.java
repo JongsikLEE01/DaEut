@@ -64,6 +64,8 @@ public interface UserMapper {
     // 파트너 찾기
     public Parther selectPartner(int userNo) throws Exception;
 
+    // 번호 유저찾기
+    public Users selectByUserNo(int userNo) throws Exception;
     // 유저 정보 찾기
     public Users findByUsername(String username);
 
