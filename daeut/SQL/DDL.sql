@@ -213,6 +213,7 @@ CREATE TABLE users
   PRIMARY KEY (user_no)
 ) COMMENT '사용자';
 
+
 -- ALTER TABLE reply
 --   ADD CONSTRAINT FK_board_TO_reply
 --     FOREIGN KEY (board_no)
@@ -302,6 +303,3 @@ CREATE TABLE users
 --   ADD CONSTRAINT FK_users_TO_cart
 --     FOREIGN KEY (user_no)
 --     REFERENCES users (user_no);
-
-        
-      
