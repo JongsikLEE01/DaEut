@@ -1,7 +1,6 @@
 package com.daeut.daeut.partner.dto;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;

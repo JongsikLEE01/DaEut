@@ -39,14 +39,10 @@ public interface UserMapper {
     // 회원 탈퇴
     public int delete(Users user) throws Exception;
 
-    // 파트너 신청
-    public void requestPartner(Users users, Partner partner) throws Exception;
-
-    public void insertPartner(@Param("userNo") int userNo, @Param("partner") Partner partner);
+    // 파트너 신청;
+    public void insertPartner(Partner partner);
 
     public void updateUserStatus(@Param("userNo") int userNo);
-
-    public Users getUserById(@Param("userId") String userId);
 
     // 파트너 신청 승인 및 권한 추가
     public void approvePartnerAndAddAuth(@Param("userId") String userId) throws Exception;

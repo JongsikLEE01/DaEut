@@ -123,13 +123,8 @@ public class UserServiceImpl implements UserService {
     public void requestPartner(Users user, Partner partner) throws Exception {
         String filePath = saveFile(partner.getFile());
         partner.setFilePath(filePath);
-        userMapper.insertPartner(user.getUserNo(), partner);
+        userMapper.insertPartner(partner);
         userMapper.updateUserStatus(user.getUserNo());
-    }
-
-    @Override
-    public Users getUserById(String userId) {
-        return userMapper.getUserById(userId);
     }
 
     @Override
@@ -195,6 +190,7 @@ public class UserServiceImpl implements UserService {
     public Users selectByUserNo(int userNo) throws Exception {
         return userMapper.selectByUserNo(userNo);
     }
+
     @Override
     public Users findByUsername(String username) {
         return userMapper.findByUsername(username);

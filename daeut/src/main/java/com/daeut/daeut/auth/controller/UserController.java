@@ -4,10 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +24,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-import javax.servlet.http.HttpSession;
-import java.security.Principal;
 
 @Slf4j
 @Controller
@@ -153,6 +148,7 @@ public class UserController {
         try {
             Users user = customUser.getUser(); // 사용자 정보를 가져옴
             if (user != null) {
+                partner.setUserNo(user.getUserNo());
                 userService.requestPartner(user, partner);
             }
         } catch (Exception e) {

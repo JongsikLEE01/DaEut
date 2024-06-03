@@ -36,7 +36,6 @@ public interface UserService {
     // 파트너 신청
     public void requestPartner(Users users, Partner partner) throws Exception;
 
-    public Users getUserById(String userId);
 
     // 파트너 승인
     public void approvePartner(String userId) throws Exception;
@@ -57,6 +56,7 @@ public interface UserService {
 
     // 번호 유저찾기
     public Users selectByUserNo(int userNo) throws Exception;
+
     // 유저 이름으로 찾기
     public Users findByUsername(String username);
 
