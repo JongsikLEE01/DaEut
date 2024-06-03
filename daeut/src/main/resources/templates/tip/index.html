@@ -13,8 +13,8 @@
             <h2 class="tipH2">쾌적한 생활을 위한 안내</h2>
             <div class="tips">
                 <div th:each="board : ${boardList}" class="card">
-                    <a th:href="@{/tip/tipRead(no=${board.boardNo})}">
-                        <img src="/img/index02.png" alt="팁 이미지">
+                    <a th:href="|/tip/tipRead?boardNo=${board.boardNo}|">
+                        <img th:src="|/file/img/${board.fileNo}|" alt="썸네일">
                     </a>
                     <p>작성자: <span th:text="${board.userNo}">작성자</span>
                     <button class="heart-button"><i class="fa fa-heart" aria-hidden="true"></i></button></p>
@@ -25,7 +25,7 @@
                 <div th:each="board : ${boardList}" class="card">
                     <div style="position: relative;">
                         <a th:href="@{/tip/tipRead(no=${board.boardNo})}">
-                            <img src="/img/index02.png" alt="카테고리 이미지">
+                            <img th:src="|/file/img/${board.fileNo}|" alt="썸네일">
                         </a>
                         <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;">
                             <i class="fa fa-heart" aria-hidden="true"></i>
@@ -37,21 +37,54 @@
                 </div>
             </div>
         </div>
-        <div class="pagination">
-            <span>&laquo;</span>
-            <span class="active">1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span>5</span>
-            <span>&raquo;</span>
+        <!-- 페이징 -->
+        <div class="pagination d-flex align-items-center">
+            <!-- 처음 -->
+            <a th:href="|/tip/index?page=${page.first}&keyword=${option.keyword}|">&laquo;</a> 
+            <!-- 이전 -->
+            <th:block th:if="${page.page != page.first}">
+                <a th:href="|/tip/index?page=${page.prev}&keyword=${option.keyword}|">&lt;</a>  
+            </th:block>
+
+            <th:block th:each="pageNo : ${#numbers.sequence(page.start, page.end)}">
+                <!-- 현재페이지 -->
+                <th:block th:if="${page.page == pageNo}">
+                    <b>
+                        <span th:classappend="${page == 1} ? 'active'" th:text="${pageNo}"></span>
+                    </b>
+                </th:block>
+                <!-- 다른 페이지 -->
+                <th:block th:if="${page.page != pageNo}">
+                        <a th:href="|/tip/index?page=${pageNo}&keyword=${option.keyword}|" th:text="${pageNo}"></a>
+                </th:block> 
+            </th:block>
+
+            <!-- 다음 -->
+            <th:block th:if="${page.page != page.last}">
+                <a th:href="|/tip/index?page=${page.next}&keyword=${option.keyword}|">&gt;</a>
+            </th:block>
+            <!-- 마지막 -->
+            <a th:href="|/tip/index?page=${page.last}&keyword=${option.keyword}|">&raquo;</a>
         </div>
         
         <div class="search-container">
-            <input type="text" placeholder="검색어를 입력해주세요">
-            <button type="submit">검색</button>
+            <form action="/tip/index" method="get">
+                <select name="code">
+                    <option th:each="item : ${optionList}"
+                            th:value="${item.code}"
+                            th:text="${item.keyword}"
+                            th:selected="${item.code == option.code}"></option>
+                    <!-- <option value="0" th:selected="${option.code == 0}">전체</option>
+                    <option value="1" th:selected="${option.code == 1}">제목</option>
+                    <option value="2" th:selected="${option.code == 2}">내용</option>
+                    <option value="3" th:selected="${option.code == 3}">제목+내용</option>
+                    <option value="4" th:selected="${option.code == 4}">작성자</option> -->
+                </select>
+                <input type="text" name="keyword" placeholder="검색어 입력"
+                       th:value="${param.keyword}">
+                <button type="submit">검색</button>
+            </form>
         </div>
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

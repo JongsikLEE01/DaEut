@@ -31,6 +31,7 @@ public class ReplyController {
     @Autowired
     private ReplyService replyService;
 
+    // 댓글 목록
     @GetMapping("/{boardNo}")
     public String list(@PathVariable("boardNo") int boardNo
                       ,Model model) throws Exception {
@@ -41,6 +42,7 @@ public class ReplyController {
         return "reply/list";
     }
 
+    // 댓글 등록
     @PostMapping("")
     public ResponseEntity<String> insert(@RequestBody Reply reply) throws Exception {
         log.info("reply : " + reply);
@@ -52,6 +54,7 @@ public class ReplyController {
         return new ResponseEntity<>("FAIL", HttpStatus.OK);
     }
     
+    // 댓글 수정
     @PutMapping("")
     public ResponseEntity<String> update(@RequestBody Reply reply) throws Exception {
         int result = replyService.update(reply);
@@ -61,6 +64,7 @@ public class ReplyController {
         return new ResponseEntity<>("FAIL", HttpStatus.OK);
     }
 
+    // 댓글 삭제
     @DeleteMapping("/{no}")
     public ResponseEntity<String> delete(
                                 @PathVariable("no") int no) throws Exception {
