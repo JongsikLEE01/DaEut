@@ -88,27 +88,27 @@ CREATE TABLE files
 CREATE TABLE order_item
 (
   item_no    VARCHAR(50) NOT NULL COMMENT '예약 항목 번호',
-  orders_no  VARCHAR(50) NOT NULL COMMENT '예약 번호',
-  service_no INT         NOT NULL COMMENT '서비스 번호',
   quantity   INT         NOT NULL DEFAULT 1 COMMENT '수량',
   price      INT         NOT NULL DEFAULT 0 COMMENT '단가',
   amount     INT         NULL     COMMENT '총계',
   upd_date   TIMESTAMP   NOT NULL DEFAULT current_timestamp COMMENT '항목 수정일자',
   reg_date   TIMESTAMP   NOT NULL DEFAULT current_timestamp COMMENT '항목 등록일자',
+  orders_no  VARCHAR(50) NOT NULL COMMENT '예약 번호',
+  service_no INT         NOT NULL COMMENT '서비스 번호',
   PRIMARY KEY (item_no)
 ) COMMENT '예약항목';
 
 CREATE TABLE orders
 (
   orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
-  title          VARCHAR(100) NULL     COMMENT '예약 제목',
   user_no        INT          NOT NULL COMMENT '사용자 번호',
-  total_quantity INT          NOT NULL COMMENT '총 수량',
-  total_count    INT          NOT NULL COMMENT '총 항목수',
-  total_price    INT          NOT NULL COMMENT '총 가격',
   order_status   VARCHAR(50)  NOT NULL COMMENT '예약 상태',
+  total_quantity INT          NOT NULL COMMENT '총 수량',
+  total_price    INT          NOT NULL COMMENT '총 가격',
   upd_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 수정일자',
   reg_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 등록일자',
+  total_count    INT          NOT NULL COMMENT '총 항목수',
+  title          VARCHAR(100) NULL     COMMENT '예약 제목',
   PRIMARY KEY (orders_no)
 ) COMMENT '예약';
 
@@ -212,7 +212,6 @@ CREATE TABLE users
   PRIMARY KEY (user_no)
 ) COMMENT '사용자';
 
-
 -- ALTER TABLE reply
 --   ADD CONSTRAINT FK_board_TO_reply
 --     FOREIGN KEY (board_no)
@@ -263,11 +262,6 @@ CREATE TABLE users
 --     FOREIGN KEY (user_no)
 --     REFERENCES users (user_no);
 
--- ALTER TABLE orders
---   ADD CONSTRAINT FK_partner_TO_orders
---     FOREIGN KEY (partner_no)
---     REFERENCES partner (partner_no);
-
 -- ALTER TABLE review
 --   ADD CONSTRAINT FK_partner_TO_review
 --     FOREIGN KEY (partner_no)
@@ -302,3 +296,6 @@ CREATE TABLE users
 --   ADD CONSTRAINT FK_users_TO_cart
 --     FOREIGN KEY (user_no)
 --     REFERENCES users (user_no);
+
+        
+      

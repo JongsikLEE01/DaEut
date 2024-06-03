@@ -18,7 +18,6 @@ public class Orders {
     private OrderStatus orderStatus;
     private Date updDate;
     private Date regDate;
-    private int partnerNo;
 
     // params
     private List<String> serviceNo;
