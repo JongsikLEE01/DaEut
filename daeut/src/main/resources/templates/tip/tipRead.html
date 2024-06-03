@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <title>Da E ut</title>
 </head>
 <body layout:fragment="content">
@@ -40,7 +42,7 @@
             <div id="reply-input">
                 <h3>댓글</h3>
                 <div class="input-group mt-1 mb-3 reply-input">
-                    <textarea name="replyContent" class="form-control" placeholder="댓글을 입력하세요." rows="1"></textarea>
+                    <textarea name="replyContent" id="reply-content" class="form-control" placeholder="댓글을 입력하세요." rows="1"></textarea>
                     <button class="btn btn-primary" type="button" id="btn-reply-insert" onclick="insertReply()">등록</button>
                 </div>
             </div>
@@ -70,15 +72,17 @@
         </div>
 
     <script>
-    let no = "[[${board.boardNo}]]"
+        let no = "[[${board.boardNo}]]"
+        let userNo = "[[${session.user.userNo}]]"
+        var csrfToken = "[[${_csrf.token}]]"
 
-    replyList()
+        replyList()
 
-    // 수정 화면 이동
-    function moveUpdate() {
+        // 수정 화면 이동
+        function moveUpdate() {
             location.href = '/tip/tipUpdate?no=' + no
         }
- 
+    
         // 삭제 요청
         function actionDelete() {
             let check = confirm('정말로 삭제하시겠습니까?')
@@ -136,25 +140,30 @@
                 }
             }
         }
-        
+            
         // 댓글 등록
         function insertReply() {
             // let $wuserNo = document.getElementById('reply-writer')
             let $content = document.getElementById('reply-content')
-
-            // let userNo = $userNo.value
             let replyContent = $content.value
-            
+
+            console.log(`글번호 : ${no}`)
+            console.log(`댓글 내용 : ${replyContent}`)
+            console.log(`회원번호 : ${userNo}`)     // 이거 없으면 로그인
+
             let data = {
                 'boardNo' : no,
-                // 'userNo'  : userNo,
+                'userNo'  : userNo,
                 'replyContent' : replyContent
             }
 
             let request = new XMLHttpRequest()
             
-            request.open('POST', '/tip')
+            request.open('POST', '/reply/insert')
+            request.setRequestHeader("X-CSRF-TOKEN", csrfToken) 
             request.setRequestHeader('Content-Type', 'application/json')
+
+            alert(JSON.stringify(data)  )
             request.send( JSON.stringify(data) )
 
             request.onreadystatechange = function() {
@@ -164,15 +173,15 @@
                     // alert(request.responseText)     // 응답 메시지 확인
                     let response = request.responseText
                     if( response == 'SUCCESS' ){
+                        alert("댓글 등록 성공!!!")
                         replyList()     // 댓글 목록 갱신
                         // 댓글 입력 창 비우기
-                        $writer.value = ''
                         $content.value = ''
                     }
                 }
             }
         }
-    </script>
+        </script>
 
 </body>
 </html>
