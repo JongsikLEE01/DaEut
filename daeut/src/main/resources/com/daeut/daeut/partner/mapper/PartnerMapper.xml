@@ -7,10 +7,9 @@
 
   <!-- 파트너 정보 가져오기 -->
 <select id="getPartners" resultType="com.daeut.daeut.partner.dto.Partner">
-  SELECT p.introduce
-  FROM partner p
-  JOIN users u ON p.user_no = u.user_no
-  WHERE u.user_no = #{userNo}
+  SELECT *
+  FROM partner
+  WHERE user_no = #{userNo}
 </select>
 
   <!-- 파트너 정보 수정하기 -->
@@ -20,8 +19,12 @@
     WHERE partner_no = #{partnerNo}
 </update>
 
-<!-- 별점 정보 가져오기 -->
-
+<!-- 리뷰 정보 가져오기 -->
+ <select id="getReviews" resultType="com.daeut.daeut.partner.dto.Partner">
+        SELECT * 
+        FROM review 
+        WHERE partner_no = #{partnerNo}
+    </select>
 
 
 </mapper>

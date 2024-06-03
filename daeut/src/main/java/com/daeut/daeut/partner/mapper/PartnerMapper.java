@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.dto.Review;
 
 @Mapper
 public interface PartnerMapper {
@@ -16,5 +17,5 @@ public interface PartnerMapper {
     public int partnerUpdate(Partner partner) throws Exception;
 
     // 사용자가 작성한 리뷰 모아보기
-    
+    List<Review> getReviews(int partnerNo) throws Exception;
 }

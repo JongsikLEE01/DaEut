@@ -3,6 +3,7 @@ package com.daeut.daeut.partner.service;
 import java.util.List;
 
 import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.dto.Review;
 
 public interface PartnerService {
     
@@ -11,4 +12,7 @@ public interface PartnerService {
     
     // 파트너 수정
     public int partnerUpdate(Partner partner) throws Exception;
+
+    // 리뷰 모아보기
+    List<Review> getReviews(int partnerNo) throws Exception;
 }
