@@ -23,8 +23,8 @@ public class Partner {
     private int userNo;
 
 
-    // private MultipartFile file;
-    // private String filePath;
+    private MultipartFile file;
+    private String filePath;
 
     // 권한 목록
     private List<UserAuth> authList;

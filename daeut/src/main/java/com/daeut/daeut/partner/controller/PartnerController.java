@@ -81,16 +81,13 @@ public class PartnerController {
     // 마이 페이지 수정 화면 조회
     @GetMapping("/partnerMypageUpdate")
     @PreAuthorize("hasRole('ROLE_PARTNER')")
-    public String partnerMypageUpdate(Model model, HttpSession session) throws Exception {
+    public String partnerMypageUpdate(Model model, HttpSession session, @RequestParam("userNo") int userNo) throws Exception {
         try {
             Users user = (Users) session.getAttribute("user");
             if (user == null) {
                 log.error("User not found in session");
                 throw new Exception("User not found in session");
             }
-    
-            int userNo = user.getUserNo();
-            log.info("Fetching partner information for userNo: {}", userNo);
     
             Partner partner = partnerService.getPartners(userNo);
     
@@ -112,31 +109,24 @@ public class PartnerController {
         }
     }
 
-    // 마이 페이지 수정 기능
+    // 수정 처리
     @PostMapping("/partnerMypageUpdate")
     @PreAuthorize("hasRole('ROLE_PARTNER')")
-    public String partnerMypageUpdate(
-    Model model, HttpSession session,
-    @ModelAttribute Partner partner, // 변경: "partner"를 삭제
-    RedirectAttributes redirectAttributes) {
-
-    Users user = (Users) session.getAttribute("user");
-    partner.setUserNo(user.getUserNo());
-
-    try {
-        int result = partnerService.partnerUpdate(partner);
-        if (result > 0) {
-            redirectAttributes.addFlashAttribute("message", "정보가 성공적으로 수정되었습니다.");
+    public String partnerMypageUpdatePro(Model model, HttpSession session, Partner partner) throws Exception {
+        Users user = (Users) session.getAttribute("user");
+    
+        // Users 정보 업데이트
+        int userUpdateResult = userService.update(user);
+    
+        // Partner 정보 업데이트
+        int partnerUpdateResult = partnerService.partnerUpdate(partner);
+    
+        if (userUpdateResult > 0 || partnerUpdateResult > 0) {
+            return "redirect:/partner/partnerMypage";
         } else {
-            redirectAttributes.addFlashAttribute("message", "정보 수정에 실패했습니다.");
+            return "redirect:/index";
         }
-    } catch (Exception e) {
-        redirectAttributes.addFlashAttribute("message", "정보 수정 중 오류가 발생했습니다.");
-        e.printStackTrace();
     }
-
-    return "redirect:/partner/partnerMypage";
-}
 
 
 
