@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.dto.Review;
 
