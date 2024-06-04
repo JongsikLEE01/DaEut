@@ -1,4 +1,4 @@
-package com.daeut.daeut.tip.dto;
+package com.aloha.test;
 
 import java.util.Date;
 
