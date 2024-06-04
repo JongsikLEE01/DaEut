@@ -41,13 +41,17 @@ public interface UserMapper {
     // 회원 탈퇴
     public int delete(Users user) throws Exception;
 
-    // 파트너 신청;
+    // 파트너 신청
     public void insertPartner(Partner partner);
 
+    // 파트너 신청 대기
     public void updateUserStatus(@Param("userNo") int userNo);
 
-    // 파트너 신청 승인 및 권한 추가
-    public void approvePartnerAndAddAuth(@Param("userId") String userId) throws Exception;
+    // 파트너 승인
+    // TODO
+
+    // 파트너 권한 추가
+    // TODO
 
     public List<Reservation> selectReservationsByUserId(String userId);
 
