@@ -223,6 +223,7 @@ th, td {
     text-align: center;
     justify-content: center;
 }
+
 .pagination a {
     margin: 0 5px;
     padding: 5px 10px;
@@ -230,13 +231,15 @@ th, td {
     border: 1px solid #ddd;
     border-radius: 3px;
 }
+
 .pagination a:hover {
     background-color: #ddd;
 }
+
 .pagination a.active {
-    background-color: #007bff;
-    color: white;
-    border: 1px solid #007bff;
+    background-color: #ddd;;
+    color: #007bff !important;
+    border: 1px solid #ddd;;
 }
 .buttons {
     text-align: right;

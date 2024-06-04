@@ -6,24 +6,28 @@
 <mapper namespace="com.daeut.daeut.partner.mapper.PartnerMapper">
 
   <!-- 파트너 정보 가져오기 -->
-<select id="getPartners" resultType="com.daeut.daeut.partner.dto.Partner">
-  SELECT *
-  FROM partner
-  WHERE user_no = #{userNo}
+<select id="getPartners">
+SELECT partner.*
+        FROM users
+        INNER JOIN partner ON users.user_no = partner.user_no
+        WHERE users.user_no = #{userId}
 </select>
 
   <!-- 파트너 정보 수정하기 -->
 <update id="partnerUpdate">
-    UPDATE partner
-    SET introduce = #{partnerIntroduce}
-    WHERE partner_no = #{partnerNo}
+  UPDATE partner
+      SET introduce = #{introduce},
+          file = #{file},
+          file_path = #{filePath}
+      WHERE user_no = #{userNo};
 </update>
 
 <!-- 리뷰 정보 가져오기 -->
- <select id="getReviews" resultType="com.daeut.daeut.partner.dto.Partner">
-        SELECT * 
-        FROM review 
-        WHERE partner_no = #{partnerNo}
+ <select id="getReviews" parameterType="int" resultType="com.daeut.daeut.partner.dto.Review">
+SELECT r.*, u.user_name AS reviewer_name
+FROM review r
+JOIN users u ON r.user_no = u.user_no
+WHERE r.partner_no = #{partnerNo}
     </select>
 
 <!-- 유저 NO로 파트너 정보 가져오기-->
@@ -32,6 +36,12 @@
         FROM partner 
         WHERE user_no = #{userNo}
     </select>
-  
 
+    <!--파트너 넘버로 파트너 정보 가져오기-->
+    <select id="selectByPartnerNo">
+        SELECT * 
+        FROM partner 
+        WHERE partner_no = #{partnerNo}
+    </select>
+  
 </mapper>

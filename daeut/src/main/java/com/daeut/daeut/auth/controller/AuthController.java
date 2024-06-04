@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.service.PartnerService;
 
 import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
@@ -28,6 +31,9 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PartnerService partnerService;
 
     @GetMapping("/member")
     public String loginMain() {
@@ -221,7 +227,7 @@ public class AuthController {
 
     // 로그인 처리
     @PostMapping("/login")
-    public String loginUser(@RequestParam String userId, @RequestParam String userPassword, Model model) {
+    public String loginUser(@RequestParam String userId, @RequestParam String userPassword, HttpSession session, Model model) {
         try {
             Users user = userService.select(userId);
             if (user == null || !new BCryptPasswordEncoder().matches(userPassword, user.getUserPassword())) {

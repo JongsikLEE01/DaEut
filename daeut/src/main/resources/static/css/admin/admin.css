@@ -1,3 +1,5 @@
+/* 기존 스타일 유지 */
+
 body {
     display: flex;
     flex-direction: column;
@@ -26,7 +28,6 @@ main {
     background-color: #e9ecef;
     border-radius: 8px;
     color: #8FA2CA;
-
 }
 
 .form-section {
@@ -84,29 +85,33 @@ main {
     text-align: center;
 }
 
-
 .table-light tr th {
     background-color: #E4E8F4;
 }
+
 th, td {
     border: 1px solid #ddd;
     padding: 8px;
 }
+
 .table th, .table td {
     padding: 10px;
     border: 1px solid #dee2e6;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .table th {
     background-color: #f2f2f2;
-
 }
 
 th {
     background-color: #E4E8F4;
 }
+
 .checked {
     text-align: center;
+    vertical-align: middle;
 }
 
 .pagination {
@@ -128,15 +133,15 @@ th {
 }
 
 .pagination a.active {
-    background-color: #007bff;
-    color: white;
-    border: 1px solid #007bff;
+    background-color: #ddd;;
+    color: #007bff !important;
+    border: 1px solid #ddd;;
 }
-  
+
 .buttons {
     text-align: right;
     margin-top: 30px;
- }
+}
 
 .checkbox {
     width: 20px !important;
@@ -148,11 +153,14 @@ th {
     border-radius: 3px;
     background-color: #fff;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
 }
 
 .checkbox:checked {
     background-color: #2AB514;
-    position: relative;
     border: 1px solid #2AB514;
 }
 
@@ -160,10 +168,6 @@ th {
     content: '✔';
     color: white;
     font-size: 14px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .custom1 {
@@ -207,6 +211,7 @@ th {
     margin-bottom: 15px;
     font-size: 18px;
 }
+
 .label {
     color: #8FA2CA;
 }
@@ -214,6 +219,7 @@ th {
 .size {
     width: 86.73px;
 }
+
 .size2 {
     width: 91.84px;
     height: 38px;;
@@ -233,7 +239,9 @@ th {
     vertical-align: middle;
 }
 
-.f-warp{ flex-wrap: wrap;}
+.f-warp {
+    flex-wrap: wrap;
+}
 
 .profile-img {
     max-width: 150px;
@@ -323,7 +331,6 @@ a {
     }
 }
 
-
 .table {
     width: 100%;
     margin: 20px 0;
@@ -362,8 +369,8 @@ a {
     .pagination a {
         font-size: 0.75rem;
         margin: 0 2px;
-
     }
+
     .toggle-btn {
         font-size: 0.75rem;
     }
@@ -416,14 +423,14 @@ textarea {
     }
 }
 
-.transitionNone{
+.transitionNone {
     transform: none !important;
 }
-  
+
 /* 사이드바 */
 .content-container {
     transition: margin-left 0.5s; /* 사이드바 열림/닫힘 애니메이션을 위한 transition 추가 */
-} 
+}
 
 /* 버튼 설정 */
 .btn.btn-primary.custom1 {
@@ -434,20 +441,21 @@ textarea {
     color: black !important;
 }
 
-.btn.btn-primary.custom1:hover{
+.btn.btn-primary.custom1:hover {
     background-color: #8FA2CA !important;
     border: 1px solid #8FA2CA !important;
     color: white !important;
 }
 
-.btn.btn-primary.custom2{
+.btn.btn-primary.custom2 {
     background-color: #fff !important;
     color: red !important;
     border: 1px solid red !important;
     border-radius: 8px !important;
     transition: 0.5s !important;
 }
-.btn.btn-primary.custom2:hover{
+
+.btn.btn-primary.custom2:hover {
     background-color: red !important;
     border: 1px solid red !important;
     color: white !important;
@@ -464,32 +472,39 @@ textarea {
     color: white;
     font-size: 80px; /* 아이콘 크기 조정 */
 }
+
 .icon-text {
     text-align: center;
     margin-top: 10px;
     font-size: 18px;
 }
+
 .login-icon {
     background-color: #8FA2CA;
 }
+
 .signup-icon {
     background-color: #B5C6B8;
 }
+
 .custom-margin {
     margin: 100px; /* 요소 간 간격 설정 */
 }
+
 .memberRow {
     display: flex;
     justify-content: center;
     flex-wrap: wrap; /* 반응형 지원을 위한 wrap 설정 */
     gap: 20px; /* 요소 간의 간격 설정 */
 }
+
 /* .container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 680px;
 } */
+
 .form-container {
     flex: 1;
     display: flex;
@@ -498,6 +513,7 @@ textarea {
     font-size: 16px;
     margin: 20px auto;
 }
+
 .form-container form {
     max-width: 500px;
     width: 100%;
@@ -508,42 +524,52 @@ textarea {
     background-color: #fff;
     font-size: 14px;
 }
+
 @media (max-width: 768px) {
     .icon-box {
         width: 150px;
         height: 150px;
         font-size: 60px;
     }
+
     .icon-text {
         font-size: 16px;
     }
 }
+
 @media (max-width: 576px) {
     .icon-box {
         width: 120px;
         height: 120px;
         font-size: 50px;
     }
+
     .icon-text {
         font-size: 14px;
     }
 }
+
 /* 아이콘 hover 변경 */
 .loginHover {
     display: none;
 }
+
 .login-icon:hover .loginHover {
     display: inline-block;
 }
+
 .login-icon:hover .loginNormal {
     display: none;
 }
+
 .joinHover {
     display: none;
 }
+
 .signup-icon:hover .joinHover {
     display: inline-block;
 }
+
 .signup-icon:hover .joinNormal {
     display: none;
 }
@@ -561,7 +587,7 @@ textarea {
 }
 
 .custom-auth-btn.complete {
-    border-color: #8FA2CA ;
+    border-color: #8FA2CA;
     margin-top: 60px;
     margin-bottom: 30px;
     width: 130px;
@@ -588,5 +614,5 @@ textarea {
 }
 
 input[type="password"] {
-    font-family:'Courier New', Courier, monospace;
-  }
+    font-family: 'Courier New', Courier, monospace;
+}

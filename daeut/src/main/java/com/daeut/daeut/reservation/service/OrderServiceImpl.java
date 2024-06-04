@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.OrderItems;
 import com.daeut.daeut.reservation.dto.OrderStatus;
 import com.daeut.daeut.reservation.dto.Orders;
@@ -33,6 +35,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private OrderMapper orderMapper;
+
+    @Autowired
+    private PartnerService partnerService;
 
     @Override
     public List<Orders> list() throws Exception {
@@ -133,6 +138,16 @@ public class OrderServiceImpl implements OrderService{
         for (Orders order : orderList) {
             Users user = userService.selectByUserNo(order.getUserNo());
             order.setUser(user);
+        }
+        return orderList;
+    }
+
+    @Override
+    public List<Orders> listByParterNo(int partnerNo) throws Exception {
+        List<Orders> orderList = orderMapper.listByParterNo(partnerNo);
+        for (Orders order : orderList) {
+            Partner partner = partnerService.selectByPartnerNo(order.getPartnerNo());
+            order.setPartner(partner);
         }
         return orderList;
     }

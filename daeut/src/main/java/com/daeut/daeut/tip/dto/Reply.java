@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class Reply {
-    
     private int replyNo;
     private int parentNo;
     private String replyContent;

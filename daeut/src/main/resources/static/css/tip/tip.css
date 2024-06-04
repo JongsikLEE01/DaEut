@@ -107,25 +107,27 @@ body {
 }
 
 .pagination {
-    justify-content: center;
+    margin: 50px 0;
     text-align: center;
-    margin-top: 20px;
+    justify-content: center;
 }
 
-.pagination span {
-    display: inline-block;
+.pagination a {
     margin: 0 5px;
-    padding: 8px 12px;
+    padding: 5px 10px;
+    text-decoration: none;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    color: #8FA2CA;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 3px;
 }
 
-.pagination span:hover {
-    background-color: #8FA2CA;
-    color: #fff;
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination a.active {
+    background-color: #ddd;;
+    color: #007bff !important;
+    border: 1px solid #ddd;;
 }
 
 .search-container {

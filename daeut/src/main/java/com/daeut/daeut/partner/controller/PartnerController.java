@@ -19,6 +19,8 @@ import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.dto.Review;
 import com.daeut.daeut.partner.service.PartnerService;
+import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,35 +43,39 @@ public class PartnerController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private OrderService orderService;
+
     
     
     // 마이페이지 정보 조회
     @GetMapping("/partnerMypage")
-    public String partnerMypage(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
+    public String partnerMypage(Model model, HttpSession session) throws Exception {
         try {
-            Users user = customUser.getUser();
+            Users user = (Users) session.getAttribute("user");
+            if (user == null) {
+                log.error("User not found in session");
+                throw new Exception("User not found in session");
+            }
+    
             int userNo = user.getUserNo();
-            
+            log.info("Fetching partner information for userNo: {}", userNo);
+    
             Partner partner = partnerService.getPartners(userNo);
-            
+    
             if (partner == null) {
-                // null 조건 로깅
-                log.warn("Partner 객체가 null입니다");
+                log.warn("Partner 객체가 null입니다 for userNo: {}", userNo);
             } else {
-                // partner 객체가 null이 아닌 경우에도 로그 추가
                 log.info("Partner 객체: {}", partner.toString());
             }
-            
-            // 모델에 사용자와 파트너 정보 추가
+    
             model.addAttribute("user", user);
             model.addAttribute("partner", partner);
-            
-            // 로그 추가
+    
             log.info("Partner my page accessed by user: {}", user.toString());
-          
+    
             return "/partner/partnerMypage";
         } catch (Exception e) {
-            // 예외 처리
             log.error("Error in partnerMypage method", e);
             throw e;
         }
@@ -79,36 +85,50 @@ public class PartnerController {
     // 마이 페이지 수정 화면 조회
     @GetMapping("/partnerMypageUpdate")
     @PreAuthorize("hasRole('ROLE_PARTNER')")
-    public String partnerMypageUpdate(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
-        Users user = customUser.getUser();
-        
-        // 사용자 번호 가져오기
-        int userNo = user.getUserNo();
-        
-        // 사용자의 파트너 정보 가져오기
-        Partner partner = partnerService.getPartners(userNo);
-        
-        // 모델에 사용자와 파트너 정보 추가
-        model.addAttribute("user", user);
-        model.addAttribute("partner", partner); // 파트너 정보를 모델에 추가
-        
-        return "/partner/partnerMypage";
+    public String partnerMypageUpdate(Model model, HttpSession session) throws Exception {
+        try {
+            Users user = (Users) session.getAttribute("user");
+            if (user == null) {
+                log.error("User not found in session");
+                throw new Exception("User not found in session");
+            }
+    
+            int userNo = user.getUserNo();
+            log.info("Fetching partner information for userNo: {}", userNo);
+    
+            Partner partner = partnerService.getPartners(userNo);
+    
+            if (partner == null) {
+                log.warn("Partner 객체가 null입니다 for userNo: {}", userNo);
+            } else {
+                log.info("Partner 객체: {}", partner.toString());
+            }
+    
+            model.addAttribute("user", user);
+            model.addAttribute("partner", partner);
+    
+            log.info("Partner my page accessed by user: {}", user.toString());
+    
+            return "partner/partnerMypageUpdate";
+        } catch (Exception e) {
+            log.error("Error in partnerMypageUpdate method", e);
+            throw e;
+        }
     }
 
     // 마이 페이지 수정 기능
     @PostMapping("/partnerMypageUpdate")
     @PreAuthorize("hasRole('ROLE_PARTNER')")
     public String partnerMypageUpdate(
-        @AuthenticationPrincipal CustomUser customUser,
-        @ModelAttribute("partner") @DateTimeFormat(pattern = "yyyy-MM-dd") Partner partner, // 날짜 형식 매핑 추가
-        RedirectAttributes redirectAttributes) {
+    Model model, HttpSession session,
+    @ModelAttribute Partner partner, // 변경: "partner"를 삭제
+    RedirectAttributes redirectAttributes) {
 
-    // 현재 로그인한 사용자의 정보를 가져와 Partner 객체에 설정
-    Users user = customUser.getUser();
+    Users user = (Users) session.getAttribute("user");
     partner.setUserNo(user.getUserNo());
 
     try {
-        int result = partnerService.partnerUpdate(partner); // 파트너 객체를 업데이트.
+        int result = partnerService.partnerUpdate(partner);
         if (result > 0) {
             redirectAttributes.addFlashAttribute("message", "정보가 성공적으로 수정되었습니다.");
         } else {
@@ -119,42 +139,45 @@ public class PartnerController {
         e.printStackTrace();
     }
 
-    // 리다이렉션할 페이지 경로를 반환합니다.
     return "redirect:/partner/partnerMypage";
 }
 
 
+
     // 파트너 리뷰란
-    // @GetMapping("/partnerReview")
-    // public String getReviewsByPartnerNo(@PathVariable("partnerNo") int partnerNo, Model model) 
-    // throws Exception {
-    //     List<Review> reviews = partnerService.getReviews(partnerNo);
-    //     model.addAttribute("reviews", reviews);
-    //     return "partner/reviews";
-    // }
-
     @GetMapping("/partnerReview")
-    public String getPartnerReviews(HttpSession session, Model model) throws Exception {
-        Integer partnerNo = (Integer) session.getAttribute("partnerNo");
-
-        if (partnerNo == null) {
-            return "redirect:/login";
+    public String getReviewsByPartnerNo(Model model, HttpSession session) throws Exception {
+        try {
+            Integer partnerNo = (Integer) session.getAttribute("partnerNo");
+            if (partnerNo == null) {
+                log.error("PartnerNo not found in session");
+                throw new Exception("PartnerNo not found in session");
+            }
+            
+            List<Review> reviews = partnerService.getReviews(partnerNo);
+            
+            // Add reviews to the log
+            log.info("Reviews retrieved: {}", reviews);
+            
+            model.addAttribute("reviews", reviews);
+            
+            return "/partner/partnerReview";
+        } catch (Exception e) {
+            log.error("Error in getReviewsByPartnerNo method", e);
+            throw e;
         }
-
-        List<Review> reviews = partnerService.getReviews(partnerNo);
-        model.addAttribute("reviews", reviews);
-        return "partner/reviews";
     }
 
 
-    
-    
-
+    // 파트너 예약란
     @GetMapping("/partnerReservation")
-    public String partnerReservation() {
-        log.info("[partner] - /partnerReservation");
-
-        return "/partner/partnerReservation";
+    public String partnerReservation(Model model, HttpSession session) throws Exception {
+          int partnerNo = (int) session.getAttribute("partnerNo"); // 세션에서 partnerNo 가져오기
+        List<Orders> orderList = orderService.listByParterNo(partnerNo); // 주문 목록 가져오기
+        model.addAttribute("orderList", orderList); // 모델에 주문 목록 추가
+        return "/partner/partnerReservation";  
+    
+       
     }
 
     @GetMapping("/partnerReservationRead")
@@ -164,10 +187,4 @@ public class PartnerController {
         return "/partner/partnerReservationRead";
     }
 
-    // @GetMapping("/partnerReview")
-    // public String partnerReview() {
-    //     log.info("[partner] - /partnerReview");
-
-    //     return "/partner/partnerReview";
-    // }
 }

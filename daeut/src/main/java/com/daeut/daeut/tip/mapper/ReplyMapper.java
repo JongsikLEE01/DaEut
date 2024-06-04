@@ -21,7 +21,7 @@ public interface ReplyMapper {
 
     public int delete(int replyNo) throws Exception;
 
-    public int deleByBoardNo(int boardNo) throws Exception;
+    public int deleteByBoardNo(int boardNo) throws Exception;
 
     public int max() throws Exception;
 
