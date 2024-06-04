@@ -5,7 +5,7 @@
 
 <mapper namespace="com.daeut.daeut.reservation.mapper.OrderMapper">
 
-    <resultMap id="OrderWithUserResultMap" type="Orders">
+    <resultMap id="OrderWithUserResultMap" type="com.daeut.daeut.reservation.mapper.OrderMapper">
     <id property="ordersNo" column="orders_no"/>
     <result property="userNo" column="user_no"/>
     <result property="orderStatus" column="order_status"/>
