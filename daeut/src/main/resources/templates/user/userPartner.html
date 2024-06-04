@@ -33,8 +33,8 @@
                             <img src="/img/partner.png" alt="파트너 이미지" class="profile-img img-thumbnail">
                         </div>
                         <div class="col-md-8">
-                            <form class="ms-5" th:action="@{/user/request-partner}" method="post" enctype="multipart/form-data">
-                                <!-- form 작성 필요 -->
+                            <form class="ms-5" th:action="@{/user/request-partner}" method="post">
+                                <input type="hidden" th:field="*{userNo}" th:value="${user.userNo}">
                                 <div class="form-group form-section p-1 mt-5 text-start">
                                     <label for="partnerName">이름</label>
                                     <input type="text" class="form-control" id="partnerName" th:field="${user.userName}" placeholder="이름을 입력해주세요">
@@ -49,11 +49,11 @@
                                 </div>
                                 <div class="form-group form-section p-1 text-start">
                                     <label for="experience">경력 사항</label>
-                                    <input type="date" class="form-control" id="experience" placeholder="경력 시작일을 입력해주세요">
+                                    <input type="date" class="form-control" id="experience" th:field="*{partnerCareer}" placeholder="경력 시작일을 입력해주세요">
                                 </div>
                                 <div class="form-group form-section p-1 f-warp text-start">
                                     <label for="description">소개 글</label>
-                                    <textarea class="form-control w-75" id="description" rows="3"></textarea>
+                                    <textarea class="form-control w-75" id="description" th:field="*{introduce}" rows="3"></textarea>
                                 </div>
                                 <div class="form-group form-section p-1 f-warp text-start">
                                     <label for="file">추가 소개 사진</label>

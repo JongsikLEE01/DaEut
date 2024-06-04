@@ -1,7 +1,5 @@
 package com.daeut.daeut.partner.dto;
 
-import java.sql.Timestamp;
-
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class Partner {
     private int partnerNo;
     private int partnerGrade;
     private int partnerReserve;
-    private Timestamp partnerCareer;
+    private Date partnerCareer;
     private String introduce;
     private int userNo;
 
