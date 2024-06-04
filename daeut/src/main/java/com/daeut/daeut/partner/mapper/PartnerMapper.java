@@ -26,7 +26,7 @@ public interface PartnerMapper {
     // 파트너 조회
     public Partner findByUserNo(int userNo) throws Exception;
 
-    // 파트너 조회 - 파트너 넘버로 
+    // 예약 조회 - 파트너 넘버로 
     public Partner selectByPartnerNo(int parterNo) throws Exception;
 
 }
