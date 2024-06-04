@@ -34,13 +34,13 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
                                       , Authentication authentication) throws ServletException, IOException {
             
         log.info("로그인 인증 성공...");
-
+    
         // 아이디 저장
         String rememberId = request.getParameter("remember-id");    // 아이디 저장 여부
         String username = request.getParameter("userId");               // 아이디
         log.info("rememberId : " + rememberId);
         log.info("id : " + username);
-
+    
         // ✅ 아이디 저장 체크
         if(rememberId != null && rememberId.equals("on")){
             Cookie cookie = new Cookie("remember-id", username);
@@ -48,7 +48,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             cookie.setPath("/");                // 쿠키 적용 경로 지정
             response.addCookie(cookie);             // 응답에 쿠키 등록
         }
-
+    
         // 🟩 아이디 저장 체크 ❌
         else{
             Cookie cookie = new Cookie("remember-id", "");
@@ -56,23 +56,25 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             cookie.setPath("/");                // 쿠키 적용 경로 지정
             response.addCookie(cookie);             // 응답에 쿠키 등록
         }
-
-
+    
+    
         // 인증된 사용자 정보 - (아이디/패스워드/권한)
         // User user = (User) authentication.getPrincipal();
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         log.info("아이디 : " + customUser.getUsername());
         log.info("패스워드 : " + customUser.getPassword());       // 보안상 노출❌
         log.info("권한 : " + customUser.getAuthorities());    
-
+    
         HttpSession session = request.getSession();
         Users user = customUser.getUser();
         Partner partner = null; // partner 변수를 선언하고 null로 초기화
         if( user != null ) {
             session.setAttribute("user", user);
-
+    
             try {
                 partner = partnerService.findByUserNo(user.getUserNo());
+                // 로그로 유저 번호 출력
+                log.info("유저 번호 : " + user.getUserNo());
             } catch (Exception e) {
                 log.error("파트너 정보를 가져오는 도중 오류가 발생했습니다.", e);
             }
@@ -82,6 +84,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             }
         }
         super.onAuthenticationSuccess(request, response, authentication);
-
+    
     }
+    
 }

@@ -37,9 +37,9 @@
                             <td data-label="No." th:text="${loopStatus.index + 1}"></td> <!-- 자동으로 증가하는 글번호 -->
                             <td data-label="사용자 명" th:text="${order.user.userName}"></td> <!-- 사용자 명 -->
                             <td data-label="예약 상태" th:text="${order.orderStatus}"></td> <!-- 예약 상태 -->
-                            <td data-label="예약 시간" th:text="${order.regDate}"></td> <!-- 예약 시간 -->
+                            <td data-label="예약 시간" th:text="${#dates.format(order.regDate, 'yyyy년 MM월 dd일 HH:mm')}"></td> <!-- 예약 시간 -->
                             <td data-label="자세히보기">
-                                <a href="/partner/partnerReservationRead?ordersNo=${order.ordersNo}" class="detail-button">자세히보기</a>
+                                <a th:href="@{/partner/partnerReservationRead(ordersNo=${order.ordersNo})}" class="detail-button">자세히보기</a>
                             </td>
                         </tr>
                     </c:forEach>

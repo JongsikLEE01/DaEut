@@ -1,6 +1,8 @@
 package com.daeut.daeut.partner.dto;
 
+
 import java.sql.Timestamp;
+
 import java.util.Date;
 import java.util.List;
 
@@ -18,12 +20,14 @@ public class Partner {
     private int partnerNo;
     private int partnerGrade;
     private int partnerReserve;
+
     private String partnerCareer;
     private String introduce;
     private int userNo;
 
     // private MultipartFile file;
     // private String filePath;
+
 
     // 권한 목록
     private List<UserAuth> authList;
