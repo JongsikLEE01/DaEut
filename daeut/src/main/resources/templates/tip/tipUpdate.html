@@ -56,25 +56,29 @@
     </div>
 
     <script>
-        // function previewImages(event) {
-        //     var container = document.getElementById('image-preview-container');
-        //     container.innerHTML = ''; // 기존 이미지 제거
+        function previewImages(event) {
+            var container = document.getElementById('image-preview-container');
+            container.innerHTML = ''; // 기존 이미지 제거
             
-        //     var files = event.target.files;
-        //     for (var i = 0; i < files.length; i++) {
-        //         var image = document.createElement('img');
-        //         image.src = URL.createObjectURL(files[i]);
-        //         image.alt = '이미지 미리보기';
-        //         image.classList.add('img-thumbnail');
-        //         image.style.maxWidth = '200px';
-        //         container.appendChild(image);
-        //     }
-        // }
+            var files = event.target.files;
+            for (var i = 0; i < files.length; i++) {
+                var image = document.createElement('img');
+                image.src = URL.createObjectURL(files[i]);
+                image.alt = '이미지 미리보기';
+                image.classList.add('img-thumbnail');
+                image.style.maxWidth = '200px';
+                container.appendChild(image);
+            }
+        }
+        
+        // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
+        let no = "[[${board.boardNo}]]"
+        let fileNo = "[[${files.fileNo}]]"
+        // let userNo = "[[${session.user.userNo}]]"
+        var csrfToken = "[[${_csrf.token}]]"
 
         let form = document.getElementById('form')
 
-        // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
-        let no = "[[${board.boardNo}]]"
         
         // 수정 화면 이동
         function moveUpdate() {
@@ -104,7 +108,7 @@
 
             // 요청 세팅
             // request.open(요청메소드, URL)
-            request.open('DELETE', '/file/img/' + no)
+            request.open('DELETE', '/file/' + no)
             request.send()
 
             request.onreadystatechange = function() {

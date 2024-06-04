@@ -46,8 +46,8 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO board( board_title, user_no, board_content)
-        VALUES ( #{boardTitle}, #{userNo}, #{boardContent} )
+        INSERT INTO board( board_title, user_no, board_content, board_no, board_views)
+        VALUES ( #{boardTitle}, #{userNo}, #{boardContent}, #{boardNo}, #{boardViews})
     </insert>
 
     <update id="update">

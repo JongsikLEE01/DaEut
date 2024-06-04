@@ -168,7 +168,7 @@
 
             request.onreadystatechange = function() {
                 // 요청 성공 시,
-                if( request.readyState == request.DONE && request.status == 201 ) {
+                if( request.readyState == request.DONE && request.status == 200 ) {
                     console.log('댓글 등록 성공!');
                     // alert(request.responseText)     // 응답 메시지 확인
                     let response = request.responseText
