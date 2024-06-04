@@ -82,15 +82,15 @@ public class AdminController {
         model.addAttribute("page", page);
         return "/admin/adminUser";
     }
-    // @GetMapping("/adminPartner")
-    // public String adminPartner(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNumber) throws Exception {
-    //     int total = userService.countPartners(); // 총 사용자 수 계산
-    //     Page page = new Page(pageNumber, total); // Page 객체 초기화
-    //     List<Partner> partnerList = userService.selectAllPartners(page);
-    //     model.addAttribute("partnerList", partnerList);
-    //     model.addAttribute("page", page);
-    //     return "/admin/adminPartner";
-    // }
+    @GetMapping("/adminPartner")
+    public String adminPartner(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNumber) throws Exception {
+        int total = userService.countPartners(); // 총 사용자 수 계산
+        Page page = new Page(pageNumber, total); // Page 객체 초기화
+        List<Partner> partnerList = userService.selectAllPartners(page);
+        model.addAttribute("partnerList", partnerList);
+        model.addAttribute("page", page);
+        return "/admin/adminPartner"; // 경로 수정
+    }
 
 
     @GetMapping("/adminReservationRead")
@@ -161,35 +161,38 @@ public class AdminController {
     }
     
 
-    // @GetMapping("/adminPartnerRead/{userNo}")
-    // public String adminPartnerRead(@PathVariable("userNo") int userNo, Model model) throws Exception {
-    //     Partner partner = userService.findPartnerById(userNo);
-    //     log.info(partner.toString());
-    //     model.addAttribute("partner", partner);
-    //     return "/admin/adminPartnerRead";
-    // }
-    // @GetMapping("/adminPartnerUpdate/{userNo}")
-    // public String adminPartnerUpdate(@PathVariable("userNo") int userNo, Model model) throws Exception {
-    //     Partner partner = userService.findPartnerById(userNo);
-    //     model.addAttribute("partner", partner);
-    //     log.info("업데이트 화면 이동....");
-    //     log.info(partner.toString());
-    //     return "/admin/adminPartnerUpdate";
+    @GetMapping("/adminPartnerRead/{userNo}")
+    public String adminPartnerRead(@PathVariable("userNo") int userNo, Model model) throws Exception {
+        Partner partner = userService.findPartnerById(userNo);
+        log.info(partner.toString());
+        int sival = partner.getUserNo();
 
-    // }
-    // @PostMapping("/adminPartnerUpdate/{userNo}")
-    // public String adminPartnerUpdatePro(Partner partner, @RequestParam("userNo") int userNo, Model model) throws Exception {
-    //     Partner existingUser = userService.findPartnerById(userNo);
-    //     int result = userService.adminUpdatePartner(partner);
-    //     log.info("회원 수정 중..... result: " + result);
-    //     int no = partner.getUserNo();
-    //     if (result > 0) {
-    //         return "redirect:/admin/adminPartnerRead/" + no;
-    //     }
-    //     model.addAttribute("error", "사용자 업데이트에 실패했습니다.");
-    //     model.addAttribute("partner", existingUser); // 기존 사용자 정보를 다시 전달
-    //     return "admin/adminPartnerUpdate";
-    // }
+        log.info("-------------------------" + sival);
+        model.addAttribute("partner", partner);
+        return "/admin/adminPartnerRead";
+    }
+    @GetMapping("/adminPartnerUpdate/{userNo}")
+    public String adminPartnerUpdate(@PathVariable("userNo") int userNo, Model model) throws Exception {
+        Partner partner = userService.findPartnerById(userNo);
+        model.addAttribute("partner", partner);
+        log.info("업데이트 화면 이동....");
+        log.info(partner.toString());
+        return "/admin/adminPartnerUpdate";
+
+    }
+    @PostMapping("/adminPartnerUpdate/{userNo}")
+    public String adminPartnerUpdatePro(Partner partner, @RequestParam("userNo") int userNo, Model model) throws Exception {
+        Partner existingUser = userService.findPartnerById(userNo);
+        int result = userService.adminUpdatePartner(partner);
+        log.info("회원 수정 중..... result: " + result);
+        int no = partner.getUserNo();
+        if (result > 0) {
+            return "redirect:/admin/adminPartnerRead/" + no; // 업데이트 후에 파트너 조회 페이지로 리다이렉트
+        }
+        model.addAttribute("error", "사용자 업데이트에 실패했습니다.");
+        model.addAttribute("partner", existingUser); // 기존 사용자 정보를 다시 전달
+        return "admin/adminPartnerUpdate";
+    }
 
 
     @PostMapping("/user/delete")

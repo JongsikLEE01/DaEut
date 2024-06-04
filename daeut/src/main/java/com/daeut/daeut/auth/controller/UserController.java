@@ -111,37 +111,10 @@ public class UserController {
         return "/user/userCoupon";
     }
 
-    @GetMapping("/userPartner")
-    public String userPartner(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
-        log.info("/user/userPartner");
 
-        Users user = customUser.getUser();
-        Partner partner = partnerService.getPartners(user.getUserNo());
-        model.addAttribute("user", user);
-        model.addAttribute("partner", partner);
-
-        return "user/userPartner";
-    }
-
-    @PostMapping("/request-partner")
-    public String requestPartner(@ModelAttribute Partner partner, @AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
-        Users user = customUser.getUser(); // 사용자 정보를 가져옴
-        if (user != null) {
-            partner.setUserNo(user.getUserNo());
-            userService.requestPartner(user, partner);
-        }
-        return "redirect:/user/userPartnerDone";
-    }
-    
-    @GetMapping("/userPartnerDone")
-    public String userPartnerDone() {
-        log.info("/user/userPartnerDone");
-        return "/user/userPartnerDone";
-    }
-      
     // 장바구니
     @GetMapping("/userCart")
-        public String userCart(Model model, HttpSession session) {
+    public String userCart(Model model, HttpSession session) {
         Users user = (Users) session.getAttribute("user");
         int userNo = user.getUserNo();
         com.daeut.daeut.partner.dto.Partner partner;
@@ -152,7 +125,7 @@ public class UserController {
         try {
             cartList = cartService.cartList(userNo);
             partner = userService.selectPartner(userNo);
-
+            
             model.addAttribute("cartList", cartList);
             model.addAttribute("user", user);
             model.addAttribute("partner", partner);
@@ -164,18 +137,46 @@ public class UserController {
         return "/user/userCart";
     }
 
+    // 유저, 파트너 페이지 
+    @GetMapping("/userPartner")
+    public String userPartner(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
+        log.info("/user/userPartner");
     
-
+        Users user = customUser.getUser();
+        Partner partner = partnerService.getPartners(user.getUserNo());
+        model.addAttribute("user", user);
+        model.addAttribute("partner", partner);
     
-
+        return "user/userPartner";
+    }
+    
+    // 파트너 신청
+    @PostMapping("/request-partner")
+    public String insertPartner(@ModelAttribute Partner partner, @AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
+        Users user = customUser.getUser(); // 사용자 정보를 가져옴
+        if (user != null) {
+            partner.setUserNo(user.getUserNo());
+            // userService.insertPartner(user, partner);
+        }
+        return "redirect:/user/userPartnerDone";
+    }
+    
     // 관리자가 파트너 신청을 승인하는 엔드포인트
     @PostMapping("/approve-partner")
     public String approvePartner(@RequestParam String userId) {
         try {
-            userService.approvePartner(userId);
+            // userService.approvePartner(userId);
         } catch (Exception e) {
             log.error("Error approving partner status", e);
         }
         return "redirect:/user/partnerApprovalDone";
     }
+
+    // 파트너 신청 완료 페이지
+    @GetMapping("/userPartnerDone")
+    public String userPartnerDone() {
+        log.info("/user/userPartnerDone");
+        return "/user/userPartnerDone";
+    }
+      
 }

@@ -16,9 +16,7 @@ SELECT partner.*
   <!-- 파트너 정보 수정하기 -->
 <update id="partnerUpdate">
   UPDATE partner
-      SET introduce = #{introduce},
-          file = #{file},
-          file_path = #{filePath}
+      SET introduce = #{introduce}
       WHERE user_no = #{userNo};
 </update>
 
