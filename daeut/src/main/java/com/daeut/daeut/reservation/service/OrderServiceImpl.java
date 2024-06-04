@@ -151,5 +151,10 @@ public class OrderServiceImpl implements OrderService{
         }
         return orderList;
     }
+
+    @Override
+    public Orders listByOrderNo(String orderNo) throws Exception {
+        return orderMapper.listByOrderNo(orderNo);
+    }
     
 }

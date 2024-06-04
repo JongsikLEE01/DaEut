@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -175,10 +176,14 @@ public class PartnerController {
 
     // 파트너 예약 상세조회란
     @GetMapping("/partnerReservationRead")
-    public String partnerReservationRead() {
+    public String partnerReservationRead(@RequestParam("ordersNo") String ordersNo, Model model) throws Exception {
         log.info("[partner] - /partnerReservationRead");
-
+    
+        // 주문에 대한 상세 정보를 조회하고 모델에 추가
+        Orders order = orderService.listByOrderNo(ordersNo);
+    
+        model.addAttribute("order", order);
+    
         return "/partner/partnerReservationRead";
     }
-
 }
