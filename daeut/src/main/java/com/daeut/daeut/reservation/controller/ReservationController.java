@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,9 +62,21 @@ public class ReservationController {
         return "reservation/reservation";
 	}
 
-    // 채팅 로직 작성 필요
-	@GetMapping("/chat")
-	public String chat() {
+    /**
+     * 채팅
+     * @param serviceNo
+     * @param model
+     * @param session
+     * @return
+     * @throws Exception
+     */
+	@PostMapping("/chat")
+	public String chat(int serviceNo, Model model, HttpSession session) throws Exception {
+        Services service = reservationService.serviceSelect(serviceNo);
+        Users user = (Users) session.getAttribute("user");
+        
+        model.addAttribute("service", service);
+        model.addAttribute("user", user);
 		return "reservation/chat";
 	} 
 
@@ -88,17 +99,12 @@ public class ReservationController {
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
-
-        log.info("service? {}",service);
-        log.info("fileList? {}",fileList);
-
         
         model.addAttribute("service", service);
         model.addAttribute("fileList", fileList);
         model.addAttribute("thumbnail", thumbnail);
         model.addAttribute("files", files);
         model.addAttribute("user", user);
-
         return "reservation/reservationRead";
     }
 
