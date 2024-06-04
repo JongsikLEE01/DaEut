@@ -1,37 +1,120 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{/layout/reserv_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Da E ut</title>
 </head>
+
 <body layout:fragment="content">
-	
-<div class="container">
-    <div class="chatbox">
-        <div class="chat-header">
-            <div class="chat-partner-info">
-                <span class="partner-name-chat">상대방 이름</span>
+
+    <div class="container">
+        <div class="chatbox">
+            <div class="chat-header">
+                <div class="chat-partner-info">
+                    <span class="partner-name-chat">상대방 이름</span>
+                </div>
             </div>
+            <div class="chat-box" id="chat-box">
+                <!-- 채팅 메시지는 여기에 추가됩니다 -->
+            </div>
+            <div class="input-box">
+                <input type="text" id="message" placeholder="부적절한 메세지는 삭제 처리됩니다." onkeypress="enterSend(event)">
+                <button onclick="sendMessage()" class="sendchat">전송</button>
+            </div>
+            <div class="button-box">
+                <button class="goback" onclick="goBack()">돌아가기</button>
+            </div>
+
         </div>
-        <div class="chat-box" id="chat-box">
-            <!-- 채팅 메시지는 여기에 추가됩니다 -->
-        </div>
-        <div class="input-box">
-            <input type="text" id="message" placeholder="부적절한 메세지는 삭제 처리됩니다." onkeypress="enterSend(event)">
-            <button onclick="sendMessage()" class="sendchat">전송</button>
-        </div>
-        <div class="button-box">
-            <button class="goback" onclick="goBack()">돌아가기</button>
-        </div>
-        
     </div>
-</div>
+
+    <script>
+        /* 채팅 임시 스크립트 */
+        function sendMessage() {
+            var messageInput = document.getElementById("message");
+            var message = messageInput.value;
+            messageInput.value = "";
+
+            if (message.trim() === "") {
+                return;
+            }
+
+            var chatBox = document.getElementById("chat-box");
+            var messageDiv = document.createElement("div");
+            messageDiv.classList.add("message");
+
+            var bubbleDiv = document.createElement("div");
+            bubbleDiv.classList.add("bubble");
+            bubbleDiv.innerText = message;
+
+            var timeSpan = document.createElement("span");
+            timeSpan.classList.add("time");
+            timeSpan.innerText = getCurrentTime();
+
+            messageDiv.appendChild(bubbleDiv);
+            messageDiv.appendChild(timeSpan);
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight; // 스크롤 맨 아래로 이동
+
+            // 상대방의 임의의 메시지 생성 및 추가 - 나중에 이 부분은 빼고 아래 스크립트도 제거하면 됨
+            receiveMessage(generateRandomMessage());
+        }
+
+        function receiveMessage(message) {
+            var chatBox = document.getElementById("chat-box");
+            var messageDiv = document.createElement("div");
+            messageDiv.classList.add("message");
+            messageDiv.classList.add("opponent-message"); // 새로운 클래스 추가
+
+            var bubbleDiv = document.createElement("div");
+            bubbleDiv.classList.add("bubble");
+            bubbleDiv.innerText = message;
+
+            var timeSpan = document.createElement("span");
+            timeSpan.classList.add("time");
+            timeSpan.innerText = getCurrentTime();
+
+            messageDiv.appendChild(bubbleDiv);
+            messageDiv.appendChild(timeSpan);
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight; // 스크롤 맨 아래로 이동
+        }
 
 
+        function generateRandomMessage() {
+            var messages = [
+                "안녕하세요!",
+                "오늘 날씨가 참 좋네요.",
+                "저도 그렇게 생각해요.",
+                "네, 알겠습니다.",
+                "어떤 영화를 보는 게 좋을까요?"
+            ];
+            return messages[Math.floor(Math.random() * messages.length)];
+        }
 
+        function getCurrentTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var ampm = hours >= 12 ? "오후" : "오전";
+            hours = hours % 12;
+            hours = hours ? hours : 12; // 0시를 12시로 표시
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            var timeString = ampm + " " + hours + ":" + minutes;
+            return timeString;
+        }
 
+        function goBack() {
+            window.history.back();
+        }
 
+        // 엔터키로 채팅보내기
+        function enterSend(e) {
+            if (e.keyCode == 13) sendMessage()
+        }
+    </script>
 </body>
 </html>
