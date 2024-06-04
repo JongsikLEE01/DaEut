@@ -49,7 +49,7 @@
                             <tr th:each="user : ${userList}">
                                 <td th:text="${user.userNo}"></td>
                                 <td>
-                                    <a th:href="|/adminUserRead/${user.userNo}|" th:text="${user.userName}" class="text-decoration-line"></a>
+                                    <a th:href="|/admin/adminUserRead/${user.userNo}|" th:text="${user.userName}" class="text-decoration-line"></a>
                                 </td>
                                 <td th:text="${user.userId}"></td>
                                 <td th:text="${user.userPhone}"></td>
@@ -92,27 +92,9 @@
                     <!-- 마지막 -->
                     <a th:href="|/admin/adminUser?page=${page.last}|">&raquo;</a>
                 </div>
-                
-
-            </div>
-                
-
             </div>
         </div>
     </main>
 
-    <script>
-        let form = document.getElementById("form");
-        function deleteSelectedUser() {
-            form.submit();
-        }
-
-        function toggleAllCheckboxes(source) {
-            checkboxes = document.querySelectorAll('.checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = source.checked;
-            });
-        }
-    </script>
 </body>
 </html>

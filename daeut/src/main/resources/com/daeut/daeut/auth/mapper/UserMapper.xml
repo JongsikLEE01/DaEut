@@ -23,7 +23,6 @@
         
         <collection property="authList" resultMap="authMap"></collection>
     </resultMap>
-
         
     <resultMap type="UserAuth" id="authMap">
         <result property="authNo" column="auth_no" />
@@ -201,6 +200,42 @@
          LIMIT #{page.index}, #{page.rows}
     </select>
 
+    <!-- ROLE_USER, ROLE_PARTNER만 가진 사람 가져오기 - 관리자 페이지에서 회원 관리 -->
+    <select id="selectAllPartners" resultType="com.daeut.daeut.partner.dto.Partner">
+        SELECT 
+            a.user_no, 
+            a.user_name, 
+            a.user_phone, 
+            a.user_birth, 
+            a.user_address,
+            a.user_email, 
+            a.user_gender, 
+            a.user_id, 
+            a.user_password, 
+            a.user_reg_date,
+            a.user_coupon, 
+            a.user_upd_date, 
+            a.enabled, 
+            a.status,
+            p.partner_career
+        FROM 
+            users a
+        LEFT JOIN 
+            partner p ON a.user_no = p.user_no
+        WHERE 
+            a.status IN (1, 2)
+            AND EXISTS (
+                SELECT 1 
+                FROM user_auth b
+                WHERE b.user_no = a.user_no 
+                AND b.auth IN ('ROLE_PARTNER', 'ROLE_USER')
+            )
+        LIMIT #{page.index}, #{page.rows}
+    </select>
+
+
+
+
     <!-- 사용자 수를 카운트하는 쿼리 -->
     <select id="countUsers" resultType="int">
         SELECT COUNT(*)
@@ -210,6 +245,18 @@
             FROM user_auth b
             WHERE b.user_no = u.user_no
             AND b.auth NOT IN ('ROLE_USER')
+        )
+    </select>
+
+    <!-- 사용자(관리자) 수를 카운트하는 쿼리 -->
+    <select id="countPartners" resultType="int">
+        SELECT COUNT(*)
+        FROM users u
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM user_auth b
+            WHERE b.user_no = u.user_no
+            AND b.auth NOT IN ('ROLE_PARTNER')
         )
     </select>
 
@@ -228,6 +275,12 @@
         WHERE user_no IN ( ${userNoList} )
     </delete>
 
+    <!-- 관리자 - 파트너 선택 삭제 -->
+    <delete id="deleteListPartner">
+        DELETE FROM partner
+        WHERE user_no IN ( ${partnerNoList} )
+    </delete>
+
 
     <!-- userNo 유저 찾기 -->
     <select id="selectByUserNo">
@@ -242,6 +295,47 @@
         FROM users 
         WHERE username = #{username}
     </select>
+
+    <!-- 관리자 회원 조회 - user_no -->
+    <select id="findUserById" resultMap="userMap">
+        SELECT u.user_no
+            ,u.user_name
+            ,u.user_phone
+            ,u.user_birth
+            ,u.user_address
+            ,u.user_email
+            ,u.user_gender
+            ,u.user_id
+            ,u.user_password
+            ,u.user_reg_date
+            ,u.user_coupon
+            ,u.user_upd_date
+            ,u.enabled
+            ,auth.auth
+        FROM users u 
+        LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
+        WHERE u.user_no = #{userNo}
+    </select>
+
+    <!-- 관리자 회원 수정 -->
+    <update id="adminUpdateUser">
+        UPDATE users
+        SET 
+            <!-- user_password = #{userPassword}, -->
+            user_name = #{userName},
+            user_phone = #{userPhone},
+            user_address = #{userAddress},
+            user_birth = #{userBirth},
+            user_upd_date = now()
+        WHERE 
+            user_no = #{userNo}
+    </update>
+
+    <!-- 관리자 회원 삭제 -->
+    <delete id="adminDeleteUser">
+        DELETE FROM users
+        WHERE user_no = #{userNo}
+    </delete>
 
 
 </mapper>

@@ -122,7 +122,7 @@ function deleteAllCarts() {
         // 요청 성공
         location.reload()
         if (request.readyState == request.DONE && request.status == 200) {
-            alert('장바구니 비우기 성공!'); // 응답 메세지 확인
+            sweetAlert('😊', '장바구니 비우기 성공!', 'success'); // 응답 메세지 확인
         }
     }
 }
