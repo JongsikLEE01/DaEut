@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daeut.daeut.reservation.dto.ChatRooms;
+import com.daeut.daeut.reservation.dto.Payments;
 import com.daeut.daeut.reservation.mapper.ChatRoomMapper;
 
 @Service
@@ -25,12 +26,12 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     }
 
     @Override
-    public ChatRooms selectByUserNo(int userNo) throws Exception {
+    public List<ChatRooms> selectByUserNo(int userNo) throws Exception {
         return chatRoomMapper.selectByUserNo(userNo);
     }
 
     @Override
-    public ChatRooms selectByPartnerNo(int partnerNo) throws Exception {
+    public List<ChatRooms> selectByPartnerNo(int partnerNo) throws Exception {
         return chatRoomMapper.selectByPartnerNo(partnerNo);
     }
 
@@ -48,5 +49,13 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     public int delete(int roomNo) throws Exception {
         return chatRoomMapper.delete(roomNo);
     }
-    
+
+    // 있으면 update, 없으면 insert
+    @Override
+    public int merge(ChatRooms chatRooms) throws Exception {
+        if( chatRooms == null || select(chatRooms.getRoomNo()) == null ) 
+            return insert(chatRooms);
+
+        return update(chatRooms);
+    } 
 }

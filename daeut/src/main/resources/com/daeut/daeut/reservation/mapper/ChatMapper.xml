@@ -15,32 +15,32 @@
 
     <!-- 번호로 찾기 -->
     <select id="select" resultMap="ChatsMap">
-        SELECT * FROM chats 
+        SELECT * FROM chat
         WHERE chat_no = #{chatNo}
     </select>
 
     <!-- 방번호 찾기 -->
     <select id="selectByRoomNo" resultMap="ChatsMap">
-        SELECT * FROM chats 
+        SELECT * FROM chat 
         WHERE room_no = #{roomNo}
     </select>
 
     <!-- 삽입 -->
     <insert id="insert">
-        INSERT INTO chats (chat_content, user_no, room_no)
+        INSERT INTO chat (chat_content, user_no, room_no)
         VALUES (#{chatContent}, #{userNo}, #{roomNo})
     </insert>
 
     <!-- 업데이트 -->
     <update id="update">
-        UPDATE chats
+        UPDATE chat
         SET chat_content = #{chatContent}, chat_reg_date = #{chatRegDate}, user_no = #{userNo}, room_no = #{roomNo}
         WHERE chat_no = #{chatNo}
     </update>
 
     <!-- 삭제 -->
     <delete id="delete">
-        DELETE FROM chats 
+        DELETE FROM chat
         WHERE chat_no = #{chatNo}
     </delete>
 </mapper>

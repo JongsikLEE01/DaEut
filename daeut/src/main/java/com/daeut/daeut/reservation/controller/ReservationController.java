@@ -65,7 +65,10 @@ public class ReservationController {
 
     // 채팅 로직 작성 필요
 	@GetMapping("/chat")
-	public String chat() {
+	public String chat(Model model, HttpSession session) {
+        Users user = (Users) session.getAttribute("user");
+        model.addAttribute("user", user);
+
 		return "reservation/chat";
 	} 
 
