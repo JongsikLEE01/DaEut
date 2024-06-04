@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class ChatRooms {
-    private int roomNo;
+    private String roomNo;
     private Boolean roomOut;
     private Date regDate;
     private int userNo;

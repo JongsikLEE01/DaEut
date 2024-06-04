@@ -43,22 +43,23 @@ public class ReplyController {
     }
 
     // 댓글 등록
-    @PostMapping("/insert")
-    public ResponseEntity<Reply> insert(Reply reply) {
-        log.info("reply : " + reply);
-        return new ResponseEntity<>(reply, HttpStatus.OK);
-    }
-    
-    // @PostMapping("")
-    // public ResponseEntity<String> insert(Reply reply) throws Exception {
+    // @PostMapping("/insert")
+    // public ResponseEntity<Reply> insert(Reply reply) {
     //     log.info("reply : " + reply);
-
-    //     int result = replyService.insert(reply);
-    //     if( result > 0 ) {
-    //         return new ResponseEntity<>("SUCCESS", HttpStatus.CREATED);
-    //     }
-    //     return new ResponseEntity<>("FAIL", HttpStatus.OK);
+    //     return new ResponseEntity<>(reply, HttpStatus.OK);
     // }
+    
+    @PostMapping("/insert")
+    public ResponseEntity<String> insert(@RequestBody Reply reply) throws Exception {
+        log.info("reply : " + reply);
+
+        int result = replyService.insert(reply);
+        if( result > 0 ) {
+            return new ResponseEntity<>("SUCCESS", HttpStatus.CREATED);
+        }
+        
+        return new ResponseEntity<>("FAIL", HttpStatus.OK);
+    }
 
     
     
