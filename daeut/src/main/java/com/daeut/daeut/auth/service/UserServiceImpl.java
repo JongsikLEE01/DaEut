@@ -156,14 +156,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    
+    
+    private String saveFile(MultipartFile file) {
+        return "c:/upload";
+    }
+    
     @Override
     public int countUsers() throws Exception {
         return userMapper.countUsers();
-    }
-    
-  
-    private String saveFile(MultipartFile file) {
-        return "c:/upload";
     }
 
     // 모든 사용자 목록 조회
@@ -232,14 +233,39 @@ public class UserServiceImpl implements UserService {
         throw new UnsupportedOperationException("Unimplemented method 'updateUserStatus'");
     }
 
+    
     // 파트너 승인
     // TODO Auto-generated method stub
-
+    
     // 파트너 권한 추가
     // TODO Auto-generated method stub
+    
 
- 
-
-
+    @Override
+    public int countPartners() throws Exception {
+         return userMapper.countPartners();
+    }
+    
+    // 모든 파트너 목록 조회
+    @Override
+    public List<Partner> selectAllPartners(Page page) throws Exception {
+        List<Partner> partnerList = userMapper.selectAllPartners(page);
+        log.info("partner: " + partnerList);
+        return partnerList;
+    }
+    
+     // 관리자 - 파트너 조회
+     @Override
+     public Partner findPartnerById(int userNo) throws Exception {
+        Partner partner = userMapper.findPartnerById(userNo);
+        // log.info("partner +++++++++++++++++ " + partner);
+        return partner;
+     }
+     // 관리자 - 회원 수정
+    @Override
+    public int adminUpdatePartner(Partner partner) throws Exception {
+        int result = userMapper.adminUpdatePartner(partner);
+        return result;
+    }
 
 }

@@ -82,5 +82,12 @@ public interface UserMapper {
     // 관리자 - 회원 삭제
     public int adminDeleteUser(int userNo) throws Exception;  
 
+    // 모든 파트너 목록 조회
+    public int countPartners() throws Exception;
+    public List<Partner> selectAllPartners(@Param("page") Page page) throws Exception;
 
+    // 관리자 - 파트너 조회
+    public Partner findPartnerById(int userNo) throws Exception;
+    // 관리자 - 회원 수정
+    public int adminUpdatePartner(Partner partner) throws Exception;
 }
