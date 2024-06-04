@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -1859.6574999999996,
-    "scrollLeft": -834.0404999999979,
-    "zoomLevel": 0.9,
+    "scrollTop": -1317.2987416849699,
+    "scrollLeft": -1900.154899999998,
+    "zoomLevel": 0.6,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -876,13 +876,36 @@
               "widthDataType": 89.29296875,
               "widthDefault": 60
             }
+          },
+          {
+            "id": "522cf279-7ab7-4e4f-bfba-395ee53c3f25",
+            "name": "partner_no",
+            "comment": "파트너 번호",
+            "dataType": "INT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 65.77490234375,
+              "widthComment": 71.5703125,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
           "active": false,
           "left": 2025.2845,
           "top": 1321.3578,
-          "zIndex": 12,
+          "zIndex": 23,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1591,7 +1614,7 @@
           "active": false,
           "left": 2540.2396,
           "top": 1006.7194,
-          "zIndex": 14,
+          "zIndex": 22,
           "widthName": 60,
           "widthComment": 60
         },
@@ -3127,7 +3150,7 @@
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
           "x": 2540.2396,
-          "y": 1054.7194,
+          "y": 1038.7194,
           "direction": "left"
         },
         "end": {
@@ -3162,7 +3185,7 @@
             "0df7dfd0-d390-4f55-8778-6c252edfe371"
           ],
           "x": 2025.2845,
-          "y": 1511.4828,
+          "y": 1526.8578,
           "direction": "left"
         },
         "constraintName": "fk_users_to_reservation",
@@ -3231,7 +3254,7 @@
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
           "x": 2546.8220976562498,
-          "y": 1511.4828,
+          "y": 1526.8578,
           "direction": "right"
         },
         "end": {
@@ -3292,7 +3315,7 @@
             "12d192ce-6eba-43e4-8dbd-cf6e5ce73f6d"
           ],
           "x": 2540.2396,
-          "y": 1150.7194,
+          "y": 1166.7194,
           "direction": "left"
         },
         "constraintName": "fk_users_to_partner",
@@ -3413,7 +3436,7 @@
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
           "x": 2025.2845,
-          "y": 1384.7328,
+          "y": 1389.8578,
           "direction": "left"
         },
         "end": {
@@ -3465,7 +3488,7 @@
             "429ebeae-8d59-4180-b93a-dc925699316a"
           ],
           "x": 2546.8220976562498,
-          "y": 1384.7328,
+          "y": 1389.8578,
           "direction": "right"
         },
         "end": {
@@ -3608,6 +3631,32 @@
           "direction": "right"
         },
         "constraintName": "fk_users_to_chat_rooms",
+        "visible": true
+      },
+      {
+        "id": "88c947fa-5ed1-4140-8542-91e8683bc981",
+        "identification": false,
+        "relationshipType": "ZeroOne",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "05c68491-d8f7-468a-b248-e615b9c1cddb",
+          "columnIds": [
+            "a2d3d6f0-8fad-4123-81f5-cee84152400b"
+          ],
+          "x": 2540.2396,
+          "y": 1102.7194,
+          "direction": "left"
+        },
+        "end": {
+          "tableId": "665604d2-96fc-4152-9249-313a20a673fb",
+          "columnIds": [
+            "522cf279-7ab7-4e4f-bfba-395ee53c3f25"
+          ],
+          "x": 2286.0532988281248,
+          "y": 1321.3578,
+          "direction": "top"
+        },
+        "constraintName": "fk_partner_to_orders",
         "visible": true
       }
     ]

@@ -5,15 +5,12 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.daeut.daeut.auth.dto.CustomUser;
+
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
@@ -25,11 +22,9 @@ import com.daeut.daeut.reservation.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 
 
 @Slf4j
@@ -176,10 +171,9 @@ public class PartnerController {
         List<Orders> orderList = orderService.listByParterNo(partnerNo); // 주문 목록 가져오기
         model.addAttribute("orderList", orderList); // 모델에 주문 목록 추가
         return "/partner/partnerReservation";  
-    
-       
     }
 
+    // 파트너 예약 상세조회란
     @GetMapping("/partnerReservationRead")
     public String partnerReservationRead() {
         log.info("[partner] - /partnerReservationRead");
