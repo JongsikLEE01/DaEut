@@ -124,19 +124,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void requestPartner(Users user, Partner partner) throws Exception {
-        userMapper.insertPartner(partner);
-
-        userMapper.updateUserStatus(user.getUserNo());
-    }
-
-    @Override
-    @Transactional
-    public void approvePartner(String userId) throws Exception {
-        userMapper.approvePartnerAndAddAuth(userId);
-    }
-
-    @Override
     public List<Reservation> getUserReservations(String userId) {
         return userMapper.selectReservationsByUserId(userId);
     }
@@ -230,6 +217,26 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.adminDeleteUser(userNo);
         return result;
     }
+
+    // 파트너 신청
+    @Override
+    public void insertPartner(Partner partner) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'insertPartner'");
+    }
+
+    // 파트너 신청 대기
+    @Override
+    public void updateUserStatus(int userNo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateUserStatus'");
+    }
+
+    // 파트너 승인
+    // TODO Auto-generated method stub
+
+    // 파트너 권한 추가
+    // TODO Auto-generated method stub
 
  
 
