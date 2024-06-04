@@ -61,7 +61,7 @@
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                         <a href="partnerMypage" class="btn btn-secondary cancel">뒤로가기</a>
                         <button type="submit" class="btn btn-danger cancel" name="action" value="delete">탈퇴하기</button>
-                        <button type="submit" class="btn btn-primary sessuce color_main" name="action" value="update">정보 수정</button>
+                        <button type="submit" class="btn btn-primary sessuce color_main" name="action" value="${partner.userNo}">정보 수정</button>
                     </div>
                 </form>
             </div>
