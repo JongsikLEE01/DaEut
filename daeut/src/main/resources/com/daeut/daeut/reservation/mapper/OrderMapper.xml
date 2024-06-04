@@ -5,6 +5,37 @@
 
 <mapper namespace="com.daeut.daeut.reservation.mapper.OrderMapper">
 
+    <resultMap id="OrderWithUserResultMap" type="Orders">
+    <id property="ordersNo" column="orders_no"/>
+    <result property="userNo" column="user_no"/>
+    <result property="orderStatus" column="order_status"/>
+    <result property="totalQuantity" column="total_quantity"/>
+    <result property="totalPrice" column="total_price"/>
+    <result property="updDate" column="upd_date"/>
+    <result property="regDate" column="reg_date"/>
+    <result property="totalCount" column="total_count"/>
+    <result property="title" column="title"/>
+    <result property="partnerNo" column="partner_no"/>
+    
+    <association property="user" javaType="Users">
+        <id property="userNo" column="user_no"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userBirth" column="user_birth"/>
+        <result property="userAddress" column="user_address"/>
+        <result property="userEmail" column="user_email"/>
+        <result property="userGender" column="user_gender"/>
+        <result property="userId" column="user_id"/>
+        <result property="userPassword" column="user_password"/>
+        <result property="userRegDate" column="user_reg_date"/>
+        <result property="userCoupon" column="user_coupon"/>
+        <result property="userUpdDate" column="user_upd_date"/>
+        <result property="enabled" column="enabled"/>
+        <result property="status" column="status"/>
+    </association>
+</resultMap>
+
+
     <!-- 모든 주문 조회 -->
     <select id="list" resultType="Orders">
         SELECT * 
@@ -51,10 +82,19 @@
     </select>
 
     <!-- 목록 - partnerNo-->
-    <select id="listByParterNo" resultType="Orders">
-        SELECT *
-        FROM orders
-        where partner_No = #{partnerNo}
+    <select id="listByParterNo" resultType="OrderWithUserResultMap">
+        SELECT 
+        o.orders_no, o.user_no, o.order_status, o.total_quantity, o.total_price, 
+        o.upd_date, o.reg_date, o.total_count, o.title, o.partner_no,
+        u.user_no AS user_no, u.user_name, u.user_phone, u.user_birth, 
+        u.user_address, u.user_email, u.user_gender, u.user_id, u.user_password, 
+        u.user_reg_date, u.user_coupon, u.user_upd_date, u.enabled, u.status
+    FROM 
+        orders o
+    JOIN 
+        users u ON o.user_no = u.user_no
+    WHERE 
+        o.partner_no = #{partnerNo}
     </select>
 
 </mapper>
