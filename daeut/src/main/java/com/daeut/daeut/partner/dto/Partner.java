@@ -2,9 +2,12 @@ package com.daeut.daeut.partner.dto;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.daeut.daeut.auth.dto.UserAuth;
 
 import lombok.Data;
 
@@ -22,6 +25,9 @@ public class Partner {
 
     private MultipartFile file;
     private String filePath;
+
+    // 권한 목록
+    private List<UserAuth> authList;
 
 
     // 여기서부터는 user 정보

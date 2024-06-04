@@ -109,6 +109,7 @@ CREATE TABLE orders
   reg_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 등록일자',
   total_count    INT          NOT NULL COMMENT '총 항목수',
   title          VARCHAR(100) NULL     COMMENT '예약 제목',
+  partner_no      INT       NOT NULL COMMENT '파트너 번호'
   PRIMARY KEY (orders_no)
 ) COMMENT '예약';
 
@@ -223,6 +224,11 @@ CREATE TABLE users
 --     REFERENCES partner (partner_no);
 
 -- ALTER TABLE orders
+--   ADD CONSTRAINT FK_partner_TO_service
+--     FOREIGN KEY (partner_no)
+--     REFERENCES partner (partner_no);
+
+-- ALTER TABLE orders
 --   ADD CONSTRAINT FK_users_TO_orders
 --     FOREIGN KEY (user_no)
 --     REFERENCES users (user_no);
@@ -267,10 +273,10 @@ CREATE TABLE users
 --     FOREIGN KEY (partner_no)
 --     REFERENCES partner (partner_no);
 
--- ALTER TABLE user_auth
---   ADD CONSTRAINT FK_users_TO_user_auth
---     FOREIGN KEY (user_no)
---     REFERENCES users (user_no);
+ALTER TABLE user_auth
+  ADD CONSTRAINT FK_users_TO_user_auth
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no) ON DELETE CASCADE;
 
 -- ALTER TABLE order_item
 --   ADD CONSTRAINT FK_orders_TO_order_item

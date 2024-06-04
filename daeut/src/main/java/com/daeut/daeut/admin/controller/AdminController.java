@@ -5,23 +5,27 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
+import com.daeut.daeut.main.dto.Page;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("/admin")
-public class adminController {
+public class AdminController {
 
     @Value("${system.pw}")
     private String systemPw;
@@ -63,10 +67,12 @@ public class adminController {
 
 
     @GetMapping("/adminUser")
-    public String adminUser(Model model) throws Exception {
-        List <Users> userList = userService.selectAllUsers();
+    public String adminUser(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNumber) throws Exception {
+        int total = userService.countUsers(); // 총 사용자 수 계산
+        Page page = new Page(pageNumber, total); // Page 객체 초기화
+        List<Users> userList = userService.selectAllUsers(page);
         model.addAttribute("userList", userList);
-        
+        model.addAttribute("page", page);
         return "/admin/adminUser";
     }
 
@@ -106,4 +112,18 @@ public class adminController {
         return "/admin/adminPartnerUpdate";
 
     }
-}
+
+    @PostMapping("/user/delete")
+    public String selectedUserDelete(String[] deleteNoList) throws Exception {
+        log.info(":::::::::: 선택한 유저 번호들 ::::::::::");
+        log.info("deleteNoList 개수 : " + deleteNoList.length);
+        for (String no : deleteNoList) {
+            log.info("no  : " + no);
+        }
+        int result = userService.deleteList(deleteNoList);
+        log.info("삭제된 회원 수 : " + result);
+
+        return "redirect:/admin/adminUser";
+    }
+    
+}   

@@ -2,8 +2,13 @@ package com.daeut.daeut.auth.service;
 
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
-import com.daeut.daeut.partner.dto.Partner;
+
+import com.daeut.daeut.main.dto.Page;
+
 import com.daeut.daeut.reservation.dto.Reservation;
+import com.daeut.daeut.partner.dto.Partner;
+
+import groovyjarjarantlr4.v4.codegen.model.ExceptionClause;
 
 import java.util.List;
 
@@ -46,7 +51,8 @@ public interface UserService {
     public void adminJoin(Users user, String systemPw) throws Exception;
 
     // 모든 사용자 목록 조회
-    public List<Users> selectAllUsers() throws Exception;
+    public int countUsers() throws Exception;
+    public List<Users> selectAllUsers(Page page) throws Exception;
 
     // 파트너 찾기
     public Partner selectPartner(int userNo) throws Exception;
@@ -56,5 +62,9 @@ public interface UserService {
 
     // 유저 이름으로 찾기
     public Users findByUsername(String username);
+
+    public int deleteList(String[] deleteNoList) throws Exception;
+
+  
 
 }

@@ -227,59 +227,57 @@ function enterSend(e){
 //   });
 
 // 캘린더 나오게 하기 
-document.addEventListener('DOMContentLoaded', function () {
-    const calendarToggleBtn = document.querySelector('.reservation-calender');
-    let calendarVisible = false;
-    let calendarDiv;
+// document.addEventListener('DOMContentLoaded', function () {
+//     const calendarToggleBtn = document.querySelector('.reservation-calender');
+//     let calendarVisible = false;
+//     let calendarDiv;
 
-    function toggleCalendar() {
-        if (calendarVisible) {
-            calendarDiv.style.display = 'none';
-            calendarVisible = false;
-        } else {
-            calendarDiv.style.display = 'block';
-            calendarVisible = true;
-        }
-    }
+//     function toggleCalendar() {
+//         if (calendarVisible) {
+//             calendarDiv.style.display = 'none';
+//             calendarVisible = false;
+//         } else {
+//             calendarDiv.style.display = 'block';
+//             calendarVisible = true;
+//         }
+//     }
 
-    calendarToggleBtn.addEventListener('click', function () {
-        if (!calendarDiv) {
-            calendarDiv = document.createElement('div');
-            calendarDiv.id = 'calendar';
-            calendarDiv.style.position = 'absolute';
-            calendarDiv.style.width = '306px'; 
-            // calendarDiv.style.top = 'calc(100% + 10px)';
-            calendarDiv.style.left = '0';
-            calendarDiv.style.display = 'none';
-            calendarDiv.style.zIndex = '1000'; 
+//     calendarToggleBtn.addEventListener('click', function () {
+//         if (!calendarDiv) {
+//             calendarDiv = document.createElement('div');
+//             calendarDiv.id = 'calendar';
+//             calendarDiv.style.position = 'absolute';
+//             calendarDiv.style.width = '306px'; 
+//             // calendarDiv.style.top = 'calc(100% + 10px)';
+//             calendarDiv.style.left = '0';
+//             calendarDiv.style.display = 'none';
+//             calendarDiv.style.zIndex = '1000'; 
             
-            const calendar = new FullCalendar.Calendar(calendarDiv, {
-                initialView: 'dayGridMonth', 
-                dayMaxEventRows: true, 
-                locale: 'ko', // 한국어 설정
-                events: [
+//             const calendar = new FullCalendar.Calendar(calendarDiv, {
+//                 initialView: 'dayGridMonth', 
+//                 dayMaxEventRows: true, 
+//                 locale: 'ko', // 한국어 설정
+//                 events: [
                    
-                ]
-            });
+//                 ]
+//             });
 
-            // 캘린더를 삽입할 위치
-            const calendarContainer = document.getElementById('calendarContainer');
-            calendarContainer.appendChild(calendarDiv);
+//             // 캘린더를 삽입할 위치
+//             const calendarContainer = document.getElementById('calendarContainer');
+//             calendarContainer.appendChild(calendarDiv);
 
-            calendar.render();
-        }
-        toggleCalendar();
-    });
-});
+//             calendar.render();
+//         }
+//         toggleCalendar();
+//     });
+// });
 
 function addToCart() {
-    const $serviceNo = '[[${service.serviceNo}]]';
-    const serviceNo = $serviceNo;
-
     // CSRF 토큰 가져오기
     const csrfToken = document.querySelector("meta[name='_csrf']").content;
     const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
-
+    
+    const serviceNo = $("#serviceNo").val()
     let data = {
         'serviceNo': serviceNo
     };
@@ -300,4 +298,4 @@ function addToCart() {
                 console.log(request.responseText);
             }
         };
-    }
+}

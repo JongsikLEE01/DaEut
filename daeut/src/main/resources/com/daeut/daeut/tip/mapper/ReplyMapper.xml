@@ -20,31 +20,31 @@
     <select id="select" resultType="Reply">
         SELECT *
         FROM reply
-        WHERE no = #{no}
+        WHERE reply_no = #{replyNo}
     </select>
 
     <!-- 댓글 등록 -->
     <insert id="insert">
-        INSERT INTO reply (board_no, parent_no, writer, content)
-        VALUES (#{boardNo}, #{parentNo}, #{writer}, #{content} )
+        INSERT INTO reply (board_no, parent_no, user_no, reply_content)
+        VALUES (#{boardNo}, #{parentNo}, #{userNo}, #{replyContent} )
     </insert>
 
     <!-- 댓글 수정 -->
     <update id="update">
         UPDATE reply
-           SET writer = #{writer}
-              ,content = #{content}
+           SET reply_writer = #{replyWriter}
+              ,reply_content = #{replyContent}
               <if test="parentNo != 0">
                 ,parent_no = #{parentNo}
               </if>
-              ,upd_date = now()
-        WHERE no = #{no}
+              ,reply_upd_date = now()
+        WHERE reply_no = #{replyNo}
     </update>
 
     <!-- 댓글 삭제 -->
     <delete id="delete">
         DELETE FROM reply
-        WHERE no = #{no}
+        WHERE reply_no = #{replyNo}
     </delete>
 
     <!-- ⭐ 댓글 종속 삭제 -->
@@ -56,7 +56,7 @@
     <!-- 댓글 번호 최댓값 -->
     <!-- LAST_INSERT_ID() : AI 로 증가한 가장 마지막 번호 -->
     <select id="max" resultType="int">
-        SELECT MAX(no)
+        SELECT MAX(reply_no)
         FROM reply
     </select>
 

@@ -8,11 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 import com.daeut.daeut.auth.dto.CustomUser;
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.service.PartnerService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,6 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     
+    @Autowired
+    private PartnerService partnerService;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request
                                       , HttpServletResponse response
@@ -61,10 +67,21 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         HttpSession session = request.getSession();
         Users user = customUser.getUser();
-        if( user != null ) session.setAttribute("user", user);
+        Partner partner = null; // partner 변수를 선언하고 null로 초기화
+        if( user != null ) {
+            session.setAttribute("user", user);
 
+            try {
+                partner = partnerService.findByUserNo(user.getUserNo());
+            } catch (Exception e) {
+                log.error("파트너 정보를 가져오는 도중 오류가 발생했습니다.", e);
+            }
+            if(partner != null) {
+                session.setAttribute("partnerNo", partner.getPartnerNo());
+                log.info("파트너 번호 {}가 세션에 저장되었습니다.", partner.getPartnerNo());
+            }
+        }
         super.onAuthenticationSuccess(request, response, authentication);
 
     }
-    
 }
