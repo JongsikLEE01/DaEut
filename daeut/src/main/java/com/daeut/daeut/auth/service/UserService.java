@@ -41,8 +41,6 @@ public interface UserService {
     // 파트너 신청
     public void requestPartner(Users users, Partner partner) throws Exception;
 
-    public Users getUserById(String userId);
-
     // 파트너 승인
     public void approvePartner(String userId) throws Exception;
 
@@ -52,18 +50,16 @@ public interface UserService {
     // 관리자 회원가입
     public void adminJoin(Users user, String systemPw) throws Exception;
 
-    
     // 모든 사용자 목록 조회
     public int countUsers() throws Exception;
     public List<Users> selectAllUsers(Page page) throws Exception;
-
 
     // 파트너 찾기
     public Partner selectPartner(int userNo) throws Exception;
 
     // 번호 유저찾기
     public Users selectByUserNo(int userNo) throws Exception;
-    
+
     // 유저 이름으로 찾기
     public Users findByUsername(String username);
 

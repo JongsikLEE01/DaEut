@@ -4,10 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +13,7 @@ import com.daeut.daeut.auth.dto.CustomUser;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Cart;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.CartService;
@@ -27,8 +25,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-import javax.servlet.http.HttpSession;
-import java.security.Principal;
 
 @Slf4j
 @Controller
@@ -43,6 +39,9 @@ public class UserController {
 
     @Autowired
     private ReservationService reservationService;
+
+    @Autowired
+    private PartnerService partnerService;
 
     @GetMapping("/userMypage")
     public String userMypage(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
@@ -113,14 +112,31 @@ public class UserController {
     }
 
     @GetMapping("/userPartner")
-    public String userPartner(@AuthenticationPrincipal CustomUser customUser, Model model) {
+    public String userPartner(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
         log.info("/user/userPartner");
 
         Users user = customUser.getUser();
+        Partner partner = partnerService.getPartners(user.getUserNo());
         model.addAttribute("user", user);
-        model.addAttribute("partner", new Partner());
+        model.addAttribute("partner", partner);
 
         return "user/userPartner";
+    }
+
+    @PostMapping("/request-partner")
+    public String requestPartner(@ModelAttribute Partner partner, @AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
+        Users user = customUser.getUser(); // 사용자 정보를 가져옴
+        if (user != null) {
+            partner.setUserNo(user.getUserNo());
+            userService.requestPartner(user, partner);
+        }
+        return "redirect:/user/userPartnerDone";
+    }
+    
+    @GetMapping("/userPartnerDone")
+    public String userPartnerDone() {
+        log.info("/user/userPartnerDone");
+        return "/user/userPartnerDone";
     }
       
     // 장바구니
@@ -148,26 +164,7 @@ public class UserController {
         return "/user/userCart";
     }
 
-    @PostMapping("/request-partner")
-    public String requestPartner(@ModelAttribute Partner partner, @AuthenticationPrincipal CustomUser customUser, Model model) {
-        try {
-            Users user = customUser.getUser(); // 사용자 정보를 가져옴
-            if (user != null) {
-                userService.requestPartner(user, partner);
-            }
-        } catch (Exception e) {
-            log.error("Error requesting partner status", e);
-            model.addAttribute("errorMessage", "파트너 신청 중 오류가 발생했습니다.");
-            return "error";
-        }
-        return "redirect:/user/userPartnerDone";
-    }
     
-    @GetMapping("/userPartnerDone")
-    public String userPartnerDone() {
-        log.info("/user/userPartnerDone");
-        return "/user/userPartnerDone";
-    }
 
     
 
