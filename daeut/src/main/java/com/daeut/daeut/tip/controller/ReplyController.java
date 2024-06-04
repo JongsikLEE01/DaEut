@@ -44,7 +44,7 @@ public class ReplyController {
 
     // 댓글 등록
     @PostMapping("/insert")
-    public ResponseEntity<Reply> insert(Reply reply) {
+    public ResponseEntity<Reply> insert(@RequestBody Reply reply) {
         log.info("reply : " + reply);
         return new ResponseEntity<>(reply, HttpStatus.OK);
     }
