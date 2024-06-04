@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -1317.2987416849699,
-    "scrollLeft": -1900.154899999998,
-    "zoomLevel": 0.6,
+    "scrollTop": -919.9980816410415,
+    "scrollLeft": -2153.353399999998,
+    "zoomLevel": 1,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -374,7 +374,7 @@
           "active": false,
           "left": 1695.5323,
           "top": 1722.8417,
-          "zIndex": 15,
+          "zIndex": 13,
           "widthName": 60,
           "widthComment": 60
         },
@@ -905,7 +905,7 @@
           "active": false,
           "left": 2025.2845,
           "top": 1321.3578,
-          "zIndex": 23,
+          "zIndex": 16,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1036,7 +1036,7 @@
           "active": false,
           "left": 971.4775,
           "top": 2309.3258,
-          "zIndex": 13,
+          "zIndex": 12,
           "widthName": 60,
           "widthComment": 60,
           "color": "#000000"
@@ -1544,7 +1544,7 @@
             "id": "0d2a33f6-461e-41dc-880f-edb0af55c10c",
             "name": "partner_career",
             "comment": "파트너 경력",
-            "dataType": "TIMESTAMP",
+            "dataType": "VARCHAR(100)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -1559,7 +1559,7 @@
               "pfk": false,
               "widthName": 86.296875,
               "widthComment": 71.5703125,
-              "widthDataType": 71.93212890625,
+              "widthDataType": 89.29296875,
               "widthDefault": 60
             }
           },
@@ -1611,7 +1611,7 @@
           }
         ],
         "ui": {
-          "active": false,
+          "active": true,
           "left": 2540.2396,
           "top": 1006.7194,
           "zIndex": 22,
@@ -3099,7 +3099,7 @@
           "active": false,
           "left": 961.5338,
           "top": 1960.5229,
-          "zIndex": 16,
+          "zIndex": 14,
           "widthName": 69.5009765625,
           "widthComment": 60
         },
@@ -3383,7 +3383,7 @@
           "columnIds": [
             "a2d3d6f0-8fad-4123-81f5-cee84152400b"
           ],
-          "x": 2780.674414453125,
+          "x": 2789.354834375,
           "y": 1198.7194,
           "direction": "bottom"
         },
