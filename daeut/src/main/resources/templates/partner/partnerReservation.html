@@ -32,13 +32,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td data-label="No.">1.</td>
-                            <td data-label="사용자 명">김조은</a></td>
-                            <td data-label="예약 상태">예약 완료</td>
-                            <td data-label="예약 시간">2024-05-20 12:19:10</td>
-                            <td data-label="자세히보기"><a href="/partner/partnerReservationRead" class="detail-button">자세히보기</a></td>
+                    <c:forEach items="${orderList}" var="order" varStatus="loop">
+                        <tr th:each="order, loopStatus : ${orderList}">
+                            <td data-label="No." th:text="${loopStatus.index + 1}"></td> <!-- 자동으로 증가하는 글번호 -->
+                            <td data-label="사용자 명" th:text="${order.user.userName}"></td> <!-- 사용자 명 -->
+                            <td data-label="예약 상태" th:text="${order.orderStatus}"></td> <!-- 예약 상태 -->
+                            <td data-label="예약 시간" th:text="${order.regDate}"></td> <!-- 예약 시간 -->
+                            <td data-label="자세히보기">
+                                <a href="/partner/partnerReservationRead?ordersNo=${order.ordersNo}" class="detail-button">자세히보기</a>
+                            </td>
                         </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
                
