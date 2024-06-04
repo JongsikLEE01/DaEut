@@ -77,10 +77,10 @@
     </div>
 
     <script>
-        let form = document.getElementById('form')
         let no = "[[${board.boardNo}]]"
         let userNo = "[[${session.user.userNo}]]"
         var csrfToken = "[[${_csrf.token}]]"
+        const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
 
         replyList()
 
@@ -151,7 +151,6 @@
         function insertReply() {
             // let $wuserNo = document.getElementById('reply-writer')
             let $content = document.getElementById('reply-content')
-            
             let replyContent = $content.value
 
             console.log(`글번호 : ${no}`)
@@ -164,8 +163,7 @@
                 'replyContent' : replyContent
             }
 
-            let request = new XMLHttpRequest()
-            
+            let request = new XMLHttpRequest()  
             request.open('POST', '/reply/insert')
             request.setRequestHeader("X-CSRF-TOKEN", csrfToken) 
             request.setRequestHeader('Content-Type', 'application/json')
