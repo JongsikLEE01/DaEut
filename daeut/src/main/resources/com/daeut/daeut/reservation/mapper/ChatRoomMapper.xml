@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daeut.daeut.reservation.mapper.ChatRoomMapper">
+
+    <resultMap id="ChatRoomsMap" type="ChatRooms">
+        <id property="roomNo" column="room_no"/>
+        <result property="roomOut" column="room_out"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="userNo" column="user_no"/>
+        <result property="partnerNo" column="partner_no"/>
+    </resultMap>
+
+    <!-- 전체 -->
+    <select id="list" resultMap="ChatRoomsMap">
+        SELECT * 
+        FROM chat_rooms
+    </select>
+
+    <!-- 방 번호 찾기 -->
+    <select id="select" resultMap="ChatRoomsMap">
+        SELECT * FROM chat_rooms 
+        WHERE room_no = #{roomNo}
+    </select>
+
+    <!-- 유저 번호 찾기 -->
+    <select id="selectByUserNo" resultMap="ChatRoomsMap">
+        SELECT * FROM chat_rooms 
+        WHERE user_no = #{userNo}
+    </select>
+
+    <!-- 파트너 번호 찾기 -->
+    <select id="selectByPartnerNo" resultMap="ChatRoomsMap">
+        SELECT * FROM chat_rooms 
+        WHERE partner_no = #{partnerNo}
+    </select>
+
+    <!-- 추가 -->
+    <insert id="insert">
+        INSERT INTO chat_rooms (user_no, partner_no)
+        VALUES (#{userNo}, #{partnerNo})
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        UPDATE chat_rooms
+        SET room_out = #{roomOut}
+        WHERE room_no = #{roomNo}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        DELETE FROM chat_rooms 
+        WHERE room_no = #{roomNo}
+    </delete>
+</mapper>
