@@ -120,7 +120,7 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("partner", partner);
 
-        return "user/userPartner";
+        return "/user/userPartner";
     }
 
     @PostMapping("/request-partner")
