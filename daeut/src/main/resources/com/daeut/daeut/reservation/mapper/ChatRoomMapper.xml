@@ -39,8 +39,8 @@
 
     <!-- 추가 -->
     <insert id="insert">
-        INSERT INTO chat_rooms (user_no, partner_no)
-        VALUES (#{userNo}, #{partnerNo})
+        INSERT INTO chat_rooms (room_no, user_no, partner_no)
+        VALUES (#{roomNo}, #{userNo}, #{partnerNo})
     </insert>
 
     <!-- 수정 -->

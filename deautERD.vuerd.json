@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -1859.6574999999996,
-    "scrollLeft": -834.0404999999979,
-    "zoomLevel": 0.9,
+    "scrollTop": -1882.1417999999996,
+    "scrollLeft": -811.2364999999979,
+    "zoomLevel": 0.8,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -19,7 +19,7 @@
     },
     "database": "MySQL",
     "databaseName": "daeut",
-    "canvasType": "ERD",
+    "canvasType": "@vuerd/builtin-sql-ddl",
     "language": "GraphQL",
     "tableCase": "pascalCase",
     "columnCase": "camelCase",
@@ -989,7 +989,7 @@
             "id": "a3992032-ba6a-4251-bafd-0da2f36b25ae",
             "name": "room_no",
             "comment": "방 번호",
-            "dataType": "INT",
+            "dataType": "VARCHAR(100)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -1004,7 +1004,7 @@
               "pfk": false,
               "widthName": 60,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 89.29296875,
               "widthDefault": 60
             }
           }
@@ -2960,10 +2960,10 @@
             "id": "1428f440-f5f6-418c-b116-b7c60a6416b0",
             "name": "room_no",
             "comment": "방 번호",
-            "dataType": "INT",
+            "dataType": "VARCHAR(100)",
             "default": "",
             "option": {
-              "autoIncrement": true,
+              "autoIncrement": false,
               "primaryKey": true,
               "unique": false,
               "notNull": true
@@ -2975,7 +2975,7 @@
               "pfk": false,
               "widthName": 60,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 89.29296875,
               "widthDefault": 60
             }
           },
@@ -3076,7 +3076,7 @@
           "active": false,
           "left": 961.5338,
           "top": 1960.5229,
-          "zIndex": 16,
+          "zIndex": 27,
           "widthName": 69.5009765625,
           "widthComment": 60
         },
@@ -3187,7 +3187,7 @@
           "columnIds": [
             "81a3b316-a926-4a9f-81ee-a11b0a0d3d4c"
           ],
-          "x": 1499.38814453125,
+          "x": 1516.748984375,
           "y": 2395.0758,
           "direction": "right"
         },
@@ -3542,7 +3542,7 @@
           "columnIds": [
             "1428f440-f5f6-418c-b116-b7c60a6416b0"
           ],
-          "x": 1234.5457628906252,
+          "x": 1243.2261828125002,
           "y": 2132.0229,
           "direction": "bottom"
         },
@@ -3551,7 +3551,7 @@
           "columnIds": [
             "a3992032-ba6a-4251-bafd-0da2f36b25ae"
           ],
-          "x": 1235.432822265625,
+          "x": 1244.1132421875,
           "y": 2309.3258,
           "direction": "top"
         },
@@ -3577,7 +3577,7 @@
           "columnIds": [
             "4c2ebb64-4e85-4c5f-80f2-696eeaef12e4"
           ],
-          "x": 1507.5577257812502,
+          "x": 1524.9185656250002,
           "y": 2003.3979,
           "direction": "right"
         },
@@ -3603,7 +3603,7 @@
           "columnIds": [
             "33177768-7401-4962-ae47-f6bc8e455241"
           ],
-          "x": 1507.5577257812502,
+          "x": 1524.9185656250002,
           "y": 2089.1479,
           "direction": "right"
         },

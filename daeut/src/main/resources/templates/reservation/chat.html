@@ -40,36 +40,97 @@
     </div>
 
     <script>
-        var stompClient = null
-        var csrfToken = "[[${_csrf.token}]]"
-        var headers = {
-            'X-CSRF-TOKEN': csrfToken
-        };
+        // CSRF
+        const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
+        const csrfToken = document.querySelector("meta[name='_csrf']").content;
 
-        // WebSocket 서버에 연결
+        var stompClient = null
+        var userNo = '[[${user.userNo}]]'
+        var partnerNo = '[[${service.partnerNo}]]'
+        // var roomNo = Math.random().toString(36).substring(2, 12)
+        // var chatRoom = '[[${chatRoom}]]'
+
+        
+        console.log('userNo? '+userNo)
+        console.log('partnerNo? '+partnerNo)
+        // console.log('chatRoom? '+chatRoom)
+        
+        
+        // WebSocket 서버 연결
         function connect() {
             var socket = new SockJS('/chat')
             stompClient = Stomp.over(socket)
             stompClient.connect({}, function (frame) {
                 console.log('Connected: ' + frame);
+                createChatRoom()
             });
         }
-
-        // 메시지를 서버로 전송
+        
+        // 메시지 전송
         function sendMessage() {
+            var headers = { 'X-CSRF-TOKEN': csrfToken }
             var messageInput = document.getElementById('messageInput')
             var message = {
                 chatContent: messageInput.value,
-                userNo: '[[${user.userNo}]]',
-                // TODO : 문의하기 클릭 -> 동시에 채팅방 생성 -> 값 입력 
-                roomNo: 1                       
-            };
+                userNo: userNo,
+                roomNo: '9f7b73c6-9c1c-4ce8-97cf-086de2f23403'                      
+            }
             stompClient.send("/app/chat.sendMessage", headers, JSON.stringify(message))
             messageInput.value = ''
         }
 
+        // 채팅방 생성
+        function createChatRoom() {
+            let data = {
+				'userNo': userNo,
+				'partnerNo': partnerNo
+                // 'chatRoom' : chatRoom
+			};
+            
+			// AJAX 비동기 요청
+			let request = new XMLHttpRequest()
+			request.open('POST', '/chatRoom')
+			request.setRequestHeader(csrfHeader ,csrfToken)
+			request.setRequestHeader('Content-Type', 'application/json')
+			request.send(JSON.stringify(data))
+            
+			// 요청 상태가 변할 때 실행하는 메소드
+			request.onreadystatechange = function () {
+                if (request.readyState == request.DONE && request.status == 200) 
+                    console.log('채팅방 생성 성공')
+				if (request.readyState == request.DONE && request.status == 201) 
+					console.log('채팅방 생성 실패')
+			}
+        }
+
+        // 메세지 출력
+        // function fetchAndRenderMessages() {
+        //     let request = new XMLHttpRequest();
+        //     request.open('GET','/chat/messages')
+        //     request.setRequestHeader(csrfHeader, csrfToken)
+        //     request.setRequestHeader('Content-Type', 'application/json')
+
+        //     request.onreadystatechange = function () {
+        //         if (request.readyState == XMLHttpRequest.DONE && request.status == 200) {
+        //             const messages = JSON.parse(request.responseText);
+        //             const messagesDiv = document.getElementById('messages');
+        //             messages.forEach(message => {
+        //                 const messageElement = document.createElement('div');
+        //                 messageElement.textContent = message.chatContent;
+        //                 messagesDiv.appendChild(messageElement);
+        //             });
+        //         }
+        //         if (request.readyState == XMLHttpRequest.DONE && request.status == 201) {
+        //             console.log('채팅 보내는 중 오류 발생');
+        //         }
+        //     }
+
+		// 	request.send(JSON.stringify(data))
+        // }
+
         // 페이지 로드 시 WebSocket 서버에 연결
         connect();
+        // fetchAndRenderMessages();
     </script>
 </body>
 </html>

@@ -25,7 +25,7 @@ public class ChatServiceImpl implements ChatService{
     }
 
     @Override
-    public Chats selectByRoomNo(int roomNo) throws Exception {
+    public List<Chats> selectByRoomNo(String roomNo) throws Exception {
         return chatMapper.selectByRoomNo(roomNo);
     }
 

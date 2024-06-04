@@ -291,8 +291,6 @@
 
             // 성공
             success: function(response) {
-                console.log( response)
-
                 // JSON 데이터 가져오기
                 var $weather_description =  response.weather[0].description
                 var $Temp = Math.floor( response.main.temp) + '°C'
@@ -304,9 +302,7 @@
                 var $temp_max = '최고 온도 : ' + Math.floor( response.main.temp_max) + '°C'
                 var $Icon = ( response.weather[0].icon).substr(0,2)
 
-                console.log($Icon)
                 var iconClass = weatherIcon[$Icon];
-                console.log(iconClass)
 
                 // 가져온 데이터 화면에 출력
                 $('.weatherIcon').html('<i class="' + iconClass + ' weatherIcon"></i>');
