@@ -119,7 +119,7 @@ public class PartnerController {
         int userUpdateResult = userService.update(user);
     
         // Partner 정보 업데이트
-        int partnerUpdateResult = partnerService.partnerUpdate(partner);
+        int partnerUpdateResult = partnerService.partnerUpdate(partner,user);
     
         if (userUpdateResult > 0 || partnerUpdateResult > 0) {
             return "redirect:/partner/partnerMypage";

@@ -110,7 +110,7 @@
     </insert>
 
     <!-- 회원 정보 수정 -->
-    <update id="update">
+    <update id="update" resultType="Users">
         UPDATE users
            SET user_password = #{userPassword}
               ,user_name = #{userName}

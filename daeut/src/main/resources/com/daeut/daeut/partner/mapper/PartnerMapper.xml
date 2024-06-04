@@ -14,7 +14,7 @@ SELECT partner.*
 </select>
 
   <!-- 파트너 정보 수정하기 -->
-<update id="partnerUpdate">
+<update id="partnerUpdate" resultType="Partner">
   UPDATE partner
       SET introduce = #{introduce}
       WHERE user_no = #{userNo};

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
+import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.dto.Review;
 import com.daeut.daeut.partner.mapper.PartnerMapper;
@@ -24,9 +25,9 @@ public class PartnerServiceImpl implements PartnerService {
     @Autowired
     private UserMapper userMapper;
 
-    public PartnerServiceImpl(PartnerMapper partnerMapper) {
-        this.partnerMapper = partnerMapper;
-    }
+    @Autowired
+    private UserService userService;
+
 
     // 파트너 정보 가져오기
     @Override
@@ -45,12 +46,10 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     @Transactional
     public int partnerUpdate(Partner partner, Users user) throws Exception {
-        int partnerUpdateResult = partnerMapper.partnerUpdate(partner);
-        int userUpdateResult = userMapper.update(user);
-        
-        if (partnerUpdateResult <= 0 || userUpdateResult <= 0) {
-            throw new Exception("Partner or user update failed");
-        }
+        int userUpdateresult = userService.update(user);
+        int result = partnerMapper.partnerUpdate(partner,user);
+
+        return result;
     }
 
     // 리뷰 모아보기
