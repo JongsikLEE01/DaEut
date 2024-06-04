@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.dto.Review;
 
@@ -24,4 +25,8 @@ public interface PartnerMapper {
 
     // 파트너 조회
     public Partner findByUserNo(int userNo) throws Exception;
+
+    // 예약 조회 - 파트너 넘버로 
+    public Partner selectByPartnerNo(int parterNo) throws Exception;
+
 }

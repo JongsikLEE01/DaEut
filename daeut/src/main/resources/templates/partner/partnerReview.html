@@ -22,24 +22,33 @@
                 <div>
                     <h3>작성 리뷰</h3>
                     <div class="container mt-2">
-                        <div class="card" th:each="review : ${reviews}">
+                        <div class="card" th:if="${reviews}">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12 label" th:text="${review.reviewRegDate}">MM월 DD일</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-8">
-                                        <span th:text="'예약번호 : ' + ${review.paymentNo}"></span>
-                                        <span class="ms-3" th:text="'예약자명 : ' + ${review.userName}"></span>
+                                <form action="#" method="POST">
+                                    <div class="container mt-3">
+                                        <div class="card reservation-card" th:each="review : ${reviews}">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-12 label" th:text="${review.reviewRegDate}">MM월 DD일</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        <span th:text="'예약번호 : ' + ${review.paymentNo}"></span>
+                                                        <span class="ms-3" th:text="'예약자명 : ' + ${review.userNo}"></span>
+                                                    </div>
+                                                    <div class="col-4 text-end">
+                                                        <span class="star-rating">★</span>
+                                                        <span th:text="${review.reviewRating}"></span>
+                                                    </div>
+                                                    <div>
+                                                        <textarea rows="5" cols="85" name="content" readonly th:text="${review.reviewContent}"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-4 text-end">
-                                        <span class="star-rating">★</span>
-                                        <span th:text="${review.reviewRating}"></span>
-                                    </div>
-                                    <div>
-                                        <textarea rows="5" cols="85" name="content" readonly th:text="${review.reviewContent}"></textarea>
-                                    </div>
-                                </div>
+    
+                                </form>
                             </div>
                         </div>
                     </div>

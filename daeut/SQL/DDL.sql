@@ -109,6 +109,7 @@ CREATE TABLE orders
   reg_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 등록일자',
   total_count    INT          NOT NULL COMMENT '총 항목수',
   title          VARCHAR(100) NULL     COMMENT '예약 제목',
+  partner_no      INT       NOT NULL COMMENT '파트너 번호'
   PRIMARY KEY (orders_no)
 ) COMMENT '예약';
 
@@ -218,6 +219,11 @@ CREATE TABLE users
 --     REFERENCES board (board_no);
 
 -- ALTER TABLE service
+--   ADD CONSTRAINT FK_partner_TO_service
+--     FOREIGN KEY (partner_no)
+--     REFERENCES partner (partner_no);
+
+-- ALTER TABLE orders
 --   ADD CONSTRAINT FK_partner_TO_service
 --     FOREIGN KEY (partner_no)
 --     REFERENCES partner (partner_no);

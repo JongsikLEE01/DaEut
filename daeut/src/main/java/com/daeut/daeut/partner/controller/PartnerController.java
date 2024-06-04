@@ -19,6 +19,8 @@ import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.dto.Review;
 import com.daeut.daeut.partner.service.PartnerService;
+import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +42,9 @@ public class PartnerController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
 
     
     
@@ -150,9 +155,13 @@ public class PartnerController {
             }
             
             List<Review> reviews = partnerService.getReviews(partnerNo);
+            
+            // Add reviews to the log
+            log.info("Reviews retrieved: {}", reviews);
+            
             model.addAttribute("reviews", reviews);
             
-            return "partner/reviews";
+            return "/partner/partnerReview";
         } catch (Exception e) {
             log.error("Error in getReviewsByPartnerNo method", e);
             throw e;
@@ -162,10 +171,13 @@ public class PartnerController {
 
     // 파트너 예약란
     @GetMapping("/partnerReservation")
-    public String partnerReservation() {
-        log.info("[partner] - /partnerReservation");
-
-        return "/partner/partnerReservation";
+    public String partnerReservation(Model model, HttpSession session) throws Exception {
+          int partnerNo = (int) session.getAttribute("partnerNo"); // 세션에서 partnerNo 가져오기
+        List<Orders> orderList = orderService.listByParterNo(partnerNo); // 주문 목록 가져오기
+        model.addAttribute("orderList", orderList); // 모델에 주문 목록 추가
+        return "/partner/partnerReservation";  
+    
+       
     }
 
     @GetMapping("/partnerReservationRead")

@@ -51,6 +51,11 @@ public class PartnerServiceImpl implements PartnerService {
     public Partner findByUserNo(int userNo) throws Exception {
         return partnerMapper.findByUserNo(userNo);
     }
+
+    @Override
+    public Partner selectByPartnerNo(int parterNo) throws Exception {
+        return partnerMapper.selectByPartnerNo(parterNo);
+    }
     
     
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.partner.dto.Partner;
 
 import lombok.Data;
 
@@ -18,6 +19,7 @@ public class Orders {
     private OrderStatus orderStatus;
     private Date updDate;
     private Date regDate;
+    private int partnerNo;
 
     // params
     private List<String> serviceNo;
@@ -25,4 +27,5 @@ public class Orders {
 
     // ----
     private Users user;
+    private Partner partner;
 }
