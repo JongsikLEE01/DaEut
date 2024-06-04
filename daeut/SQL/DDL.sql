@@ -130,7 +130,7 @@ CREATE TABLE partner
   partner_no      INT       NOT NULL AUTO_INCREMENT COMMENT '파트너 번호',
   partner_grade   INT       NULL     DEFAULT 0 COMMENT '파트너 별점',
   partner_reserve INT       NULL     DEFAULT 0 COMMENT '파트너 예약 횟수',
-  partner_career  TIMESTAMP NOT NULL COMMENT '파트너 경력',
+  partner_career  VARCHAR(255) NOT NULL COMMENT '파트너 경력',
   introduce       TEXT      NULL     COMMENT '파트너 소개글',
   user_no         INT       NOT NULL COMMENT '사용자 번호',
   PRIMARY KEY (partner_no)
