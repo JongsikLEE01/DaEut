@@ -67,7 +67,7 @@
         
         <div class="search-container">
             <form action="/tip/index" method="get">
-                <select name="code">
+                <select name="code" class="code">
                     <option th:each="item : ${optionList}"
                             th:value="${item.code}"
                             th:text="${item.keyword}"
