@@ -64,21 +64,21 @@ CREATE TABLE cart
 
 CREATE TABLE chat
 (
-  chat_no       INT       NOT NULL AUTO_INCREMENT COMMENT '채팅 번호',
-  chat_content  TEXT      NOT NULL COMMENT '채팅 내용',
-  chat_reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '채팅 등록일자',
-  user_no       INT       NOT NULL COMMENT '사용자 번호',
-  room_no       INT       NOT NULL COMMENT '방 번호',
+  chat_no       INT          NOT NULL AUTO_INCREMENT COMMENT '채팅 번호',
+  chat_content  TEXT         NOT NULL COMMENT '채팅 내용',
+  chat_reg_date TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '채팅 등록일자',
+  user_no       INT          NOT NULL COMMENT '사용자 번호',
+  room_no       VARCHAR(100) NOT NULL COMMENT '방 번호',
   PRIMARY KEY (chat_no)
 ) COMMENT '채팅';
 
 CREATE TABLE chat_rooms
 (
-  room_no    INT       NOT NULL AUTO_INCREMENT COMMENT '방 번호',
-  reg_date   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '방 등록일자',
-  room_out   BOOLEAN   NOT NULL DEFAULT 0 COMMENT '나가기 여부, 0=안나감 1=나감',
-  user_no    INT       NOT NULL COMMENT '사용자 번호',
-  partner_no INT       NOT NULL COMMENT '파트너 번호',
+  room_no    VARCHAR(100) NOT NULL COMMENT '방 번호',
+  reg_date   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '방 등록일자',
+  room_out   BOOLEAN      NOT NULL DEFAULT 0 COMMENT '나가기 여부, 0=안나감 1=나감',
+  user_no    INT          NOT NULL COMMENT '사용자 번호',
+  partner_no INT          NOT NULL COMMENT '파트너 번호',
   PRIMARY KEY (room_no)
 ) COMMENT '채팅방';
 
@@ -130,7 +130,7 @@ CREATE TABLE partner
   partner_no      INT       NOT NULL AUTO_INCREMENT COMMENT '파트너 번호',
   partner_grade   INT       NULL     DEFAULT 0 COMMENT '파트너 별점',
   partner_reserve INT       NULL     DEFAULT 0 COMMENT '파트너 예약 횟수',
-  partner_career  TIMESTAMP NOT NULL COMMENT '파트너 경력',
+  partner_career  VARCHAR(255) NOT NULL COMMENT '파트너 경력',
   introduce       TEXT      NULL     COMMENT '파트너 소개글',
   user_no         INT       NOT NULL COMMENT '사용자 번호',
   PRIMARY KEY (partner_no)
@@ -285,10 +285,10 @@ CREATE TABLE users
 --     FOREIGN KEY (partner_no)
 --     REFERENCES partner (partner_no);
 
-ALTER TABLE user_auth
-  ADD CONSTRAINT FK_users_TO_user_auth
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no) ON DELETE CASCADE;
+-- ALTER TABLE user_auth
+--   ADD CONSTRAINT FK_users_TO_user_auth
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no) ON DELETE CASCADE;
 
 -- ALTER TABLE order_item
 --   ADD CONSTRAINT FK_orders_TO_order_item

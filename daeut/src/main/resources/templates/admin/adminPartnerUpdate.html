@@ -24,43 +24,44 @@
             <!-- 컨텐츠영역 -->
             <div class="col-md-9 col-lg-10 form-section">
                 <div class="mb-5">
-                    <h3>파트너 조회</h3>
+                    <h3>파트너 수정</h3>
                     <div class="d-flex justify-content-center">
                         <div class="col-md-3 mt-5">
+                            <!-- <div class="col-md-3 mt-5">
+                                <img th:src="|/file/img/${file.fileNo}|" alt="파트너 이미지" class="profile-img img-thumbnail">
+                            </div> -->
                             <img src="/img/partner.png" alt="파트너 이미지" class="profile-img img-thumbnail">
                         </div>
                         <div class="col-md-8">
-                            <form class="ms-5"><!-- form 작성 필요 -->
+                            <form class="ms-5" action="/admin/adminPartnerUpdate/${partner.userNo}" method="POST"><!-- form 작성 필요 -->
+                                <!-- CSRF TOKEN -->
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <input type="hidden" name="userNo" th:value="${partner.userNo}">
                                 <div class="form-group form-section p-1 mt-5 text-start">
                                     <label for="partnerName">이름</label>
-                                    <input type="text" class="form-control" id="partnerName" value="김클린" >
+                                    <input type="text" class="form-control" name="userName" th:value="${partner.userName}">
                                 </div>
                                 <div class="form-group form-section p-1 text-start">
                                     <label for="partnerAddress">주소</label>
-                                    <input type="text" class="form-control" id="partnerAddress" value="인천광역시 부평구" >
+                                    <input type="text" class="form-control" name="userAddress" th:value="${partner.userAddress}">
                                 </div>
                                 <div class="form-group form-section p-1 text-start">
                                     <label for="contact">연락처</label>
-                                    <input type="text" class="form-control" id="contact" value="01012345678" >
+                                    <input type="text" class="form-control" name="userPhone" th:value="${partner.userPhone}">
                                 </div>
                                 <div class="form-group form-section p-1 text-start">
                                     <label for="experience">경력 사항</label>
-                                    <input type="text" class="form-control" id="experience" value="특수 청소 3년 일반 청소 10년"
-                                        >
+                                    <input type="text" class="form-control" name="partnerCareer" th:value="${partner.partnerCareer}">
                                 </div>
                                 <div class="form-group form-section p-1 f-warp text-start">
                                     <label for="description">소개글</label>
-                                    <textarea class="form-control w-75" id="description" rows="3"
-                                        >청소 경력 도합 13년, 정부에서 한 번 배려 처리 이미지 교체 필요시 실험 작성 및 내용 전개 이어쓰기</textarea>
+                                    <textarea class="form-control w-75" name="introduce" rows="3" th:text="${partner.introduce}"></textarea>
                                 </div>
                                 <div class="form-group form-section p-1 f-warp text-start">
                                     <label>소개 사진</label>
-                                    <div>
+                                    <!-- <div>
                                         <img src="https://via.placeholder.com/100" alt="파트너 설명 이미지" class="img-thumbnail">
-                                        <img src="https://via.placeholder.com/100" alt="파트너 설명 이미지" class="img-thumbnail">
-                                        <img src="https://via.placeholder.com/100" alt="파트너 설명 이미지" class="img-thumbnail">
-                                        <img src="https://via.placeholder.com/100" alt="파트너 설명 이미지" class="img-thumbnail">
-                                    </div>
+                                    </div> -->
                                 </div>
                             <div class="buttons mb-5 d-flex gap-3 justify-content-end">
                                 <button type="submit" class="btn btn-primary sessuce color_main">수정하기</button>

@@ -9,5 +9,4 @@ class DaeutApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

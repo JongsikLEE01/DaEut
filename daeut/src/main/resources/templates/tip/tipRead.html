@@ -152,20 +152,20 @@
             // let $wuserNo = document.getElementById('reply-writer')
             let $content = document.getElementById('reply-content')
             let replyContent = $content.value
-
+            
             console.log(`글번호 : ${no}`)
             console.log(`댓글 내용 : ${replyContent}`)
             console.log(`회원번호 : ${userNo}`)     // 이거 없으면 로그인
 
             let data = {
                 'boardNo' : no,
-                'userNo'  : userNo,
-                'replyContent' : replyContent
+                'userNo'  : replyContent,
+                'replyContent' : userNo
             }
 
-            let request = new XMLHttpRequest()  
+            let request = new XMLHttpRequest()
             request.open('POST', '/reply/insert')
-            request.setRequestHeader("X-CSRF-TOKEN", csrfToken) 
+            request.setRequestHeader(csrfHeader, csrfToken) 
             request.setRequestHeader('Content-Type', 'application/json')
 
             alert(JSON.stringify(data)  )
