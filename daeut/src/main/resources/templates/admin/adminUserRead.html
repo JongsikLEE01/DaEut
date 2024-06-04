@@ -26,6 +26,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <form action="#" method="POST">
+                                    <!-- CSRF TOKEN -->
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                     <div class="row info-row">
                                         <label for="id" class="col-3 label">아이디</label>
                                         <div class="col-9">

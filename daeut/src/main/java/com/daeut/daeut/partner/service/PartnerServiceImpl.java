@@ -38,7 +38,8 @@ public class PartnerServiceImpl implements PartnerService {
     // 파트너 정보 수정
     @Override
     public int partnerUpdate(Partner partner) throws Exception {
-        return partnerMapper.partnerUpdate(partner);
+        int result = partnerMapper.partnerUpdate(partner);
+        return result;
     }
 
     // 리뷰 모아보기

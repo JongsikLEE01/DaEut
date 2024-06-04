@@ -10,6 +10,8 @@ import com.daeut.daeut.partner.dto.Partner;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface UserService {
 
     // 로그인
@@ -37,10 +39,16 @@ public interface UserService {
     public int delete(Users user) throws Exception;
 
     // 파트너 신청
-    public void requestPartner(Users users, Partner partner) throws Exception;
+    public void insertPartner(Partner partner);
+
+    // 파트너 신청 대기
+    public void updateUserStatus(@Param("userNo") int userNo);
 
     // 파트너 승인
-    public void approvePartner(String userId) throws Exception;
+    // TODO
+
+    // 파트너 권한 추가
+    // TODO
 
     // 예약
     public List<Reservation> getUserReservations(String userId) throws Exception;
@@ -69,5 +77,14 @@ public interface UserService {
     public int adminUpdateUser(Users user) throws Exception;
     // 관리자 - 회원 삭제
     public int adminDeleteUser(int userNo) throws Exception;  
+
+    // 모든 파트너 목록 조회
+    public int countPartners() throws Exception;
+    public List<Partner> selectAllPartners(@Param("page") Page page) throws Exception;
+
+    // 관리자 - 파트너 조회
+    public Partner findPartnerById(int userNo) throws Exception;
+    // 관리자 - 회원 수정
+    public int adminUpdatePartner(Partner partner) throws Exception;
 
 }

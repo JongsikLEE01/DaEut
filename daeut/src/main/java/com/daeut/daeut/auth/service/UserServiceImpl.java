@@ -124,19 +124,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void requestPartner(Users user, Partner partner) throws Exception {
-        userMapper.insertPartner(partner);
-
-        userMapper.updateUserStatus(user.getUserNo());
-    }
-
-    @Override
-    @Transactional
-    public void approvePartner(String userId) throws Exception {
-        userMapper.approvePartnerAndAddAuth(userId);
-    }
-
-    @Override
     public List<Reservation> getUserReservations(String userId) {
         return userMapper.selectReservationsByUserId(userId);
     }
@@ -169,14 +156,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    
+    
+    private String saveFile(MultipartFile file) {
+        return "c:/upload";
+    }
+    
     @Override
     public int countUsers() throws Exception {
         return userMapper.countUsers();
-    }
-    
-  
-    private String saveFile(MultipartFile file) {
-        return "c:/upload";
     }
 
     // 모든 사용자 목록 조회
@@ -231,8 +219,53 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
- 
+    // 파트너 신청
+    @Override
+    public void insertPartner(Partner partner) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'insertPartner'");
+    }
 
+    // 파트너 신청 대기
+    @Override
+    public void updateUserStatus(int userNo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateUserStatus'");
+    }
 
+    
+    // 파트너 승인
+    // TODO Auto-generated method stub
+    
+    // 파트너 권한 추가
+    // TODO Auto-generated method stub
+    
+
+    @Override
+    public int countPartners() throws Exception {
+         return userMapper.countPartners();
+    }
+    
+    // 모든 파트너 목록 조회
+    @Override
+    public List<Partner> selectAllPartners(Page page) throws Exception {
+        List<Partner> partnerList = userMapper.selectAllPartners(page);
+        log.info("partner: " + partnerList);
+        return partnerList;
+    }
+    
+     // 관리자 - 파트너 조회
+     @Override
+     public Partner findPartnerById(int userNo) throws Exception {
+        Partner partner = userMapper.findPartnerById(userNo);
+        // log.info("partner +++++++++++++++++ " + partner);
+        return partner;
+     }
+     // 관리자 - 회원 수정
+    @Override
+    public int adminUpdatePartner(Partner partner) throws Exception {
+        int result = userMapper.adminUpdatePartner(partner);
+        return result;
+    }
 
 }

@@ -96,5 +96,21 @@
         </div>
     </main>
 
+    <script>
+                
+        let form = document.getElementById("form");
+                function deleteSelectedUser() {
+                    form.submit();
+                }
+
+        function toggleAllCheckboxes(source) {
+            checkboxes = document.querySelectorAll('.checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = source.checked;
+            });
+        }
+            
+    </script>
+
 </body>
 </html>

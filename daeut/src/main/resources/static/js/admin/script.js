@@ -97,16 +97,3 @@ function validateForm() {
 document.getElementById('signup-form').onsubmit = function() {
     return validateForm();
 };
-
-
-function toggleAllCheckboxes(source) {
-    checkboxes = document.querySelectorAll('.checkbox');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = source.checked;
-    });
-let form = document.getElementById("form");
-        function deleteSelectedUser() {
-            form.submit();
-        }
-
-}
