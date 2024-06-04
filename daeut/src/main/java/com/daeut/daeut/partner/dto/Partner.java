@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.daeut.daeut.auth.dto.UserAuth;
+
 import lombok.Data;
 
 @Data
