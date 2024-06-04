@@ -11,10 +11,7 @@
 <body layout:fragment="content">
 
 	<div class="container">
-
 		<div class="header-area">
-			
-			
 			<!-- 서비스 이름 -->
 			<h3 class="header-title" th:text="${service.serviceName}"></h3>
 
@@ -223,8 +220,9 @@
 					</table>
 					<div id="calendarContainer" style="position: relative;"></div>
 					<th:block th:if="${session.user == null}">
-						<a href="javascript:;" onclick="sweetConfirm('회원가입이 필요합니다.', '예약 서비스는 회원가입 후 가능합니다.', 'warning', '로그인', ()=>{location.href='/auth/login'})">
-						<!-- <a href="javascript:;" onclick="sweetAlert('경고', '회원가입이 필요합니다.', 'warning')"> -->
+						<a href="javascript:;"
+							onclick="sweetConfirm('회원가입이 필요합니다.', '예약 서비스는 회원가입 후 가능합니다.', 'warning', '로그인', ()=>{location.href='/auth/login'})">
+							<!-- <a href="javascript:;" onclick="sweetAlert('경고', '회원가입이 필요합니다.', 'warning')"> -->
 							<button class="btn-coupon">바로 예약하기</button>
 						</a>
 					</th:block>
@@ -232,7 +230,7 @@
 						<form action="/orders" method="post">
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 							<input type="hidden" id="serviceNo" name="serviceNo" th:value="${service.serviceNo}">
-                            <input type="hidden" id="quantity" name="quantity" value="1">
+							<input type="hidden" id="quantity" name="quantity" value="1">
 							<button type="submit" class="btn-coupon" id="couponBtn">바로 예약하기</button>
 						</form>
 					</th:block>
@@ -243,5 +241,150 @@
 		</div>
 
 	</div>
+
+
+	<script>
+		// 캘린더 
+		document.addEventListener('DOMContentLoaded', function () {
+			var calendarEl = document.getElementById('calendar');
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				initialView: 'dayGridMonth',
+				height: '700px', // calendar 높이 설정
+				expandRows: true, // 화면에 맞게 높이 재설정
+				slotMinTime: '08:00', // Day 캘린더에서 시작 시간
+				slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
+				// 해더에 표시할 툴바
+				headerToolbar: {
+					right: 'prev,next today',
+				},
+				initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+				selectable: true, // 달력 일자 드래그 설정가능
+				nowIndicator: true, // 현재 시간 마크
+				dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
+				locale: 'ko', // 한국어 설정
+				// 이벤트 
+				events: [{
+					title: 'Meeting',
+					start: '2024-05-12T10:30:00',
+					end: '2024-05-12T12:30:00'
+				}]
+			});
+			calendar.render();
+		});
+
+		// 캘린더 나오게 하기 
+		document.addEventListener('DOMContentLoaded', function () {
+			const calendarToggleBtn = document.querySelector('.reservation-calender');
+			let calendarVisible = false;
+			let calendarDiv;
+
+			function toggleCalendar() {
+				if (calendarVisible) {
+					calendarDiv.style.display = 'none';
+					calendarVisible = false;
+				} else {
+					calendarDiv.style.display = 'block';
+					calendarVisible = true;
+				}
+			}
+
+			calendarToggleBtn.addEventListener('click', function () {
+				if (!calendarDiv) {
+					calendarDiv = document.createElement('div');
+					calendarDiv.id = 'calendar';
+					calendarDiv.style.position = 'absolute';
+					calendarDiv.style.width = '306px';
+					// calendarDiv.style.top = 'calc(100% + 10px)';
+					calendarDiv.style.left = '0';
+					calendarDiv.style.display = 'none';
+					calendarDiv.style.zIndex = '1000';
+
+					const calendar = new FullCalendar.Calendar(calendarDiv, {
+						initialView: 'dayGridMonth',
+						dayMaxEventRows: true,
+						locale: 'ko', // 한국어 설정
+						events: [
+
+						]
+					});
+
+					// 캘린더를 삽입할 위치
+					const calendarContainer = document.getElementById('calendarContainer');
+					calendarContainer.appendChild(calendarDiv);
+
+					calendar.render();
+				}
+				toggleCalendar();
+			});
+		});
+
+		function addToCart() {
+			// CSRF 토큰 가져오기
+			const csrfToken = document.querySelector("meta[name='_csrf']").content;
+			const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
+
+			const serviceNo = $("#serviceNo").val()
+			let data = {
+				'serviceNo': serviceNo
+			};
+
+			// AJAX 비동기 요청
+			let request = new XMLHttpRequest();
+			request.open('POST', '/cart/add');
+			request.setRequestHeader(csrfHeader, csrfToken); // CSRF 토큰을 헤더에 추가
+			request.setRequestHeader('Content-Type', 'application/json');
+			request.send(JSON.stringify(data));
+
+			// 요청 상태가 변할 때 실행하는 메소드
+			request.onreadystatechange = function () {
+				// 요청 성공
+				sweetAlert('장바구니 담기 성공', '성공적으로 서비스가 장바구니에 담겼습니다.', 'success')
+				if (request.readyState == request.DONE && request.status == 201) {
+					sweetAlert('장바구니 담기 실패', '서비스가 장바구니에 담기지 못했어요.', 'error')
+					console.log(request.responseText);
+				}
+			};
+		}
+
+		// 이미지 슬라이드
+		let currentSlide = 0;
+		const slides = document.getElementsByClassName('reservation-image-slide');
+
+		function showSlide(index) {
+			if (index >= slides.length) {
+				currentSlide = 0;
+			} else if (index < 0) {
+				currentSlide = slides.length - 1;
+			} else {
+				currentSlide = index;
+			}
+
+			for (let i = 0; i < slides.length; i++) {
+				slides[i].style.display = 'none';
+			}
+
+			slides[currentSlide].style.display = 'block';
+		}
+
+		function plusSlides(step) {
+			showSlide(currentSlide + step);
+		}
+		// 초기 슬라이드 표시
+		showSlide(currentSlide);
+
+		function showSlides() {
+			var i;
+			var slides = document.getElementsByClassName("reservation-image-slide");
+			if (slides.length > 0) {
+				for (i = 0; i < slides.length; i++) {
+					slides[i].style.display = "none";
+				}
+				slides[slideIndex].style.display = "block";
+			} else {
+				console.log("reservation-image-slide 클래스를 가진 요소가 없습니다.");
+			}
+		}
+	</script>
 </body>
+
 </html>
