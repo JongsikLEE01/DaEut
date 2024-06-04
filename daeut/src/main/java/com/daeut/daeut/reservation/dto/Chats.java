@@ -10,7 +10,7 @@ public class Chats {
     private String chatContent;
     private Date chatRegDate;
     private int userNo;
-    private int roomNo;
+    private String roomNo;
 
     // -----------------------------
     private ChatRooms chatRooms;

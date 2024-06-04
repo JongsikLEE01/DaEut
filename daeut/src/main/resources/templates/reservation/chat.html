@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Da E ut</title>
+    <!-- SockJS 및 stomp.js 라이브러리 추가 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </head>
 
 <body layout:fragment="content">
@@ -14,15 +17,20 @@
         <div class="chatbox">
             <div class="chat-header">
                 <div class="chat-partner-info">
+                    <!-- partner 번호 -> 유저테이블 파트너 번호 검색, 이름 출력 -->
                     <span class="partner-name-chat">상대방 이름</span>
                 </div>
             </div>
-            <div class="chat-box" id="chat-box">
+            <!-- <div class="chat-box" id="chat-box messages"> -->
+            <div class="chat-box" id="messages">
                 <!-- 채팅 메시지는 여기에 추가됩니다 -->
             </div>
             <div class="input-box">
-                <input type="text" id="message" placeholder="부적절한 메세지는 삭제 처리됩니다." onkeypress="enterSend(event)">
-                <button onclick="sendMessage()" class="sendchat">전송</button>
+                <form id="chatForm">
+                    <input type="text" id="messageInput" placeholder="부적절한 메세지는 삭제 처리됩니다." onkeypress="enterSend(event)">
+                    <!-- <button onclick="sendMessage()" class="sendchat" id="send">전송</button> -->
+                    <button class="sendchat" id="send" type="submit" onclick="sendMessage()">전송</button>
+                </form>
             </div>
             <div class="button-box">
                 <button class="goback" onclick="goBack()">돌아가기</button>
@@ -32,89 +40,97 @@
     </div>
 
     <script>
-        /* 채팅 임시 스크립트 */
+        // CSRF
+        const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
+        const csrfToken = document.querySelector("meta[name='_csrf']").content;
+
+        var stompClient = null
+        var userNo = '[[${user.userNo}]]'
+        var partnerNo = '[[${service.partnerNo}]]'
+        // var roomNo = Math.random().toString(36).substring(2, 12)
+        // var chatRoom = '[[${chatRoom}]]'
+
+        
+        console.log('userNo? '+userNo)
+        console.log('partnerNo? '+partnerNo)
+        // console.log('chatRoom? '+chatRoom)
+        
+        
+        // WebSocket 서버 연결
+        function connect() {
+            var socket = new SockJS('/chat')
+            stompClient = Stomp.over(socket)
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+                createChatRoom()
+            });
+        }
+        
+        // 메시지 전송
         function sendMessage() {
-            var messageInput = document.getElementById("message");
-            var message = messageInput.value;
-            messageInput.value = "";
-
-            if (message.trim() === "") {
-                return;
+            var headers = { 'X-CSRF-TOKEN': csrfToken }
+            var messageInput = document.getElementById('messageInput')
+            var message = {
+                chatContent: messageInput.value,
+                userNo: userNo,
+                roomNo: '9f7b73c6-9c1c-4ce8-97cf-086de2f23403'                      
             }
-
-            var chatBox = document.getElementById("chat-box");
-            var messageDiv = document.createElement("div");
-            messageDiv.classList.add("message");
-
-            var bubbleDiv = document.createElement("div");
-            bubbleDiv.classList.add("bubble");
-            bubbleDiv.innerText = message;
-
-            var timeSpan = document.createElement("span");
-            timeSpan.classList.add("time");
-            timeSpan.innerText = getCurrentTime();
-
-            messageDiv.appendChild(bubbleDiv);
-            messageDiv.appendChild(timeSpan);
-            chatBox.appendChild(messageDiv);
-            chatBox.scrollTop = chatBox.scrollHeight; // 스크롤 맨 아래로 이동
-
-            // 상대방의 임의의 메시지 생성 및 추가 - 나중에 이 부분은 빼고 아래 스크립트도 제거하면 됨
-            receiveMessage(generateRandomMessage());
+            stompClient.send("/app/chat.sendMessage", headers, JSON.stringify(message))
+            messageInput.value = ''
         }
 
-        function receiveMessage(message) {
-            var chatBox = document.getElementById("chat-box");
-            var messageDiv = document.createElement("div");
-            messageDiv.classList.add("message");
-            messageDiv.classList.add("opponent-message"); // 새로운 클래스 추가
-
-            var bubbleDiv = document.createElement("div");
-            bubbleDiv.classList.add("bubble");
-            bubbleDiv.innerText = message;
-
-            var timeSpan = document.createElement("span");
-            timeSpan.classList.add("time");
-            timeSpan.innerText = getCurrentTime();
-
-            messageDiv.appendChild(bubbleDiv);
-            messageDiv.appendChild(timeSpan);
-            chatBox.appendChild(messageDiv);
-            chatBox.scrollTop = chatBox.scrollHeight; // 스크롤 맨 아래로 이동
+        // 채팅방 생성
+        function createChatRoom() {
+            let data = {
+				'userNo': userNo,
+				'partnerNo': partnerNo
+                // 'chatRoom' : chatRoom
+			};
+            
+			// AJAX 비동기 요청
+			let request = new XMLHttpRequest()
+			request.open('POST', '/chatRoom')
+			request.setRequestHeader(csrfHeader ,csrfToken)
+			request.setRequestHeader('Content-Type', 'application/json')
+			request.send(JSON.stringify(data))
+            
+			// 요청 상태가 변할 때 실행하는 메소드
+			request.onreadystatechange = function () {
+                if (request.readyState == request.DONE && request.status == 200) 
+                    console.log('채팅방 생성 성공')
+				if (request.readyState == request.DONE && request.status == 201) 
+					console.log('채팅방 생성 실패')
+			}
         }
 
+        // 메세지 출력
+        // function fetchAndRenderMessages() {
+        //     let request = new XMLHttpRequest();
+        //     request.open('GET','/chat/messages')
+        //     request.setRequestHeader(csrfHeader, csrfToken)
+        //     request.setRequestHeader('Content-Type', 'application/json')
 
-        function generateRandomMessage() {
-            var messages = [
-                "안녕하세요!",
-                "오늘 날씨가 참 좋네요.",
-                "저도 그렇게 생각해요.",
-                "네, 알겠습니다.",
-                "어떤 영화를 보는 게 좋을까요?"
-            ];
-            return messages[Math.floor(Math.random() * messages.length)];
-        }
+        //     request.onreadystatechange = function () {
+        //         if (request.readyState == XMLHttpRequest.DONE && request.status == 200) {
+        //             const messages = JSON.parse(request.responseText);
+        //             const messagesDiv = document.getElementById('messages');
+        //             messages.forEach(message => {
+        //                 const messageElement = document.createElement('div');
+        //                 messageElement.textContent = message.chatContent;
+        //                 messagesDiv.appendChild(messageElement);
+        //             });
+        //         }
+        //         if (request.readyState == XMLHttpRequest.DONE && request.status == 201) {
+        //             console.log('채팅 보내는 중 오류 발생');
+        //         }
+        //     }
 
-        function getCurrentTime() {
-            var now = new Date();
-            var hours = now.getHours();
-            var minutes = now.getMinutes();
-            var ampm = hours >= 12 ? "오후" : "오전";
-            hours = hours % 12;
-            hours = hours ? hours : 12; // 0시를 12시로 표시
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            var timeString = ampm + " " + hours + ":" + minutes;
-            return timeString;
-        }
+		// 	request.send(JSON.stringify(data))
+        // }
 
-        function goBack() {
-            window.history.back();
-        }
-
-        // 엔터키로 채팅보내기
-        function enterSend(e) {
-            if (e.keyCode == 13) sendMessage()
-        }
+        // 페이지 로드 시 WebSocket 서버에 연결
+        connect();
+        // fetchAndRenderMessages();
     </script>
 </body>
 </html>
