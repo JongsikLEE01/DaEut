@@ -8,8 +8,6 @@ import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.reservation.dto.Reservation;
 import com.daeut.daeut.partner.dto.Partner;
 
-import groovyjarjarantlr4.v4.codegen.model.ExceptionClause;
-
 import java.util.List;
 
 public interface UserService {
@@ -68,6 +66,11 @@ public interface UserService {
 
     public int deleteList(String[] deleteNoList) throws Exception;
 
-  
+    // 관리자 - 회원 조회
+    public Users findUserById(int userNo) throws Exception;
+    // 관리자 - 회원 수정
+    public int adminUpdateUser(Users user) throws Exception;
+    // 관리자 - 회원 삭제
+    public int adminDeleteUser(int userNo) throws Exception;  
 
 }

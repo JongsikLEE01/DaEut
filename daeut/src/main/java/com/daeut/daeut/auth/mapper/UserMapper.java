@@ -74,5 +74,12 @@ public interface UserMapper {
     // 유저 정보 찾기
     public Users findByUsername(String username);
 
+    // 관리자 - 회원 조회
+    public Users findUserById(int userNo) throws Exception;
+    // 관리자 - 회원 수정
+    public int adminUpdateUser(Users user) throws Exception;
+    // 관리자 - 회원 삭제
+    public int adminDeleteUser(int userNo) throws Exception;  
+
 
 }
