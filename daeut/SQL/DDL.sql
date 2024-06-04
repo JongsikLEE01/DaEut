@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS persistent_logins;
 DROP TABLE IF EXISTS files ;
 DROP TABLE IF EXISTS reply ;
 DROP TABLE IF EXISTS chat ;
+DROP TABLE IF EXISTS chat_rooms ;
 DROP TABLE IF EXISTS review ;
 DROP TABLE IF EXISTS user_auth ;
 DROP TABLE IF EXISTS payment ;
@@ -67,8 +68,19 @@ CREATE TABLE chat
   chat_content  TEXT      NOT NULL COMMENT '채팅 내용',
   chat_reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '채팅 등록일자',
   user_no       INT       NOT NULL COMMENT '사용자 번호',
+  room_no       INT       NOT NULL COMMENT '방 번호',
   PRIMARY KEY (chat_no)
 ) COMMENT '채팅';
+
+CREATE TABLE chat_rooms
+(
+  room_no    INT       NOT NULL AUTO_INCREMENT COMMENT '방 번호',
+  reg_date   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '방 등록일자',
+  room_out   BOOLEAN   NOT NULL DEFAULT 0 COMMENT '나가기 여부, 0=안나감 1=나감',
+  user_no    INT       NOT NULL COMMENT '사용자 번호',
+  partner_no INT       NOT NULL COMMENT '파트너 번호',
+  PRIMARY KEY (room_no)
+) COMMENT '채팅방';
 
 CREATE TABLE files
 (
@@ -301,6 +313,21 @@ ALTER TABLE user_auth
 -- ALTER TABLE cart
 --   ADD CONSTRAINT FK_users_TO_cart
 --     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE chat
+--   ADD CONSTRAINT FK_chat_rooms_TO_chat
+--     FOREIGN KEY (room_no)
+--     REFERENCES chat_rooms (room_no);
+
+-- ALTER TABLE chat_rooms
+--   ADD CONSTRAINT FK_users_TO_chat_rooms
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE chat_rooms
+--   ADD CONSTRAINT FK_users_TO_chat_rooms1
+--     FOREIGN KEY (partner_no)
 --     REFERENCES users (user_no);
 
         

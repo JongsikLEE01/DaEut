@@ -81,5 +81,16 @@
         </div>
     </div>
     
+
+    <script>
+        // 태그 클릭 이벤트
+        var tagButtons = document.querySelectorAll('.tag-button');
+
+        tagButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                button.classList.toggle('selected');
+            });
+        });
+    </script>
 </body>
 </html>

@@ -20,7 +20,7 @@ import com.daeut.daeut.partner.dto.Partner;
 
 import com.daeut.daeut.reservation.dto.Reservation;
 
-
+import kotlin.OverloadResolutionByLambdaReturnType;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -126,6 +126,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void requestPartner(Users user, Partner partner) throws Exception {
         userMapper.insertPartner(partner);
+
         userMapper.updateUserStatus(user.getUserNo());
     }
 
@@ -210,6 +211,28 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.deleteList(deleteNos);
         return result;
     }
+
+    // 관리자 - 회원 조회
+    @Override
+    public Users findUserById(int userNo) throws Exception {
+        Users users = userMapper.findUserById(userNo);
+        return users;
+    }
+    // 관리자 - 회원 수정
+    @Override
+    public int adminUpdateUser(Users user) throws Exception {
+        int result = userMapper.adminUpdateUser(user);
+        return result;
+    }
+    // 관리자 - 회원 삭제
+    @Override
+    public int adminDeleteUser(int userNo) throws Exception {
+        int result = userMapper.adminDeleteUser(userNo);
+        return result;
+    }
+
+ 
+
 
 
 }
