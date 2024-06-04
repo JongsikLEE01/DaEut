@@ -173,6 +173,7 @@ public class PartnerController {
         return "/partner/partnerReservation";  
     }
 
+    // 파트너 예약 상세조회란
     @GetMapping("/partnerReservationRead")
     public String partnerReservationRead() {
         log.info("[partner] - /partnerReservationRead");
