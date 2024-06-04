@@ -27,7 +27,8 @@
                 <div th:each="board : ${boardList}" class="card">
                     <div style="position: relative;">
                         <a th:href="@{/tip/tipRead(no=${board.boardNo})}">
-                            <img th:src="@{|/files/img/${board.fileNo}|}" alt="썸네일">
+                            <img th:src="|/file/img/${board.fileNo}|" alt="썸네일">
+                            <!-- <span th:text="|/file/img/${board.fileNo}|"></span> -->
                         </a>
                         <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;">
                             <i class="fa fa-heart" aria-hidden="true"></i>
@@ -63,8 +64,6 @@
             <!-- 마지막 -->
             <a th:href="|/tip/index?page=${page.last}|">&raquo;</a>
         </div>
-
-
         
         <div class="search-container">
             <form action="/tip/index" method="get">

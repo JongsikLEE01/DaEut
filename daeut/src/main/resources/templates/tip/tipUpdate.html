@@ -24,7 +24,7 @@
             <div class="mb-3">
 
             <div>
-                <label for="images" class="form-label">첨부파일</label>
+                <label for="images" class="form-label"></label>
                 <label for="images" class="file-upload-button">첨부하기</label>
             </div>
                 <input type="file" class="form-control" id="images" name="images" accept="image/*" multiple onchange="previewImages(event)">
@@ -100,15 +100,15 @@
         }
 
         // 파일 삭제
-        function deleteFile(element, no) {
-            // alert(no)
+        function deleteFile(element, fileNo) {
             
             // AJAX 비동기 요청
             let request = new XMLHttpRequest()
 
             // 요청 세팅
             // request.open(요청메소드, URL)
-            request.open('DELETE', '/file/' + no)
+            request.open('DELETE', '/file/' + fileNo)
+            request.setRequestHeader("X-CSRF-TOKEN", csrfToken) 
             request.send()
 
             request.onreadystatechange = function() {
