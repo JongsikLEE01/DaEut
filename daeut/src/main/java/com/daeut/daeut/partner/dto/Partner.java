@@ -1,8 +1,11 @@
 package com.daeut.daeut.partner.dto;
 
 import java.sql.Timestamp;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 import lombok.Data;
 
 @Data
@@ -16,7 +19,12 @@ public class Partner {
     private String introduce;
     private int userNo;
 
+
     // private MultipartFile file;
     // private String filePath;
+
+    // 권한 목록
+    private List<UserAuth> authList;
+
 
 }

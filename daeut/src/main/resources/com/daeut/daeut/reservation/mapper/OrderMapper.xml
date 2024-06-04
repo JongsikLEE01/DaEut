@@ -50,4 +50,11 @@
         WHERE user_no = #{userNo}
     </select>
 
+    <!-- 목록 - partnerNo-->
+    <select id="listByParterNo" resultType="Orders">
+        SELECT *
+        FROM orders
+        where partner_No = #{partnerNo}
+    </select>
+
 </mapper>

@@ -61,12 +61,15 @@ public class OrderController {
         log.info("serviceNo : " + serviceNo);
         log.info("quantity : " + quantity);
 
+        Users user = (Users) session.getAttribute("user");
+        orders.setUserNo(user.getUserNo());
+
         // 주문 등록
         int result = orderService.insert(orders);
 
         log.info("신규 등록된 주문ID : " + orders.getOrdersNo() );
         if( result > 0 ) {
-            return "redirect:/reservation/" + orders.getOrdersNo();
+            return "redirect:/orders/" + orders.getOrdersNo();
         }
         else {
             // 주문 실패시 상품목록
@@ -74,7 +77,7 @@ public class OrderController {
         }
     }
     
-/**
+    /**
      * 주문 완료
      * @param model
      * @param session
@@ -86,17 +89,18 @@ public class OrderController {
     public String orderSuccess(Model model
                               ,Payments payments
                               ,HttpSession session
-                              ,@RequestParam("orderNo") String orderNo) throws Exception {
+                              ,@RequestParam("ordersNo") String ordersNo) throws Exception {
 
-        payments.setOrdersNo(orderNo);
+        payments.setOrdersNo(ordersNo);
+        payments.setPaymentMethod("card");
         payments.setStatus(PaymentStatus.PAID);
         paymentService.merge(payments);
         
-        payments = paymentService.selectByOrdersNo(orderNo);
+        payments = paymentService.selectByOrdersNo(ordersNo);
         log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
         log.info(payments.toString());
 
-        Orders order = orderService.select(orderNo);
+        Orders order = orderService.select(ordersNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
         log.info(payments.toString());
 
@@ -116,20 +120,21 @@ public class OrderController {
     public String orderFail(Model model
                               ,Payments payments
                               ,HttpSession session
-                              ,@RequestParam("orderNo") String orderNo
+                              ,@RequestParam("ordersNo") String ordersNo
                               ,@ModelAttribute String errorMsg) throws Exception {                    
-        payments.setOrdersNo(orderNo);
+        payments.setOrdersNo(ordersNo);
+        payments.setPaymentMethod("card");
         payments.setStatus(PaymentStatus.PAID);
         paymentService.insert(payments);
         
         // ⭐ 결제 실패 시, 결제 상태 PENDING 으로 변경
-        payments = paymentService.selectByOrdersNo(orderNo);
+        payments = paymentService.selectByOrdersNo(ordersNo);
         payments.setStatus(PaymentStatus.PENDING);
         paymentService.merge(payments);
         log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
         log.info(payments.toString());
 
-        Orders order = orderService.select(orderNo);
+        Orders order = orderService.select(ordersNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
         log.info(payments.toString());
 
@@ -137,7 +142,7 @@ public class OrderController {
 
         model.addAttribute("payments", payments);
         model.addAttribute("order", order);
-        return "/reservation/paymentFalse";
+        return "reservation/paymentFalse";
     }
 
     /**
@@ -148,24 +153,25 @@ public class OrderController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/{orderId}")
+    @GetMapping("/{ordersNo}")
     public String checkout(Model model
                           ,HttpSession session
-                          ,@PathVariable("orderNo") String orderNo) throws Exception {
+                          ,@PathVariable("ordersNo") String ordersNo) throws Exception {
         
         // 로그인 사용자
         Users user = (Users) session.getAttribute("user");
         // 주문 정보
-        Orders order = orderService.select(orderNo);
+        Orders order = orderService.select(ordersNo);
         // 주문 항목 정보
-        List<OrderItems> orderItems = orderItemService.listByOrderNo(orderNo);
+        List<OrderItems> orderItems = orderItemService.listByOrderNo(ordersNo);
         
         if( order == null ) return "redirect:/orders?error";
         log.info(":::::::::::::::::::: order ::::::::::::::::::::");
         log.info(order.toString());
         log.info(":::::::::::::::::::: order items ::::::::::::::::::::");
         log.info(orderItems.toString());
-
+        
+        
 
         model.addAttribute("order", order);
         model.addAttribute("orderItems", orderItems);

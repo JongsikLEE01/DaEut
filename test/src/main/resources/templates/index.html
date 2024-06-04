@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>댓글</h1>
+    <!-- 댓글 입력 -->
+    <div id="reply-input">
+        <h3>댓글</h3>
+        <div class="input-group mt-1 mb-3 reply-input">
+            <textarea name="replyContent" id="reply-content" class="form-control" placeholder="댓글을 입력하세요." rows="1"></textarea>
+            <button class="btn btn-primary" type="button" id="btn-reply-insert" onclick="insertReply()">등록</button>
+        </div>
+    </div>
+    <script>
+        let no = 1
+        let userNo = 1
+
+        // 댓글 등록
+        function insertReply() {
+            // let $wuserNo = document.getElementById('reply-writer')
+            let $content = document.getElementById('reply-content')
+            let replyContent = $content.value
+
+            console.log(`글번호 : ${no}`)
+            console.log(`댓글 내용 : ${replyContent}`)
+            console.log(`회원번호 : ${userNo}`)     // 이거 없으면 로그인
+
+            let data = {
+                'boardNo' : no,
+                'userNo'  : userNo,
+                'replyContent' : replyContent
+            }
+
+            let request = new XMLHttpRequest()
+            
+            request.open('POST', '/reply')
+            // request.setRequestHeader("X-CSRF-TOKEN", csrfToken) 
+            // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            // request.setRequestHeader('Content-Type', 'multipart/form-data')
+            request.setRequestHeader('Content-Type', 'application/json')
+            request.send( JSON.stringify(data) )
+
+            request.onreadystatechange = function() {
+                // 요청 성공 시,
+                if( request.readyState == request.DONE && request.status == 201 ) {
+                    console.log('댓글 등록 성공!');
+                    // alert(request.responseText)     // 응답 메시지 확인
+                    let response = request.responseText
+                    if( response == 'SUCCESS' ){
+                        alert("댓글 등록 성공!!!")
+                        replyList()     // 댓글 목록 갱신
+                        // 댓글 입력 창 비우기
+                        $content.value = ''
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

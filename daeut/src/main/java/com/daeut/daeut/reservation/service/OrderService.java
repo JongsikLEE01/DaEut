@@ -17,4 +17,6 @@ public interface OrderService {
 
     // ---------------------------------------------------------
     public List<Orders> listByUserNo(int userNo) throws Exception;
+
+    public List<Orders> listByParterNo(int partnerNo) throws Exception;
 }

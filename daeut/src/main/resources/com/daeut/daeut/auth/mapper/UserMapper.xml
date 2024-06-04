@@ -125,27 +125,16 @@
     </delete>
 
     <!-- 파트너 신청 -->
-    <update id="requestPartner">
-        UPDATE users
-        SET status = 1
-        WHERE user_no = (SELECT user_no FROM users WHERE user_id = #{userId})
-    </update>
-
     <insert id="insertPartner">
-        INSERT INTO partner (partner_grade, partner_reserve, partner_career, introduce, user_no, file_path)
-        VALUES (#{partner.partnerGrade}, #{partner.partnerReserve}, #{partner.partnerCareer}, #{partner.introduce}, #{userNo}, #{partner.filePath})
+        INSERT INTO partner (partner_career, introduce, user_no)
+        VALUES (#{partnerCareer}, #{introduce}, #{userNo})
     </insert>
 
     <update id="updateUserStatus">
         UPDATE users
-        SET status = 1
+        SET enabled = 1
         WHERE user_no = #{userNo}
     </update>
-
-    <select id="getUserById" resultType="Users">
-        SELECT * FROM users WHERE user_id = #{userId}
-    </select>
-
 
     <!-- 파트너 승인 -->
     <update id="approvePartner">

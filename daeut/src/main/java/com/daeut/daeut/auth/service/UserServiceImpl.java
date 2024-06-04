@@ -125,14 +125,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void requestPartner(Users user, Partner partner) throws Exception {
-       
-        userMapper.insertPartner(user.getUserNo(), partner);
-        userMapper.updateUserStatus(user.getUserNo());
-    }
+        userMapper.insertPartner(partner);
 
-    @Override
-    public Users getUserById(String userId) {
-        return userMapper.getUserById(userId);
+        userMapper.updateUserStatus(user.getUserNo());
     }
 
     @Override
@@ -204,6 +199,7 @@ public class UserServiceImpl implements UserService {
     public Users selectByUserNo(int userNo) throws Exception {
         return userMapper.selectByUserNo(userNo);
     }
+
     @Override
     public Users findByUsername(String username) {
         return userMapper.findByUsername(username);
