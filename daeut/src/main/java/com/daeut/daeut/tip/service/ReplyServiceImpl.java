@@ -40,7 +40,7 @@ public class ReplyServiceImpl implements ReplyService {
         if( result > 0 && parentNo == 0 ) {
             int no = replyMapper.max();
             reply.setBoardNo(no);
-            reply.setParentNo(parentNo);
+            reply.setParentNo(no);
             replyMapper.update(reply);
         }
         return result;

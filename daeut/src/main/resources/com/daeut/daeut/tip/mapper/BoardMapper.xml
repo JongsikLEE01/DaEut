@@ -5,17 +5,11 @@
 
     <select id="list" resultType="Board">
         SELECT b.*
-            ,f.file_no AS file_no
-            ,f.file_name
-            ,f.file_path
-            ,f.file_code
-        FROM board b LEFT JOIN (
-                                SELECT *
-                                FROM files
-                                WHERE parent_table = "board"
-                                AND file_code = 1
-                                ) f
-                    ON (b.board_no = f.parent_no)
+            ,(SELECT file_no FROM files WHERE parent_table = "board" AND parent_no = b.board_no AND file_code = 1) file_no
+            ,(SELECT file_name FROM files WHERE parent_table = "board" AND parent_no = b.board_no AND file_code = 1) file_name
+            ,(SELECT file_path FROM files WHERE parent_table = "board" AND parent_no = b.board_no AND file_code = 1) file_path
+            ,(SELECT file_code FROM files WHERE parent_table = "board" AND parent_no = b.board_no AND file_code = 1) file_code
+        FROM board b
         WHERE
             <if test="option.code == 0">
                     board_title LIKE CONCAT('%', #{option.keyword}, '%')
@@ -47,7 +41,7 @@
 
     <insert id="insert">
         INSERT INTO board( board_title, user_no, board_content)
-        VALUES ( #{boardTitle}, #{userNo}, #{boardContent} )
+        VALUES ( #{boardTitle}, #{userNo}, #{boardContent})
     </insert>
 
     <update id="update">
