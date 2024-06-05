@@ -27,6 +27,7 @@
             <div class="col-md-9 col-lg-10 form-section">
                 <div class="mb-5">
                     <h3>파트너 신청</h3>
+                    <p style="color: red;">다중 파트너 신청의 경우 불이익이 따를 수 있습니다.</p>
                     <div class="d-flex justify-content-center">
                         <div class="col-md-3 mt-5">
                             <img src="/img/partner.png" alt="파트너 이미지" class="profile-img img-thumbnail">
@@ -35,7 +36,7 @@
                             <form class="ms-5" th:action="@{/user/request-partner}" method="post" enctype="multipart/form-data">
                                 <!-- CSRF TOKEN -->
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                                <input type="text" th:name="${partner.userNo}" th:value="${partner.userNo}" id="userNo">
+                                <input type="hidden" th:name="${partner.userNo}" th:value="${partner.userNo}" id="userNo">
                                 <div class="form-group form-section p-1 mt-5 text-start">
                                     <label for="partnerName">이름</label>
                                     <input type="text" class="form-control" id="partnerName" th:value="${partner.userName}" readonly>

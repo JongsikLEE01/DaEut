@@ -54,7 +54,16 @@
                                 <td>
                                     <span th:text="${#dates.format(partner.userRegDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
                                 </td>
-                                <td th:text="${partner.status}"></td>
+                                <td>
+                                    <!-- 상태가 '대기'인 경우 -->
+                                    <span th:if="${partner.status == 1}" style="color: red;">
+                                        대기
+                                    </span>
+                                    <!-- 상태가 '승인 완료'인 경우 -->
+                                    <span th:if="${partner.status == 2}" style="color: blue;">
+                                        승인 완료
+                                    </span>
+                                </td>
                                 <td class="checked">
                                     <input type="checkbox" class="checkbox" name="deleteNoList" th:value="${partner.userNo}">
                                 </td>
@@ -97,9 +106,18 @@
     <script>
                 
         let form = document.getElementById("form");
-                function deleteSelectedUser() {
-                    form.submit();
-                }
+
+        function deleteSelectedUser() {
+            // 선택된 체크박스의 개수 확인
+            let checkedCount = document.querySelectorAll('.checkbox:checked').length;
+            if (checkedCount === 0) {
+                // 경고창 표시
+                sweetAlert("경고", '선택된 항목이 없습니다.', 'warning');
+            } else {
+                // 선택된 항목이 있으면 삭제 진행
+                form.submit();
+            }
+        }
 
         function toggleAllCheckboxes(source) {
             checkboxes = document.querySelectorAll('.checkbox');

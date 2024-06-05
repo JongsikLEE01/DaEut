@@ -99,9 +99,18 @@
     <script>
                 
         let form = document.getElementById("form");
-                function deleteSelectedUser() {
-                    form.submit();
-                }
+
+        function deleteSelectedUser() {
+            // 선택된 체크박스의 개수 확인
+            let checkedCount = document.querySelectorAll('.checkbox:checked').length;
+            if (checkedCount === 0) {
+                // 경고창 표시
+                sweetAlert("경고", '선택된 항목이 없습니다.', 'warning');
+            } else {
+                // 선택된 항목이 있으면 삭제 진행
+                form.submit();
+            }
+        }
 
         function toggleAllCheckboxes(source) {
             checkboxes = document.querySelectorAll('.checkbox');
