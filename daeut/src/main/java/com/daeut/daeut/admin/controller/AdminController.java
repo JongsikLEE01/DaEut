@@ -28,6 +28,7 @@ import java.util.Map;
 
 
 
+
 @Slf4j
 @Controller
 @RequestMapping("/admin")
@@ -192,6 +193,39 @@ public class AdminController {
         model.addAttribute("partner", partner);
         return "/admin/adminPartnerRead";
     }
+
+    // 파트너 승인 처리
+    @PostMapping("/approvePartner/{userId}")
+    public String approvePartner(@PathVariable("userId") String userId) {
+        try {
+            log.info("✅✅✅✅✅✅✅✅✅✅✅✅✅✅");
+            log.info("파트너 아이디 : " + userId);
+            adminService.approvePartner(userId);
+            adminService.insertPartnerAuth(userId);
+            return "redirect:/admin/adminPartner"; // 파트너 목록으로 리다이렉트
+        } catch (Exception e) {
+            log.error("파트너 승인 중 오류가 발생했습니다.", e);
+            // 오류 발생 시 처리
+            return "redirect:/admin/adminPartner"; // 오류 페이지로 리다이렉트 또는 다른 방법으로 처리
+        }
+    }
+
+    // 파트너 승인 취소 처리
+    @PostMapping("/cancelPartner/{userId}")
+    public String cancelPartner(@PathVariable("userId") String userId) {
+        try {
+            log.info("✅✅✅✅✅✅✅✅✅✅✅✅✅✅");
+            log.info("파트너 아이디 : " + userId);
+            adminService.cancelPartner(userId);
+            adminService.deletePartnerAuth(userId);
+            return "redirect:/admin/adminPartner"; // 파트너 목록으로 리다이렉트
+        } catch (Exception e) {
+            log.error("파트너 승인 취소 중 오류가 발생했습니다.", e);
+            // 오류 발생 시 처리
+            return "redirect:/admin/adminPartner"; // 오류 페이지로 리다이렉트 또는 다른 방법으로 처리
+        }
+    }
+    
 
     // 관리자 - 파트너 수정 화면 
     @GetMapping("/adminPartnerUpdate/{userNo}")

@@ -2,6 +2,7 @@ package com.daeut.daeut.partner.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.daeut.daeut.auth.dto.Users;
@@ -24,4 +25,10 @@ public interface PartnerService {
 
    // 파트너 번호로 파트너 조회
    public Partner selectByPartnerNo(int parterNo) throws Exception;
+
+   public Partner select(int parterNo) throws Exception;
+
+   public Users getPartnerName(int userNo) throws Exception;
+
+   public String selectUserNameByPartnerNo(@Param("partnerNo") int partnerNo);
 }

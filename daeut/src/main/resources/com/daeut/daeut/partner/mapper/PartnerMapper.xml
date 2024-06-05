@@ -6,7 +6,14 @@
 <mapper namespace="com.daeut.daeut.partner.mapper.PartnerMapper">
 
   <!-- 파트너 정보 가져오기 -->
-<select id="getPartners" resultType="Partner">
+  <select id="select">
+    SELECT *
+    FROM partner
+    WHERE partner_no = #{partnerNo}
+  </select>
+
+  <!-- 파트너 정보 가져오기 -->
+<select id="getPartners">
 SELECT partner.*
         FROM users
         INNER JOIN partner ON users.user_no = partner.user_no
@@ -41,7 +48,13 @@ WHERE r.partner_no = #{partnerNo}
         FROM partner 
         WHERE partner_no = #{partnerNo}
     </select>
-
-    
   
+  <!-- 파트너 넘버로 유저 이름 가져오기 -->
+  <select id="selectUserNameByPartnerNo" resultType="java.lang.String">
+    SELECT u.user_name
+        FROM users u
+        JOIN partner p ON u.user_no = p.user_no
+        WHERE p.partner_no = #{partnerNo}
+  </select>
+
 </mapper>
