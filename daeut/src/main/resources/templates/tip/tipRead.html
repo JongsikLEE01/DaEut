@@ -14,30 +14,34 @@
             <input type="hidden" name="boardNo" th:value="${board.boardNo}">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <div class="main">
-            <h2 class="mt-4" th:text="${board.boardTitle}">게시글 제목</h2>
-            <div class="d-flex justify-content-between align-items-center mt-2">
-                <input type="text" id="userId" th:value="${board.userNo}" placeholder="userId" disabled>
-                
-                <div class="d-flex gap-2">
-                    <a th:href="@{/tip/index}" class="boardList">목록</a>
-                    <a th:href="@{/tip/tipUpdate(no=${board.boardNo})}" class="boardUpdate">수정</a>
+                <h2 class="mt-4" th:text="${board.boardTitle}">게시글 제목</h2>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <div class="d-flex flex-column gap-2">
+                        <input type="text" id="userId" th:value="${board.userNo}" placeholder="userId" disabled>
+                        <span th:text="'조회수: ' + ${board.boardViews}">조회수: 0</span>
+                        <span th:text="'등록 날짜: ' + ${#dates.format(board.boardRegDate, 'yyyy-MM-dd HH:mm')}">등록 날짜: 2023-05-22 10:00</span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a th:href="@{/tip/index}" class="boardList">목록</a>
+                        <a th:href="@{/tip/tipUpdate(no=${board.boardNo})}" class="boardUpdate">수정</a>
+                    </div>
                 </div>
-            </div>
-            <hr>
-            
-           <div class="text-center my-4">
-                <!-- ⭐ 파일 이미지 출력하기 -->
-                <th:block th:each="file : ${fileList}"> 
-                    <!-- <p th:text="'File ID: ' + ${file.fileNo} + ', File Code: ' + ${file.fileCode}"></p> -->
-                    <img th:src="|/file/img/${file.fileNo}|" alt="파일 이미지" class="img-fluid" style="width: 300px; height: 300px;">
-                </th:block>
-            </div> 
-            <div class="col-15">
-                <div class="w-100 input-readonly" style="white-space: pre-wrap;" th:text="${board.boardContent}"></div>
-            </div>
-
-            <hr class="separator">
-        </form>
+                <!-- <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span th:text="'좋아요: ' + ${board.boardLike}">좋아요: 0</span>
+                    <button id="like-button" class="btn btn-primary">좋아요</button>
+                </div> -->
+                <hr>
+                <div class="text-center my-4">
+                    <!-- ⭐ 파일 이미지 출력하기 -->
+                    <th:block th:each="file : ${fileList}"> 
+                        <img th:src="|/file/img/${file.fileNo}|" alt="파일 이미지" class="img-fluid" style="width: 300px; height: 300px;">
+                    </th:block>
+                </div> 
+                <div class="col-15">
+                    <div class="w-100 input-readonly" style="white-space: pre-wrap;" th:text="${board.boardContent}"></div>
+                </div>
+                <hr class="separator">
+            </form>
 
             <!-- 댓글 섹션 -->
             <!-- 댓글 입력 -->
@@ -79,9 +83,6 @@
                 </div>
             </div>
         </div>
-
-     <!-- 댓글 목록 -->
-    <div id="reply-list">
     </div>
 
     <script>
@@ -131,6 +132,32 @@
                 }
             }
         }
+
+        // document.getElementById('like-button').addEventListener('click', function(event) {
+        //     event.preventDefault();
+
+        //     fetch('/board/like', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             [csrfHeader]: csrfToken
+        //         },
+        //         body: JSON.stringify({
+        //             boardNo: no
+        //         })
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data.success) {
+        //             document.querySelector("span[th\\:text*='좋아요']").textContent = `좋아요: ${data.likeCount}`;
+        //         } else {
+        //             alert('좋아요 처리 중 오류가 발생했습니다.');
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error('Error:', error);
+        //     });
+        // });
             
         // 댓글 등록
         // function insertReply() {
