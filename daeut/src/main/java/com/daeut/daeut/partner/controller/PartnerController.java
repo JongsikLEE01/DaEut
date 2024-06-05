@@ -110,23 +110,17 @@ public class PartnerController {
     }
 
     // 수정 처리
-    @PostMapping("/partnerMypageUpdate")
-    @PreAuthorize("hasRole('ROLE_PARTNER')")
-    public String partnerMypageUpdatePro(Model model, HttpSession session, Partner partner) throws Exception {
-        Users user = (Users) session.getAttribute("user");
+    @PostMapping("/partnerMypageUpdatePro")
+    public String partnerMypageUpdatePro(Model model, HttpSession session, @ModelAttribute("user") Users user, @ModelAttribute("partner") Partner partner) throws Exception {
+        int result = partnerService.partnerUpdate(partner, user);
     
-        // Users 정보 업데이트
-        int userUpdateResult = userService.update(user);
-    
-        // Partner 정보 업데이트
-        int partnerUpdateResult = partnerService.partnerUpdate(partner);
-    
-        if (userUpdateResult > 0 || partnerUpdateResult > 0) {
+        if (result > 0) {
             return "redirect:/partner/partnerMypage";
         } else {
             return "redirect:/index";
         }
     }
+    
 
 
 
