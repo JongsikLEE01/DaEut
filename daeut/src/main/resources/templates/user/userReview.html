@@ -16,9 +16,8 @@
                 <br>
                 <a href="/user/userMypage">내 정보 변경</a>
                 <a href="/user/userReservation">내 예약 보기</a>
-                <a href="/user/userLikeTip">내가 좋아하는 글</a>
                 <a href="/user/userReview" class="userReview">별점 및 리뷰 작성</a>
-                <a href="/user/userCoupon" >채팅 내역</a>
+                <a href="/user/userChatRoom" >채팅 내역</a>
                 <a href="/user/userPartner">파트너 신청</a>
                 <a href="/user/userCart">장바구니</a>
             </nav>
@@ -27,7 +26,7 @@
                 <hr class="completeHr">
                 <div class="grid review-form">
                     <h4 >서비스 품질 리뷰</h4>
-                    <form>
+                    <form th:action="@{/user/userReviewDone}" method="post">
                         <div class="item item-1 align-items-center mb-3">
                             <div class="col-sm-5">
                                 <img class="img-fluid" src="https://via.placeholder.com/150" alt="서비스 이미지">
@@ -55,7 +54,6 @@
                         </div>
                         <div class="form-buttons">
                             <button type="submit" class="btn btn-primary">등록하기</button>
-                            <button type="reset" class="btn btn-secondary">취소하기</button>
                         </div>
                     </form>
                 </div>
