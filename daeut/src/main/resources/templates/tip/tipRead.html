@@ -103,29 +103,6 @@
             location.href = '/tip/index'
         }
 
-        // 파일 삭제
-        function deleteFile(element, no) {
-            // alert(no)
-            
-            // AJAX 비동기 요청
-            let request = new XMLHttpRequest()
-
-            // 요청 세팅
-            // request.open(요청메소드, URL)
-            request.open('DELETE', '/file/' + no)
-            request.send()
-
-            request.onreadystatechange = function() {
-
-                // 요청 성공 시,
-                if( request.readyState == request.DONE && request.status == 200 ) {
-                    console.log('파일 삭제 성공!');
-                    // 파일 항목 제거
-                    element.parentNode.remove()
-                }
-            }
-        }
-
         // 댓글 목록
         function replyList() {
             let request = new XMLHttpRequest()
