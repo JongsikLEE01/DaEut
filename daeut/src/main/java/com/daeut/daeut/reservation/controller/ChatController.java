@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequiredArgsConstructor
+// @RequiredArgsConstructor
 public class ChatController {
     
     /*
@@ -39,13 +41,28 @@ public class ChatController {
      *                                사용자 전송, 특정 사용자의 queue에 메세지를 전송해 1:1 구현
      */
     @Autowired
-    private SimpMessageSendingOperations messagingTemplate;
+    private SimpMessageSendingOperations template;
 
     @Autowired
     private ChatService chatService;
 
     @Autowired
     private ChatRoomService chatRoomService;
+
+    // MessageMapping 을 통해 webSocket 로 들어오는 메시지를 발신 처리한다.
+    // 이때 클라이언트에서는 /pub/chat/message 로 요청하게 되고 이것을 controller 가 받아서 처리한다.
+    // 처리가 완료되면 /sub/chat/room/roomId 로 메시지가 전송된다.
+    // @MessageMapping("/chat/enterUser")
+    // public void enterUser(@Payload Chats chat, SimpMessageHeaderAccessor headerAccessor) {
+        
+
+    //     // 반환 결과를 socket session 에 저장
+    //     headerAccessor.getSessionAttributes().put("userUUID", userUUID);
+    //     headerAccessor.getSessionAttributes().put("roomNo", chat.getRoomNo());
+
+    //     chat.setMessage(chat.getSender() + " 님 입장!!");
+    //     template.convertAndSend("/sub/chat/room/" + chat.getRoomId(), chat);
+    // }
 
     /**
      * 채팅방으로 이동
@@ -80,11 +97,9 @@ public class ChatController {
     @MessageMapping("/chat/sendMessage")
     public String sendMessage(Chats chat) throws Exception {
         chatService.insert(chat);
-        log.info("chat? "+chat);
 
         // 클라이언트에게 메시지 전송
-        messagingTemplate.convertAndSend("/topic/public", chat);
-
+        template.convertAndSend("/chat", chat);
         return "redirect:/reservation/chat?roomNo="+chat.getRoomNo(); // 채팅창으로 리다이렉트
     }
 
@@ -94,13 +109,13 @@ public class ChatController {
      * @return
      */
     @PostMapping("/chat/saveMessage")
-    public ResponseEntity<?> saveMessage(@RequestBody Chats chat) {
+    public String saveMessage(@RequestBody Chats chat) {
         try {
             chatService.insert(chat);
-            return ResponseEntity.ok("Message saved successfully");
+            return "redirect:/reservation/chat?roomNo="+chat.getRoomNo();
         } catch (Exception e) {
             log.error("Error saving message", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save message");
+            return "redirect:/reservation/chat?roomNo="+chat.getRoomNo();
         }
     }
 }
