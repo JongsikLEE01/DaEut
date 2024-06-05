@@ -112,11 +112,6 @@ public class PartnerController {
     // 수정 처리
     @PostMapping("/partnerMypageUpdatePro")
     public String partnerMypageUpdatePro(Model model, HttpSession session, @ModelAttribute("user") Users user, @ModelAttribute("partner") Partner partner) throws Exception {
-    
-        // 추가된 로그 출력 코드
-        log.info("Received user data for update: {}", user.toString());
-        log.info("Received partner data for update: {}", partner.toString());
-        
         int result = partnerService.partnerUpdate(partner, user);
     
         if (result > 0) {
@@ -125,6 +120,7 @@ public class PartnerController {
             return "redirect:/index";
         }
     }
+    
 
 
 

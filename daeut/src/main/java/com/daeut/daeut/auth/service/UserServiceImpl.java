@@ -115,6 +115,7 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    // 회원 탈퇴
     @Transactional
     @Override
     public int delete(Users user) throws Exception {
