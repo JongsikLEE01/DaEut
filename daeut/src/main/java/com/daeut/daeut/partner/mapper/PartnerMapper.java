@@ -3,6 +3,7 @@ package com.daeut.daeut.partner.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.partner.dto.Partner;
@@ -29,4 +30,7 @@ public interface PartnerMapper {
     // 예약 조회 - 파트너 넘버로 
     public Partner selectByPartnerNo(int parterNo) throws Exception;
 
+    public Partner select(int parterNo) throws Exception;
+
+    public String selectUserNameByPartnerNo(int partnerNo);
 }

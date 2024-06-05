@@ -33,12 +33,6 @@ public interface UserService {
     // 파트너 신청 대기
     public int updateUserStatus(int userNo) throws Exception;
 
-    // 파트너 승인
-    // TODO
-
-    // 파트너 권한 추가
-    // TODO
-
     // ----------------------------------------------------------------------------
 
     // user 및 partner 테이블에서 정보를 조회

@@ -109,8 +109,4 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-document.getElementById('signup-form').onsubmit = function() {
-    return validateForm();
-};
-
 

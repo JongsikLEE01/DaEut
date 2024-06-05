@@ -41,8 +41,8 @@
 
     <!-- 카트 등록 -->
     <insert id="cartInsert" >
-        INSERT INTO cart(service_no, user_no, cart_amount)
-        VALUES (#{serviceNo}, #{userNo}, #{cartAmount})
+        INSERT INTO cart(service_no, user_no, cart_amount, partner_name)
+        VALUES (#{serviceNo}, #{userNo}, #{cartAmount}, #{partnerName})
     </insert>
 
     <!-- 카트 선택 삭제 -->
