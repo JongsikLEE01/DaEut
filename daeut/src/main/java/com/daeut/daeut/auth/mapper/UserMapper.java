@@ -62,5 +62,5 @@ public interface UserMapper {
     // 유저 정보 찾기
     public Users findByUsername(String username);
 
-    
+    public Users findUserById(int userNo) throws Exception;
 }

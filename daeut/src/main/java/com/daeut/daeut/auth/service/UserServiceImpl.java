@@ -168,6 +168,11 @@ public class UserServiceImpl implements UserService {
         return "c:/upload";
     }
 
+    @Override
+    public Users findUserById(int userNo) throws Exception {
+        return userMapper.findUserById(userNo);
+    }
+
     
     
   
