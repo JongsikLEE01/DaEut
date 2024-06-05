@@ -6,7 +6,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.auth.service.UserService;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Cart;
+import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.mapper.CartMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +24,15 @@ public class CartServiceImpl implements CartService{
     @Autowired
     private CartMapper cartMapper;
 
+    @Autowired
+    private ReservationService reservationService;
+
+    @Autowired
+    private PartnerService partnerService;
+
+    @Autowired
+    private UserService userService;
+
     // 목록
     @Override
     public List<Cart> cartList(int userNo) throws Exception {
@@ -29,8 +43,18 @@ public class CartServiceImpl implements CartService{
     // 삽입
     @Override
     public int cartInsert(Cart cart) throws Exception {
-        int result = cartMapper.cartInsert(cart);
-        return result;
+        int serviceNo = cart.getServiceNo();
+        Services services = reservationService.serviceSelect(serviceNo);
+        Partner partner = partnerService.selectByPartnerNo(services.getPartnerNo());
+        int partnerNo = partner.getUserNo();
+        Users users = userService.findUserById(partnerNo);
+        log.info(users.toString());
+
+        cart.setPartnerName(users.getUserName());
+
+        log.info(cart.toString());
+
+        return cartMapper.cartInsert(cart);
     }
 
     // 수정

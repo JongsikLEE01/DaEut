@@ -7,7 +7,7 @@
 </head>
 <body layout:fragment="content">
     <button class="btn btn-primary toggle-btn menu mt-2 ml-2" id="toggle-btn" onclick="toggleSidebar()">메뉴</button>
-    <div class="container-fluid container">
+    <main class="container-fluid container">
         <div class="row">
             <!-- 사이드바 -->
             <nav class="col-md-3 col-lg-2 sidebar" id="sidebar">
@@ -18,7 +18,7 @@
                 <a href="/user/userReservation">내 예약 보기</a>
                 <a href="/user/userLikeTip">내가 좋아하는 글</a>
                 <a href="/user/userReview">별점 및 리뷰 작성</a>
-                <a href="/user/userCoupon">내 쿠폰</a>
+                <a href="/user/userCoupon">채팅 내역</a>
                 <a href="/user/userPartner" class="userPartner">파트너 신청</a>
                 <a href="/user/userCart">장바구니</a>
             </nav>
@@ -27,6 +27,11 @@
             <div class="col-md-9 col-lg-10 form-section">
                 <div class="mb-5">
                     <h3>파트너 신청</h3>
+                    <ul style="padding: 0px; color: red;">파트너 신청 주의 사항
+                        <li style="list-style-type: none; color: black;">1. 파트너 임을 입증할 수 있는 파일을 등록해주세요.</li>
+                        <li style="list-style-type: none;  color: black;">2. 파트너 신청을 여러번 할 경우 불이익이 따를 수 있습니다.</li>
+                        <li style="list-style-type: none;  color: black;">3. 파트너 승인이 됐을 경우, 재로그인 시 파트너 화면으로 로그인 됩니다.</li>
+                    </ul>
                     <div class="d-flex justify-content-center">
                         <div class="col-md-3 mt-5">
                             <img src="/img/partner.png" alt="파트너 이미지" class="profile-img img-thumbnail">
@@ -35,7 +40,7 @@
                             <form class="ms-5" th:action="@{/user/request-partner}" method="post" enctype="multipart/form-data">
                                 <!-- CSRF TOKEN -->
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                                <input type="text" th:name="${partner.userNo}" th:value="${partner.userNo}" id="userNo">
+                                <input type="hidden" th:name="${partner.userNo}" th:value="${partner.userNo}" id="userNo">
                                 <div class="form-group form-section p-1 mt-5 text-start">
                                     <label for="partnerName">이름</label>
                                     <input type="text" class="form-control" id="partnerName" th:value="${partner.userName}" readonly>
@@ -70,6 +75,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 </body>
 </html>

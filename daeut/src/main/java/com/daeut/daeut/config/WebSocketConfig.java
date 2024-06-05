@@ -34,16 +34,18 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
          *                        WebScoket 지원하지 않아도 통신을 가능하게해주는 폴리필 라이브러리
          */
         registry.addEndpoint("/chat")
-                .setAllowedOrigins("http://localhost:8080")     // TODO : 배포시 web경로 수정해야함
+                // .setAllowedOrigins("http://localhost:8080")     // TODO : 배포시 web경로 수정해야함
                 .withSockJS();
     }
 
     // Controller과 연결을 위한 브로커 설정
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        // 서버 -> 클라이언트에 대한 엔드포인트 설정
-        config.enableSimpleBroker("/topic");
         // 클라이언트 -> 서버에 대한 엔드포인트 설정
-        config.setApplicationDestinationPrefixes("/app");
+        // 메세지 발행 요청, 메세지 보낼때
+        config.setApplicationDestinationPrefixes("/pub");
+        // 서버 -> 클라이언트에 대한 엔드포인트 설정 
+        // 메세지 구독 요청, 메세지 받을때
+        config.enableSimpleBroker("/sub");
     }
 }

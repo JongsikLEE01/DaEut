@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Slf4j
@@ -55,9 +53,10 @@ public class CartController {
      * @writer jslee
      * @param cart
      * @return
+     * @throws Exception 
      */
     @PostMapping("/add")
-    public ResponseEntity<String> addCart(@RequestBody Cart cart, HttpSession session) {
+    public ResponseEntity<String> addCart(@RequestBody Cart cart, HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
         cart.setUserNo(user.getUserNo());
         cart.setCartAmount(1);

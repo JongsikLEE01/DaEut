@@ -3,6 +3,8 @@ package com.daeut.daeut.auth.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,15 +17,20 @@ import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Cart;
+import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.CartService;
+import com.daeut.daeut.reservation.service.ChatRoomService;
 import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -37,11 +44,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ReservationService reservationService;
 
     @Autowired
     private PartnerService partnerService;
+
+    @Autowired
+    private ChatRoomService chatRoomService;
 
     @GetMapping("/userMypage")
     public String userMypage(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
@@ -53,6 +61,7 @@ public class UserController {
         return "/user/userMypage";
     }
 
+    // 사용자 마이페이지 수정
     @GetMapping("/userMypageUpdate")
     public String userMypageUpdate(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
         log.info("/user/userMypageUpdate");
@@ -63,6 +72,7 @@ public class UserController {
         return "/user/userMypageUpdate";
     }
 
+    // 사용자 마이페이지 수정 처리
     @PostMapping("/userMypageUpdateDone")
     @PreAuthorize("hasRole('ROLE_USER')")
     public String userMypageUpdateDone(@RequestParam("action") String action, @ModelAttribute Users user) throws Exception {
@@ -86,31 +96,78 @@ public class UserController {
         return "redirect:/user/userMypage"; // 기본적으로 리다이렉트할 페이지
     }
     
-
+    // 사용자 예약 화면
     @GetMapping("/userReservation")
-    public String userReservation() {
+    public String userReservation(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
         log.info("/user/userReservation");
-        return "/user/userReservation";
+
+        
+        String userId = customUser.getUsername();
+        if(userId == null) {
+            return "redirect:/index";
+        }
+        log.info(userId);
+
+
+        List<Orders> orders = userService.selectOrdersByUserId(userId);
+        model.addAttribute("orders", orders);
+
+        return "user/userReservation";
     }
 
+    // 사용자 좋아요 게시글
     @GetMapping("/userLikeTip")
     public String userLikeTip() {
         log.info("/user/userLikeTip");
         return "/user/userLikeTip";
     }
 
+    // 사용자 작성 리뷰
     @GetMapping("/userReview")
     public String userReview() {
         log.info("/user/userReview");
         return "/user/userReview";
     }
 
-    @GetMapping("/userCoupon")
-    public String userCoupon() {
-        log.info("/user/userCoupon");
-        return "/user/userCoupon";
+     /**
+     * 유저 채팅방 생성
+     * @param chatRoom
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/userChatRoom")
+    public String createChatRoom(int partnerNo, Model model, HttpSession session) throws Exception{    
+        ChatRooms chatRoom = new ChatRooms();
+        chatRoom.setPartnerNo(partnerNo);
+
+        Users user = (Users) session.getAttribute("user");
+        int userNo = user.getUserNo();
+        chatRoom.setUserNo(userNo);
+
+        chatRoomService.merge(chatRoom);
+
+        return "redirect:/user/userChatRoom";
     }
 
+    /**
+     * 유저 채팅 내역 - GET
+     * @param model
+     * @param session
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/userChatRoom")
+    public String userChatRooms(Model model, HttpSession session) throws Exception {
+        Users user = (Users) session.getAttribute("user");
+        int userNo = user.getUserNo();
+
+        List<ChatRooms> chatRoomList = chatRoomService.selectByUserNo(userNo);
+
+        model.addAttribute("user", user);
+        model.addAttribute("chatRoomList", chatRoomList);
+        return "user/userChatRoom";
+    }
 
     // 장바구니
     @GetMapping("/userCart")
@@ -137,7 +194,7 @@ public class UserController {
         return "/user/userCart";
     }
 
-    // 유저, 파트너 페이지 
+    // 유저, 파트너 신청 화면
     @GetMapping("/userPartner")
     public String userPartner(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
         log.info("/user/userPartner");
@@ -148,7 +205,7 @@ public class UserController {
         return "user/userPartner";
     }
     
-    // 파트너 신청
+    // 파트너 신청 처리
     @PostMapping("/request-partner")
     public String insertPartner(@ModelAttribute Partner partner, @AuthenticationPrincipal CustomUser customUser) throws Exception {
         Partner partnerDetails = userService.selectUserAndPartnerDetails(customUser.getUser().getUserNo()); // 사용자 정보를 가져옴

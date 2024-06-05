@@ -14,4 +14,5 @@ public class Cart {
     
     private String userName;
     private String serviceName;
+    private String partnerName;
 }
