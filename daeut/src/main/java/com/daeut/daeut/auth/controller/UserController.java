@@ -13,11 +13,9 @@ import com.daeut.daeut.auth.dto.CustomUser;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
-import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Cart;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.CartService;
-import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,12 +35,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ReservationService reservationService;
 
-    @Autowired
-    private PartnerService partnerService;
-
+    // 사용자 마이페이지
     @GetMapping("/userMypage")
     public String userMypage(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
         log.info("/user/userMypage");
@@ -53,6 +47,7 @@ public class UserController {
         return "/user/userMypage";
     }
 
+    // 사용자 마이페이지 수정
     @GetMapping("/userMypageUpdate")
     public String userMypageUpdate(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
         log.info("/user/userMypageUpdate");
@@ -63,6 +58,7 @@ public class UserController {
         return "/user/userMypageUpdate";
     }
 
+    // 사용자 마이페이지 수정 처리
     @PostMapping("/userMypageUpdateDone")
     @PreAuthorize("hasRole('ROLE_USER')")
     public String userMypageUpdateDone(@RequestParam("action") String action, @ModelAttribute Users user) throws Exception {
@@ -86,31 +82,33 @@ public class UserController {
         return "redirect:/user/userMypage"; // 기본적으로 리다이렉트할 페이지
     }
     
-
+    // 사용자 예약 화면
     @GetMapping("/userReservation")
     public String userReservation() {
         log.info("/user/userReservation");
         return "/user/userReservation";
     }
 
+    // 사용자 좋아요 게시글
     @GetMapping("/userLikeTip")
     public String userLikeTip() {
         log.info("/user/userLikeTip");
         return "/user/userLikeTip";
     }
 
+    // 사용자 작성 리뷰
     @GetMapping("/userReview")
     public String userReview() {
         log.info("/user/userReview");
         return "/user/userReview";
     }
 
+    // 사용자 쿠폰
     @GetMapping("/userCoupon")
     public String userCoupon() {
         log.info("/user/userCoupon");
         return "/user/userCoupon";
     }
-
 
     // 장바구니
     @GetMapping("/userCart")
@@ -137,7 +135,7 @@ public class UserController {
         return "/user/userCart";
     }
 
-    // 유저, 파트너 페이지 
+    // 유저, 파트너 신청 화면
     @GetMapping("/userPartner")
     public String userPartner(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
         log.info("/user/userPartner");
@@ -148,7 +146,7 @@ public class UserController {
         return "user/userPartner";
     }
     
-    // 파트너 신청
+    // 파트너 신청 처리
     @PostMapping("/request-partner")
     public String insertPartner(@ModelAttribute Partner partner, @AuthenticationPrincipal CustomUser customUser) throws Exception {
         Partner partnerDetails = userService.selectUserAndPartnerDetails(customUser.getUser().getUserNo()); // 사용자 정보를 가져옴
