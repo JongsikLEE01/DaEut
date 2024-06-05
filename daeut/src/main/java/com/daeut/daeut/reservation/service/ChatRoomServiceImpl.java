@@ -6,6 +6,10 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.auth.service.UserService;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.mapper.ChatRoomMapper;
 
@@ -17,6 +21,12 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
     @Autowired
     private ChatRoomMapper chatRoomMapper;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PartnerService partnerService;
 
     @Override
     public List<ChatRooms> list() throws Exception {
@@ -40,16 +50,15 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
     @Override
     public int insert(ChatRooms chatRooms) throws Exception {
-        ChatRooms checkChatRooms = select(chatRooms.getRoomNo());
-        
-        if (checkChatRooms != null) {
-            return update(chatRooms);
-        } else {
-            String roomNo = UUID.randomUUID().toString();
-            chatRooms.setRoomNo(roomNo);
+        String roomNo = UUID.randomUUID().toString();
+        chatRooms.setRoomNo(roomNo);
 
-            return chatRoomMapper.insert(chatRooms);
-        }
+        Partner partner = partnerService.selectByPartnerNo(chatRooms.getPartnerNo());
+        int partnerNo = partner.getUserNo();
+        Users users = userService.findUserById(partnerNo);
+        chatRooms.setTitle(users.getUserName() + " 님과 대화중입니다.");
+
+        return chatRoomMapper.insert(chatRooms);
     }
 
     @Override
@@ -65,12 +74,22 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     // 있으면 update, 없으면 insert
     @Override
     public int merge(ChatRooms chatRoom) throws Exception {
-        log.info("------chatRoom ServiceImpl--------");
-        log.info("chatRoom? {}", chatRoom);
+        int userNo = chatRoom.getUserNo();
+        int partnerNo = chatRoom.getPartnerNo();
 
-        if( chatRoom == null || select(chatRoom.getRoomNo()) == null ) 
-            return insert(chatRoom);
+        List<ChatRooms> chatRoomList = selectByUserNo(userNo);
 
-        return update(chatRoom);
+        // partnerNo, userNo가 중복된 채팅룸 생성 X
+        for (ChatRooms cRooms : chatRoomList) {
+            int uNo = cRooms.getUserNo();
+            int pNo = cRooms.getPartnerNo();
+            if(uNo == userNo && pNo == partnerNo){
+                return update(chatRoom);
+            }
+        }
+
+        return insert(chatRoom);
+        // if( chatRoom == null || select(chatRoom.getRoomNo()) == null ) 
+        //     return insert(chatRoom);
     } 
 }

@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS order_item ;
 DROP TABLE IF EXISTS cancel ;
 DROP TABLE IF EXISTS cart ;
 
+ 
         
 CREATE TABLE board
 (
@@ -53,12 +54,13 @@ CREATE TABLE cancel
 
 CREATE TABLE cart
 (
-  cart_no       int       NOT NULL AUTO_INCREMENT COMMENT '장바구니번호',
-  cart_amount   INT       NOT NULL DEFAULT 1 COMMENT '수량',
-  cart_reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일자',
-  cart_upd_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '수정일자',
-  service_no    INT       NOT NULL COMMENT '서비스 번호',
-  user_no       INT       NOT NULL COMMENT '사용자 번호',
+  cart_no       int         NOT NULL AUTO_INCREMENT COMMENT '장바구니번호',
+  cart_amount   INT         NOT NULL DEFAULT 1 COMMENT '수량',
+  cart_reg_date TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일자',
+  cart_upd_date TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '수정일자',
+  service_no    INT         NOT NULL COMMENT '서비스 번호',
+  user_no       INT         NOT NULL COMMENT '사용자 번호',
+  partnerName   VARCHAR(50) NOT NULL COMMENT '파트너 이름',
   PRIMARY KEY (cart_no)
 ) COMMENT '장바구니';
 
@@ -79,6 +81,7 @@ CREATE TABLE chat_rooms
   room_out   BOOLEAN      NOT NULL DEFAULT 0 COMMENT '나가기 여부, 0=안나감 1=나감',
   user_no    INT          NOT NULL COMMENT '사용자 번호',
   partner_no INT          NOT NULL COMMENT '파트너 번호',
+  title      VARCHAR(50)  NOT NULL COMMENT '채팅방 이름',
   PRIMARY KEY (room_no)
 ) COMMENT '채팅방';
 
@@ -121,18 +124,18 @@ CREATE TABLE orders
   reg_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 등록일자',
   total_count    INT          NOT NULL COMMENT '총 항목수',
   title          VARCHAR(100) NULL     COMMENT '예약 제목',
-  partner_no      INT       NOT NULL COMMENT '파트너 번호',
+  partner_no     INT          NOT NULL COMMENT '파트너 번호',
   PRIMARY KEY (orders_no)
 ) COMMENT '예약';
 
 CREATE TABLE partner
 (
-  partner_no      INT       NOT NULL AUTO_INCREMENT COMMENT '파트너 번호',
-  partner_grade   INT       NULL     DEFAULT 0 COMMENT '파트너 별점',
-  partner_reserve INT       NULL     DEFAULT 0 COMMENT '파트너 예약 횟수',
-  partner_career  VARCHAR(255) NOT NULL COMMENT '파트너 경력',
-  introduce       TEXT      NULL     COMMENT '파트너 소개글',
-  user_no         INT       NOT NULL COMMENT '사용자 번호',
+  partner_no      INT          NOT NULL AUTO_INCREMENT COMMENT '파트너 번호',
+  partner_grade   INT          NULL     DEFAULT 0 COMMENT '파트너 별점',
+  partner_reserve INT          NULL     DEFAULT 0 COMMENT '파트너 예약 횟수',
+  partner_career  VARCHAR(100) NOT NULL COMMENT '파트너 경력',
+  introduce       TEXT         NULL     COMMENT '파트너 소개글',
+  user_no         INT          NOT NULL COMMENT '사용자 번호',
   PRIMARY KEY (partner_no)
 ) COMMENT '파트너';
 
@@ -230,15 +233,10 @@ ALTER TABLE reply
     FOREIGN KEY (board_no)
     REFERENCES board (board_no);
 
-ALTER TABLE service
-  ADD CONSTRAINT FK_partner_TO_service
-    FOREIGN KEY (partner_no)
-    REFERENCES partner (partner_no);
-
-ALTER TABLE orders
-  ADD CONSTRAINT FK_partner_TO_orders
-    FOREIGN KEY (partner_no)
-    REFERENCES partner (partner_no);
+-- ALTER TABLE service
+--   ADD CONSTRAINT FK_partner_TO_service
+--     FOREIGN KEY (partner_no)
+--     REFERENCES partner (partner_no);
 
 ALTER TABLE orders
   ADD CONSTRAINT FK_users_TO_orders
@@ -285,10 +283,10 @@ ALTER TABLE review
     FOREIGN KEY (partner_no)
     REFERENCES partner (partner_no);
 
-ALTER TABLE user_auth
-  ADD CONSTRAINT FK_users_TO_user_auth
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no) ON DELETE CASCADE;
+-- ALTER TABLE user_auth
+--   ADD CONSTRAINT FK_users_TO_user_auth
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
 
 ALTER TABLE order_item
   ADD CONSTRAINT FK_orders_TO_order_item
@@ -325,10 +323,12 @@ ALTER TABLE chat_rooms
     FOREIGN KEY (user_no)
     REFERENCES users (user_no);
 
-ALTER TABLE chat_rooms
-  ADD CONSTRAINT FK_users_TO_chat_rooms1
-    FOREIGN KEY (partner_no)
-    REFERENCES users (user_no);
+-- ALTER TABLE chat_rooms
+--   ADD CONSTRAINT FK_users_TO_chat_rooms1
+--     FOREIGN KEY (partner_no)
+--     REFERENCES users (user_no);
 
-        
-      
+-- ALTER TABLE orders
+--   ADD CONSTRAINT FK_partner_TO_orders
+--     FOREIGN KEY (partner_no)
+--     REFERENCES partner (partner_no);

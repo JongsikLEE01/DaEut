@@ -2,14 +2,22 @@ package com.daeut.daeut.reservation.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Chats;
 import com.daeut.daeut.reservation.service.ChatRoomService;
@@ -18,11 +26,9 @@ import com.daeut.daeut.reservation.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Slf4j
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class ChatController {
     
@@ -42,53 +48,59 @@ public class ChatController {
     private ChatRoomService chatRoomService;
 
     /**
-     * 채팅방 생성
-     * @writer JSLEE
-     * @param chatRoom
+     * 채팅방으로 이동
+     * @param roomNo
      * @param model
+     * @param session
      * @return
      * @throws Exception
      */
-    @PostMapping("/chatRoom")
-    public ResponseEntity<String> createChatRoom(@RequestBody ChatRooms chatRoom, Model model) throws Exception{    
-        log.info("--------CharController----------");
-        log.info("chatRoom {}", chatRoom);
+    @GetMapping("/reservation/chat")
+    public String goToChatRoom(@RequestParam("roomNo") String roomNo, Model model, HttpSession session) throws Exception {
+        Users user = (Users) session.getAttribute("user");
+        ChatRooms chatRooms = chatRoomService.select(roomNo);
+        int partnerNo = chatRooms.getPartnerNo();
 
-        
-        
-        int result = chatRoomService.merge(chatRoom);
+        List<Chats> chatList = chatService.selectByRoomNo(roomNo);
 
-        if(result == 0)
-            return new ResponseEntity<>("FAIL",HttpStatus.INTERNAL_SERVER_ERROR);
-        else{
-            model.addAttribute("chatRoom", chatRoom);
-            return new ResponseEntity<>("SUCCESS",HttpStatus.OK);
-        }
+        model.addAttribute("partnerNo", partnerNo);
+        model.addAttribute("user", user);
+        model.addAttribute("roomNo", roomNo);
+        model.addAttribute("chatList", chatList);
+        return "reservation/chat";
     }
+
     
     /**
      * 메세지 전송
-     * 클라이언트에서 /app/chat.sendMessage 경로로 메시지를 보낼 때 호출
-     * @writer JSLEE
      * @param chat
+     * @return
      * @throws Exception
      */
-    @MessageMapping("/chat.sendMessage")
-    public void sendMessage(Chats chat) throws Exception {
-        int userNo = chat.getUserNo();
-
+    @MessageMapping("/chat/sendMessage")
+    public String sendMessage(Chats chat) throws Exception {
         chatService.insert(chat);
         log.info("chat? "+chat);
 
         // 클라이언트에게 메시지 전송
         messagingTemplate.convertAndSend("/topic/public", chat);
+
+        return "redirect:/reservation/chat?roomNo="+chat.getRoomNo(); // 채팅창으로 리다이렉트
     }
 
-    // @GetMapping("/chat/messages")
-    // public List<Chats> getMessages(@RequestBody ChatRooms chatRooms) throws Exception{
-    //     String roomNo = chatRooms.getRoomNo();
-    //     List<Chats> messages = chatService.selectByRoomNo(roomNo);
-
-    //     return messages;
-    // }
+    /**
+     * 메세지 저장
+     * @param chat
+     * @return
+     */
+    @PostMapping("/chat/saveMessage")
+    public ResponseEntity<?> saveMessage(@RequestBody Chats chat) {
+        try {
+            chatService.insert(chat);
+            return ResponseEntity.ok("Message saved successfully");
+        } catch (Exception e) {
+            log.error("Error saving message", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save message");
+        }
+    }
 }

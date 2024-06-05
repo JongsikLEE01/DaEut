@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.daeut.daeut.auth.dto.Users;
-import com.daeut.daeut.auth.mapper.UserMapper;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.dto.Review;
@@ -25,9 +24,7 @@ public class PartnerServiceImpl implements PartnerService {
     @Autowired
     private UserService userService;
 
-    
-    public PartnerServiceImpl(UserService userService, PartnerMapper partnerMapper) {
-        this.userService = userService;
+    public PartnerServiceImpl(PartnerMapper partnerMapper) {
         this.partnerMapper = partnerMapper;
     }
 
@@ -81,6 +78,25 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     public Partner selectByPartnerNo(int parterNo) throws Exception {
         return partnerMapper.selectByPartnerNo(parterNo);
+    }
+
+    @Override
+    public Partner select(int parterNo) throws Exception {
+        return partnerMapper.select(parterNo);
+    }
+
+    @Override
+    public Users getPartnerName(int parterNo) throws Exception {
+        Partner partner = select(parterNo);
+        int userNo = partner.getUserNo();
+        Users uPartner = userService.findUserById(userNo);
+
+        return uPartner;
+    }
+
+    @Override
+    public String selectUserNameByPartnerNo(int partnerNo) {
+        return partnerMapper.selectUserNameByPartnerNo(partnerNo);
     }
     
     
