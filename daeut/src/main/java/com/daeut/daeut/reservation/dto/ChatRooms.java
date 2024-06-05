@@ -12,8 +12,8 @@ public class ChatRooms {
     private Date regDate;
     private int userNo;
     private int partnerNo;
+    private String title;
 
     // ------------------------
     private List<Chats> chats;
-    private String title;
 }

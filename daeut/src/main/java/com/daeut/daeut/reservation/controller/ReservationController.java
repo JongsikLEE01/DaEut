@@ -39,9 +39,6 @@ public class ReservationController {
     @Autowired
     private ChatRoomService chatRoomService;
 
-    @Autowired
-    private ChatService chatService;
-
     /**
      * 전체 조회
      * @write jslee
@@ -71,40 +68,40 @@ public class ReservationController {
         return "reservation/reservation";
 	}
 
-    /**
-     * 채팅 - POST
-     * @param serviceNo
-     * @param model
-     * @param session
-     * @return
-     * @throws Exception
-     */
-	@PostMapping("/chat")
-	public String chat(int serviceNo, Model model, HttpSession session) throws Exception {
-        Services service = reservationService.serviceSelect(serviceNo);
-        Users user = (Users) session.getAttribute("user");
-        int userNo = user.getUserNo();
-        int partnerNo = service.getPartnerNo();
+    // /**
+    //  * 채팅 - POST
+    //  * @param serviceNo
+    //  * @param model
+    //  * @param session
+    //  * @return
+    //  * @throws Exception
+    //  */
+	// @PostMapping("/chat")
+	// public String chat(int serviceNo, Model model, HttpSession session) throws Exception {
+    //     Services service = reservationService.serviceSelect(serviceNo);
+    //     Users user = (Users) session.getAttribute("user");
+    //     int userNo = user.getUserNo();
+    //     int partnerNo = service.getPartnerNo();
 
-        List<ChatRooms> chatRoomList = chatRoomService.selectByUserNo(userNo);
+    //     List<ChatRooms> chatRoomList = chatRoomService.selectByUserNo(userNo);
 
-        for (ChatRooms chatRoom : chatRoomList) {
-            int uNo = chatRoom.getUserNo();
-            int pNo = chatRoom.getPartnerNo();
-            if(uNo == userNo && pNo == partnerNo){
-                model.addAttribute("chatRoom", chatRoom);
-            }
-        }
+    //     for (ChatRooms chatRoom : chatRoomList) {
+    //         int uNo = chatRoom.getUserNo();
+    //         int pNo = chatRoom.getPartnerNo();
+    //         if(uNo == userNo && pNo == partnerNo){
+    //             model.addAttribute("chatRoom", chatRoom);
+    //         }
+    //     }
         
-        model.addAttribute("service", service);
-        model.addAttribute("user", user);
-		return "reservation/chat";
-	}
+    //     model.addAttribute("service", service);
+    //     model.addAttribute("user", user);
+	// 	return "reservation/chat";
+	// }
 
-    @GetMapping("/chat")
-    public void getChat(int serviceNo, Model model, HttpSession session) throws Exception {
-        chat(serviceNo, model, session);
-    }
+    // @GetMapping("/chat")
+    // public void getChat(int serviceNo, Model model, HttpSession session) throws Exception {
+    //     chat(serviceNo, model, session);
+    // }
     
     
     /**
@@ -153,10 +150,12 @@ public class ReservationController {
      * @throws Exception
      */
     @PostMapping("/reservationInsert")
-    public String reservationInsert(Services service) throws Exception {
-        log.info("서비스 정보: {}", service);
-        int result = reservationService.serviceInsert(service);
+    public String reservationInsert(Services service, HttpSession session) throws Exception {
+        int partnerNo = (int) session.getAttribute("partnerNo");
+        service.setPartnerNo(partnerNo);
 
+        int result = reservationService.serviceInsert(service);
+        
         if (result == 0) {
             log.info("게시글 등록 실패...");
             return "redirect:/reservation/reservationInsert";
@@ -180,19 +179,19 @@ public class ReservationController {
         Services service = reservationService.serviceSelect(serviceNo);
         Files thumbnail = reservationService.SelectThumbnail(serviceNo);
         List<Files> files = reservationService.SelectFiles(serviceNo);
-
+        
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
-
+        
         model.addAttribute("service", service);
         model.addAttribute("fileList", fileList);
         model.addAttribute("thumbnail", thumbnail);
         model.addAttribute("files", files);
-
+        
         return "reservation/reservationUpdate";
     }
-
+    
     /**
      * 수정처리
      * @param service
@@ -200,8 +199,10 @@ public class ReservationController {
      * @throws Exception
      */
     @PostMapping("/reservationUpdate")
-    public String updatePro(Services service) throws Exception {
-
+    public String updatePro(Services service, HttpSession session) throws Exception {
+        int partnerNo = (int) session.getAttribute("partnerNo");
+        service.setPartnerNo(partnerNo);
+        
         Files file = new Files();
         file.setParentTable("service");
         file.setParentNo(service.getServiceNo());

@@ -3,6 +3,8 @@ package com.daeut.daeut.auth.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,15 +115,35 @@ public class UserController {
     }
 
     /**
-     * 유저 채팅 내역
-     * @param serviceNo
+     * 유저 채팅방 생성
+     * @param chatRoom
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/userChatRoom")
+    public String createChatRoom(int partnerNo, Model model, HttpSession session) throws Exception{    
+        ChatRooms chatRoom = new ChatRooms();
+        chatRoom.setPartnerNo(partnerNo);
+
+        Users user = (Users) session.getAttribute("user");
+        int userNo = user.getUserNo();
+        chatRoom.setUserNo(userNo);
+
+        chatRoomService.merge(chatRoom);
+
+        return "redirect:/user/userChatRoom";
+    }
+
+    /**
+     * 유저 채팅 내역 - GET
      * @param model
      * @param session
      * @return
      * @throws Exception
      */
     @GetMapping("/userChatRoom")
-    public String userCoupon(Model model, HttpSession session) throws Exception {
+    public String userChatRooms(Model model, HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
         int userNo = user.getUserNo();
         
@@ -130,7 +153,6 @@ public class UserController {
         model.addAttribute("chatRoomList", chatRoomList);
         return "user/userChatRoom";
     }
-
 
     // 장바구니
     @GetMapping("/userCart")

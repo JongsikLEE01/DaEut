@@ -31,7 +31,7 @@
 				</svg>
 				<form action="/user/userChatRoom" method="post">
 					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-					<input type="hidden" name="serviceNo" th:value="${service.serviceNo}">
+					<input type="hidden" name="partnerNo" th:value="${service.partnerNo}">
 					<input type="submit" class="contact-link" value="문의하기"></input>
 				</form>
 			</div>

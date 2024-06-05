@@ -20,40 +20,36 @@
                 <a href="/user/userReservation">내 예약 보기</a>
                 <a href="/user/userLikeTip">내가 좋아하는 글</a>
                 <a href="/user/userReview">별점 및 리뷰 작성</a>
-                <a href="/user/userCoupon" class="userCoupon">채팅 내역</a>
+                <a href="/user/userChatRoom">채팅 내역</a>
                 <a href="/user/userPartner">파트너 신청</a>
-                <a href="/user/userchatRoom">채팅 내역</a>
             </nav>
 
-                <!-- 컨텐츠 영역 -->
-                <div class="col-md-9 col-lg-10 form-section" id="chatRoomSection">
-                    <h3>채팅 내역</h3>
-                    <p>채팅 내역을 눌러서 채팅창으로 이동 할 수 있어요</p>
-                    <br>
-                    <table class="table table-sm table-hover">
-                        <thead class="table-light">
-                            <tr>
-                                <th>No.</th>
-                                <th>파트너 이름</th>
-                                <th>채팅 시작일</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:if="${chatRoomList == null}">
-                                <td colspan="3">채팅 내역이 비어있어요</td>
-                            </tr>
-                            <tr th:if="${chatRoomList != null}" th:each="chatRoom, stat : ${chatRoomList}">
-                                <!-- CSRF TOKEN -->
-                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                                <input type="hidden" id="partnerNo" name="partnerNo" th:value="${chatRoom.partnerNo}">
-                                <td th:text="${stat.index + 1}"></td>
-                                <td th:text="${chatRoom.title}"></td>
-                                <td th:text="${#dates.format(chatRoom.regDate, 'MM-dd')}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            
+            <!-- 컨텐츠 영역 -->
+            <div class="col-md-9 col-lg-10 form-section" id="chatRoomSection">
+                <h3>채팅 내역</h3>
+                <p>채팅 내역을 눌러서 채팅창으로 이동 할 수 있어요</p>
+                <br>
+                <table class="table table-sm table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>No.</th>
+                            <th>내 채팅방</th>
+                            <th>채팅 시작일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${chatRoomList == null}">
+                            <td colspan="3">채팅 내역이 비어있어요</td>
+                        </tr>
+                        <tr th:if="${chatRoomList != null}" th:each="chatRoom, stat : ${chatRoomList}">
+                            <td th:text="${stat.index + 1}"></td>
+                            <td>
+                                <a th:href="|/reservation/chat?roomNo=${chatRoom.roomNo}|" th:text="${chatRoom.title}"></a>
+                            </td>
+                            <td th:text="${#dates.format(chatRoom.regDate, 'MM-dd')}"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
