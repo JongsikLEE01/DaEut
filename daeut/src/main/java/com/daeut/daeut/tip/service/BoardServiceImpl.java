@@ -35,6 +35,8 @@ public class BoardServiceImpl implements BoardService {
         page.setTotal(total);
 
         List<Board> boardList = boardMapper.list(page, option);
+        log.info("::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+        log.info("boardList : " + boardList);
         return boardList;
     }
 
@@ -54,12 +56,12 @@ public class BoardServiceImpl implements BoardService {
         int parentNo = boardMapper.maxPk();
 
         MultipartFile thumbnailFile = board.getThumbnail();
-
+        log.info("썸네일 파일 이름 : " + thumbnailFile.getOriginalFilename());
         if( thumbnailFile != null && !thumbnailFile.isEmpty() ) {
             Files thumbnail = new Files();
             thumbnail.setFile(thumbnailFile);
             thumbnail.setParentTable(parentTable);
-            thumbnail.setFileNo(parentNo);
+            thumbnail.setParentNo(parentNo);
             thumbnail.setFileCode(1);
             fileService.upload(thumbnail);
         }
@@ -74,7 +76,7 @@ public class BoardServiceImpl implements BoardService {
                 uploadFile.setParentTable(parentTable);
                 uploadFile.setParentNo(parentNo);
                 uploadFile.setFile(file);
-                uploadFile.setFileCode(0);
+                // uploadFile.setFileCode(0);
                 fileService.upload(uploadFile);
             }
         }

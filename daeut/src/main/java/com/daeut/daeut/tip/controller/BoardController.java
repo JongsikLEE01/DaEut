@@ -86,7 +86,7 @@ public class BoardController {
     // 게시글 등록 처리
     @PostMapping("/tipInsert")
     public String tipInsertPro(Board board) throws Exception {
-        // log.info(board.toString());
+        log.info(board.toString());
         int result = boardService.insert(board);
         if (result > 0) {
             return "redirect:/tip/index";
