@@ -114,14 +114,7 @@ public class UserController {
 
         return "user/userReservation";
     }
-
-    // 사용자 좋아요 게시글
-    @GetMapping("/userLikeTip")
-    public String userLikeTip() {
-        log.info("/user/userLikeTip");
-        return "/user/userLikeTip";
-    }
-
+    
     // 사용자 작성 리뷰
     @GetMapping("/userReview")
     public String userReview() {

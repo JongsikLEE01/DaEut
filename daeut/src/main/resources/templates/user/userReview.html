@@ -26,7 +26,7 @@
                 <hr class="completeHr">
                 <div class="grid review-form">
                     <h4 >서비스 품질 리뷰</h4>
-                    <form>
+                    <form th:action="@{/user/userReviewDone}" method="post">
                         <div class="item item-1 align-items-center mb-3">
                             <div class="col-sm-5">
                                 <img class="img-fluid" src="https://via.placeholder.com/150" alt="서비스 이미지">
@@ -54,7 +54,6 @@
                         </div>
                         <div class="form-buttons">
                             <button type="submit" class="btn btn-primary">등록하기</button>
-                            <button type="reset" class="btn btn-secondary">취소하기</button>
                         </div>
                     </form>
                 </div>
