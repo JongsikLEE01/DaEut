@@ -42,8 +42,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         // 클라이언트 -> 서버에 대한 엔드포인트 설정
-        config.setApplicationDestinationPrefixes("/app");
-        // 서버 -> 클라이언트에 대한 엔드포인트 설정
-        config.enableSimpleBroker("/room");
+        // 메세지 발행 요청, 메세지 보낼때
+        config.setApplicationDestinationPrefixes("/pub");
+        // 서버 -> 클라이언트에 대한 엔드포인트 설정 
+        // 메세지 구독 요청, 메세지 받을때
+        config.enableSimpleBroker("/sub");
     }
 }

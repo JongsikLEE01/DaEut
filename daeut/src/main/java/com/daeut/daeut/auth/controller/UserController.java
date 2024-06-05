@@ -116,7 +116,7 @@ public class UserController {
         return "/user/userReview";
     }
 
-    /**
+     /**
      * 유저 채팅방 생성
      * @param chatRoom
      * @param model
@@ -148,7 +148,7 @@ public class UserController {
     public String userChatRooms(Model model, HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
         int userNo = user.getUserNo();
-        
+
         List<ChatRooms> chatRoomList = chatRoomService.selectByUserNo(userNo);
 
         model.addAttribute("user", user);
