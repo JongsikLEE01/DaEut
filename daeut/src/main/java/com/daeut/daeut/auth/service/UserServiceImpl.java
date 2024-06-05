@@ -221,18 +221,20 @@ public class UserServiceImpl implements UserService {
 
     // 파트너 신청
     @Override
-    public void insertPartner(Partner partner) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insertPartner'");
+    public int insertPartner(Partner partner) throws Exception {
+        return userMapper.insertPartner(partner);
     }
 
     // 파트너 신청 대기
     @Override
-    public void updateUserStatus(int userNo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUserStatus'");
+    public int updateUserStatus(int userNo) throws Exception {
+        return userMapper.updateUserStatus(userNo);
     }
 
+    @Override
+    public Partner selectUserAndPartnerDetails(int userNo) throws Exception {
+        return userMapper.selectUserAndPartnerDetails(userNo);
+    }
     
     // 파트너 승인
     // TODO Auto-generated method stub

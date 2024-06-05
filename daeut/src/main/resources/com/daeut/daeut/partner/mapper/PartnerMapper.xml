@@ -41,5 +41,7 @@ WHERE r.partner_no = #{partnerNo}
         FROM partner 
         WHERE partner_no = #{partnerNo}
     </select>
+
+    
   
 </mapper>

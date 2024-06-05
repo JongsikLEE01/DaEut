@@ -20,7 +20,6 @@ public class Partner {
     private int partnerNo;
     private int partnerGrade;
     private int partnerReserve;
-
     private String partnerCareer;
     private String introduce;
     private int userNo;
