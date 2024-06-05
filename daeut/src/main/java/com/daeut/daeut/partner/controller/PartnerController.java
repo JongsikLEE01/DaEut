@@ -158,6 +158,7 @@ public String deleteUser(@RequestParam("userNo") int userNo, @RequestParam("user
 
     // 파트너 리뷰란
     @GetMapping("/partnerReview")
+    @Transactional
     public String getReviewsByPartnerNo(Model model, HttpSession session) throws Exception {
         try {
             Integer partnerNo = (Integer) session.getAttribute("partnerNo");
