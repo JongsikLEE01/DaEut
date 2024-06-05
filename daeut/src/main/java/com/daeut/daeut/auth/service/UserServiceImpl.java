@@ -9,18 +9,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.beans.factory.annotation.Value;
-
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
 
-import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
-
-import com.daeut.daeut.reservation.dto.Reservation;
-
-import kotlin.OverloadResolutionByLambdaReturnType;
+import com.daeut.daeut.reservation.dto.Orders;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -152,8 +146,8 @@ public class UserServiceImpl implements UserService {
 
     // 예약
     @Override
-    public List<Reservation> selectReservationsByUserId(String userId) {
-        return userMapper.selectReservationsByUserId(userId);
+    public List<Orders> selectOrdersByUserId(String userId) throws Exception {
+        return userMapper.selectOrdersByUserId(userId);
     }
 
     // 파트너 찾기

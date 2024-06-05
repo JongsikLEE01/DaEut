@@ -209,16 +209,22 @@
     </delete>
 
     <!-- 예약 가져오기 -->
-    <select id="selectReservationsByUserId" resultType="Reservation">
-        SELECT r.reservation_no, r.user_no, r.service_no, r.partner_no, r.reservation_status, r.order_no, r.total_quantity,
-               r.total_price, r.reg_date, r.upd_date, r.cancel_no, 
-               u.user_name, u.user_address, 
-               pu.user_name AS partner_name, s.service_name
-        FROM reservation r
-        JOIN users u ON r.user_no = u.user_no
-        JOIN partner p ON r.partner_no = p.partner_no
+    <select id="selectOrdersByUserId" resultType="com.daeut.daeut.reservation.dto.Orders">
+        SELECT 
+            o.orders_no AS ordersNo, 
+            o.user_no AS userNo, 
+            o.order_status AS orderStatus, 
+            o.total_quantity AS totalQuantity, 
+            o.total_price AS totalPrice, 
+            o.reg_date AS regDate,
+            u.user_name AS userName, 
+            u.user_address AS userAddress, 
+            pu.user_name AS partnerName, 
+            o.title AS serviceName
+        FROM orders o
+        JOIN users u ON o.user_no = u.user_no
+        JOIN partner p ON o.partner_no = p.partner_no
         JOIN users pu ON p.user_no = pu.user_no
-        JOIN service s ON r.service_no = s.service_no
         WHERE u.user_id = #{userId}
     </select>
 
@@ -228,7 +234,6 @@
         FROM users
         INNER JOIN partner ON users.user_no = partner.user_no
         WHERE users.user_no = #{userId}
-
     </select>
          
     <!-- userNo 유저 찾기 -->
