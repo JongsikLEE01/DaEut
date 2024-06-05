@@ -45,6 +45,11 @@ public class AdminController {
     //  @Autowired
     // private PasswordEncoder passwordEncoder;
 
+    // 회원가입 화면
+    @GetMapping("/join")
+    public String join() {
+        return "/admin/join";
+    }
 
     // 아이디 중복 확인
     @GetMapping("/check-duplicate")
@@ -66,11 +71,7 @@ public class AdminController {
         return response;
     }
 
-    @GetMapping("/join")
-    public String join() {
-        return "/admin/join";
-    }
-
+    // 회원가입 처리
     @PostMapping("/join")
     public String adminJoin(@ModelAttribute Users user, @RequestParam String systemPw, Model model) {
         try {
@@ -89,50 +90,57 @@ public class AdminController {
         }
     }
 
-    
+    // 회원가입 완료
     @GetMapping("/joinDone")
     public String joinDone() {
         return "/admin/joinDone";
     }
 
-
+    // 관리자 - 회원 목록
     @GetMapping("/adminUser")
     public String adminUser(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNumber) throws Exception {
-        int total = userService.countUsers(); // 총 사용자 수 계산
+        int total = adminService.countUsers(); // 총 사용자 수 계산
         Page page = new Page(pageNumber, total); // Page 객체 초기화
-        List<Users> userList = userService.selectAllUsers(page);
+        List<Users> userList = adminService.selectAllUsers(page);
         model.addAttribute("userList", userList);
         model.addAttribute("page", page);
         return "/admin/adminUser";
     }
+
+    // 관리자 - 파트너 목록
     @GetMapping("/adminPartner")
     public String adminPartner(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNumber) throws Exception {
-        int total = userService.countPartners(); // 총 사용자 수 계산
+        int total = adminService.countPartners(); // 총 사용자 수 계산
         Page page = new Page(pageNumber, total); // Page 객체 초기화
-        List<Partner> partnerList = userService.selectAllPartners(page);
+        List<Partner> partnerList = adminService.selectAllPartners(page);
         model.addAttribute("partnerList", partnerList);
         model.addAttribute("page", page);
         return "/admin/adminPartner"; // 경로 수정
     }
 
+    // 관리자 - 회원 조회
     @GetMapping("/adminUserRead/{userNo}")
     public String adminUserRead(@PathVariable("userNo") int userNo, Model model) throws Exception {
-        Users user = userService.findUserById(userNo);
+        Users user = adminService.findUserById(userNo);
         log.info(user.toString());
         model.addAttribute("user", user);
         return "/admin/adminUserRead";
     }
+
+    // 관리자 - 회원 수정 화면
     @GetMapping("/adminUserUpdate/{userNo}")
     public String adminUserUpdate(@PathVariable("userNo") int userNo, Model model) throws Exception {
-        Users user = userService.findUserById(userNo);
+        Users user = adminService.findUserById(userNo);
         model.addAttribute("user", user);
         log.info("업데이트 화면이동...");
         log.info(user.toString());
         return "/admin/adminUserUpdate";
     }
+
+    // 관리자 - 회원 수정 처리
     @PostMapping("/adminUserUpdate/{userNo}")
     public String adminUserUpdatePro(Users user, @RequestParam("userNo") int userNo, Model model) throws Exception {
-        Users existingUser = userService.findUserById(userNo);
+        Users existingUser = adminService.findUserById(userNo);
         // String newPassword = user.getUserPassword();
 
         // // 비밀번호가 입력된 경우에만 처리
@@ -150,7 +158,7 @@ public class AdminController {
         //     user.setUserPassword(existingUser.getUserPassword());
         // }
 
-        int result = userService.adminUpdateUser(user);
+        int result = adminService.adminUpdateUser(user);
         log.info("회원 수정 중.....");
         int no = user.getUserNo();
         if (result > 0) {
@@ -160,39 +168,47 @@ public class AdminController {
         model.addAttribute("user", existingUser); // 기존 사용자 정보를 다시 전달
         return "admin/adminUserUpdate";
     }
+
+    // 관리자 - 회원 삭제 처리
     @PostMapping("/adminUserDelete")
     public String adminUserDelete(@RequestParam("userNo") int userNo, Model model) throws Exception {
-        int result = userService.adminDeleteUser(userNo);
+        int result = adminService.adminDeleteUser(userNo);
         if (result > 0) {
             return "redirect:/admin/adminUser";
         }
         model.addAttribute("error", "사용자 삭제에 실패했습니다.");
-        Users user = userService.findUserById(userNo); // 삭제 실패 시 사용자 정보를 다시 가져와서 모델에 추가
+        Users user = adminService.findUserById(userNo); // 삭제 실패 시 사용자 정보를 다시 가져와서 모델에 추가
         model.addAttribute("user", user);
         return "admin/adminUserUpdate";
     }
     
+   
 
+    // 관리자 - 파트너 조회 화면
     @GetMapping("/adminPartnerRead/{userNo}")
     public String adminPartnerRead(@PathVariable("userNo") int userNo, Model model) throws Exception {
-        Partner partner = userService.findPartnerById(userNo);
+        Partner partner = adminService.findPartnerById(userNo);
         log.info(partner.toString());
         model.addAttribute("partner", partner);
         return "/admin/adminPartnerRead";
     }
+
+    // 관리자 - 파트너 수정 화면 
     @GetMapping("/adminPartnerUpdate/{userNo}")
     public String adminPartnerUpdate(@PathVariable("userNo") int userNo, Model model) throws Exception {
-        Partner partner = userService.findPartnerById(userNo);
+        Partner partner = adminService.findPartnerById(userNo);
         model.addAttribute("partner", partner);
         log.info("업데이트 화면 이동....");
         log.info(partner.toString());
         return "/admin/adminPartnerUpdate";
 
     }
+
+    // 관리자 - 파트너 수정 처리
     @PostMapping("/adminPartnerUpdate/{userNo}")
     public String adminPartnerUpdatePro(Partner partner, @RequestParam("userNo") int userNo, Model model) throws Exception {
-        Partner existingUser = userService.findPartnerById(userNo);
-        int result = userService.adminUpdatePartner(partner);
+        Partner existingUser = adminService.findPartnerById(userNo);
+        int result = adminService.adminUpdatePartner(partner);
         log.info("회원 수정 중..... result: " + result);
         int no = partner.getUserNo();
         if (result > 0) {
@@ -203,7 +219,7 @@ public class AdminController {
         return "admin/adminPartnerUpdate";
     }
 
-
+    // 관리자 - 회원 선택 삭제 
     @PostMapping("/user/delete")
     public String selectedUserDelete(String[] deleteNoList) throws Exception {
         log.info(":::::::::: 선택한 유저 번호들 ::::::::::");
@@ -211,12 +227,13 @@ public class AdminController {
         for (String no : deleteNoList) {
             log.info("no  : " + no);
         }
-        int result = userService.deleteList(deleteNoList);
+        int result = adminService.deleteList(deleteNoList);
         log.info("삭제된 회원 수 : " + result);
 
         return "redirect:/admin/adminUser";
     }
 
+    // 관리자 - 파트너 선택 삭제 
     @PostMapping("/partner/delete")
     public String selectedPartnerDelete(String[] deleteNoList) throws Exception {
         log.info(":::::::::: 선택한 유저 번호들 ::::::::::");
@@ -224,12 +241,13 @@ public class AdminController {
         for (String no : deleteNoList) {
             log.info("no  : " + no);
         }
-        int result = userService.deleteList(deleteNoList);
+        int result = adminService.deleteList(deleteNoList);
         log.info("삭제된 회원 수 : " + result);
 
         return "redirect:/admin/adminPartner";
     }
 
+    // 관리자 - 예약 조회 화면
     @GetMapping("/adminReservation")
     public String selectReservations(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNumber) throws Exception {
         int total = adminService.countReservations(); // 총 예약 수 계산

@@ -39,7 +39,8 @@
         <result property="introduce" column="introduce" />
         <association property="user" column="user_no" javaType="Users" select="selectUserById" />
     </resultMap>
-    
+
+    <!-- 다우니다우니다우니다우니다우니다우니다우니다우니다우니다우니 -->
     <!-- 로그인 - username -->
     <select id="login" resultMap="userMap">
         SELECT u.user_no
@@ -103,62 +104,24 @@
         WHERE u.user_email = #{userEmail}
     </select>
 
-    <!-- 회원 가입 -->
-    <insert id="join" useGeneratedKeys="true" keyProperty="userNo">
-        INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password, user_coupon)
-        VALUES (#{userName}, #{userPhone}, #{userBirth}, #{userAddress}, #{userEmail}, #{userGender}, #{userId}, #{userPassword}, #{userCoupon})
-    </insert>
-
-    <!-- 회원 정보 수정 -->
-    <update id="update">
-        UPDATE users
-           SET user_password = #{userPassword}
-              ,user_name = #{userName}
-              ,user_phone = #{userPhone}
-              ,user_address = #{userAddress}
-              ,user_birth = #{userBirth}
-              ,user_upd_date = now()
-        WHERE user_id = #{userId}
-    </update>
-
     <!-- 회원 권한 등록 -->
     <insert id="insertAuth">
         INSERT INTO user_auth( user_no, auth )
         VALUES ( #{userNo}, #{auth} )
     </insert>
 
-    <!-- 회원 삭제 -->
-    <delete id="delete">
-        DELETE FROM users
-        WHERE user_no = #{userNo}
-          AND user_id = #{userId}
-    </delete>
+    <!-- 회원 가입 -->
+    <insert id="join" useGeneratedKeys="true" keyProperty="userNo">
+        INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password, user_coupon)
+        VALUES (#{userName}, #{userPhone}, #{userBirth}, #{userAddress}, #{userEmail}, #{userGender}, #{userId}, #{userPassword}, #{userCoupon})
+    </insert>
 
-    <!-- user 및 partner 테이블에서 정보를 조회 -->
-    <select id="selectUserAndPartnerDetails" resultType="com.daeut.daeut.partner.dto.Partner">
-        SELECT 
-            u.user_no AS userNo,
-            u.user_name AS userName,
-            u.user_phone AS userPhone,
-            u.user_birth AS userBirth,
-            u.user_address AS userAddress,
-            u.user_email AS userEmail,
-            u.user_gender AS userGender,
-            u.user_id AS userId,
-            u.user_password AS userPassword,
-            u.user_reg_date AS userRegDate,
-            u.user_coupon AS userCoupon,
-            u.user_upd_date AS userUpdDate,
-            u.enabled,
-            u.status,
-            p.partner_no AS partnerNo,
-            p.partner_grade AS partnerGrade,
-            p.partner_reserve AS partnerReserve,
-            p.partner_career AS partnerCareer,
-            p.introduce
+    <!-- 아이디 찾기 -->
+    <select id="findUserByDetails" resultType="String">
+        SELECT u.user_id
         FROM users u
-        LEFT JOIN partner p ON u.user_no = p.user_no
-        WHERE u.user_no = #{userNo}
+        LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
+        WHERE u.user_name = #{userName} AND u.user_email = #{userEmail} AND u.user_phone = #{userPhone}
     </select>
 
     <!-- 파트너 신청 대기 -->
@@ -196,14 +159,54 @@
         INSERT INTO user_auth( user_no, auth )
         VALUES ( (SELECT user_no FROM users WHERE user_id = #{userId}), 'role_partner' );
     </update> -->
+    <!-- 다우니다우니다우니다우니다우니다우니다우니다우니다우니다우니 -->
 
-    <!-- 아이디 찾기 -->
-    <select id="findUserByDetails" resultType="String">
-        SELECT u.user_id
+    <!-- 준호준호준호준호준호준호준호준호준호준호준호준호준호준호준호 -->
+    <!-- user 및 partner 테이블에서 정보를 조회 -->
+    <select id="selectUserAndPartnerDetails" resultType="com.daeut.daeut.partner.dto.Partner">
+        SELECT 
+            u.user_no AS userNo,
+            u.user_name AS userName,
+            u.user_phone AS userPhone,
+            u.user_birth AS userBirth,
+            u.user_address AS userAddress,
+            u.user_email AS userEmail,
+            u.user_gender AS userGender,
+            u.user_id AS userId,
+            u.user_password AS userPassword,
+            u.user_reg_date AS userRegDate,
+            u.user_coupon AS userCoupon,
+            u.user_upd_date AS userUpdDate,
+            u.enabled,
+            u.status,
+            p.partner_no AS partnerNo,
+            p.partner_grade AS partnerGrade,
+            p.partner_reserve AS partnerReserve,
+            p.partner_career AS partnerCareer,
+            p.introduce
         FROM users u
-        LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
-        WHERE u.user_name = #{userName} AND u.user_email = #{userEmail} AND u.user_phone = #{userPhone}
+        LEFT JOIN partner p ON u.user_no = p.user_no
+        WHERE u.user_no = #{userNo}
     </select>
+
+     <!-- 회원 정보 수정 -->
+    <update id="update">
+        UPDATE users
+           SET user_password = #{userPassword}
+              ,user_name = #{userName}
+              ,user_phone = #{userPhone}
+              ,user_address = #{userAddress}
+              ,user_birth = #{userBirth}
+              ,user_upd_date = now()
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 회원 삭제 -->
+    <delete id="delete">
+        DELETE FROM users
+        WHERE user_no = #{userNo}
+          AND user_id = #{userId}
+    </delete>
 
     <!-- 예약 가져오기 -->
     <select id="selectReservationsByUserId" resultType="Reservation">
@@ -219,89 +222,6 @@
         WHERE u.user_id = #{userId}
     </select>
 
-
-    <!-- ROLE_USER만 가진 사람 가져오기 - 관리자 페이지에서 회원 관리 -->
-    <select id="selectAllUsers" resultType="Users">
-        SELECT 
-            a.user_no, a.user_name, a.user_phone, a.user_birth, a.user_address,
-            a.user_email, a.user_gender, a.user_id, a.user_password, a.user_reg_date,
-            a.user_coupon, a.user_upd_date, a.enabled, a.status
-        FROM 
-            users a
-        WHERE 
-            NOT EXISTS (
-                SELECT 1 
-                FROM user_auth b
-                WHERE b.user_no = a.user_no 
-                AND b.auth NOT IN ('ROLE_USER')
-            )
-         LIMIT #{page.index}, #{page.rows}
-    </select>
-
-    <!-- ROLE_USER, ROLE_PARTNER만 가진 사람 가져오기 - 관리자 페이지에서 회원 관리 -->
-    <select id="selectAllPartners" resultType="Partner">
-        SELECT 
-            a.user_no AS userNo, 
-            a.user_name AS userName, 
-            a.user_phone AS userPhone, 
-            a.user_birth AS userBirth, 
-            a.user_address AS userAddress,
-            a.user_email AS userEmail, 
-            a.user_gender AS userGender, 
-            a.user_id AS userId, 
-            a.user_password AS userPassword, 
-            a.user_reg_date AS userRegDate,
-            a.user_coupon AS userCoupon, 
-            a.user_upd_date AS userUpdDate, 
-            a.enabled, 
-            a.status,
-            p.partner_grade AS partnerGrade, 
-            p.partner_reserve AS partnerReserve, 
-            p.partner_career AS partnerCareer, 
-            p.introduce
-        FROM 
-            users a
-        LEFT JOIN 
-            partner p ON a.user_no = p.user_no
-        WHERE 
-            a.status IN (1, 2)
-            AND EXISTS (
-                SELECT 1 
-                FROM user_auth b
-                WHERE b.user_no = a.user_no 
-                AND b.auth IN ('ROLE_PARTNER', 'ROLE_USER')
-            )
-        LIMIT #{page.index}, #{page.rows}
-    </select>
-
-
-    <!-- 사용자 수를 카운트하는 쿼리 -->
-    <select id="countUsers" resultType="int">
-        SELECT COUNT(*)
-        FROM users u
-        WHERE NOT EXISTS (
-            SELECT 1
-            FROM user_auth b
-            WHERE b.user_no = u.user_no
-            AND b.auth NOT IN ('ROLE_USER')
-        )
-    </select>
-
-    <!-- 사용자(관리자) 수를 카운트하는 쿼리 -->
-    <select id="countPartners" resultType="int">
-        SELECT COUNT(*)
-        FROM users u
-        WHERE 
-            u.status IN (1, 2)
-            AND EXISTS (
-                SELECT 1 
-                FROM user_auth b
-                WHERE b.user_no = u.user_no 
-                AND b.auth IN ('ROLE_PARTNER', 'ROLE_USER')
-            )
-        
-    </select>
-
     <!-- 파트너정보 가져오기 -->
     <select id="selectPartner">
         SELECT partner.*
@@ -310,20 +230,7 @@
         WHERE users.user_no = #{userId}
 
     </select>
-
-    <!-- 관리자 - 회원 선택 삭제 -->
-    <delete id="deleteList">
-        DELETE FROM users
-        WHERE user_no IN ( ${userNoList} )
-    </delete>
-
-    <!-- 관리자 - 파트너 선택 삭제 -->
-    <delete id="deleteListPartner">
-        DELETE FROM partner
-        WHERE user_no IN ( ${partnerNoList} )
-    </delete>
-
-
+         
     <!-- userNo 유저 찾기 -->
     <select id="selectByUserNo">
         select *
@@ -337,97 +244,8 @@
         FROM users 
         WHERE username = #{username}
     </select>
-
-    <!-- 관리자 회원 조회 - user_no -->
-    <select id="findUserById" resultMap="userMap">
-        SELECT u.user_no
-            ,u.user_name
-            ,u.user_phone
-            ,u.user_birth
-            ,u.user_address
-            ,u.user_email
-            ,u.user_gender
-            ,u.user_id
-            ,u.user_password
-            ,u.user_reg_date
-            ,u.user_coupon
-            ,u.user_upd_date
-            ,u.enabled
-            ,auth.auth
-        FROM users u 
-        LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
-        WHERE u.user_no = #{userNo}
-    </select>
-
-    <!-- 관리자 회원 수정 -->
-    <update id="adminUpdateUser">
-        UPDATE users
-        SET 
-            <!-- user_password = #{userPassword}, -->
-            user_name = #{userName},
-            user_phone = #{userPhone},
-            user_address = #{userAddress},
-            user_birth = #{userBirth},
-            user_upd_date = now()
-        WHERE 
-            user_no = #{userNo}
-    </update>
-
-    <!-- 관리자 회원 삭제 -->
-    <delete id="adminDeleteUser">
-        DELETE FROM users
-        WHERE user_no = #{userNo}
-    </delete>
-
-    <!-- 관리자 파트너 조회 - user_no -->
-    <select id="findPartnerById" resultType="Partner">
-        SELECT 
-            u.user_no AS userNo, 
-            u.user_name AS userName, 
-            u.user_phone AS userPhone, 
-            u.user_birth AS userBirth, 
-            u.user_address AS userAddress,
-            u.user_email AS userEmail, 
-            u.user_gender AS userGender, 
-            u.user_id AS userId, 
-            u.user_password AS userPassword, 
-            u.user_reg_date AS userRegDate,
-            u.user_coupon AS userCoupon, 
-            u.user_upd_date AS userUpdDate, 
-            u.enabled AS enabled, 
-            u.status AS status,
-            p.partner_grade AS partnerGrade, 
-            p.partner_reserve AS partnerReserve, 
-            p.partner_career AS partnerCareer, 
-            p.introduce
-        FROM 
-            users u
-        LEFT JOIN 
-            partner p ON u.user_no = p.user_no
-        WHERE 
-            u.status IN (1, 2)
-            AND EXISTS (
-                SELECT 1 
-                FROM user_auth b
-                WHERE b.user_no = u.user_no 
-                AND b.auth IN ('ROLE_PARTNER', 'ROLE_USER')
-            )
-        AND u.user_no = #{userNo}
-    </select>
-
-    <!-- 관리자 파트너 수정 -->
-    <update id="adminUpdatePartner">
-        UPDATE users u
-        JOIN partner p ON u.user_no = p.user_no
-        SET u.user_name = #{userName}, 
-            u.user_phone = #{userPhone}, 
-            u.user_address = #{userAddress}, 
-            u.user_upd_date = now(), 
-            p.partner_career = #{partnerCareer}, 
-            p.introduce = #{introduce}
-        WHERE u.user_no = #{userNo};
-    </update>
-
+    <!-- 준호준호준호준호준호준호준호준호준호준호준호준호준호준호준호 -->
+    
 
 
 
