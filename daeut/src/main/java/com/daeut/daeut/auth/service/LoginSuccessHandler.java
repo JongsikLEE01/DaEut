@@ -80,6 +80,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             }
             if(partner != null) {
                 session.setAttribute("partnerNo", partner.getPartnerNo());
+                session.setAttribute("introduce", partner.getIntroduce());
                 log.info("파트너 번호 {}가 세션에 저장되었습니다.", partner.getPartnerNo());
             }
         }

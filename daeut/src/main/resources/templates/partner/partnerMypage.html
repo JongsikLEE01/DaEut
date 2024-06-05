@@ -21,6 +21,9 @@
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>내 정보 변경</h3>
                 <form>
+                    <input type="hidden" name="userId" th:value="${user.userId}">
+                    <input type="hidden" name="userNo" th:value="${user.userNo}">
+                    <input type="hidden" name="introduce" th:value="${partner.introduce}">
                     <div class="form-group mb-3">
                         <label for="userid">아이디</label>
                         <input type="text" class="form-control" id="userid" th:placeholder="${user.userId}" disabled>

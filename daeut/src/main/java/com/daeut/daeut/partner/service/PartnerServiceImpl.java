@@ -28,6 +28,12 @@ public class PartnerServiceImpl implements PartnerService {
     @Autowired
     private UserService userService;
 
+    
+    public PartnerServiceImpl(UserService userService, PartnerMapper partnerMapper) {
+        this.userService = userService;
+        this.partnerMapper = partnerMapper;
+    }
+
 
     // 파트너 정보 가져오기
     @Override
@@ -46,8 +52,15 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     @Transactional
     public int partnerUpdate(Partner partner, Users user) throws Exception {
-        int userUpdateResult = userService.update(user);
+
+        log.info("Updating user: {}", user);
+        log.info("Updating partner: {}", partner);
+
+         int userUpdateResult = userService.update(user);
+        log.info("User update result: {}", userUpdateResult);
+
         int partnerUpdateResult = partnerMapper.partnerUpdate(partner, user);
+        log.info("Partner update result: {}", partnerUpdateResult);
     
         // 둘 중 하나라도 실패하면 실패로 처리하기
         int result = userUpdateResult + partnerUpdateResult;
