@@ -53,9 +53,6 @@ public interface UserService {
     // 예약
     public List<Reservation> getUserReservations(String userId) throws Exception;
 
-    // 관리자 회원가입
-    public void adminJoin(Users user, String systemPw) throws Exception;
-
     // 모든 사용자 목록 조회
     public int countUsers() throws Exception;
     public List<Users> selectAllUsers(Page page) throws Exception;

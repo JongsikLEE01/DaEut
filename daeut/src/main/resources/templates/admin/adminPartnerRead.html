@@ -36,7 +36,7 @@
                             <form class="ms-5" action="#" method="POST"><!-- form 작성 필요 -->
                                 <!-- CSRF TOKEN -->
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                                <input type="text" th:name="${partner.userNo}" th:value="${partner.userNo}" id="userNo">
+                                <!-- <input type="text" th:name="${partner.userNo}" th:value="${partner.userNo}" id="userNo"> -->
                                 <div class="form-group form-section p-1 mt-5 text-start">
                                     <label for="partnerName">이름</label>
                                     <input type="text" class="form-control" id="partnerName" th:value="${partner.userName}" readonly>
@@ -78,12 +78,6 @@
     
         </div>
     </main>
-    <script>
-        function sival() {
-            var sival = document.getElementById('partnerNo').value();
 
-            alert(sival);
-        }
-    </script>
 </body>
 </html>
