@@ -20,7 +20,7 @@
             </nav>
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>내 정보 변경</h3>
-                <form th:action="@{/partner/partnerMypageUpdatePro}" method="post">
+                <form id="form" th:action="@{/partner/partnerMypageUpdatePro}" method="post">
                     <input type="hidden" th:name="userNo" th:value="${user.userNo}" />
                     <input type="hidden" th:name="userId" th:value="${user.userId}" />
                     <input type="hidden" th:name="partnerNo" th:value="${partner.userNo}" />
@@ -62,12 +62,27 @@
                     <div class="form-buttons">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                         <a href="partnerMypage" class="btn btn-secondary cancel">뒤로가기</a>
-                        <button type="submit" class="btn btn-danger cancel" name="action" value="delete">탈퇴하기</button>
+                        <!-- <button type="submit" class="btn btn-danger cancel" name="action" value="delete">탈퇴하기</button> -->
+                        <button type="button" class="btn btn-danger cancel" onclick="actionDelete()">탈퇴하기</button>
                         <button type="submit" class="btn btn-primary sessuce color_main" name="action" th:value="${partner.userNo}">정보 수정</button>
                     </div>
                 </form>
             </div>
         </div>
     </main>
+
+    <script>
+        let form = document.getElementById('form');
+
+        // 탈퇴 처리 함수
+        function actionDelete() {
+            let check = confirm('정말로 탈퇴하시겠습니까?');
+            if (check) {
+                form.action = '/partner/deleteUser'; // 탈퇴 처리를 담당하는 URL로 설정
+                form.method = 'post'; // POST 메소드로 설정
+                form.submit(); // 폼 제출
+            }
+        }
+    </script>   
 </body>
 </html>
