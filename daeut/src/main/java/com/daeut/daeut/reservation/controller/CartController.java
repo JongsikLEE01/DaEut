@@ -1,8 +1,11 @@
 package com.daeut.daeut.reservation.controller;
 
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.reservation.dto.Cart;
+import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.CartService;
+import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Slf4j
@@ -27,6 +28,12 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private ReservationService reservationService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 장바구니 목록 조회
@@ -55,12 +62,18 @@ public class CartController {
      * @writer jslee
      * @param cart
      * @return
+     * @throws Exception 
      */
     @PostMapping("/add")
-    public ResponseEntity<String> addCart(@RequestBody Cart cart, HttpSession session) {
+    public ResponseEntity<String> addCart(@RequestBody Cart cart, HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
         cart.setUserNo(user.getUserNo());
         cart.setCartAmount(1);
+
+        int serviceNo = cart.getServiceNo();
+        Services services = reservationService.serviceSelect(serviceNo);
+        Users partner = userService.selectByUserNo(services.getPartnerNo());
+        cart.setPartnerName(partner.getUserName());
 
         int result = 0;
         try {

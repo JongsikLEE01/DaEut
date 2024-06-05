@@ -15,4 +15,5 @@ public class ChatRooms {
 
     // ------------------------
     private List<Chats> chats;
+    private String title;
 }

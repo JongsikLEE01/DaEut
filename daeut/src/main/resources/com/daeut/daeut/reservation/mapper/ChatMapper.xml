@@ -34,7 +34,7 @@
     <!-- 업데이트 -->
     <update id="update">
         UPDATE chat
-        SET chat_content = #{chatContent}, chat_reg_date = #{chatRegDate}, user_no = #{userNo}, room_no = #{roomNo}
+        SET chat_content = #{chatContent}, chat_reg_date = #{ChatRegDate}, user_no = #{userNo}, room_no = #{roomNo}
         WHERE chat_no = #{chatNo}
     </update>
 

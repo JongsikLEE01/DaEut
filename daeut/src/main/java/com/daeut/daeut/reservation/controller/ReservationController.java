@@ -99,7 +99,13 @@ public class ReservationController {
         model.addAttribute("service", service);
         model.addAttribute("user", user);
 		return "reservation/chat";
-	} 
+	}
+
+    @GetMapping("/chat")
+    public void getChat(int serviceNo, Model model, HttpSession session) throws Exception {
+        chat(serviceNo, model, session);
+    }
+    
     
     /**
      * 단일 조회

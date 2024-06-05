@@ -19,7 +19,7 @@ public class CartServiceImpl implements CartService{
     @Autowired
     private CartMapper cartMapper;
 
-    // 목록
+// 목록
     @Override
     public List<Cart> cartList(int userNo) throws Exception {
         List<Cart> cartList = cartMapper.cartList(userNo);
@@ -30,6 +30,7 @@ public class CartServiceImpl implements CartService{
     @Override
     public int cartInsert(Cart cart) throws Exception {
         int result = cartMapper.cartInsert(cart);
+
         return result;
     }
 

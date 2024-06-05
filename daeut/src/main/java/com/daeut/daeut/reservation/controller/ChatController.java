@@ -2,6 +2,8 @@ package com.daeut.daeut.reservation.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +11,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Chats;
 import com.daeut.daeut.reservation.service.ChatRoomService;
@@ -44,6 +48,20 @@ public class ChatController {
     @Autowired
     private ChatRoomService chatRoomService;
 
+    // // 채팅으로 이동
+    // @GetMapping("/userChatRoom")
+    // public String goChatRoom(Model model, HttpSession session) throws Exception{
+    //     Users user = (Users) session.getAttribute("user");
+    //     int userNo = user.getUserNo();
+
+    //     List<ChatRooms> chatRoomList = chatRoomService.selectByUserNo(userNo);
+    //     log.info("All chatRoomList {}", chatRoomList);
+
+    //     model.addAttribute("chatRoomList", chatRoomList);
+    //     return "user/userChatRoom";
+    // }
+    
+
     /**
      * 채팅방 생성
      * @writer JSLEE
@@ -72,15 +90,15 @@ public class ChatController {
      * @param chat
      * @throws Exception
      */
-    @MessageMapping("/chat.sendMessage")
-    public void sendMessage(Chats chat) throws Exception {
-        int userNo = chat.getUserNo();
-
+    @MessageMapping("/chat/sendMessage")
+    public String sendMessage(Chats chat) throws Exception {
         chatService.insert(chat);
         log.info("chat? "+chat);
 
         // 클라이언트에게 메시지 전송
         messagingTemplate.convertAndSend("/topic/public", chat);
+
+        return "redirect:/reservation/chat";
     }
     
 

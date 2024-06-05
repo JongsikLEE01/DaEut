@@ -15,8 +15,10 @@ import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Cart;
+import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.CartService;
+import com.daeut.daeut.reservation.service.ChatRoomService;
 import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -42,6 +45,9 @@ public class UserController {
 
     @Autowired
     private PartnerService partnerService;
+
+    @Autowired
+    private ChatRoomService chatRoomService;
 
     @GetMapping("/userMypage")
     public String userMypage(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
@@ -105,10 +111,24 @@ public class UserController {
         return "/user/userReview";
     }
 
-    @GetMapping("/userCoupon")
-    public String userCoupon() {
-        log.info("/user/userCoupon");
-        return "/user/userCoupon";
+    /**
+     * 유저 채팅 내역
+     * @param serviceNo
+     * @param model
+     * @param session
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/userChatRoom")
+    public String userCoupon(Model model, HttpSession session) throws Exception {
+        Users user = (Users) session.getAttribute("user");
+        int userNo = user.getUserNo();
+        
+        List<ChatRooms> chatRoomList = chatRoomService.selectByUserNo(userNo);
+
+        model.addAttribute("user", user);
+        model.addAttribute("chatRoomList", chatRoomList);
+        return "user/userChatRoom";
     }
 
 

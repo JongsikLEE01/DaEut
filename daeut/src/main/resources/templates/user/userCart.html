@@ -21,7 +21,7 @@
                 <a href="/user/userReservation">내 예약 보기</a>
                 <a href="/user/userLikeTip">내가 좋아하는 글</a>
                 <a href="/user/userReview">별점 및 리뷰 작성</a>
-                <a href="/user/userCoupon">내 쿠폰</a>
+                <a href="/user/userCoupon">채팅 내역</a>
                 <a href="/user/userPartner">파트너 신청</a>
                 <a href="/user/userCart">장바구니</a>
             </nav>
@@ -38,7 +38,8 @@
                         <tr>
                             <th></th>
                             <th>No.</th>
-                            <th>서비스 이름</th>
+                            <th>서비스</th>
+                            <th>파트너</th>
                             <th>내가 담은 날짜</th>
                         </tr>
                     </thead>
@@ -57,6 +58,7 @@
                                 </td>
                                 <td th:text="${cartStat.index + 1}"></td>
                                 <td th:text="${cart.serviceName}"></td>
+                                <td th:text="${cart.partnerName}"></td>
                                 <td th:text="${#dates.format(cart.cartRegDate, 'MM-dd')}"></td>
                             </tr>
                         </form>
@@ -68,8 +70,8 @@
                     <button class="btn btn-danger" onclick="deleteCarts()">전체 삭제</button>
                     <button class="btn btn-primary custom2" onclick="orderCart()">결제 하기</button>
                 </div>
-            
             </div>
+            
         </div>
     </div>
 

@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.mapper.ChatRoomMapper;
 
@@ -17,6 +18,9 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
     @Autowired
     private ChatRoomMapper chatRoomMapper;
+
+    @Autowired
+    private PartnerService partnerService;
 
     @Override
     public List<ChatRooms> list() throws Exception {
@@ -42,6 +46,9 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     public int insert(ChatRooms chatRooms) throws Exception {
         String roomNo = UUID.randomUUID().toString();
         chatRooms.setRoomNo(roomNo);
+
+        String partnerName = partnerService.selectUserNameByPartnerNo(chatRooms.getPartnerNo());
+        chatRooms.setTitle(partnerName + " 파트너님 채팅방");
 
         return chatRoomMapper.insert(chatRooms);
     }
