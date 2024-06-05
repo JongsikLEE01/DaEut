@@ -145,7 +145,7 @@ public class AdminServiceImpl implements AdminService {
     // 파트너 권한 추가
     @Override
     @Transactional
-    public String insertPartnerAuth(String userId) throws Exception {
+    public int insertPartnerAuth(String userId) throws Exception {
         // 파트너 권한 추가
         return adminMapper.insertPartnerAuth(userId);
     }
@@ -158,7 +158,7 @@ public class AdminServiceImpl implements AdminService {
 
     // 파트너 권한 회수
     @Override
-    public String deletePartnerAuth(String userId) throws Exception {
+    public int deletePartnerAuth(String userId) throws Exception {
         return adminMapper.deletePartnerAuth(userId);
     }
 
