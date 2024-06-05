@@ -14,15 +14,6 @@
         <result property="serviceContent" column="service_content"/>
         <result property="updDate" column="upd_date"/>
         <result property="regDate" column="reg_date"/>
-
-         <association property="partner" javaType="Partner">
-        <id property="partnerNo" column="partner_no"/>
-        <result property="partnerGrade" column="partner_grade"/>
-        <result property="partnerReserve" column="partner_reserve"/>
-        <result property="partnerCareer" column="partner_career"/>
-        <result property="introduce" column="introduce"/>
-        <result property="userNo" column="user_no"/>
-        </association>
     </resultMap>
 
     <!-- 전체 조회 -->
@@ -47,24 +38,12 @@
     </select>
 
     <!-- 글 내용 조회 -->
-    <!-- <select id="serviceSelect" resultMap="serviceMap">
+    <select id="serviceSelect" resultMap="serviceMap">
         SELECT *
         FROM service
         WHERE service_no = #{serviceNo}
-    </select> -->
-    <select id="serviceSelect" resultMap="serviceMap">
-    SELECT 
-        s.*, 
-        p.partner_no, 
-        p.partner_grade, 
-        p.partner_reserve, 
-        p.partner_career, 
-        p.introduce, 
-        p.user_no 
-    FROM service s
-    INNER JOIN partner p ON s.partner_no = p.partner_no
-    WHERE s.service_no = #{serviceNo}
     </select>
+
 
     <!-- 썸네일 -->
     <select id="SelectThumbnail">
