@@ -59,10 +59,6 @@ public interface UserMapper {
 
     public List<Reservation> selectReservationsByUserId(String userId);
 
-    // 관리자 회원가입
-    public  int adminJoin(Users user) throws Exception;
-
-
     // 모든 사용자 목록 조회
     public int countUsers() throws Exception;
     public List<Users> selectAllUsers(@Param("page") Page page) throws Exception;

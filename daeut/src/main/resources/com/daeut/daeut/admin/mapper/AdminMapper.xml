@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daeut.daeut.admin.mapper.AdminMapper">
+
+   <!-- 예약된 수를 카운트하는 쿼리 -->
+    <select id="countReservations" resultType="int">
+        SELECT COUNT(*)
+        FROM orders
+    </select>
+
+  <!-- 모든 주문 조회 -->
+    <select id="list" resultType="Orders">
+        SELECT 
+            o.orders_no AS ordersNo,
+            u.user_no AS userNo,
+            u.user_name AS userName,
+            o.order_status AS orderStatus,
+            o.reg_date AS regDate
+        FROM 
+            orders o
+        JOIN 
+            users u ON o.user_no = u.user_no
+        LIMIT #{page.index}, #{page.rows}
+    </select>
+
+</mapper>
