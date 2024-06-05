@@ -22,8 +22,9 @@
             </div>
             <!-- <div class="chat-box" id="chat-box messages"> -->
             <div class="chat-box" id="messages">
-                <th:block th:each="chat">
-
+                <th:block th:each="chat : ${chatList}">
+                    <span th:text="${chat.chatContent}"></span>
+                    <br>
                 </th:block>
             </div>
             <div class="input-box">
