@@ -42,10 +42,14 @@ public interface UserMapper {
     public int delete(Users user) throws Exception;
 
     // 파트너 신청
-    public void insertPartner(Partner partner);
+    public int insertPartner(Partner partner);
 
     // 파트너 신청 대기
-    public void updateUserStatus(@Param("userNo") int userNo);
+    public int updateUserStatus(@Param("userNo") int userNo);
+
+    // user 및 partner 테이블에서 정보를 조회
+    public Partner selectUserAndPartnerDetails(@Param("userNo") int userNo);
+
 
     // 파트너 승인
     // TODO
@@ -54,10 +58,6 @@ public interface UserMapper {
     // TODO
 
     public List<Reservation> selectReservationsByUserId(String userId);
-
-    // 관리자 회원가입
-    public  int adminJoin(Users user) throws Exception;
-
 
     // 모든 사용자 목록 조회
     public int countUsers() throws Exception;

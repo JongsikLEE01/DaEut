@@ -38,8 +38,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Value("${system.pw}")
-    private String systemPw;
 
     @Override
     public boolean login(Users user) throws Exception {
@@ -81,6 +79,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.findUserByDetails(userName, userEmail, userPhone);
     }
 
+    // 회원가입
     @Override
     public int join(Users user) throws Exception {
         String username = user.getUserId();
@@ -127,36 +126,6 @@ public class UserServiceImpl implements UserService {
     public List<Reservation> getUserReservations(String userId) {
         return userMapper.selectReservationsByUserId(userId);
     }
-
-    @Transactional
-    @Override
-    public void adminJoin(Users user, String systemPw) throws Exception {
-        if (!this.systemPw.equals(systemPw)) {
-            throw new IllegalArgumentException("시스템 비밀번호가 잘못되었습니다.");
-        }
-        String password = user.getUserPassword();
-        String encodedPassword = passwordEncoder.encode(password);
-        user.setUserPassword(encodedPassword);
-        int result = userMapper.join(user);
-        if (result > 0) {
-            Users joinedUser = userMapper.select(user.getUserId());
-            int userNo = joinedUser.getUserNo();
-            UserAuth userAuthUser = new UserAuth();
-            userAuthUser.setUserNo(userNo);
-            userAuthUser.setAuth("ROLE_USER");
-            userMapper.insertAuth(userAuthUser);
-            UserAuth userAuthPartner = new UserAuth();
-            userAuthPartner.setUserNo(userNo);
-            userAuthPartner.setAuth("ROLE_PARTNER");
-            userMapper.insertAuth(userAuthPartner);
-            UserAuth userAuthAdmin = new UserAuth();
-            userAuthAdmin.setUserNo(userNo);
-            userAuthAdmin.setAuth("ROLE_ADMIN");
-            userMapper.insertAuth(userAuthAdmin);
-        }
-    }
-
-    
     
     private String saveFile(MultipartFile file) {
         return "c:/upload";
@@ -221,18 +190,20 @@ public class UserServiceImpl implements UserService {
 
     // 파트너 신청
     @Override
-    public void insertPartner(Partner partner) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insertPartner'");
+    public int insertPartner(Partner partner) throws Exception {
+        return userMapper.insertPartner(partner);
     }
 
     // 파트너 신청 대기
     @Override
-    public void updateUserStatus(int userNo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUserStatus'");
+    public int updateUserStatus(int userNo) throws Exception {
+        return userMapper.updateUserStatus(userNo);
     }
 
+    @Override
+    public Partner selectUserAndPartnerDetails(int userNo) throws Exception {
+        return userMapper.selectUserAndPartnerDetails(userNo);
+    }
     
     // 파트너 승인
     // TODO Auto-generated method stub

@@ -142,9 +142,7 @@ public class UserController {
     public String userPartner(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
         log.info("/user/userPartner");
     
-        Users user = customUser.getUser();
-        Partner partner = partnerService.getPartners(user.getUserNo());
-        model.addAttribute("user", user);
+        Partner partner = userService.selectUserAndPartnerDetails(customUser.getUser().getUserNo());
         model.addAttribute("partner", partner);
     
         return "user/userPartner";
@@ -152,11 +150,12 @@ public class UserController {
     
     // 파트너 신청
     @PostMapping("/request-partner")
-    public String insertPartner(@ModelAttribute Partner partner, @AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
-        Users user = customUser.getUser(); // 사용자 정보를 가져옴
-        if (user != null) {
-            partner.setUserNo(user.getUserNo());
-            // userService.insertPartner(user, partner);
+    public String insertPartner(@ModelAttribute Partner partner, @AuthenticationPrincipal CustomUser customUser) throws Exception {
+        Partner partnerDetails = userService.selectUserAndPartnerDetails(customUser.getUser().getUserNo()); // 사용자 정보를 가져옴
+        if (partnerDetails != null) {
+            partner.setUserNo(partnerDetails.getUserNo());
+            userService.insertPartner(partner);
+            userService.updateUserStatus(partnerDetails.getUserNo());
         }
         return "redirect:/user/userPartnerDone";
     }
