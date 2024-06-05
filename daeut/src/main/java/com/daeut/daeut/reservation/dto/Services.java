@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.daeut.daeut.partner.dto.Partner;
+
 import lombok.Data;
 
 @Data
@@ -29,4 +31,7 @@ public class Services {
     private int userNo;
     // user 이름
     private String userName;
+
+    // 파트너
+    private Partner partner;
 }

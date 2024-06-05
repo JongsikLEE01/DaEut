@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 
 
@@ -120,12 +122,43 @@ public class PartnerController {
             return "redirect:/index";
         }
     }
+
+    // 탈퇴 처리
+    @PostMapping("/deleteUser")
+public String deleteUser(@RequestParam("userNo") int userNo, @RequestParam("userId") String userId, RedirectAttributes redirectAttributes) {
+    try {
+        // 사용자 삭제 처리
+        Users user = new Users();
+        user.setUserNo(userNo);
+        user.setUserId(userId);
+        int result = userService.delete(user);
+
+        // 로그아웃 처리
+        if (result > 0) {
+            // SecurityContextHolder를 사용하여 현재 사용자의 인증 정보를 제거
+            SecurityContextHolder.clearContext();
+            return "redirect:/index"; // 회원 탈퇴 및 로그아웃 성공 시 리다이렉트
+        } else {
+            // 회원 탈퇴 중 오류 발생 시 메시지 추가
+            redirectAttributes.addFlashAttribute("message", "회원 탈퇴 중 오류가 발생했습니다.");
+        }
+    } catch (Exception e) {
+        // 예외 발생 시 메시지 추가
+        e.printStackTrace();
+        redirectAttributes.addFlashAttribute("message", "예외가 발생했습니다: " + e.getMessage());
+    }
+    return "redirect:/index"; // 회원 탈퇴 및 로그아웃 실패 시 리다이렉트
+}
+
+
+    
     
 
 
 
     // 파트너 리뷰란
     @GetMapping("/partnerReview")
+    @Transactional
     public String getReviewsByPartnerNo(Model model, HttpSession session) throws Exception {
         try {
             Integer partnerNo = (Integer) session.getAttribute("partnerNo");
