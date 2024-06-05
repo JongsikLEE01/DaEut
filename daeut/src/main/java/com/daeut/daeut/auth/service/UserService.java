@@ -56,7 +56,7 @@ public interface UserService {
     // 유저 이름으로 찾기
     public Users findByUsername(String username);
 
-    
+    public Users findUserById(int userNo) throws Exception;
 
    
 }
