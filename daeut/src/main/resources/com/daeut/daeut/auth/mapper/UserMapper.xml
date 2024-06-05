@@ -134,11 +134,32 @@
           AND user_id = #{userId}
     </delete>
 
-    <!-- 파트너 신청 -->
-    <insert id="insertPartner">
-        INSERT INTO partner (partner_career, introduce, user_no)
-        VALUES (#{partnerCareer}, #{introduce}, #{userNo})
-    </insert>
+    <!-- user 및 partner 테이블에서 정보를 조회 -->
+    <select id="selectUserAndPartnerDetails" resultType="com.daeut.daeut.partner.dto.Partner">
+        SELECT 
+            u.user_no AS userNo,
+            u.user_name AS userName,
+            u.user_phone AS userPhone,
+            u.user_birth AS userBirth,
+            u.user_address AS userAddress,
+            u.user_email AS userEmail,
+            u.user_gender AS userGender,
+            u.user_id AS userId,
+            u.user_password AS userPassword,
+            u.user_reg_date AS userRegDate,
+            u.user_coupon AS userCoupon,
+            u.user_upd_date AS userUpdDate,
+            u.enabled,
+            u.status,
+            p.partner_no AS partnerNo,
+            p.partner_grade AS partnerGrade,
+            p.partner_reserve AS partnerReserve,
+            p.partner_career AS partnerCareer,
+            p.introduce
+        FROM users u
+        LEFT JOIN partner p ON u.user_no = p.user_no
+        WHERE u.user_no = #{userNo}
+    </select>
 
     <!-- 파트너 신청 대기 -->
     <update id="updateUserStatus">
@@ -146,6 +167,12 @@
         SET status = 1
         WHERE user_no = #{userNo}
     </update>
+
+    <!-- 파트너 테이블에 partner_career, introduce, user_no 삽입 -->
+    <insert id="insertPartner">
+        INSERT INTO partner (partner_career, introduce, user_no)
+        VALUES (#{partnerCareer}, #{introduce}, #{userNo})
+    </insert>
 
     <!-- 파트너 승인 -->
     <update id="approvePartner">

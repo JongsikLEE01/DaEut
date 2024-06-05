@@ -42,10 +42,14 @@ public interface UserMapper {
     public int delete(Users user) throws Exception;
 
     // 파트너 신청
-    public void insertPartner(Partner partner);
+    public int insertPartner(Partner partner);
 
     // 파트너 신청 대기
-    public void updateUserStatus(@Param("userNo") int userNo);
+    public int updateUserStatus(@Param("userNo") int userNo);
+
+    // user 및 partner 테이블에서 정보를 조회
+    public Partner selectUserAndPartnerDetails(@Param("userNo") int userNo);
+
 
     // 파트너 승인
     // TODO

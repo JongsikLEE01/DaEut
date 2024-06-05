@@ -39,10 +39,13 @@ public interface UserService {
     public int delete(Users user) throws Exception;
 
     // 파트너 신청
-    public void insertPartner(Partner partner);
+    public int insertPartner(Partner partner) throws Exception;
 
     // 파트너 신청 대기
-    public void updateUserStatus(@Param("userNo") int userNo);
+    public int updateUserStatus(int userNo) throws Exception;
+
+    // user 및 partner 테이블에서 정보를 조회
+    public Partner selectUserAndPartnerDetails(int userNo) throws Exception;
 
     // 파트너 승인
     // TODO
