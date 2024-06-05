@@ -29,7 +29,7 @@
                 <!-- ⭐ 파일 이미지 출력하기 -->
                 <th:block th:each="file : ${fileList}"> 
                     <!-- <p th:text="'File ID: ' + ${file.fileNo} + ', File Code: ' + ${file.fileCode}"></p> -->
-                    <img th:src="|/file/img/${file.fileNo}|" alt="파일 이미지" class="img-fluid">
+                    <img th:src="|/file/img/${file.fileNo}|" alt="파일 이미지" class="img-fluid" style="width: 300px; height: 300px;">
                 </th:block>
             </div> 
             <div class="col-15">
