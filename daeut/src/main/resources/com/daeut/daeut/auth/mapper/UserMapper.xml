@@ -137,19 +137,6 @@
         VALUES (#{partnerCareer}, #{introduce}, #{userNo})
     </insert>
 
-    <!-- 파트너 승인 -->
-    <update id="approvePartner">
-        UPDATE users
-        SET status = 2
-        WHERE user_no = (SELECT user_no FROM users WHERE user_id = #{userId})
-    </update>
-
-    <!-- 파트너 권한 추가 -->
-    <insert id="insertPartnerAuth">
-        INSERT INTO user_auth( user_no, auth )
-        VALUES ( (SELECT user_no FROM users WHERE user_id = #{userId}), 'role_partner' )
-    </insert>
-
     <!-- 파트너 신청 승인 처리
     <update id="approvePartnerAndAddAuth">
         UPDATE users

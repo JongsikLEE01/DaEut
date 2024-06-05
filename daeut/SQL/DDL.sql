@@ -268,7 +268,7 @@ ALTER TABLE review
 ALTER TABLE partner
   ADD CONSTRAINT FK_users_TO_partner
     FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
+    REFERENCES users (user_no) ON DELETE CASCADE;
 
 ALTER TABLE board
   ADD CONSTRAINT FK_users_TO_board

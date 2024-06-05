@@ -120,12 +120,6 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateUserStatus(userNo);
     }
 
-    // 파트너 승인
-    // TODO Auto-generated method stub
-
-    // 파트너 권한 추가
-    // TODO Auto-generated method stub
-
     // ----------------------------------------------------------------------------
 
     // user 및 partner 테이블에서 정보를 조회

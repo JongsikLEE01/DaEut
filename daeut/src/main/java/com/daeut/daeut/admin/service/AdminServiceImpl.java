@@ -127,11 +127,39 @@ public class AdminServiceImpl implements AdminService {
     return partner;
     }
 
-    // 관리자 - 회원 수정
+    // 관리자 - 파트너 수정
     @Override
     public int adminUpdatePartner(Partner partner) throws Exception {
         int result = adminMapper.adminUpdatePartner(partner);
         return result;
+    }
+
+    // 파트너 승인
+    @Override
+    @Transactional
+    public int approvePartner(String userId) throws Exception {
+        // 파트너 상태를 승인된 상태(2)로 변경
+        return adminMapper.approvePartner(userId);
+    }
+
+    // 파트너 권한 추가
+    @Override
+    @Transactional
+    public String insertPartnerAuth(String userId) throws Exception {
+        // 파트너 권한 추가
+        return adminMapper.insertPartnerAuth(userId);
+    }
+
+    // 파트너 승인 취소
+    @Override
+    public int cancelPartner(String userId) throws Exception {
+        return adminMapper.cancelPartner(userId);
+    }
+
+    // 파트너 권한 회수
+    @Override
+    public String deletePartnerAuth(String userId) throws Exception {
+        return adminMapper.deletePartnerAuth(userId);
     }
 
     // 예약된 수를 카운트하는 쿼리
