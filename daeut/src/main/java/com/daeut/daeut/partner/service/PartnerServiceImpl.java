@@ -23,9 +23,6 @@ public class PartnerServiceImpl implements PartnerService {
     private PartnerMapper partnerMapper;
 
     @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
     private UserService userService;
 
     
@@ -56,10 +53,12 @@ public class PartnerServiceImpl implements PartnerService {
         log.info("Updating user: {}", user);
         log.info("Updating partner: {}", partner);
 
-         int userUpdateResult = userService.update(user);
+        int userUpdateResult = userService.update(user);
         log.info("User update result: {}", userUpdateResult);
 
-        int partnerUpdateResult = partnerMapper.partnerUpdate(partner, user);
+        log.info(partner.toString()+"dsdfdfdf");
+
+        int partnerUpdateResult = partnerMapper.partnerUpdate(partner);
         log.info("Partner update result: {}", partnerUpdateResult);
     
         // 둘 중 하나라도 실패하면 실패로 처리하기
