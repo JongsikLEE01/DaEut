@@ -47,139 +47,139 @@ public class UserServiceImpl implements UserService {
         UsernamePasswordAuthenticationToken token 
             = new UsernamePasswordAuthenticationToken(username, password);
         
-        // 토큰을 이용하여 인증
-        Authentication authentication = authenticationManager.authenticate(token);
+    // 토큰을 이용하여 인증
+    Authentication authentication = authenticationManager.authenticate(token);
 
-        // 인증 여부 확인
-        boolean result = authentication.isAuthenticated();
+    // 인증 여부 확인
+    boolean result = authentication.isAuthenticated();
 
-        // 시큐리티 컨텍스트에 등록
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+    // 시큐리티 컨텍스트에 등록
+    SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return result;
+    return result;
     }
 
-        // 아이디 찾기
+    // 아이디 찾기
     @Override
     public String findUserByDetails(String userName, String userEmail, String userPhone) throws Exception {
         return userMapper.findUserByDetails(userName, userEmail, userPhone);
     }
-        // id로 조회
-        @Override
-        public Users select(String username) throws Exception {
-            Users user = userMapper.select(username);
-            return user;
-        }
+    // id로 조회
+    @Override
+    public Users select(String username) throws Exception {
+        Users user = userMapper.select(username);
+        return user;
+    }
 
-        // email 로 조회
-        @Override
-        public Users findUserByEmail(String userEmail) throws Exception {
-            Users user = userMapper.findUserByEmail(userEmail);
-            return user;
-        }
+    // email 로 조회
+    @Override
+    public Users findUserByEmail(String userEmail) throws Exception {
+        Users user = userMapper.findUserByEmail(userEmail);
+        return user;
+    }
 
-        // 회원가입
-        @Override
-        public int join(Users user) throws Exception {
-            String username = user.getUserId();
-            String password = user.getUserPassword();
-            String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
-            user.setUserPassword(encodedPassword);
+    // 회원가입
+    @Override
+    public int join(Users user) throws Exception {
+        String username = user.getUserId();
+        String password = user.getUserPassword();
+        String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
+        user.setUserPassword(encodedPassword);
 
-            // 회원 등록
-            int result = userMapper.join(user);
+        // 회원 등록
+        int result = userMapper.join(user);
 
-            if( result > 0 ) {
-                Users joinedUser = userMapper.select(username);
-                int userNo = joinedUser.getUserNo();
-                // 회원 기본 권한 등록
-                UserAuth userAuth = new UserAuth();
-                userAuth.setUserNo(userNo);
-                userAuth.setAuth("ROLE_USER");
-                result = userMapper.insertAuth(userAuth);
-            }
-            return result;
+        if( result > 0 ) {
+            Users joinedUser = userMapper.select(username);
+            int userNo = joinedUser.getUserNo();
+            // 회원 기본 권한 등록
+            UserAuth userAuth = new UserAuth();
+            userAuth.setUserNo(userNo);
+            userAuth.setAuth("ROLE_USER");
+            result = userMapper.insertAuth(userAuth);
         }
+        return result;
+    }
 
-        // 회원 권한 등록
-        @Override
-        public int insertAuth(UserAuth userAuth) throws Exception {
-            int result = userMapper.insertAuth(userAuth);
-            return result;
-        }
+    // 회원 권한 등록
+    @Override
+    public int insertAuth(UserAuth userAuth) throws Exception {
+        int result = userMapper.insertAuth(userAuth);
+        return result;
+    }
 
-        // 파트너 신청
-        @Override
-        public int insertPartner(Partner partner) throws Exception {
-            return userMapper.insertPartner(partner);
-        }
+    // 파트너 신청
+    @Override
+    public int insertPartner(Partner partner) throws Exception {
+        return userMapper.insertPartner(partner);
+    }
 
-        // 파트너 신청 대기
-        @Override
-        public int updateUserStatus(int userNo) throws Exception {
-            return userMapper.updateUserStatus(userNo);
-        }
+    // 파트너 신청 대기
+    @Override
+    public int updateUserStatus(int userNo) throws Exception {
+        return userMapper.updateUserStatus(userNo);
+    }
 
-        // 파트너 승인
-        // TODO Auto-generated method stub
-        
-        // 파트너 권한 추가
-        // TODO Auto-generated method stub
-        
-        // ----------------------------------------------------------------------------
+    // 파트너 승인
+    // TODO Auto-generated method stub
 
-        // user 및 partner 테이블에서 정보를 조회
-        @Override
-        public Partner selectUserAndPartnerDetails(int userNo) throws Exception {
-            return userMapper.selectUserAndPartnerDetails(userNo);
-        }
+    // 파트너 권한 추가
+    // TODO Auto-generated method stub
 
-        // 회원 수정
-        @Transactional
-        @Override
-        public int update(Users user) throws Exception {
-            int result = userMapper.update(user);
-            return result;
-        }
+    // ----------------------------------------------------------------------------
 
-        // 회원 탈퇴
-        @Transactional
-        @Override
-        public int delete(Users user) throws Exception {
-            int result = userMapper.delete(user);
-            return result;
-        }
+    // user 및 partner 테이블에서 정보를 조회
+    @Override
+    public Partner selectUserAndPartnerDetails(int userNo) throws Exception {
+        return userMapper.selectUserAndPartnerDetails(userNo);
+    }
 
-        // 예약
-        @Override
-        public List<Reservation> selectReservationsByUserId(String userId) {
-            return userMapper.selectReservationsByUserId(userId);
-        }
-        
-        // 파트너 찾기
-        @Override
-        public Partner selectPartner(int userNo) throws Exception {
-            Partner partner = userMapper.selectPartner(userNo);
-            return partner;
-            
-        }
-        
-        // 번호 유저찾기
-        @Override
-        public Users selectByUserNo(int userNo) throws Exception {
-            return userMapper.selectByUserNo(userNo);
-        }
+    // 회원 수정
+    @Transactional
+    @Override
+    public int update(Users user) throws Exception {
+        int result = userMapper.update(user);
+        return result;
+    }
 
-        // 유저 이름으로 찾기
-        @Override
-        public Users findByUsername(String username) {
-            return userMapper.findByUsername(username);
-        }
+    // 회원 탈퇴
+    @Transactional
+    @Override
+    public int delete(Users user) throws Exception {
+        int result = userMapper.delete(user);
+        return result;
+    }
 
-        private String saveFile(MultipartFile file) {
-            return "c:/upload";
-        }
-        
+    // 예약
+    @Override
+    public List<Reservation> selectReservationsByUserId(String userId) {
+        return userMapper.selectReservationsByUserId(userId);
+    }
+
+    // 파트너 찾기
+    @Override
+    public Partner selectPartner(int userNo) throws Exception {
+        Partner partner = userMapper.selectPartner(userNo);
+        return partner;
+
+    }
+
+    // 번호 유저찾기
+    @Override
+    public Users selectByUserNo(int userNo) throws Exception {
+        return userMapper.selectByUserNo(userNo);
+    }
+
+    // 유저 이름으로 찾기
+    @Override
+    public Users findByUsername(String username) {
+        return userMapper.findByUsername(username);
+    }
+
+    private String saveFile(MultipartFile file) {
+        return "c:/upload";
+    }
+
     
     
   

@@ -21,6 +21,9 @@
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>내 정보 변경</h3>
                 <form>
+                    <input type="hidden" name="userId" th:value="${user.userId}">
+                    <input type="hidden" name="userNo" th:value="${user.userNo}">
+                    <input type="hidden" name="introduce" th:value="${partner.introduce}">
                     <div class="form-group mb-3">
                         <label for="userid">아이디</label>
                         <input type="text" class="form-control" id="userid" th:placeholder="${user.userId}" disabled>
@@ -54,7 +57,7 @@
                         <input type="file" class="form-control" id="file" value="첨부 파일을 선택해주세요" disabled>
                     </div>
                     <div class="form-buttons">
-                        <a th:href="@{/partner/partnerMypageUpdate(userNo=${user.userNo})}" class="btn btn-primary">정보 수정</a>
+                        <a th:href="@{/partner/partnerMypageUpdate(userNo=${partner.userNo})}" class="btn btn-primary">정보 수정</a>
                     </div>
                 </form>
             </div>
