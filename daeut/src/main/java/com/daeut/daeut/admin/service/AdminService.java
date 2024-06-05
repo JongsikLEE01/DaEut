@@ -37,9 +37,21 @@ public interface AdminService {
     // 관리자 - 파트너 조회
     public Partner findPartnerById(int userNo) throws Exception;
 
-    // 관리자 - 회원 수정
+    // 관리자 - 파트너 수정
     public int adminUpdatePartner(Partner partner) throws Exception;
  
+    // 파트너 승인
+    public int approvePartner(String userId) throws Exception;
+    
+    // 파트너 권한 추가
+    public String insertPartnerAuth(String userId) throws Exception;
+
+    // 파트너 승인 취소
+    public int cancelPartner(String userId) throws Exception;
+
+    // 파트너 권한 회수
+    public String deletePartnerAuth(String userId) throws Exception;
+     
     // 예약된 수를 카운트하는 쿼리 
     public int countReservations() throws Exception;
     

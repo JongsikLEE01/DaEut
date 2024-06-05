@@ -40,12 +40,6 @@ public interface UserMapper {
     
     // 파트너 신청 대기
     public int updateUserStatus(@Param("userNo") int userNo);
-    
-    // 파트너 승인
-    // TODO
-    
-    // 파트너 권한 추가
-    // TODO
 
     // ----------------------------------------------------------------------------
     
