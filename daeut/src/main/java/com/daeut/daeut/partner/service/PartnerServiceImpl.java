@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
@@ -27,6 +28,7 @@ public class PartnerServiceImpl implements PartnerService {
         this.partnerMapper = partnerMapper;
     }
 
+
     // 파트너 정보 가져오기
     @Override
     public Partner getPartners(int userNo) throws Exception {
@@ -42,8 +44,23 @@ public class PartnerServiceImpl implements PartnerService {
 
     // 파트너 정보 수정
     @Override
-    public int partnerUpdate(Partner partner) throws Exception {
-        int result = partnerMapper.partnerUpdate(partner);
+    @Transactional
+    public int partnerUpdate(Partner partner, Users user) throws Exception {
+
+        log.info("Updating user: {}", user);
+        log.info("Updating partner: {}", partner);
+
+        int userUpdateResult = userService.update(user);
+        log.info("User update result: {}", userUpdateResult);
+
+        log.info(partner.toString()+"dsdfdfdf");
+
+        int partnerUpdateResult = partnerMapper.partnerUpdate(partner);
+        log.info("Partner update result: {}", partnerUpdateResult);
+    
+        // 둘 중 하나라도 실패하면 실패로 처리하기
+        int result = userUpdateResult + partnerUpdateResult;
+    
         return result;
     }
 

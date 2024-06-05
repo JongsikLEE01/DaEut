@@ -22,9 +22,9 @@ SELECT partner.*
 
   <!-- 파트너 정보 수정하기 -->
 <update id="partnerUpdate">
-  UPDATE partner
-      SET introduce = #{introduce}
-      WHERE user_no = #{userNo};
+  UPDATE partner 
+    SET introduce = #{introduce}
+    WHERE user_no = #{userNo}
 </update>
 
 <!-- 리뷰 정보 가져오기 -->

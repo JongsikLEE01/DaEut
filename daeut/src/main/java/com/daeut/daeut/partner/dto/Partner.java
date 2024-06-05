@@ -1,15 +1,11 @@
 package com.daeut.daeut.partner.dto;
 
-
-import java.sql.Timestamp;
-
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.daeut.daeut.auth.dto.UserAuth;
-import com.daeut.daeut.auth.dto.Users;
 
 import lombok.Data;
 
@@ -20,7 +16,6 @@ public class Partner {
     private int partnerNo;
     private int partnerGrade;
     private int partnerReserve;
-
     private String partnerCareer;
     private String introduce;
     private int userNo;

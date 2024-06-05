@@ -8,6 +8,10 @@
     <th:block th:replace="~{fragment/admin/link::link}"></th:block>
 </head>
 <body>
+    <!-- script -->
+    <th:block th:replace="~{fragment/common/script::script}"></th:block>
+    <script src="/js/admin/script.js"></script>
+  
     <!-- header -->
     <th:block th:replace="~{fragment/common/header::header}"></th:block>
 
@@ -18,7 +22,5 @@
     <!-- footer -->
     <th:block th:replace="~{fragment/common/footer::footer}"></th:block>
 
-    <!-- script -->
-    <th:block th:replace="~{fragment/common/script::script}"></th:block>
 </body>
 </html>
