@@ -89,7 +89,5 @@ public class ChatRoomServiceImpl implements ChatRoomService{
         }
 
         return insert(chatRoom);
-        // if( chatRoom == null || select(chatRoom.getRoomNo()) == null ) 
-        //     return insert(chatRoom);
     } 
 }

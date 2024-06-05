@@ -77,7 +77,11 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ 'message': message })
+                    body: JSON.stringify({ 
+                        'chatContent': message,
+                        'userNo' : userNo,
+                        'roomNo' : roomNo 
+                    })
                 })
                 .then(response => {
                     if (!response.ok) {
