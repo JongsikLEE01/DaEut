@@ -2,15 +2,10 @@ package com.daeut.daeut.auth.service;
 
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
-
-import com.daeut.daeut.main.dto.Page;
-
-import com.daeut.daeut.reservation.dto.Reservation;
+import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.partner.dto.Partner;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
 
 public interface UserService {
 
@@ -50,7 +45,7 @@ public interface UserService {
     public int delete(Users user) throws Exception;
 
     // 예약
-    public List<Reservation> selectReservationsByUserId(String userId) throws Exception;
+    public List<Orders> selectOrdersByUserId(String userId) throws Exception;
 
     // 파트너 찾기
     public Partner selectPartner(int userNo) throws Exception;
@@ -61,7 +56,7 @@ public interface UserService {
     // 유저 이름으로 찾기
     public Users findByUsername(String username);
 
-    
+    public Users findUserById(int userNo) throws Exception;
 
    
 }
