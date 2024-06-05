@@ -40,6 +40,27 @@
         <association property="user" column="user_no" javaType="Users" select="selectUserById" />
     </resultMap>
 
+     <!-- 관리자 회원 조회 - user_no -->
+    <select id="findUserById" resultMap="userMap">
+        SELECT u.user_no
+            ,u.user_name
+            ,u.user_phone
+            ,u.user_birth
+            ,u.user_address
+            ,u.user_email
+            ,u.user_gender
+            ,u.user_id
+            ,u.user_password
+            ,u.user_reg_date
+            ,u.user_coupon
+            ,u.user_upd_date
+            ,u.enabled
+            ,auth.auth
+        FROM users u 
+        LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
+        WHERE u.user_no = #{userNo}
+    </select>
+
     <!-- 다우니다우니다우니다우니다우니다우니다우니다우니다우니다우니 -->
     <!-- 로그인 - username -->
     <select id="login" resultMap="userMap">
@@ -232,8 +253,5 @@
         WHERE username = #{username}
     </select>
     <!-- 준호준호준호준호준호준호준호준호준호준호준호준호준호준호준호 -->
-    
-
-
 
 </mapper>
