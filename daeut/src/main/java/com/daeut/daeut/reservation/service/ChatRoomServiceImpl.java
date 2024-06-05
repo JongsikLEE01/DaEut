@@ -40,16 +40,10 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
     @Override
     public int insert(ChatRooms chatRooms) throws Exception {
-        ChatRooms checkChatRooms = select(chatRooms.getRoomNo());
-        
-        if (checkChatRooms != null) {
-            return update(chatRooms);
-        } else {
-            String roomNo = UUID.randomUUID().toString();
-            chatRooms.setRoomNo(roomNo);
+        String roomNo = UUID.randomUUID().toString();
+        chatRooms.setRoomNo(roomNo);
 
-            return chatRoomMapper.insert(chatRooms);
-        }
+        return chatRoomMapper.insert(chatRooms);
     }
 
     @Override
@@ -65,12 +59,22 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     // 있으면 update, 없으면 insert
     @Override
     public int merge(ChatRooms chatRoom) throws Exception {
-        log.info("------chatRoom ServiceImpl--------");
-        log.info("chatRoom? {}", chatRoom);
+        int userNo = chatRoom.getUserNo();
+        int partnerNo = chatRoom.getPartnerNo();
 
-        if( chatRoom == null || select(chatRoom.getRoomNo()) == null ) 
-            return insert(chatRoom);
+        List<ChatRooms> chatRoomList = selectByUserNo(userNo);
 
-        return update(chatRoom);
+        // partnerNo, userNo가 중복된 채팅룸 생성 X
+        for (ChatRooms cRooms : chatRoomList) {
+            int uNo = cRooms.getUserNo();
+            int pNo = cRooms.getPartnerNo();
+            if(uNo == userNo && pNo == partnerNo){
+                return update(chatRoom);
+            }
+        }
+
+        return insert(chatRoom);
+        // if( chatRoom == null || select(chatRoom.getRoomNo()) == null ) 
+        //     return insert(chatRoom);
     } 
 }

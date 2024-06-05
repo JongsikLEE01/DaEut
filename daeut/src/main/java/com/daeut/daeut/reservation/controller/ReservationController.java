@@ -17,7 +17,10 @@ import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Option;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.main.service.FileService;
+import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Services;
+import com.daeut.daeut.reservation.service.ChatRoomService;
+import com.daeut.daeut.reservation.service.ChatService;
 import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +35,12 @@ public class ReservationController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private ChatRoomService chatRoomService;
+
+    @Autowired
+    private ChatService chatService;
 
     /**
      * 전체 조회
@@ -63,7 +72,7 @@ public class ReservationController {
 	}
 
     /**
-     * 채팅
+     * 채팅 - POST
      * @param serviceNo
      * @param model
      * @param session
@@ -74,12 +83,24 @@ public class ReservationController {
 	public String chat(int serviceNo, Model model, HttpSession session) throws Exception {
         Services service = reservationService.serviceSelect(serviceNo);
         Users user = (Users) session.getAttribute("user");
+        int userNo = user.getUserNo();
+        int partnerNo = service.getPartnerNo();
+
+        List<ChatRooms> chatRoomList = chatRoomService.selectByUserNo(userNo);
+
+        for (ChatRooms chatRoom : chatRoomList) {
+            int uNo = chatRoom.getUserNo();
+            int pNo = chatRoom.getPartnerNo();
+            if(uNo == userNo && pNo == partnerNo){
+                model.addAttribute("chatRoom", chatRoom);
+            }
+        }
         
         model.addAttribute("service", service);
         model.addAttribute("user", user);
 		return "reservation/chat";
 	} 
-
+    
     /**
      * 단일 조회
      * @write jslee

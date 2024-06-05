@@ -29,7 +29,7 @@
                 <form id="chatForm">
                     <input type="text" id="messageInput" placeholder="부적절한 메세지는 삭제 처리됩니다." onkeypress="enterSend(event)">
                     <!-- <button onclick="sendMessage()" class="sendchat" id="send">전송</button> -->
-                    <button class="sendchat" id="send" type="submit" onclick="sendMessage()">전송</button>
+                    <button class="sendchat" id="send" onclick="sendMessage()">전송</button>
                 </form>
             </div>
             <div class="button-box">
@@ -47,14 +47,6 @@
         var stompClient = null
         var userNo = '[[${user.userNo}]]'
         var partnerNo = '[[${service.partnerNo}]]'
-        // var roomNo = Math.random().toString(36).substring(2, 12)
-        // var chatRoom = '[[${chatRoom}]]'
-
-        
-        console.log('userNo? '+userNo)
-        console.log('partnerNo? '+partnerNo)
-        // console.log('chatRoom? '+chatRoom)
-        
         
         // WebSocket 서버 연결
         function connect() {
@@ -68,12 +60,20 @@
         
         // 메시지 전송
         function sendMessage() {
+            var roomNo = '[[${chatRoom.roomNo}]]'
+            console.log('chatRoom? '+roomNo)
+            
+            // 채팅방이 존재하지 않을 경우
+            if(roomNo == null || roomNo == ''){
+                createChatRoom()
+            }
+
             var headers = { 'X-CSRF-TOKEN': csrfToken }
             var messageInput = document.getElementById('messageInput')
             var message = {
                 chatContent: messageInput.value,
                 userNo: userNo,
-                roomNo: '9f7b73c6-9c1c-4ce8-97cf-086de2f23403'                      
+                roomNo: roomNo
             }
             stompClient.send("/app/chat.sendMessage", headers, JSON.stringify(message))
             messageInput.value = ''
@@ -84,7 +84,6 @@
             let data = {
 				'userNo': userNo,
 				'partnerNo': partnerNo
-                // 'chatRoom' : chatRoom
 			};
             
 			// AJAX 비동기 요청
@@ -103,7 +102,7 @@
 			}
         }
 
-        // 메세지 출력
+        // TODO : 메세지 출력 필요
         // function fetchAndRenderMessages() {
         //     let request = new XMLHttpRequest();
         //     request.open('GET','/chat/messages')
@@ -130,6 +129,8 @@
 
         // 페이지 로드 시 WebSocket 서버에 연결
         connect();
+
+
         // fetchAndRenderMessages();
     </script>
 </body>

@@ -20,6 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Slf4j
 @RestController
@@ -54,16 +57,12 @@ public class ChatController {
         log.info("--------CharController----------");
         log.info("chatRoom {}", chatRoom);
 
-        
-        
         int result = chatRoomService.merge(chatRoom);
 
         if(result == 0)
             return new ResponseEntity<>("FAIL",HttpStatus.INTERNAL_SERVER_ERROR);
-        else{
-            model.addAttribute("chatRoom", chatRoom);
-            return new ResponseEntity<>("SUCCESS",HttpStatus.OK);
-        }
+        
+        return new ResponseEntity<>("SUCCESS",HttpStatus.OK);
     }
     
     /**
@@ -83,6 +82,7 @@ public class ChatController {
         // 클라이언트에게 메시지 전송
         messagingTemplate.convertAndSend("/topic/public", chat);
     }
+    
 
     // @GetMapping("/chat/messages")
     // public List<Chats> getMessages(@RequestBody ChatRooms chatRooms) throws Exception{
