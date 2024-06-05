@@ -32,7 +32,7 @@
     <!-- 댓글 수정 -->
     <update id="update">
         UPDATE reply
-           SET reply_writer = #{replyWriter}
+           SET user_no = #{userNo}
               ,reply_content = #{replyContent}
               <if test="parentNo != 0">
                 ,parent_no = #{parentNo}

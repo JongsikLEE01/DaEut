@@ -264,9 +264,12 @@ ALTER TABLE review
     REFERENCES payment (payment_no);
 
 ALTER TABLE partner
-  ADD CONSTRAINT FK_users_TO_partner
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no) ON DELETE CASCADE;
+DROP FOREIGN KEY FK_users_TO_partner; -- 이전의 외래 키 제약 조건 삭제
+
+ALTER TABLE partner
+ADD CONSTRAINT FK_users_TO_partner
+FOREIGN KEY (user_no) REFERENCES users(user_no)
+ON DELETE CASCADE;
 
 ALTER TABLE board
   ADD CONSTRAINT FK_users_TO_board

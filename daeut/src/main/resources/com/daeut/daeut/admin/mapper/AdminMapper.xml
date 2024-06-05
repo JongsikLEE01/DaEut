@@ -40,6 +40,8 @@
         FROM 
             users a
         WHERE 
+            a.status = 0
+        AND
             NOT EXISTS (
                 SELECT 1 
                 FROM user_auth b
