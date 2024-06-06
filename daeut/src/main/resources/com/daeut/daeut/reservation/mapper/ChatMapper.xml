@@ -27,8 +27,8 @@
 
     <!-- 삽입 -->
     <insert id="insert">
-        INSERT INTO chat (chat_content, user_no, room_no)
-        VALUES (#{chatContent}, #{userNo}, #{roomNo})
+        INSERT INTO chat (chat_content, user_no, room_no, chat_reg_date)
+        VALUES (#{chatContent}, #{userNo}, #{roomNo}, #{chatRegDate})
     </insert>
 
     <!-- 업데이트 -->

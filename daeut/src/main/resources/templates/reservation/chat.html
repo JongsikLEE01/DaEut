@@ -9,6 +9,45 @@
     <!-- SockJS 및 stomp.js 라이브러리 추가 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <style>
+        .message {
+            display: flex;
+            margin: 10px 0;
+            clear: both;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+        .message-content {
+            font-size: 1em;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 60%;
+        }
+        .message-date {
+            font-size: 0.8em;
+            color: gray;
+            text-align: center;
+            margin-top: 5px;
+        }
+        .my-message {
+            justify-content: flex-end;
+            background-color: #DCF8C6;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .other-message {
+            justify-content: flex-start;
+            background-color: #ECECEC;
+            align-self: flex-start;
+            margin-right: auto;
+        }
+        .message-content-right {
+            text-align: right;
+        }
+        .message-content-left {
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body layout:fragment="content">
@@ -23,10 +62,11 @@
             <div class="chat-box" id="messages">
                 <div id="chatArea">
                     <th:block th:each="chat : ${chatList}">
-                        <p th:text="${chat.chatContent}"></p>
-                        <p th:text="${chat.chatRegDate}"></p>
+                        <div th:class="${chat.userNo == user.userNo} ? 'message my-message' : 'message other-message'">
+                            <p class="message-content" th:classappend="${chat.userNo == user.userNo} ? 'message-content-right' : 'message-content-left'" th:text="${chat.chatContent}"></p>
+                            <p class="message-date" th:text="${#dates.format(chat.chatRegDate, 'HH:mm')}"></p>
+                        </div>
                     </th:block>
-                    <!-- 실시간 채팅 메시지가 여기에 추가됩니다 -->
                 </div>
             </div>
             <div class="input-box">
@@ -36,7 +76,6 @@
             <div class="button-box">
                 <button class="goback" onclick="goBack()">돌아가기</button>
             </div>
-
         </div>
     </div>
 
@@ -45,10 +84,11 @@
         const roomNo = url.get('roomNo');
         const userNo = '[[${user.userNo}]]';
 
-        console.log(roomNo)
+        console.log(roomNo);
 
         var stompClient = null;
 
+        // webSocket 연결
         function connect() {
             var socket = new SockJS('/chat');
             stompClient = Stomp.over(socket);
@@ -60,6 +100,7 @@
             });
         }
 
+        // 메세지 보내기
         function sendMessage() {
             let chatContent = document.getElementById('message').value;
 
@@ -67,26 +108,28 @@
                 'chatContent': chatContent,
                 'userNo': userNo,
                 'roomNo': roomNo,
-                'chatRegDate' : getCurrentTime()
-            }
+                'chatRegDate': getCurrentTime()
+            };
 
             stompClient.send("/pub/chat/sendMessage", {}, JSON.stringify(data));
             document.getElementById('message').value = ''; // 전송 후 입력란 초기화
         }
 
+        // 메세지를 출력
         function showMessage(chat) {
             var chatArea = document.getElementById('chatArea');
 
             var messageDiv = document.createElement('div');
-            messageDiv.className = 'message';
+            messageDiv.className = chat.userNo == userNo ? 'message my-message' : 'message other-message';
 
             var pContent = document.createElement('p');
             pContent.className = 'message-content';
+            pContent.classList.add(chat.userNo == userNo ? 'message-content-right' : 'message-content-left');
             pContent.textContent = chat.chatContent;
 
             var pDate = document.createElement('p');
             pDate.className = 'message-date';
-            pDate.textContent = chat.chatRegDate;
+            pDate.textContent = chat.chatRegDate.split(' ')[1].slice(0, 5); // 시간과 분만 표시
 
             messageDiv.appendChild(pContent);
             messageDiv.appendChild(pDate);
@@ -94,10 +137,24 @@
             chatArea.appendChild(messageDiv);
         }
 
+        // 현재 시간을 가져오기
+        function getCurrentTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        // 엔터키로 메세지 전송
         function enterSend(event) {
             if (event.key === 'Enter') {
                 sendMessage();
-                event.preventDefault(); // 기본 Enter 키 동작 방지
+                event.preventDefault();
             }
         }
 

@@ -3,8 +3,8 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -569.3869816410415,
-    "scrollLeft": -1178.733699999998,
+    "scrollTop": -1903.3869816410415,
+    "scrollLeft": -737.733699999998,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -459,7 +459,7 @@
           "active": false,
           "left": 1006.2442,
           "top": 1668.1884,
-          "zIndex": 15,
+          "zIndex": 14,
           "widthName": 60,
           "widthComment": 60
         },
@@ -967,7 +967,7 @@
             "name": "chat_reg_date",
             "comment": "채팅 등록일자",
             "dataType": "TIMESTAMP",
-            "default": "CURRENT_TIMESTAMP",
+            "default": "",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
@@ -982,7 +982,7 @@
               "widthName": 83.09130859375,
               "widthComment": 84.5703125,
               "widthDataType": 71.93212890625,
-              "widthDefault": 134.31689453125
+              "widthDefault": 60
             }
           },
           {
@@ -1036,7 +1036,7 @@
           "active": false,
           "left": 971.4775,
           "top": 2309.3258,
-          "zIndex": 10,
+          "zIndex": 18,
           "widthName": 60,
           "widthComment": 60,
           "color": "#000000"
@@ -2991,7 +2991,7 @@
           "active": false,
           "left": 1673.7266,
           "top": 818.2011,
-          "zIndex": 19,
+          "zIndex": 16,
           "widthName": 60,
           "widthComment": 60
         },
@@ -3145,7 +3145,7 @@
           "active": false,
           "left": 961.5338,
           "top": 1960.5229,
-          "zIndex": 16,
+          "zIndex": 15,
           "widthName": 69.5009765625,
           "widthComment": 60
         },
@@ -3256,7 +3256,7 @@
           "columnIds": [
             "81a3b316-a926-4a9f-81ee-a11b0a0d3d4c"
           ],
-          "x": 1516.748984375,
+          "x": 1442.43208984375,
           "y": 2395.0758,
           "direction": "right"
         },
@@ -3620,7 +3620,7 @@
           "columnIds": [
             "a3992032-ba6a-4251-bafd-0da2f36b25ae"
           ],
-          "x": 1244.1132421875,
+          "x": 1206.954794921875,
           "y": 2309.3258,
           "direction": "top"
         },
