@@ -1,4 +1,4 @@
--- Active: 1715242304860@@127.0.0.1@3306@joeun
+-- Active: 1717663125839@@127.0.0.1@3306@joeun
 -- 결제 로직
 
 -- -- DROP
@@ -19,8 +19,10 @@ DROP TABLE IF EXISTS order_item ;
 DROP TABLE IF EXISTS cancel ;
 DROP TABLE IF EXISTS cart ;
 
- 
+
+-- *********************** 테이블 ***********************
         
+
 CREATE TABLE board
 (
   board_no       INT          NOT NULL AUTO_INCREMENT COMMENT '게시판 번호',
@@ -227,6 +229,12 @@ CREATE TABLE users
   status        INT          NOT NULL DEFAULT 0 COMMENT '상태',
   PRIMARY KEY (user_no)
 ) COMMENT '사용자';
+
+
+
+-- *********************** 제약 조건 ***********************
+
+
 
 ALTER TABLE reply
   ADD CONSTRAINT FK_board_TO_reply
