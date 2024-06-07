@@ -3,8 +3,8 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -821.4357816410406,
-    "scrollLeft": -3127,
+    "scrollTop": -1080.8357816410407,
+    "scrollLeft": -1814,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -19,7 +19,7 @@
     },
     "database": "MySQL",
     "databaseName": "daeut",
-    "canvasType": "@vuerd/builtin-sql-ddl",
+    "canvasType": "ERD",
     "language": "GraphQL",
     "tableCase": "pascalCase",
     "columnCase": "camelCase",
@@ -721,12 +721,12 @@
             "name": "order_status",
             "comment": "예약 상태",
             "dataType": "VARCHAR(50)",
-            "default": "",
+            "default": "PENDING",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
               "unique": false,
-              "notNull": true
+              "notNull": false
             },
             "ui": {
               "active": false,
@@ -882,7 +882,7 @@
           "active": false,
           "left": 2025.2845,
           "top": 1321.3578,
-          "zIndex": 14,
+          "zIndex": 23,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1591,7 +1591,7 @@
           "active": false,
           "left": 2515.7952,
           "top": 966.7195,
-          "zIndex": 16,
+          "zIndex": 15,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2299,7 +2299,7 @@
           "active": false,
           "left": 3289.1395,
           "top": 964.2435,
-          "zIndex": 20,
+          "zIndex": 16,
           "widthName": 60,
           "widthComment": 60
         },

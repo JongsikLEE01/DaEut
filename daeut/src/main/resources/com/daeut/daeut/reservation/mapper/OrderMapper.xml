@@ -100,11 +100,8 @@
     <!-- orderNo로 Oder 정보와 유저 정보 출력하기 -->
     <select id="listByOrderNo" resultMap="OrderWithUserResultMap">
     SELECT 
-    o.orders_no, o.user_no, o.order_status, o.total_quantity, o.total_price, 
-    o.upd_date, o.reg_date, o.total_count, o.title, o.partner_no,
-    u.user_no AS user_no, u.user_name, u.user_phone, u.user_birth, 
-    u.user_address, u.user_email, u.user_gender, u.user_id, u.user_password, 
-    u.user_reg_date, u.user_coupon, u.user_upd_date, u.enabled, u.status
+     o.*
+    ,u.*
     FROM 
     orders o
     JOIN 

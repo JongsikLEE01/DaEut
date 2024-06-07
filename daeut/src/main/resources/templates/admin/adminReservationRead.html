@@ -31,13 +31,21 @@
                                 <div class="row info-row">
                                     <label for="requester" class="col-3 label">요청자</label>
                                     <div class="col-9">
-                                        <input type="text" name="userName" class="form-control" th:value="${orders.userName}" readonly>
+                                        <input type="text" name="userName" class="form-control" th:value="${user.userName}" readonly>
                                     </div>
                                 </div>
-                                <div class="row info-row">
+                                <!-- <div class="row info-row">
                                     <label for="partner" class="col-3 label">파트너</label>
                                     <div class="col-9">
-                                        <input type="text" name="partnerName" class="form-control" th:value="${orders.partnerName}" readonly>
+                                        <th:block th:each="partner : ${partnerList}">
+                                            <input type="text" name="partnerName" class="form-control" th:value="${partner.userName}" readonly>
+                                        </th:block>
+                                    </div>
+                                </div> -->
+                                <div class="row info-row">
+                                    <label for="requester" class="col-3 label">예약 제목</label>
+                                    <div class="col-9">
+                                        <input type="text" name="title" class="form-control" th:value="${orders.title}" readonly>
                                     </div>
                                 </div>
                                 <div class="row info-row">
@@ -47,7 +55,6 @@
                                     </div>
                                 </div>
                                 <div class="row info-row">
-                                    <!-- TODO : orderNo를 통해 payment에서 날짜값 가져오기 -->
                                     <label for="date" class="col-3 label">일시</label>
                                     <div class="col-9">
                                         <input type="text" name="serviceDate" class="form-control" th:value="${#dates.format(payments.serviceDate, 'yyyy-MM-dd')}" readonly>
@@ -62,13 +69,13 @@
                                 <div class="row info-row">
                                     <label for="address" class="col-3 label">사용자 주소</label>
                                     <div class="col-9">
-                                        <input type="text" name="userAddress" class="form-control" th:value="${orders.userAddress}" readonly>
+                                        <input type="text" name="userAddress" class="form-control" th:value="${user.userAddress}" readonly>
                                     </div>
                                 </div>
                                 <div class="row info-row">
                                     <label for="phone" class="col-3 label">사용자 전화번호</label>
                                     <div class="col-9">
-                                        <input type="text" name="userPhone" class="form-control" th:value="${orders.userPhone}" readonly>
+                                        <input type="text" name="userPhone" class="form-control" th:value="${user.userPhone}" readonly>
                                     </div>
                                 </div>
                             </form>
@@ -76,7 +83,7 @@
                     </div>
                 </div>
                 <div class="buttons">
-                    <a th:href="|/admin/adminReservationUpdate/${orders.ordersNo}|" class="btn btn-primary custom1">예약 수정</a>
+                    <a th:href="|/admin/adminReservationUpdate?ordersNo=${orders.ordersNo}|" class="btn btn-primary custom1">예약 수정</a>
                     <a href="/admin/adminPartner" class="btn btn-primary custom2 size">목록</a>
                 </div>
             </div>

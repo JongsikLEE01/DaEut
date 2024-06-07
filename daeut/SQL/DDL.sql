@@ -114,7 +114,7 @@ CREATE TABLE orders
 (
   orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
   user_no        INT          NOT NULL COMMENT '사용자 번호',
-  order_status   VARCHAR(50)  NOT NULL COMMENT '예약 상태',
+  order_status   VARCHAR(50)  NULL DEFAULT 'PENDING' COMMENT '예약 상태',
   total_quantity INT          NOT NULL COMMENT '총 수량',
   total_price    INT          NOT NULL COMMENT '총 가격',
   upd_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 수정일자',
