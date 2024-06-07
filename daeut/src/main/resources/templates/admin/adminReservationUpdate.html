@@ -24,47 +24,50 @@
                 <div class="container mt-2">
                     <div class="card">
                         <div class="card-body">
-                            <form th:action="|admin/adminReservationUpdate|" method="POST">
+                            <form th:action="|/admin/adminReservationUpdate/${orders.ordersNo}|" method="POST">
+                                <!-- CSRF TOKEN -->
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <input type="hidden" name="ordersNo" th:value="${order.ordersNo}">
                                 <div class="row info-row">
                                     <label for="requester" class="col-3 label">요청자</label>
                                     <div class="col-9">
-                                        <input type="text" id="requester" class="form-control" value="joeun">
+                                        <input type="text" name="userName" class="form-control" th:value="${orders.userName}" readonly>
                                     </div>
                                 </div>
                                 <div class="row info-row">
                                     <label for="partner" class="col-3 label">파트너</label>
                                     <div class="col-9">
-                                        <input type="text" id="partner" class="form-control" value="홍길동">
+                                        <input type="text" name="partnerName" class="form-control" th:value="${orders.partnerName}" readonly>
+                                    </div>
+                                </div>
+                                <div class="row info-row">
+                                    <label for="request" class="col-3 label">예약번호</label>
+                                    <div class="col-9">
+                                        <input type="text" name="ordersNo" class="form-control" th:value="${orders.ordersNo}" readonly>
                                     </div>
                                 </div>
                                 <div class="row info-row">
                                     <label for="date" class="col-3 label">일시</label>
                                     <div class="col-9">
-                                        <input type="text" id="date" class="form-control" value="2024.05.21">
+                                        <input type="text" name="regDate" class="form-control" th:value="${#dates.format(orders.regDate, 'yyyy-MM-dd HH:mm:ss')}">
                                     </div>
                                 </div>
                                 <div class="row info-row">
                                     <label for="amount" class="col-3 label">금액</label>
                                     <div class="col-9">
-                                        <input type="text" id="amount" class="form-control" value="77,000원">
+                                        <input type="text" name="totalPrice" class="form-control" th:value="${orders.totalPrice}">
                                     </div>
                                 </div>
                                 <div class="row info-row">
-                                    <label for="address" class="col-3 label">주소</label>
+                                    <label for="address" class="col-3 label">사용자 주소</label>
                                     <div class="col-9">
-                                        <input type="text" id="address" class="form-control" value="인천광역시 부평구">
+                                        <input type="text" name="userAddress" class="form-control" th:value="${orders.userAddress}">
                                     </div>
                                 </div>
                                 <div class="row info-row">
-                                    <label for="request" class="col-3 label">요청사항</label>
+                                    <label for="phone" class="col-3 label">사용자 전화번호</label>
                                     <div class="col-9">
-                                        <input type="text" id="request" class="form-control" value="요청입니다">
-                                    </div>
-                                </div>
-                                <div class="row info-row">
-                                    <label for="phone" class="col-3 label">전화번호</label>
-                                    <div class="col-9">
-                                        <input type="text" id="phone" class="form-control" value="010-1111-1111">
+                                        <input type="text" name="userPhone" class="form-control" th:value="${orders.userPhone}">
                                     </div>
                                 </div>
                             </form>
@@ -74,7 +77,7 @@
                 <div class="buttons">
                     <button type="submit" class="btn btn-primary custom1 size">수정</button>
                     <button type="button" class="btn btn-primary custom1 size" onclick="actionDelete()">삭제</button>
-                    <a href="adminReservation" class="btn btn-primary custom2 size">목록</a>
+                    <a href="/admin/adminReservation" class="btn btn-primary custom2 size">목록</a>
                 </div>
             </div>
         </div>
