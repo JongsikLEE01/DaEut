@@ -3,13 +3,8 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-<<<<<<< HEAD
     "scrollTop": -1612.3420017288984,
     "scrollLeft": -2285.8288999999977,
-=======
-    "scrollTop": -821.4357816410406,
-    "scrollLeft": -3127,
->>>>>>> d3c3cd693a8c8b8d08c50fd5b9abfee222fbc684
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -379,11 +374,7 @@
           "active": false,
           "left": 1695.5323,
           "top": 1722.8417,
-<<<<<<< HEAD
           "zIndex": 10,
-=======
-          "zIndex": 9,
->>>>>>> d3c3cd693a8c8b8d08c50fd5b9abfee222fbc684
           "widthName": 60,
           "widthComment": 60
         },
@@ -468,11 +459,7 @@
           "active": false,
           "left": 1006.2442,
           "top": 1668.1884,
-<<<<<<< HEAD
           "zIndex": 13,
-=======
-          "zIndex": 10,
->>>>>>> d3c3cd693a8c8b8d08c50fd5b9abfee222fbc684
           "widthName": 60,
           "widthComment": 60
         },
@@ -895,11 +882,7 @@
           "active": false,
           "left": 2025.2845,
           "top": 1321.3578,
-<<<<<<< HEAD
           "zIndex": 11,
-=======
-          "zIndex": 14,
->>>>>>> d3c3cd693a8c8b8d08c50fd5b9abfee222fbc684
           "widthName": 60,
           "widthComment": 60
         },
@@ -1030,11 +1013,7 @@
           "active": false,
           "left": 971.4775,
           "top": 2309.3258,
-<<<<<<< HEAD
           "zIndex": 16,
-=======
-          "zIndex": 11,
->>>>>>> d3c3cd693a8c8b8d08c50fd5b9abfee222fbc684
           "widthName": 60,
           "widthComment": 60,
           "color": "#000000"
@@ -1610,15 +1589,9 @@
         ],
         "ui": {
           "active": false,
-<<<<<<< HEAD
           "left": 2540.2396,
           "top": 1006.7194,
           "zIndex": 12,
-=======
-          "left": 2515.7952,
-          "top": 966.7195,
-          "zIndex": 16,
->>>>>>> d3c3cd693a8c8b8d08c50fd5b9abfee222fbc684
           "widthName": 60,
           "widthComment": 60
         },
@@ -3039,15 +3012,9 @@
         ],
         "ui": {
           "active": false,
-<<<<<<< HEAD
           "left": 1673.7266,
           "top": 818.2011,
           "zIndex": 15,
-=======
-          "left": 1674.7266,
-          "top": 817.2011,
-          "zIndex": 13,
->>>>>>> d3c3cd693a8c8b8d08c50fd5b9abfee222fbc684
           "widthName": 60,
           "widthComment": 60
         },
@@ -3201,11 +3168,7 @@
           "active": false,
           "left": 961.5338,
           "top": 1960.5229,
-<<<<<<< HEAD
           "zIndex": 14,
-=======
-          "zIndex": 12,
->>>>>>> d3c3cd693a8c8b8d08c50fd5b9abfee222fbc684
           "widthName": 69.5009765625,
           "widthComment": 60
         },
@@ -3738,7 +3701,6 @@
         },
         "constraintName": "fk_users_to_chat_rooms",
         "visible": true
-<<<<<<< HEAD
       },
       {
         "id": "88c947fa-5ed1-4140-8542-91e8683bc981",
@@ -3791,8 +3753,6 @@
         },
         "constraintName": "fk_service_to_review",
         "visible": true
-=======
->>>>>>> d3c3cd693a8c8b8d08c50fd5b9abfee222fbc684
       }
     ]
   }
