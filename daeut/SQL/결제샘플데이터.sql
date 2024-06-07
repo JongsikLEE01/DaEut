@@ -14,4 +14,4 @@
 -- service_no, service_category, service_name, service_price, service_content, partner_no
 
 INSERT INTO payment
-VALUES (1, 'card', 'OK', '2024-06-06', '2024-06-06', '2024-06-06', 'ORD123456');
+VALUES (1, 'card', 'OK', '2024-06-06', '2024-06-06', '2024-06-06', 'ORD123456', '2024-06-06');
