@@ -107,7 +107,7 @@
 							<div class="calender-color-info">
 								<p><span class="color-box color-unavailable"></span>예약 불가</p>
 								<p><span class="color-box color-today"></span>오늘</p>
-								<p><span class="color-box color-selected"></span>선택일</p>
+								<p><span class="color-box color-selected"></span>예약일</p>
 							</div>
 						</div>
 					</div>
@@ -228,15 +228,7 @@
 									</form>
 								</th:block>
 								<!-- <button class="reservation-calender" id="showCalendarBtn">날짜 선택</button> -->
-
-								<th:block th:if="${session.user == null}">
-									<a href="javascript:;" id="hidden-link" onclick="sweetConfirm('회원가입이 필요합니다.', '장바구니는 회원가입 후 가능합니다.', 'warning', '로그인', ()=>{location.href='/auth/login'})">
-										<button class="reservation-paybutton">장바구니 담기</button>
-									</a>
-								</th:block>
-								<th:block th:if="${session.user != null}">
-									<button class="reservation-paybutton" onclick="addToCart()">장바구니 담기</button>
-								</th:block>
+								<button class="reservation-paybutton" onclick="addToCart()">장바구니 담기</button>
 							</tr>
 						</tfoot>
 
@@ -244,8 +236,9 @@
 					
 					<!-- <th:block th:if="${session.user == null}">
 						<a href="javascript:;"
-							onclick="sweetConfirm('회원가입이 필요합니다.', '예약 서비스는 회원가입 후 가능합니다.', 'warning', '로그인', ()=>{location.href='/auth/login'})">
-							<button class="btn-coupon">바로 예약하기</button>
+							onclick="sweetConfirm('회원가입이 필요합니다.', '예약 서비스는 회원가입 후 가능합니다.', 'warning', '로그인', ()=>{location.href='/auth/login'})"> -->
+							<!-- <a href="javascript:;" onclick="sweetAlert('경고', '회원가입이 필요합니다.', 'warning')"> -->
+							<!-- <button class="btn-coupon">바로 예약하기</button>
 						</a>
 					</th:block>
 					<th:block th:if="${session.user != null}">
@@ -266,6 +259,8 @@
 
 
 	<script>
+
+		var serviceNo = "[[${serviceNo}]]"
 		// 캘린더 
 		document.addEventListener('DOMContentLoaded', function () {
 			var calendarEl = document.getElementById('calendar');
@@ -282,11 +277,13 @@
 				nowIndicator: true, // 현재 시간 마크
 				dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
 				locale: 'ko', // 한국어 설정
-				events: '/full-calendar/getPartnerSchedule',
+				events: `/full-calendar/events?serviceNo=${serviceNo}`,
 				// 이벤트 
 				eventDidMount: function (info) {
-				info.el.title = info.event.start; // 이벤트에 마우스를 올렸을 때 표시할 툴팁 설정
-			}
+					// 이벤트가 렌더링된 후 실행됩니다.
+					// info.event 객체를 통해 이벤트에 대한 정보에 접근할 수 있습니다.
+					info.el.title = info.event.start; // 이벤트에 마우스를 올렸을 때 표시할 툴팁 설정
+				}
 			});
 			calendar.render();
 		});

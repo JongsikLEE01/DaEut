@@ -1220,3 +1220,17 @@
     color: #007bff !important;
     border: 1px solid #ddd;;
 }
+
+/* 캘린더 이벤트 */
+.fc-event .fc-event-start .fc-event-end .fc-event-future .fc-daygrid-event .fc-daygrid-dot-event {
+    background-color:#8FA2CA !important;
+}
+
+.fc-event {
+    background-color: #8FA2CA !important;
+    border: 1px #8FA2CA !important;
+}
+
+.fc-daygrid-event-dot {
+    border: calc(var(--fc-daygrid-event-dot-width) / 2) solid white;
+}
