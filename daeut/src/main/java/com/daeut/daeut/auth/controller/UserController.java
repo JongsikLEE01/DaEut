@@ -3,8 +3,6 @@ package com.daeut.daeut.auth.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,23 +13,19 @@ import com.daeut.daeut.auth.dto.CustomUser;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.dto.Review;
 import com.daeut.daeut.partner.service.PartnerService;
+import com.daeut.daeut.partner.service.ReviewService;
 import com.daeut.daeut.reservation.dto.Cart;
 import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.ChatRooms;
-import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.CartService;
 import com.daeut.daeut.reservation.service.ChatRoomService;
 import com.daeut.daeut.reservation.service.OrderService;
-import com.daeut.daeut.reservation.service.ReservationService;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -53,6 +47,9 @@ public class UserController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping("/userMypage")
     public String userMypage(HttpSession session, Model model) throws Exception {
@@ -142,10 +139,25 @@ public class UserController {
     
     
     // 사용자 작성 리뷰
-    @GetMapping("/userReview")
-    public String userReview() {
-        log.info("/user/userReview");
-        return "/user/userReview";
+    @GetMapping("/user/userReview")
+    public String showReviewForm(Model model, HttpSession session) {
+        Integer userNo = (Integer) session.getAttribute("userNo");
+        if (userNo == null) {
+            return "redirect:/login"; // 사용자 번호가 없으면 로그인 페이지로 리디렉션
+        }
+        model.addAttribute("payments", reviewService.getUserPayments(userNo));
+        return "userReview";
+    }
+
+    @PostMapping("/user/userReviewDone")
+    public String submitReview(Review review, HttpSession session) {
+        Integer userNo = (Integer) session.getAttribute("userNo");
+        if (userNo == null) {
+            return "redirect:/login"; // 사용자 번호가 없으면 로그인 페이지로 리디렉션
+        }
+        review.setUserNo(userNo);
+        reviewService.saveReview(review);
+        return "redirect:/user/userReview";
     }
 
      /**

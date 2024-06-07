@@ -17,31 +17,46 @@
                 <a href="/user/userMypage">내 정보 변경</a>
                 <a href="/user/userReservation">내 예약 보기</a>
                 <a href="/user/userReview" class="userReview">별점 및 리뷰 작성</a>
-                <a href="/user/userChatRoom" >채팅 내역</a>
+                <a href="/user/userChatRoom">채팅 내역</a>
                 <a href="/user/userPartner">파트너 신청</a>
                 <a href="/user/userCart">장바구니</a>
             </nav>
-            <div class="col-md-9 col-lg-10 form-section">
+            <div class="col-md-9 col-lg-10 form-section" id="content-area">
                 <h3>별점 및 리뷰 작성</h3>
                 <hr class="completeHr">
                 <div class="grid review-form">
-                    <h4 >서비스 품질 리뷰</h4>
+                    <h4>서비스 품질 리뷰</h4>
                     <form th:action="@{/user/userReviewDone}" method="post">
                         <div class="item item-1 align-items-center mb-3">
                             <div class="col-sm-5">
                                 <img class="img-fluid" src="https://via.placeholder.com/150" alt="서비스 이미지">
                             </div>
-                            <div class="col-md-7 d-flex align-items-end">
-                                <h5 class="mt-3">청소 패키지 서비스</h5>
-                            </div>
+                            <label for="paymentNo" class="col-form-label col-sm-3">주문 선택</label>
+                            <select class="form-control col-lg-2" id="paymentNo" name="paymentNo">
+                                <option th:each="payment : ${payments}" th:value="${payment.paymentNo}" th:text="${payment.serviceName}"></option>
+                            </select>
                         </div>
-                        <hr class="completeHr">
+                        <hr>
                         <div class="item item-2 align-center mb-4">
+                            <label for="reviewTitle" class="col-form-label col-sm-3">리뷰 제목</label>
+                            <input type="text" class="form-control col-lg-2" id="reviewTitle" name="reviewTitle" placeholder="리뷰 제목을 입력하세요">
+                        </div>
+                        <div class="item item-3 align-center mb-4">
+                            <label for="ratingRating" class="col-form-label col-sm-3">별점 평가</label>
+                            <select class="form-control col-lg-2" id="reviewRating" name="reviewRating">
+                                <option value="5">★★★★★ (5)</option>
+                                <option value="4">★★★★☆ (4)</option>
+                                <option value="3">★★★☆☆ (3)</option>
+                                <option value="2">★★☆☆☆ (2)</option>
+                                <option value="1">★☆☆☆☆ (1)</option>
+                            </select>
+                        </div>
+                        <div class="item item-4 align-center mb-4">
                             <label for="detailedReview" class="col-form-label col-sm-3">상세 리뷰</label>
-                            <textarea class="form-control col-lg-2" id="detailedReview" rows="4" placeholder="다른 고객님께 도움이 되도록 서비스에 대한 솔직한 리뷰를 남겨주세요."></textarea>
+                            <textarea class="form-control col-lg-2" id="reviewContent" name="reviewContent" rows="4" placeholder="다른 고객님께 도움이 되도록 서비스에 대한 솔직한 리뷰를 남겨주세요."></textarea>
                         </div>
                         <hr class="completeHr">
-                        <div class="item item-3 align-center mb-3" >
+                        <div class="item item-5 align-center mb-3">
                             <label for="file-upload" class="col-form-label col-sm-3">첨부파일</label>
                             <div class="file-upload">
                                 <input type="file" class="form-control mb-3" id="file">
