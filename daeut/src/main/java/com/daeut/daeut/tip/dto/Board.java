@@ -26,4 +26,6 @@ public class Board {
 
     // 파일 번호
     private int fileNo;
+
+    // private List<Integer> likedUsers;
 }

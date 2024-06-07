@@ -114,7 +114,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void incrementBoardLike(int boardNo) throws Exception {
+    public void incrementBoardLike(int boardNo, int userNo) throws Exception {
         log.info(boardNo + "번 글 좋아요 수 증가");
         boardMapper.incrementBoardLike(boardNo);
     }

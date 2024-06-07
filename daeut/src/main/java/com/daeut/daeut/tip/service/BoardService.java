@@ -31,5 +31,6 @@ public interface BoardService {
 
     // public List<Board> getTop5BoardsByBoardViews();
 
-    public void incrementBoardLike(int boardNo) throws Exception;
+    // 좋아요 수 증가
+    public void incrementBoardLike(int boardNo, int userNo) throws Exception;
 }

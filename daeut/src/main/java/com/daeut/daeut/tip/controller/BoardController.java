@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -165,14 +167,28 @@ public class BoardController {
     // 좋아요 수 증가
     @PutMapping("/{boardNo}/like")
     @ResponseBody
-    public Map<String, Object> incrementBoardLike(@PathVariable int boardNo) {
+    public Map<String, Object> incrementBoardLike(@PathVariable int boardNo, @RequestParam int userNo, HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         try {
-            boardService.incrementBoardLike(boardNo);
-            response.put("success", true);
+            List<Integer> likedBoards = (List<Integer>) session.getAttribute("likedBoards");
+            if (likedBoards == null) {
+                likedBoards = new ArrayList<>();
+            }
+
+            if (likedBoards.contains(boardNo)) {
+                response.put("success", false);
+                response.put("message", "이미 추천한 게시글입니다.");
+            } else {
+                boardService.incrementBoardLike(boardNo, userNo);
+                likedBoards.add(boardNo);
+                session.setAttribute("likedBoards", likedBoards);
+                response.put("success", true);
+                response.put("message", "게시글 추천 완료!");
+            }
         } catch (Exception e) {
-            log.error("좋아요 증가 중 오류 발생", e);
+            log.error("추천 증가 중 오류 발생", e);
             response.put("success", false);
+            response.put("message", e.getMessage());
         }
         return response;
     }

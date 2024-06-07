@@ -109,10 +109,11 @@
     <script>
         document.getElementById("like-button").addEventListener("click", function() {
             const boardNo = document.querySelector('input[name="boardNo"]').value;
+            const userNo = document.querySelector('input[name="userNo"]').value; // 사용자 번호 가져오기
             const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
             const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
-            fetch(`/tip/${boardNo}/like`, {
+            fetch(`/tip/${boardNo}/like?userNo=${userNo}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -125,9 +126,9 @@
                     let likeCountElement = document.getElementById("like-count");
                     let likeCount = parseInt(likeCountElement.textContent.split(": ")[1]) + 1;
                     likeCountElement.textContent = `추천수: ${likeCount}`;
-                    alert("게시글을 추천했습니다."); // 팝업 표시
+                    alert(data.message); // 추천 완료 메시지 표시
                 } else {
-                    alert("게시글 추천에 실패했습니다");
+                    alert(data.message); // 이미 추천했습니다 메시지 표시
                 }
             })
             .catch(error => console.error('Error:', error));
