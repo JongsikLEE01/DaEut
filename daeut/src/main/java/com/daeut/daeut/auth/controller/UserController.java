@@ -156,6 +156,10 @@ public class UserController {
         int userNo = user.getUserNo();
 
         List<ChatRooms> chatRoomList = chatRoomService.selectByUserNo(userNo);
+        for (ChatRooms chatRooms : chatRoomList) {
+            String roomNo = chatRooms.getRoomNo();
+            model.addAttribute("roomNo", roomNo);
+        }
 
         model.addAttribute("user", user);
         model.addAttribute("chatRoomList", chatRoomList);

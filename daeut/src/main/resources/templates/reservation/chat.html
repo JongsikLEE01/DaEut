@@ -9,6 +9,45 @@
     <!-- SockJS 및 stomp.js 라이브러리 추가 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <style>
+        .message {
+            display: flex;
+            margin: 10px 0;
+            clear: both;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+        .message-content {
+            font-size: 1em;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 60%;
+        }
+        .message-date {
+            font-size: 0.8em;
+            color: gray;
+            text-align: center;
+            margin-top: 5px;
+        }
+        .my-message {
+            justify-content: flex-end;
+            background-color: #DCF8C6;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .other-message {
+            justify-content: flex-start;
+            background-color: #ECECEC;
+            align-self: flex-start;
+            margin-right: auto;
+        }
+        .message-content-right {
+            text-align: right;
+        }
+        .message-content-left {
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body layout:fragment="content">
@@ -20,101 +59,103 @@
                     <span class="partner-name-chat">채팅방</span>
                 </div>
             </div>
-            <!-- <div class="chat-box" id="chat-box messages"> -->
             <div class="chat-box" id="messages">
-                <th:block th:each="chat : ${chatList}">
-                    <span th:text="${chat.chatContent}"></span>
-                    <br>
-                </th:block>
+                <div id="chatArea">
+                    <th:block th:each="chat : ${chatList}">
+                        <div th:class="${chat.userNo == user.userNo} ? 'message my-message' : 'message other-message'">
+                            <p class="message-content" th:classappend="${chat.userNo == user.userNo} ? 'message-content-right' : 'message-content-left'" th:text="${chat.chatContent}"></p>
+                            <p class="message-date" th:text="${#dates.format(chat.chatRegDate, 'HH:mm')}"></p>
+                        </div>
+                    </th:block>
+                </div>
             </div>
             <div class="input-box">
-                <form id="chatForm">
-                    <input type="text" id="messageInput" placeholder="부적절한 메세지는 삭제 처리됩니다." onkeypress="enterSend(event)">
-                    <!-- <button onclick="sendMessage()" class="sendchat" id="send">전송</button> -->
-                    <button class="sendchat" id="send" onclick="sendMessage()">전송</button>
-                </form>
+                <input type="text" name="chatcontent" id="message" placeholder="부적절한 메세지는 삭제 처리됩니다." onkeypress="enterSend(event)">
+                <button type="button" class="sendchat" id="send" onclick="sendMessage()">전송</button>
             </div>
             <div class="button-box">
                 <button class="goback" onclick="goBack()">돌아가기</button>
             </div>
-
         </div>
     </div>
 
     <script>
-        
-        // WebSocket 서버 연결
+        const url = new URL(location.href).searchParams;
+        const roomNo = url.get('roomNo');
+        const userNo = '[[${user.userNo}]]';
+
+        console.log(roomNo);
+
+        var stompClient = null;
+
+        // webSocket 연결
         function connect() {
-            let socket = new SockJS('/chat')
-            stompClient = Stomp.over(socket)
+            var socket = new SockJS('/chat');
+            stompClient = Stomp.over(socket);
             stompClient.connect({}, function (frame) {
-                alert("소켓 연결 성공")
                 console.log('Connected: ' + frame);
-                createChatRoom()
+                stompClient.subscribe(`/sub/chat/${roomNo}`, function (chat) {
+                    showMessage(JSON.parse(chat.body));
+                });
             });
         }
 
-        // Enter 키를 눌렀을 때 메시지 전송
-        function enterSend(event) {
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                sendMessage();
-            }
-        }
-
-        // 전송 버튼 클릭 시 호출되는 함수
+        // 메세지 보내기
         function sendMessage() {
-            var messageInput = document.getElementById('messageInput');
-            var message = messageInput.value.trim();
-            if (message !== '') {
-                // 채팅 메시지 전송
-                stompClient.send("/app/sendMessage", {}, JSON.stringify({ 'message': message }));
-                messageInput.value = '';
-            
-                // 메시지를 DB에 저장하기 위해 서버로 HTTP POST 요청 보내기
-                fetch('/message/save', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ 
-                        'chatContent': message,
-                        'userNo' : userNo,
-                        'roomNo' : roomNo 
-                    })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to save message');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Message saved successfully:', data);
-                })
-                .catch(error => {
-                    console.error('Error saving message:', error);
-                });
+            let chatContent = document.getElementById('message').value;
+
+            let data = {
+                'chatContent': chatContent,
+                'userNo': userNo,
+                'roomNo': roomNo,
+                'chatRegDate': getCurrentTime()
+            };
+
+            stompClient.send("/pub/chat/sendMessage", {}, JSON.stringify(data));
+            document.getElementById('message').value = ''; // 전송 후 입력란 초기화
+        }
+
+        // 메세지를 출력
+        function showMessage(chat) {
+            var chatArea = document.getElementById('chatArea');
+
+            var messageDiv = document.createElement('div');
+            messageDiv.className = chat.userNo == userNo ? 'message my-message' : 'message other-message';
+
+            var pContent = document.createElement('p');
+            pContent.className = 'message-content';
+            pContent.classList.add(chat.userNo == userNo ? 'message-content-right' : 'message-content-left');
+            pContent.textContent = chat.chatContent;
+
+            var pDate = document.createElement('p');
+            pDate.className = 'message-date';
+            pDate.textContent = chat.chatRegDate.split(' ')[1].slice(0, 5); // 시간과 분만 표시
+
+            messageDiv.appendChild(pContent);
+            messageDiv.appendChild(pDate);
+
+            chatArea.appendChild(messageDiv);
+        }
+
+        // 현재 시간을 가져오기
+        function getCurrentTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        // 엔터키로 메세지 전송
+        function enterSend(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+                event.preventDefault();
             }
-        }
-
-
-        // 메시지를 화면에 추가하는 함수
-        function showMessage(message) {
-            var messageElement = document.createElement('div');
-            messageElement.classList.add('message');
-            messageElement.textContent = message;
-            document.getElementById('messages').appendChild(messageElement);
-        }
-
-        // WebSocket으로부터 새로운 메시지가 도착했을 때 호출되는 함수
-        stompClient.subscribe('/topic/public', function (payload) {
-            showMessage(payload.body);
-        });
-
-        // 이전 페이지로 이동하는 함수
-        function goBack() {
-            window.history.back();
         }
 
         connect();
