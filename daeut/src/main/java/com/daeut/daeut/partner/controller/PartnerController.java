@@ -20,8 +20,15 @@ import com.daeut.daeut.partner.dto.Review;
 import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Orders;
+
+import com.daeut.daeut.reservation.dto.Payments;
+import com.daeut.daeut.reservation.dto.Services;
+
 import com.daeut.daeut.reservation.service.ChatRoomService;
+
 import com.daeut.daeut.reservation.service.OrderService;
+import com.daeut.daeut.reservation.service.PaymentService;
+import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +54,15 @@ public class PartnerController {
     private OrderService orderService;
 
     @Autowired
+
+    private PaymentService paymentService;
+
+    @Autowired
+    private ReservationService reservationService;
+
+
     private ChatRoomService chatRoomService;
+
     
     
     // 마이페이지 정보 조회
@@ -189,17 +204,23 @@ public String deleteUser(@RequestParam("userNo") int userNo, @RequestParam("user
     // 파트너 예약란
     @GetMapping("/partnerReservation")
     public String partnerReservation(Model model, HttpSession session) throws Exception {
-          int partnerNo = (int) session.getAttribute("partnerNo"); // 세션에서 partnerNo 가져오기
+        int partnerNo = (int) session.getAttribute("partnerNo"); // 세션에서 partnerNo 가져오기
         List<Orders> orderList = orderService.listByParterNo(partnerNo); // 주문 목록 가져오기
+        
+        for (Orders orders : orderList) {
+            Payments payments = paymentService.selectByOrdersNo(orders.getOrdersNo());
+            model.addAttribute("payments", payments);
+        }
+
         model.addAttribute("orderList", orderList); // 모델에 주문 목록 추가
+
+
         return "/partner/partnerReservation";  
     }
 
     // 파트너 예약 상세조회란
     @GetMapping("/partnerReservationRead")
     public String partnerReservationRead(@RequestParam("ordersNo") String ordersNo, Model model) throws Exception {
-        log.info("[partner] - /partnerReservationRead");
-    
         // 주문에 대한 상세 정보를 조회하고 모델에 추가
         Orders order = orderService.listByOrderNo(ordersNo);
     

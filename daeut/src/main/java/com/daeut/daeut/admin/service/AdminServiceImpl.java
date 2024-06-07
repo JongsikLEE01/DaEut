@@ -188,9 +188,11 @@ public class AdminServiceImpl implements AdminService {
      @Override
      public Orders adminReadReservation(String ordersNo) throws Exception {
          Orders orders = adminMapper.adminReadReservation(ordersNo);
+         log.info("------------orders----------" + orders);
          return orders;
      }
 
+     // 관리자 - 예약 수정
     @Override
     public int adminUpdateReservation(Orders orders) throws Exception {
         int result = adminMapper.adminUpdateReservation(orders);
