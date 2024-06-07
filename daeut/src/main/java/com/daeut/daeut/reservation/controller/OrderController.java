@@ -1,12 +1,20 @@
 package com.daeut.daeut.reservation.controller;
 
-import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.reservation.dto.OrderItems;
@@ -18,11 +26,6 @@ import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Slf4j
@@ -89,11 +92,22 @@ public class OrderController {
     public String orderSuccess(Model model
                               ,Payments payments
                               ,HttpSession session
-                              ,@RequestParam("ordersNo") String ordersNo) throws Exception {
+                              ,@RequestParam("ordersNo") String ordersNo
+                              ,@RequestParam("date") String date
+                              ,@RequestParam("time") String time) throws Exception {
 
         payments.setOrdersNo(ordersNo);
         payments.setPaymentMethod("card");
         payments.setStatus(PaymentStatus.PAID);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dateTime = date + ' ' + time;
+        Date serviceDate = sdf.parse(dateTime);
+        payments.setServiceDate(serviceDate);
+        
+        log.info("serviceDate {}", serviceDate);
+        log.info("dateTime {}", dateTime);
+
         paymentService.merge(payments);
         
         payments = paymentService.selectByOrdersNo(ordersNo);
@@ -104,6 +118,7 @@ public class OrderController {
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
         log.info(payments.toString());
 
+        model.addAttribute("payments", payments);
         model.addAttribute("order", order);
         return "/reservation/paymentDone";
     }
@@ -121,10 +136,24 @@ public class OrderController {
                               ,Payments payments
                               ,HttpSession session
                               ,@RequestParam("ordersNo") String ordersNo
-                              ,@ModelAttribute String errorMsg) throws Exception {                    
+                              ,@ModelAttribute String errorMsg
+                              ,@RequestParam("date") String date
+                              ,@RequestParam("time") String time) throws Exception {                    
         payments.setOrdersNo(ordersNo);
         payments.setPaymentMethod("card");
         payments.setStatus(PaymentStatus.PAID);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String serviceDate = date + ' ' + time;
+
+        if(serviceDate == null || serviceDate == ""){
+            Date now = new Date();
+            // 결제일 미지정 시 현재 시간으로 지정
+            payments.setServiceDate(now);
+        }else{
+            Date orderServiceDate = sdf.parse(serviceDate);
+            payments.setServiceDate(orderServiceDate);
+        }
+        
         paymentService.insert(payments);
         
         // ⭐ 결제 실패 시, 결제 상태 PENDING 으로 변경
