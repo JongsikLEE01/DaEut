@@ -30,6 +30,18 @@
         <result property="auth" column="auth" />
     </resultMap>
 
+    <!-- Orders에 대한 resultMap 정의 -->
+    <resultMap type="Orders" id="ordersMap">
+        <id property="ordersNo" column="orders_no"/>
+        <result property="userName" column="user_name"/>
+        <result property="partnerName" column="partner_name"/>
+        <result property="serviceDate" column="service_date"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="userAddress" column="user_address"/>
+        <result property="userPhone" column="user_phone"/>
+    </resultMap>
+
+
 
     <!-- ROLE_USER만 가진 사람 가져오기 - 관리자 페이지에서 회원 관리 -->
     <select id="selectAllUsers" resultType="Users">
@@ -118,12 +130,6 @@
     <delete id="deleteList">
         DELETE FROM users
         WHERE user_no IN ( ${userNoList} )
-    </delete>
-
-    <!-- 관리자 - 파트너 선택 삭제 -->
-    <delete id="deleteListPartner">
-        DELETE FROM partner
-        WHERE user_no IN ( ${partnerNoList} )
     </delete>
 
     <!-- 관리자 회원 조회 - user_no -->
@@ -244,24 +250,90 @@
     </delete>
 
     <!-- 예약된 수를 카운트하는 쿼리 -->
-        <select id="countReservations" resultType="int">
-            SELECT COUNT(*)
-            FROM orders
-        </select>
+    <select id="countReservations" resultType="int">
+        SELECT COUNT(*)
+        FROM orders
+    </select>
 
     <!-- 모든 주문 조회 -->
-        <select id="list" resultType="Orders">
-            SELECT 
-                o.orders_no AS ordersNo,
-                u.user_no AS userNo,
-                u.user_name AS userName,
-                o.order_status AS orderStatus,
-                o.reg_date AS regDate
-            FROM 
-                orders o
-            JOIN 
-                users u ON o.user_no = u.user_no
-            LIMIT #{page.index}, #{page.rows}
-        </select>
+    <select id="list" resultType="Orders">
+        SELECT 
+            u.user_id AS userId,
+            o.orders_no AS ordersNo,
+            u.user_name AS userName,
+            pu.user_name AS partnerName,
+            pa.status AS status,
+            pa.service_date AS serviceDate
+        FROM 
+            orders o
+        JOIN 
+            users u ON o.user_no = u.user_no
+        JOIN 
+            order_item oi ON o.orders_no = oi.orders_no
+        JOIN 
+            service s ON oi.service_no = s.service_no
+        JOIN 
+            partner p ON s.partner_no = p.partner_no
+        JOIN 
+            users pu ON p.user_no = pu.user_no
+        JOIN
+            payment pa ON pa.orders_no = o.orders_no
+        LIMIT #{page.index}, #{page.rows}
+    </select>
+
+    <!-- 예약 조회 -->
+    <select id="adminReadReservation" resultType="Orders">
+        SELECT 
+            u.user_name AS userName,
+            pu.user_name AS partnerName, 
+            o.orders_no AS ordersNo,
+            pa.service_date AS serviceDate,
+            o.total_price AS totalPrice,
+            u.user_address AS userAddress, 
+            u.user_phone AS userPhone
+        FROM   
+            orders o
+        JOIN 
+            users u ON o.user_no = u.user_no
+        JOIN 
+            order_item oi ON o.orders_no = oi.orders_no
+        AND 
+            service s ON oi.service_no = s.service_no
+        JOIN 
+            partner p ON s.partner_no = p.partner_no
+        JOIN 
+            users pu ON p.user_no = pu.user_no
+        JOIN
+            payment pa ON pa.orders_no = o.orders_no
+        WHERE 
+            o.orders_no = #{ordersNo}
+    </select>
+
+    <!-- 예약 수정 쿼리 -->
+    <update id="adminUpdateReservation">
+        UPDATE orders o
+        JOIN 
+            users u ON o.user_no = u.user_no
+        JOIN 
+            order_item oi ON o.orders_no = oi.orders_no
+        JOIN 
+            service s ON oi.service_no = s.service_no
+        JOIN 
+            partner p ON s.partner_no = p.partner_no
+        JOIN 
+            users pu ON p.user_no = pu.user_no
+        JOIN
+            payment pa ON pa.orders_no = o.orders_no
+        SET 
+            u.user_name = #{userName},
+            pu.user_name = #{userName},
+            o.orders_no = #{ordersNo},
+            pa.service_date = #{serviceDate},
+            o.total_price = #{totalPrice},
+            u.user_address = #{userAddress},
+            u.user_phone = #{userPhone}
+        WHERE 
+            o.orders_no = #{ordersNo};
+    </update>
 
 </mapper>
