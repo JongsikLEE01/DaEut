@@ -31,13 +31,14 @@
                             <img th:src="|/file/img/${board.fileNo}|" alt="썸네일" style="width: 200px; height: 200px;">
                             <!-- <span th:text="|/file/img/${board.fileNo}|"></span> -->
                         </a>
-                        <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;">
+                        <!-- <button class="heart-button2" style="position: absolute; bottom: 5px; right: 5px;" data-board-no="${board.boardNo}">
                             <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
+                        </button> -->
                     </div>
                     <a th:href="@{/tip/tipRead(no=${board.boardNo})}">
                         <p><span class="highlight-text" th:text="${board.boardTitle}"></span></p>
                     </a>
+                    <p>좋아요 수: <span th:text="${board.boardLike}">0</span></p>
                 </div>
             </div>
         </div>

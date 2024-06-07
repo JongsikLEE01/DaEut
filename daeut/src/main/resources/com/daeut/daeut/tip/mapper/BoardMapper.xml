@@ -129,4 +129,11 @@
     <!-- <select id="findTop5ByBoardViews" resultType="com.daeut.daeut.tip.dto.Board">
         SELECT * FROM board ORDER BY board_views DESC LIMIT 5
     </select> -->
+
+    <!-- 좋아요 수 증가 -->
+    <update id="incrementBoardLike">
+        UPDATE board
+        SET board_like = board_like + 1
+        WHERE board_no = #{boardNo}
+    </update>
 </mapper>

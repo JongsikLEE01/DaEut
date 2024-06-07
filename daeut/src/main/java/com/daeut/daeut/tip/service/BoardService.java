@@ -31,4 +31,5 @@ public interface BoardService {
 
     // public List<Board> getTop5BoardsByBoardViews();
 
+    public void incrementBoardLike(int boardNo) throws Exception;
 }

@@ -1,7 +1,9 @@
 package com.daeut.daeut.tip.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.tip.dto.Option2;
@@ -19,6 +22,10 @@ import com.daeut.daeut.tip.dto.Board;
 import com.daeut.daeut.tip.service.BoardService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @Slf4j
 @Controller
@@ -155,5 +162,19 @@ public class BoardController {
     //     return "tip/index";
     // }
     
+    // 좋아요 수 증가
+    @PutMapping("/{boardNo}/like")
+    @ResponseBody
+    public Map<String, Object> incrementBoardLike(@PathVariable int boardNo) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            boardService.incrementBoardLike(boardNo);
+            response.put("success", true);
+        } catch (Exception e) {
+            log.error("좋아요 증가 중 오류 발생", e);
+            response.put("success", false);
+        }
+        return response;
+    }
     
 }

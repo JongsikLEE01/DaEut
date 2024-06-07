@@ -26,10 +26,12 @@
                         <a th:href="@{/tip/tipUpdate(no=${board.boardNo})}" class="boardUpdate">수정</a>
                     </div>
                 </div>
-                <!-- <div class="d-flex justify-content-between align-items-center mt-2">
-                    <span th:text="'좋아요: ' + ${board.boardLike}">좋아요: 0</span>
-                    <button id="like-button" class="btn btn-primary">좋아요</button>
-                </div> -->
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span th:text="'좋아요: ' + ${board.boardLike}" id="like-count">좋아요: 0</span>
+                    <button id="like-button" class="heart-button2" type="button" data-board-no="${board.boardNo}">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                    </button>
+                </div>
                 <hr>
                 <div class="text-center my-4">
                     <!-- ⭐ 파일 이미지 출력하기 -->
@@ -86,6 +88,40 @@
     </div>
 
     <script>
+        document.getElementById("like-button").addEventListener("click", function() {
+            const boardNo = document.querySelector('input[name="boardNo"]').value;
+            const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+            const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+            fetch(`/tip/${boardNo}/like`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    [csrfHeader]: csrfToken
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    let likeCountElement = document.getElementById("like-count");
+                    let likeCount = parseInt(likeCountElement.textContent.split(": ")[1]) + 1;
+                    likeCountElement.textContent = `좋아요: ${likeCount}`;
+                } else {
+                    alert("좋아요 증가에 실패했습니다.");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const heartButtons = document.querySelectorAll('.heart-button, .heart-button2');
+            heartButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.classList.toggle('active');
+                });
+            });
+        });
+
         let no = "[[${board.boardNo}]]"
         let userNo = "[[${session.user.userNo}]]"
         var csrfToken = "[[${_csrf.token}]]"
