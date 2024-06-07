@@ -127,18 +127,18 @@ public class OrderController {
         log.info(payments.toString());
 
         // 장바구니 삭제 -> stackOverFlow 발생 ❗
-        List<OrderItems> orderItemList = orderItemService.listByOrderNo(ordersNo);
+        // List<OrderItems> orderItemList = orderItemService.listByOrderNo(ordersNo);
 
-        for (OrderItems orderItem : orderItemList) {
-            int serviceNo = orderItem.getServiceNo();
-            List<Cart> cartList =  cartService.cartList(user.getUserNo());
+        // for (OrderItems orderItem : orderItemList) {
+        //     int serviceNo = orderItem.getServiceNo();
+        //     List<Cart> cartList =  cartService.cartList(user.getUserNo());
 
-            for (Cart cart : cartList) {
-                int cartServiceNo = cart.getServiceNo();
-                if(serviceNo == cartServiceNo) 
-                    cartService.cartDelete(cart.getCartNo());
-            }
-        }
+        //     for (Cart cart : cartList) {
+        //         int cartServiceNo = cart.getServiceNo();
+        //         if(serviceNo == cartServiceNo) 
+        //             cartService.cartDelete(cart.getCartNo());
+        //     }
+        // }
 
         model.addAttribute("payments", payments);
         model.addAttribute("order", order);
