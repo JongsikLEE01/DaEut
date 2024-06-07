@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/user_layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da E ut</title>
+</head>
+<body layout:fragment="content">
+    <button class="btn btn-primary toggle-btn menu mt-2 ml-2" id="toggle-btn" onclick="toggleSidebar()">메뉴</button>
+    <main class="container-fluid container">
+        <div class="row">
+            <nav class="col-md-3 col-lg-2 sidebar" id="sidebar">
+                <button class="btn btn-danger d-block d-md-none" onclick="toggleSidebar()">닫기</button>
+                <h5>마이페이지</h5>
+                <br>
+                <a href="/user/userMypage">내 정보 변경</a>
+                <a href="/user/userReservation">내 예약 보기</a>
+                <a href="/user/userLikeTip" class="userLikeTip">내가 좋아하는 글</a>
+                <a href="/user/userReview">별점 및 리뷰 작성</a>
+                <a href="/user/userChatRoom">채팅 내역</a>
+                <a href="/user/userPartner">파트너 신청</a>
+                <a href="/user/userCart">장바구니</a>
+            </nav>
+            <div class="col-md-9 col-lg-10 form-section">
+                <h3>내가 좋아하는 글</h3>
+                <!-- DB에 글이 존재하는 만큼 가져오게 반복문으로 작성 -->
+                <form>
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col">
+                          <div class="card h-60" style="width: 18rem;">
+                            <a href="/tip/tipRead"><a href="/tip/tipRead"><img src="/img/index02.png" class="card-img-top"></a></a>
+                            <div class="card-body">
+                              <h5 class="card-title">여름철 모기 퇴치 방법</h5>
+                              <p class="card-text">반려동물에게 해가 되지 않는 천연 모기 퇴치제</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-60" style="width: 18rem;">
+                              <a href="/tip/tipRead"><img src="/img/index02.png" class="card-img-top"></a>
+                              <div class="card-body">
+                                <h5 class="card-title">여름철 모기 퇴치 방법</h5>
+                                <p class="card-text">반려동물에게 해가 되지 않는 천연 모기 퇴치제</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="card h-60" style="width: 18rem;">
+                              <a href="/tip/tipRead"><img src="/img/index02.png" class="card-img-top"></a>
+                              <div class="card-body">
+                                <h5 class="card-title">여름철 모기 퇴치 방법</h5>
+                                <p class="card-text">반려동물에게 해가 되지 않는 천연 모기 퇴치제</p>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <br>
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col">
+                          <div class="card h-60" style="width: 18rem;">
+                            <a href="/tip/tipRead"><img src="/img/index02.png" class="card-img-top"></a>
+                            <div class="card-body">
+                              <h5 class="card-title">여름철 모기 퇴치 방법</h5>
+                              <p class="card-text">반려동물에게 해가 되지 않는 천연 모기 퇴치제</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-60" style="width: 18rem;">
+                              <a href="/tip/tipRead"><img src="/img/index02.png" class="card-img-top"></a>
+                              <div class="card-body">
+                                <h5 class="card-title">여름철 모기 퇴치 방법</h5>
+                                <p class="card-text">반려동물에게 해가 되지 않는 천연 모기 퇴치제</p>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-60" style="width: 18rem;">
+                              <a href="/tip/tipRead"><img src="/img/index02.png" class="card-img-top"></a>
+                              <div class="card-body">
+                                <h5 class="card-title">여름철 모기 퇴치 방법</h5>
+                                <p class="card-text">반려동물에게 해가 되지 않는 천연 모기 퇴치제</p>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
