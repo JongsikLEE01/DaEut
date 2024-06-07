@@ -52,34 +52,49 @@ public class UserController {
     private ChatRoomService chatRoomService;
 
     @GetMapping("/userMypage")
-    public String userMypage(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
+    public String userMypage(HttpSession session, Model model) throws Exception {
         log.info("/user/userMypage");
 
-        Users user = customUser.getUser();
-        model.addAttribute("user", user);
+        Users user = (Users) session.getAttribute("user");
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
 
+        model.addAttribute("user", user);
         return "/user/userMypage";
     }
 
     // 사용자 마이페이지 수정
     @GetMapping("/userMypageUpdate")
-    public String userMypageUpdate(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
+    public String userMypageUpdate(HttpSession session, Model model) throws Exception {
         log.info("/user/userMypageUpdate");
 
-        Users user = customUser.getUser();
-        model.addAttribute("user", user);
+        Users user = (Users) session.getAttribute("user");
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
 
+        model.addAttribute("user", user);
         return "/user/userMypageUpdate";
     }
 
     // 사용자 마이페이지 수정 처리
     @PostMapping("/userMypageUpdateDone")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public String userMypageUpdateDone(@RequestParam("action") String action, @ModelAttribute Users user) throws Exception {
+    public String userMypageUpdateDone(HttpSession session, @RequestParam("action") String action, @ModelAttribute Users user) throws Exception {
+        Users sessionUser = (Users) session.getAttribute("user");
+        if (sessionUser == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
         if ("delete".equals(action)) {
-            int result = userService.delete(user);
+            int result = userService.delete(sessionUser);
             log.info("Delete result: " + result);
             if (result > 0) {
+                session.invalidate(); // 세션 무효화
                 return "redirect:/index";  // 탈퇴 처리 후 리다이렉트할 페이지
             } else {
                 return "redirect:/user/userMypage";
@@ -88,6 +103,7 @@ public class UserController {
             int result = userService.update(user);
             log.info("Update result: " + result);
             if (result > 0) {
+                session.setAttribute("user", user); // 세션 업데이트
                 return "redirect:/user/userMypage";
             } else {
                 return "redirect:/user/userMypageUpdate";
@@ -156,10 +172,6 @@ public class UserController {
         int userNo = user.getUserNo();
 
         List<ChatRooms> chatRoomList = chatRoomService.selectByUserNo(userNo);
-        for (ChatRooms chatRooms : chatRoomList) {
-            String roomNo = chatRooms.getRoomNo();
-            model.addAttribute("roomNo", roomNo);
-        }
 
         model.addAttribute("user", user);
         model.addAttribute("chatRoomList", chatRoomList);

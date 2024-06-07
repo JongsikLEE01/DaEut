@@ -200,8 +200,10 @@
      <!-- 회원 정보 수정 -->
     <update id="update">
         UPDATE users
-           SET user_password = #{userPassword}
-              ,user_name = #{userName}
+           SET 
+               <!-- user_password = #{userPassword} -->
+               user_name = #{userName}
+              ,user_email = #{userEmail}
               ,user_phone = #{userPhone}
               ,user_address = #{userAddress}
               ,user_birth = #{userBirth}
