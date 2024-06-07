@@ -13,4 +13,5 @@ public class Payments {
     private Date regDate;
     private Date updDate;
     private String ordersNo;
+    private Date serviceDate;
 }

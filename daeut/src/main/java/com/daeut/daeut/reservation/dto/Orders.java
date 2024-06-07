@@ -33,7 +33,7 @@ public class Orders {
     private String userAddress;
     private String serviceName;
     private String partnerName;
-
-
     
+    private Payments payment;
+    private Date serviceDate;
 }

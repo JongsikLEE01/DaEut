@@ -124,7 +124,6 @@ CREATE TABLE orders
   reg_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 등록일자',
   total_count    INT          NOT NULL COMMENT '총 항목수',
   title          VARCHAR(100) NULL     COMMENT '예약 제목',
-  partner_no     INT          NOT NULL COMMENT '파트너 번호',
   PRIMARY KEY (orders_no)
 ) COMMENT '예약';
 
@@ -148,6 +147,7 @@ CREATE TABLE payment
   reg_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 등록일',
   upd_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 수정일',
   orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
+  service_date DATETIME NOT NULL COMMENT '서비스 신청일',
   PRIMARY KEY (payment_no)
 ) COMMENT '결제';
 
