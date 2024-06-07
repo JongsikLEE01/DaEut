@@ -28,4 +28,12 @@ public class Orders {
     // ----
     private Users user;
     private Partner partner;
+
+    private String userName;
+    private String userAddress;
+    private String serviceName;
+    private String partnerName;
+
+
+    
 }

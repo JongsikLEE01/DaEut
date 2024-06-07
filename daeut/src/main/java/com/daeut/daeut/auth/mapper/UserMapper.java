@@ -6,10 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 
-import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
-import com.daeut.daeut.reservation.dto.Reservation;
-
+import com.daeut.daeut.reservation.dto.Orders;
 import java.util.List;
 
 @Mapper
@@ -53,7 +51,7 @@ public interface UserMapper {
     public int delete(Users user) throws Exception;
 
     // 예약 가져오기
-    public List<Reservation> selectReservationsByUserId(String userId);
+    public List<Orders> selectOrdersByUserId(String userId) throws Exception;
     
     // 파트너 찾기
     public Partner selectPartner(int userNo) throws Exception;

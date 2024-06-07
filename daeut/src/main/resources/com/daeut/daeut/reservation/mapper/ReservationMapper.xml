@@ -44,6 +44,7 @@
         WHERE service_no = #{serviceNo}
     </select>
 
+
     <!-- 썸네일 -->
     <select id="SelectThumbnail">
         SELECT  s.*, 

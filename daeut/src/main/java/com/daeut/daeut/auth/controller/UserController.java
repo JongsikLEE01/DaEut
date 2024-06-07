@@ -17,6 +17,7 @@ import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Cart;
+import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.CartService;
@@ -97,18 +98,23 @@ public class UserController {
     
     // 사용자 예약 화면
     @GetMapping("/userReservation")
-    public String userReservation() {
+    public String userReservation(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
         log.info("/user/userReservation");
-        return "/user/userReservation";
-    }
 
-    // 사용자 좋아요 게시글
-    @GetMapping("/userLikeTip")
-    public String userLikeTip() {
-        log.info("/user/userLikeTip");
-        return "/user/userLikeTip";
-    }
+        
+        String userId = customUser.getUsername();
+        if(userId == null) {
+            return "redirect:/index";
+        }
+        log.info(userId);
 
+
+        List<Orders> orders = userService.selectOrdersByUserId(userId);
+        model.addAttribute("orders", orders);
+
+        return "user/userReservation";
+    }
+    
     // 사용자 작성 리뷰
     @GetMapping("/userReview")
     public String userReview() {
