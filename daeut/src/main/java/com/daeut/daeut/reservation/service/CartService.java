@@ -10,4 +10,5 @@ public interface CartService {
     public int cartUpdate(Cart cart) throws Exception;
     public int cartDeleteSelected(List<Integer> cartNos) throws Exception;
     public int cartDeleteAll(int userNo) throws Exception;
+    public int cartDelete(int cartNo) throws Exception;
 }

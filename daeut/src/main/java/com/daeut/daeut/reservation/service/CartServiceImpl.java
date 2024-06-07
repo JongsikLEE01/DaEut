@@ -81,4 +81,9 @@ public class CartServiceImpl implements CartService{
         int result = cartMapper.cartDeleteSelected(deleteNoList);           
         return result;
     }
+
+    @Override
+    public int cartDelete(int cartNo) throws Exception {
+        return cartDelete(cartNo);
+    }
 }

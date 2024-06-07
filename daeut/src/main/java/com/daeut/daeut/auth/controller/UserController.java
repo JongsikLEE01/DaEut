@@ -183,8 +183,7 @@ public class UserController {
     public String userCart(Model model, HttpSession session) {
         Users user = (Users) session.getAttribute("user");
         int userNo = user.getUserNo();
-        com.daeut.daeut.partner.dto.Partner partner;
-        Services service;
+        Partner partner;
         
         // 사용자의 장바구니 목록을 서비스를 통해 가져옴
         List<Cart> cartList;

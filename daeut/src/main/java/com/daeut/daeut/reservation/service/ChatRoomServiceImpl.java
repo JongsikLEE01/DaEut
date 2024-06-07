@@ -60,7 +60,7 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
         // 유저 이름 가져오기
         Users user = userService.findUserById(chatRooms.getUserNo());
-        chatRooms.setTitle(pUsers.getUserName() + "님과" + user.getUserName() + "님이 대화중입니다");
+        chatRooms.setTitle(pUsers.getUserName() + "님과 " + user.getUserName() + "님이 대화중입니다");
 
         return chatRoomMapper.insert(chatRooms);
     }
