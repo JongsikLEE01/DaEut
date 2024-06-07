@@ -15,4 +15,5 @@ public class Review {
     private int userNo;
     private int paymentNo;
     private int partnerNo;
+    private int serviceNo;
 }

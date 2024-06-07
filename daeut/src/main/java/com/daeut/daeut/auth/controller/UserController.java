@@ -22,6 +22,7 @@ import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.CartService;
 import com.daeut.daeut.reservation.service.ChatRoomService;
+import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,12 +45,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
     @Autowired
     private PartnerService partnerService;
 
     @Autowired
     private ChatRoomService chatRoomService;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/userMypage")
     public String userMypage(HttpSession session, Model model) throws Exception {
@@ -130,6 +133,13 @@ public class UserController {
 
         return "user/userReservation";
     }
+
+    @PostMapping("/OrdersDelete")
+    public String OrdersDelete(@RequestParam("ordersNo") String ordersNo) throws Exception {
+        orderService.OrdersDelete(ordersNo);
+        return "redirect:/user/userReservation";
+    }
+    
     
     // 사용자 작성 리뷰
     @GetMapping("/userReview")

@@ -17,12 +17,10 @@ import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Option;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.main.service.FileService;
-import com.daeut.daeut.reservation.dto.ChatRooms;
+import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.ChatRoomService;
-import com.daeut.daeut.reservation.service.ChatService;
 import com.daeut.daeut.reservation.service.ReservationService;
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,6 +37,9 @@ public class ReservationController {
 
     @Autowired
     private ChatRoomService chatRoomService;
+
+    @Autowired
+    private PartnerService partnerService;
 
     /**
      * 전체 조회
@@ -125,6 +126,7 @@ public class ReservationController {
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
         
+        model.addAttribute("serviceNo", serviceNo);
         model.addAttribute("service", service);
         model.addAttribute("fileList", fileList);
         model.addAttribute("thumbnail", thumbnail);
@@ -132,6 +134,15 @@ public class ReservationController {
         model.addAttribute("user", user);
         return "reservation/reservationRead";
     }
+
+
+    // 캘린더 띄우기
+    // @GetMapping("/reservationReadCalendar")
+    // public String reservationRead(@RequestParam("partnerNo") int partnerNo, Model model) {
+    //     List<String> partnerSchedule = partnerService.getPartnerSchedule(partnerNo);
+    //     model.addAttribute("partnerSchedule", partnerSchedule);
+    //     return "redirect:/reservationRead?partnerNo=" + partnerNo;
+    // }
 
 	/**
      * 글 등록 
@@ -257,4 +268,6 @@ public class ReservationController {
     public String paymentFalse() {
         return "reservation/paymentFalse";
     }
+
+
 }
