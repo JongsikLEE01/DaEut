@@ -30,7 +30,7 @@
                 <div class="d-flex justify-content-between align-items-center mt-2">
                     <input type="text" id="userId" th:value="${board.userNo}" placeholder="userId" disabled>
                     <div class="d-flex gap-2" style="font-size: 0.8em;">
-                        <span><i class="fa fa-eye"></i> <span th:text="${board.boardViews}">0</span></span>
+                        <span><i class="fa-regular fa-eye"></i> <span th:text="${board.boardViews}">0</span></span>
                         <!-- <span><i class="fa fa-comments"></i> <span th:text="${board.reply}">0</span></span> -->
                         <span th:text="'추천수: ' + ${board.boardLike}" id="like-count">좋아요: 0</span>
                     </div>
@@ -125,8 +125,9 @@
                     let likeCountElement = document.getElementById("like-count");
                     let likeCount = parseInt(likeCountElement.textContent.split(": ")[1]) + 1;
                     likeCountElement.textContent = `추천수: ${likeCount}`;
+                    alert("게시글을 추천했습니다."); // 팝업 표시
                 } else {
-                    alert("좋아요 증가에 실패했습니다.");
+                    alert("게시글 추천에 실패했습니다");
                 }
             })
             .catch(error => console.error('Error:', error));
