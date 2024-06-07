@@ -1,4 +1,4 @@
--- Active: 1715242304860@@127.0.0.1@3306@joeun
+-- Active: 1717663125839@@127.0.0.1@3306@joeun
 -- 결제 로직
 
 -- -- DROP
@@ -19,8 +19,10 @@ DROP TABLE IF EXISTS order_item ;
 DROP TABLE IF EXISTS cancel ;
 DROP TABLE IF EXISTS cart ;
 
- 
+
+-- *********************** 테이블 ***********************
         
+
 CREATE TABLE board
 (
   board_no       INT          NOT NULL AUTO_INCREMENT COMMENT '게시판 번호',
@@ -68,7 +70,7 @@ CREATE TABLE chat
 (
   chat_no       INT          NOT NULL AUTO_INCREMENT COMMENT '채팅 번호',
   chat_content  TEXT         NOT NULL COMMENT '채팅 내용',
-  chat_reg_date TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '채팅 등록일자',
+  chat_reg_date TIMESTAMP    NOT NULL COMMENT '채팅 등록일자',
   user_no       INT          NOT NULL COMMENT '사용자 번호',
   room_no       VARCHAR(100) NOT NULL COMMENT '방 번호',
   PRIMARY KEY (chat_no)
@@ -113,19 +115,8 @@ CREATE TABLE order_item
   PRIMARY KEY (item_no)
 ) COMMENT '예약항목';
 
-CREATE TABLE orders
-(
-  orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
-  user_no        INT          NOT NULL COMMENT '사용자 번호',
-  order_status   VARCHAR(50)  NOT NULL COMMENT '예약 상태',
-  total_quantity INT          NOT NULL COMMENT '총 수량',
-  total_price    INT          NOT NULL COMMENT '총 가격',
-  upd_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 수정일자',
-  reg_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 등록일자',
-  total_count    INT          NOT NULL COMMENT '총 항목수',
-  title          VARCHAR(100) NULL     COMMENT '예약 제목',
-  PRIMARY KEY (orders_no)
-) COMMENT '예약';
+INSERT INTO orders (orders_no, user_no, order_status, total_quantity, total_price, total_count, title, partner_no)
+VALUES ('ORD123456', 6, '예약완료', 5, 10000, 3, '예약 제목', 3);
 
 CREATE TABLE partner
 (
@@ -147,7 +138,7 @@ CREATE TABLE payment
   reg_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 등록일',
   upd_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 수정일',
   orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
-  service_date DATETIME NOT NULL COMMENT '서비스 신청일',
+  service_date  DATETIME NOT NULL COMMENT '서비스 신청일',
   PRIMARY KEY (payment_no)
 ) COMMENT '결제';
 
@@ -198,6 +189,7 @@ CREATE TABLE service
   service_content  TEXT         NULL     COMMENT '서비스 내용',
   upd_date         TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '서비스 수정일자',
   reg_date         TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '서비스 등록일자',
+  partner_no       INT          NOT NULL COMMENT '파트너 번호',
   PRIMARY KEY (service_no)
 ) COMMENT '서비스';
 
@@ -228,115 +220,117 @@ CREATE TABLE users
   PRIMARY KEY (user_no)
 ) COMMENT '사용자';
 
-ALTER TABLE reply
-  ADD CONSTRAINT FK_board_TO_reply
-    FOREIGN KEY (board_no)
-    REFERENCES board (board_no);
 
--- ALTER TABLE service
---   ADD CONSTRAINT FK_partner_TO_service
---     FOREIGN KEY (partner_no)
---     REFERENCES partner (partner_no);
+-- *********************** 제약 조건 ***********************
 
-ALTER TABLE orders
-  ADD CONSTRAINT FK_users_TO_orders
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
 
-ALTER TABLE chat
-  ADD CONSTRAINT FK_users_TO_chat
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
 
-ALTER TABLE review
-  ADD CONSTRAINT FK_users_TO_review
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
+-- ALTER TABLE reply
+--   ADD CONSTRAINT FK_board_TO_reply
+--     FOREIGN KEY (board_no)
+--     REFERENCES board (board_no);
 
-ALTER TABLE payment
-  ADD CONSTRAINT FK_orders_TO_payment
-    FOREIGN KEY (orders_no)
-    REFERENCES orders (orders_no);
+-- -- ALTER TABLE service
+-- --   ADD CONSTRAINT FK_partner_TO_service
+-- --     FOREIGN KEY (partner_no)
+-- --     REFERENCES partner (partner_no);
 
-ALTER TABLE review
-  ADD CONSTRAINT FK_payment_TO_review
-    FOREIGN KEY (payment_no)
-    REFERENCES payment (payment_no);
-
-ALTER TABLE partner
-DROP FOREIGN KEY FK_users_TO_partner; -- 이전의 외래 키 제약 조건 삭제
-
-ALTER TABLE partner
-ADD CONSTRAINT FK_users_TO_partner
-FOREIGN KEY (user_no) REFERENCES users(user_no)
-ON DELETE CASCADE;
-
-ALTER TABLE board
-  ADD CONSTRAINT FK_users_TO_board
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE reply
-  ADD CONSTRAINT FK_users_TO_reply
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE review
-  ADD CONSTRAINT FK_partner_TO_review
-    FOREIGN KEY (partner_no)
-    REFERENCES partner (partner_no);
-
--- ALTER TABLE user_auth
---   ADD CONSTRAINT FK_users_TO_user_auth
+-- ALTER TABLE orders
+--   ADD CONSTRAINT FK_users_TO_orders
 --     FOREIGN KEY (user_no)
 --     REFERENCES users (user_no);
 
-ALTER TABLE order_item
-  ADD CONSTRAINT FK_orders_TO_order_item
-    FOREIGN KEY (orders_no)
-    REFERENCES orders (orders_no);
-
-ALTER TABLE order_item
-  ADD CONSTRAINT FK_service_TO_order_item
-    FOREIGN KEY (service_no)
-    REFERENCES service (service_no);
-
-ALTER TABLE cancel
-  ADD CONSTRAINT FK_orders_TO_cancel
-    FOREIGN KEY (orders_no)
-    REFERENCES orders (orders_no);
-
-ALTER TABLE cart
-  ADD CONSTRAINT FK_service_TO_cart
-    FOREIGN KEY (service_no)
-    REFERENCES service (service_no);
-
-ALTER TABLE cart
-  ADD CONSTRAINT FK_users_TO_cart
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE chat
-  ADD CONSTRAINT FK_chat_rooms_TO_chat
-    FOREIGN KEY (room_no)
-    REFERENCES chat_rooms (room_no);
-
-ALTER TABLE chat_rooms
-  ADD CONSTRAINT FK_users_TO_chat_rooms
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
--- ALTER TABLE chat_rooms
---   ADD CONSTRAINT FK_users_TO_chat_rooms1
---     FOREIGN KEY (partner_no)
+-- ALTER TABLE chat
+--   ADD CONSTRAINT FK_users_TO_chat
+--     FOREIGN KEY (user_no)
 --     REFERENCES users (user_no);
 
--- ALTER TABLE orders
---   ADD CONSTRAINT FK_partner_TO_orders
+-- ALTER TABLE review
+--   ADD CONSTRAINT FK_users_TO_review
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE payment
+--   ADD CONSTRAINT FK_orders_TO_payment
+--     FOREIGN KEY (orders_no)
+--     REFERENCES orders (orders_no);
+
+-- ALTER TABLE review
+--   ADD CONSTRAINT FK_payment_TO_review
+--     FOREIGN KEY (payment_no)
+--     REFERENCES payment (payment_no);
+
+-- ALTER TABLE partner
+--   ADD CONSTRAINT FK_users_TO_partner
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no) ON DELETE CASCADE;
+
+-- ALTER TABLE board
+--   ADD CONSTRAINT FK_users_TO_board
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE reply
+--   ADD CONSTRAINT FK_users_TO_reply
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE review
+--   ADD CONSTRAINT FK_partner_TO_review
 --     FOREIGN KEY (partner_no)
 --     REFERENCES partner (partner_no);
 
-ALTER TABLE review
-ADD CONSTRAINT FK_service_TO_review
-FOREIGN KEY (service_no)
-REFERENCES service (service_no);
+-- -- ALTER TABLE user_auth
+-- --   ADD CONSTRAINT FK_users_TO_user_auth
+-- --     FOREIGN KEY (user_no)
+-- --     REFERENCES users (user_no);
+
+-- ALTER TABLE order_item
+--   ADD CONSTRAINT FK_orders_TO_order_item
+--     FOREIGN KEY (orders_no)
+--     REFERENCES orders (orders_no);
+
+-- ALTER TABLE order_item
+--   ADD CONSTRAINT FK_service_TO_order_item
+--     FOREIGN KEY (service_no)
+--     REFERENCES service (service_no);
+
+-- ALTER TABLE cancel
+--   ADD CONSTRAINT FK_orders_TO_cancel
+--     FOREIGN KEY (orders_no)
+--     REFERENCES orders (orders_no);
+
+-- ALTER TABLE cart
+--   ADD CONSTRAINT FK_service_TO_cart
+--     FOREIGN KEY (service_no)
+--     REFERENCES service (service_no);
+
+-- ALTER TABLE cart
+--   ADD CONSTRAINT FK_users_TO_cart
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE chat
+--   ADD CONSTRAINT FK_chat_rooms_TO_chat
+--     FOREIGN KEY (room_no)
+--     REFERENCES chat_rooms (room_no);
+
+-- ALTER TABLE chat_rooms
+--   ADD CONSTRAINT FK_users_TO_chat_rooms
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- -- ALTER TABLE chat_rooms
+-- --   ADD CONSTRAINT FK_users_TO_chat_rooms1
+-- --     FOREIGN KEY (partner_no)
+-- --     REFERENCES users (user_no);
+
+-- -- ALTER TABLE orders
+-- --   ADD CONSTRAINT FK_partner_TO_orders
+-- --     FOREIGN KEY (partner_no)
+-- --     REFERENCES partner (partner_no);
+
+-- ALTER TABLE review
+--   ADD CONSTRAINT FK_service_TO_review
+--     FOREIGN KEY (service_no)
+--     REFERENCES service (service_no);

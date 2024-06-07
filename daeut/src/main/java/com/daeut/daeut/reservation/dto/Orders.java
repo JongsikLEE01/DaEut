@@ -28,6 +28,7 @@ public class Orders {
     // ----
     private Users user;
     private Partner partner;
+    private Services service;
 
     private String userName;
     private String userAddress;
@@ -36,4 +37,5 @@ public class Orders {
     
     private Payments payment;
     private Date serviceDate;
+
 }

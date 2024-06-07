@@ -82,7 +82,7 @@
 						<div class="partner-info">
 							<img src="/img/partner.png" alt="파트너 사진" class="partner-photo">
 							<div class="partner-intro-name">
-								<h3 class="partner-introduction-name" th:text="${service.partner.users.userName}"></h3>
+								<h3 class="partner-introduction-name" ></h3>
 								<div class="review-star2">
 									<i class="fa fa-star" aria-hidden="true"></i>
 									<i class="fa fa-star" aria-hidden="true"></i>
@@ -91,8 +91,8 @@
 									<i class="fa fa-star" aria-hidden="true"></i>
 								</div>
 							</div>
-							<p class="year-of-work" th:text="${service.partner.partnerCareer}"> 경력: n 년</p>
-							<p class="partner-selfintroduction" th:text="${service.partner.introduce}"></p>
+							<p class="year-of-work"> 경력: n 년</p>
+							<p class="partner-selfintroduction">경력</p>
 						</div>
 
 					</div>
@@ -260,16 +260,12 @@
 
 	<script>
 		// 캘린더 
-
-		
 		document.addEventListener('DOMContentLoaded', function () {
 			var calendarEl = document.getElementById('calendar');
 			var calendar = new FullCalendar.Calendar(calendarEl, {
 				initialView: 'dayGridMonth',
 				height: '700px', // calendar 높이 설정
 				expandRows: true, // 화면에 맞게 높이 재설정
-				slotMinTime: '08:00', // Day 캘린더에서 시작 시간
-				slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
 				// 해더에 표시할 툴바
 				headerToolbar: {
 					right: 'prev,next today',
@@ -281,9 +277,9 @@
 				locale: 'ko', // 한국어 설정
 				// 이벤트 
 				events: [{
-					title: 'Meeting',
-					start: '2024-05-12T10:30:00',
-					end: '2024-05-12T12:30:00'
+					// title: 'Meeting',
+					// start: '2024-05-12T10:30:00',
+					// end: '2024-05-12T12:30:00'
 				}]
 			});
 			calendar.render();
