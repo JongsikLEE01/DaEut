@@ -34,7 +34,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
          *                        WebScoket 지원하지 않아도 통신을 가능하게해주는 폴리필 라이브러리
          */
         registry.addEndpoint("/chat")
-                // .setAllowedOrigins("http://localhost:8080")     // TODO : 배포시 web경로 수정해야함
                 .withSockJS();
     }
 

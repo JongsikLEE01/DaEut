@@ -60,13 +60,15 @@
                 </div>
             </div>
             <div class="chat-box" id="messages">
-                <div id="chatArea">
-                    <th:block th:each="chat : ${chatList}">
-                        <div th:class="${chat.userNo == user.userNo} ? 'message my-message' : 'message other-message'">
-                            <p class="message-content" th:classappend="${chat.userNo == user.userNo} ? 'message-content-right' : 'message-content-left'" th:text="${chat.chatContent}"></p>
-                            <p class="message-date" th:text="${#dates.format(chat.chatRegDate, 'HH:mm')}"></p>
-                        </div>
-                    </th:block>
+                <div id="chatBox">
+                    <div id="chatArea">
+                        <th:block th:each="chat : ${chatList}">
+                            <div th:class="${chat.userNo == user.userNo} ? 'message my-message' : 'message other-message'">
+                                <p class="message-content" th:classappend="${chat.userNo == user.userNo} ? 'message-content-right' : 'message-content-left'" th:text="${chat.chatContent}"></p>
+                                <p class="message-date" th:text="${#dates.format(chat.chatRegDate, 'HH:mm')}"></p>
+                            </div>
+                        </th:block>
+                    </div>
                 </div>
             </div>
             <div class="input-box">
@@ -80,9 +82,10 @@
     </div>
 
     <script>
+        let chatBox = document.getElementById("chat-box");
         const url = new URL(location.href).searchParams;
         const roomNo = url.get('roomNo');
-        const userNo = '[[${user.userNo}]]';
+        let userNo = '[[${user.userNo}]]';
 
         console.log(roomNo);
 
@@ -156,6 +159,11 @@
                 sendMessage();
                 event.preventDefault();
             }
+        }
+
+        // 돌아가기
+        function goBack() {
+            window.history.back();
         }
 
         connect();
