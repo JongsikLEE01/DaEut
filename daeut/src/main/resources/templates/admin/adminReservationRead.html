@@ -24,10 +24,10 @@
                 <div class="container mt-2">
                     <div class="card">
                         <div class="card-body">
-                            <form th:action="|/admin/adminReservationRead/${orders.ordersNo}|" method="POST">
+                            <form action="/admin/adminReservationRead" method="POST">
                                 <!-- CSRF TOKEN -->
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                                <input type="hidden" th:value="${orders.ordersNo}" name="ordersNo">
+                                <!-- <input type="hidden" th:value="${orders.ordersNo}" name="ordersNo"> -->
                                 <div class="row info-row">
                                     <label for="requester" class="col-3 label">요청자</label>
                                     <div class="col-9">
@@ -50,7 +50,7 @@
                                     <!-- TODO : orderNo를 통해 payment에서 날짜값 가져오기 -->
                                     <label for="date" class="col-3 label">일시</label>
                                     <div class="col-9">
-                                        <input type="text" name="regDate" class="form-control" th:value="${#dates.format(orders.regDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+                                        <input type="text" name="serviceDate" class="form-control" th:value="${#dates.format(payments.serviceDate, 'yyyy-MM-dd')}" readonly>
                                     </div>
                                 </div>
                                 <div class="row info-row">

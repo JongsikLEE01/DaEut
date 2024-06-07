@@ -4,7 +4,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
