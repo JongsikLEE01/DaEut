@@ -1,8 +1,13 @@
 package com.daeut.daeut.reservation.controller;
 
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.auth.service.UserService;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Cart;
+import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.CartService;
+import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +30,15 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private PartnerService partnerService;
+
+    @Autowired
+    private ReservationService reservationService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 장바구니 목록 조회
@@ -58,8 +72,14 @@ public class CartController {
     @PostMapping("/add")
     public ResponseEntity<String> addCart(@RequestBody Cart cart, HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
+        int serviceNo = cart.getServiceNo();
+    Services service = reservationService.serviceSelect(serviceNo);
+        Partner partner = partnerService.selectByPartnerNo(service.getPartnerNo());
+        Users pUser = userService.findUserById(partner.getUserNo());
+
         cart.setUserNo(user.getUserNo());
         cart.setCartAmount(1);
+        cart.setPartnerName(pUser.getUserName());
 
         int result = 0;
         try {

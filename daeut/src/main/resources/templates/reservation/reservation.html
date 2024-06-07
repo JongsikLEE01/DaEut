@@ -9,7 +9,7 @@
 </head>
 
 <body layout:fragment="content">
-    <!-- TODO 파트너 로그인시 글쓰기 필요 -->
+   
     <div class="container">
         <section style="width: 1250px;">
             <div class="reservationTitles">
@@ -32,7 +32,7 @@
                                 <span>조회된 게시글 정보가 없습니다.</span>
                             </th:block>
                             
-                            <div th:if="${!serviceList.isEmpty()}">
+                            <th:block th:if="${!serviceList.isEmpty()}">
                                 <!-- 카테고리 -->
                                 <div class="servie-tag">
                                     <span class="reserve-sertvice-tag" th:text="${service.serviceCategory}"></span>
@@ -42,7 +42,7 @@
                                 <a id="img_link" th:href="|/reservation/reservationRead?serviceNo=${service.serviceNo}|">
                                     <img th:src="|/file/img/${service.fileNo}|" alt="썸네일" width="250">
                                 </a>
-                            </div>
+                            </th:block>
                         </div>
 
                         <div class="card-body">

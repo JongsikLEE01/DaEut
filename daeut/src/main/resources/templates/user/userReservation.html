@@ -16,18 +16,18 @@
                 <br>
                 <a href="/user/userMypage">내 정보 변경</a>
                 <a href="/user/userReservation" class="userReservation">내 예약 보기</a>
-                <a href="/user/userLikeTip">내가 좋아하는 글</a>
                 <a href="/user/userReview">별점 및 리뷰 작성</a>
-                <a href="/user/userCoupon" >채팅 내역</a>
+                <a href="/user/userChatRoom" >채팅 내역</a>
                 <a href="/user/userPartner">파트너 신청</a>
                 <a href="/user/userCart">장바구니</a>
             </nav>
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>내 예약 보기</h3>
-                <form>
-                    <div th:each="order : ${orders}">
-                        <h4 th:text="${order.userName} + '님의 예약 내역'"></h4>
-                        <br>
+                <div th:each="order, iterStat : ${orders}">
+                    <form th:action="@{/user/OrdersDelete}" method="post">
+                        <input type="hidden" name="ordersNo" th:value="${order.ordersNo}" />
+                        <h4 th:if="${iterStat.index == 0}" th:text="${order.userName} + '님의 예약 내역'"></h4>
+                        <br th:if="${iterStat.index == 0}"/>
                         <div class="form-group mb-3">
                             <label for="staticOrdersNo" class="col-sm-2 col-form-label">주문 번호</label>
                             <div class="col-sm-10">
@@ -70,11 +70,11 @@
                                 <div id="staticPartner" class="custom-text" th:text="${order.partnerName}"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-buttons">
-                        <button type="submit" class="btn btn-danger">예약 취소</button>
-                    </div>
-                </form>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-danger">예약 취소</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </main>

@@ -106,12 +106,14 @@ public class AdminServiceImpl implements AdminService {
         Users users = adminMapper.findUserById(userNo);
         return users;
     }
+    
     // 관리자 - 회원 수정
     @Override
     public int adminUpdateUser(Users user) throws Exception {
         int result = adminMapper.adminUpdateUser(user);
         return result;
     }
+
     // 관리자 - 회원 삭제
     @Override
     public int adminDeleteUser(int userNo) throws Exception {
@@ -134,6 +136,13 @@ public class AdminServiceImpl implements AdminService {
         return result;
     }
 
+    // 관리자 - 파트너 삭제
+    @Override
+    public int adminDeletePartner(int userNo) throws Exception {
+        int result = adminMapper.adminDeleteUser(userNo);
+        return result;
+    }
+
     // 파트너 승인
     @Override
     @Transactional
@@ -145,7 +154,7 @@ public class AdminServiceImpl implements AdminService {
     // 파트너 권한 추가
     @Override
     @Transactional
-    public String insertPartnerAuth(String userId) throws Exception {
+    public int insertPartnerAuth(String userId) throws Exception {
         // 파트너 권한 추가
         return adminMapper.insertPartnerAuth(userId);
     }
@@ -158,7 +167,7 @@ public class AdminServiceImpl implements AdminService {
 
     // 파트너 권한 회수
     @Override
-    public String deletePartnerAuth(String userId) throws Exception {
+    public int deletePartnerAuth(String userId) throws Exception {
         return adminMapper.deletePartnerAuth(userId);
     }
 
@@ -171,7 +180,23 @@ public class AdminServiceImpl implements AdminService {
     // 모든 주문 조회
     @Override
     public List<Orders> list(Page page) throws Exception {
-        return adminMapper.list(page);
+        List<Orders> orderList = adminMapper.list(page);
+        return orderList;
+    }
+
+     // 관리자 - 모든 주문 조회
+     @Override
+     public Orders adminReadReservation(String ordersNo) throws Exception {
+         Orders orders = adminMapper.adminReadReservation(ordersNo);
+         log.info("------------orders----------" + orders);
+         return orders;
+     }
+
+     // 관리자 - 예약 수정
+    @Override
+    public int adminUpdateReservation(Orders orders) throws Exception {
+        int result = adminMapper.adminUpdateReservation(orders);
+        return result;
     }
 
 }

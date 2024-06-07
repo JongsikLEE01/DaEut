@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
@@ -39,22 +40,31 @@ public interface AdminService {
 
     // 관리자 - 파트너 수정
     public int adminUpdatePartner(Partner partner) throws Exception;
+    
+    // 관리자 - 파트너 삭제
+    public int adminDeletePartner(int userNo) throws Exception;  
  
     // 파트너 승인
     public int approvePartner(String userId) throws Exception;
     
     // 파트너 권한 추가
-    public String insertPartnerAuth(String userId) throws Exception;
+    public int insertPartnerAuth(String userId) throws Exception;
 
     // 파트너 승인 취소
     public int cancelPartner(String userId) throws Exception;
 
     // 파트너 권한 회수
-    public String deletePartnerAuth(String userId) throws Exception;
+    public int deletePartnerAuth(String userId) throws Exception;
      
     // 예약된 수를 카운트하는 쿼리 
     public int countReservations() throws Exception;
     
     // 모든 주문 조회
     public List<Orders> list(@Param("page") Page page) throws Exception;
+
+    // 관리자 예약 조회
+    public Orders adminReadReservation(String ordersNo) throws Exception;
+    
+    // 관리자 예약 수정
+    public int adminUpdateReservation(Orders orders) throws Exception;
 }

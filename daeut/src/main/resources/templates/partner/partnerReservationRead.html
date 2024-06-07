@@ -18,6 +18,7 @@
                 <a href="/partner/partnerMypage" class="active">내 정보 변경</a>
                 <a href="/partner/partnerReservation" class="partnerReservation">내 예약 보기</a>
                 <a href="/partner/partnerReview">내 리뷰 보기</a>
+                <a href="/partner/partneChatRoom">채팅 내역</a>
             </nav>
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>내 예약 보기</h3>
@@ -35,13 +36,13 @@
                     <div class="form-group mb-3">
                         <label for="staticSchedule" class="col-sm-2 col-form-label">일정</label>
                         <div class="col-sm-10">
-                            <div id="staticSchedule" class="custom-text" th:text="${#dates.format(order.updDate, 'yyyy년 MM월 dd일')}"></div>
+                            <div id="staticSchedule" class="custom-text" th:text="${#dates.format(order.payment.serviceDate, 'yyyy년 MM월 dd일')}"></div>
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="staticService" class="col-sm-2 col-form-label">내역</label>
                         <div class="col-sm-10">
-                            <div id="staticService" class="custom-text" th:text="${order.title}"></div>
+                            <div id="staticService" class="custom-text" th:text="${order.service.serviceName}"></div>
                         </div>
                     </div>
                     <div class="form-group mb-3">

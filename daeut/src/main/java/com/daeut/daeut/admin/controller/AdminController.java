@@ -20,6 +20,8 @@ import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.dto.Payments;
+import com.daeut.daeut.reservation.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,6 +44,9 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private PaymentService paymentService;
 
     //  @Autowired
     // private PasswordEncoder passwordEncoder;
@@ -116,7 +121,7 @@ public class AdminController {
         List<Partner> partnerList = adminService.selectAllPartners(page);
         model.addAttribute("partnerList", partnerList);
         model.addAttribute("page", page);
-        return "/admin/adminPartner"; // 경로 수정
+        return "/admin/adminPartner"; 
     }
 
     // 관리자 - 회원 조회
@@ -167,7 +172,7 @@ public class AdminController {
         }
         model.addAttribute("error", "사용자 업데이트에 실패했습니다.");
         model.addAttribute("user", existingUser); // 기존 사용자 정보를 다시 전달
-        return "admin/adminUserUpdate";
+        return "/admin/adminUserUpdate";
     }
 
     // 관리자 - 회원 삭제 처리
@@ -180,7 +185,7 @@ public class AdminController {
         model.addAttribute("error", "사용자 삭제에 실패했습니다.");
         Users user = adminService.findUserById(userNo); // 삭제 실패 시 사용자 정보를 다시 가져와서 모델에 추가
         model.addAttribute("user", user);
-        return "admin/adminUserUpdate";
+        return "/admin/adminUserUpdate";
     }
     
    
@@ -198,15 +203,14 @@ public class AdminController {
     @PostMapping("/approvePartner/{userId}")
     public String approvePartner(@PathVariable("userId") String userId) {
         try {
-            log.info("✅✅✅✅✅✅✅✅✅✅✅✅✅✅");
-            log.info("파트너 아이디 : " + userId);
+            log.info("파트너 아이디::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: : " + userId);
             adminService.approvePartner(userId);
             adminService.insertPartnerAuth(userId);
             return "redirect:/admin/adminPartner"; // 파트너 목록으로 리다이렉트
         } catch (Exception e) {
             log.error("파트너 승인 중 오류가 발생했습니다.", e);
             // 오류 발생 시 처리
-            return "redirect:/admin/adminPartner"; // 오류 페이지로 리다이렉트 또는 다른 방법으로 처리
+            return "redirect:/admin/adminPartnerRead"; // 오류 페이지로 리다이렉트 또는 다른 방법으로 처리
         }
     }
 
@@ -214,7 +218,6 @@ public class AdminController {
     @PostMapping("/cancelPartner/{userId}")
     public String cancelPartner(@PathVariable("userId") String userId) {
         try {
-            log.info("✅✅✅✅✅✅✅✅✅✅✅✅✅✅");
             log.info("파트너 아이디 : " + userId);
             adminService.cancelPartner(userId);
             adminService.deletePartnerAuth(userId);
@@ -250,7 +253,20 @@ public class AdminController {
         }
         model.addAttribute("error", "사용자 업데이트에 실패했습니다.");
         model.addAttribute("partner", existingUser); // 기존 사용자 정보를 다시 전달
-        return "admin/adminPartnerUpdate";
+        return "/admin/adminPartnerUpdate";
+    }
+
+    // 관리자 - 파트너 삭제 처리
+    @PostMapping("/adminPartnerDelete/{userNo}")
+    public String adminPartnerDelete(@PathVariable("userNo") int userNo, Model model) throws Exception {
+        int result = adminService.adminDeletePartner(userNo);
+        if (result > 0) {
+            return "redirect:/admin/adminPartner";
+        }
+        model.addAttribute("error", "사용자 삭제에 실패했습니다.");
+        Partner partner = adminService.findPartnerById(userNo); // 삭제 실패 시 사용자 정보를 다시 가져와서 모델에 추가
+        model.addAttribute("partner", partner);
+        return "/admin/adminPartnerUpdate";
     }
 
     // 관리자 - 회원 선택 삭제 
@@ -281,26 +297,74 @@ public class AdminController {
         return "redirect:/admin/adminPartner";
     }
 
-    // 관리자 - 예약 조회 화면
+    // 관리자 - 예약 목록 화면
     @GetMapping("/adminReservation")
     public String selectReservations(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNumber) throws Exception {
         int total = adminService.countReservations(); // 총 예약 수 계산
         Page page = new Page(pageNumber, total); // Page 객체 초기화
-        List<Orders> ordersList = adminService.list(page);
-        model.addAttribute("reservations", ordersList);
+        List<Orders> orderList = adminService.list(page);
+        log.info("--------------------------orderList " + orderList);
+        model.addAttribute("orderList", orderList);
         model.addAttribute("page", page);
-        return "/admin/adminReservation"; // Thymeleaf 템플릿 파일 이름
+        return "/admin/adminReservation"; 
     }
 
+
+    // 관리자 - 예약 조회 화면
     @GetMapping("/adminReservationRead")
-    public String adminReservationRead() {
+    public String adminReadReservation(@RequestParam("ordersNo") String ordersNo, Model model) {
+        try {
+            Orders orders = adminService.adminReadReservation(ordersNo);
+            log.info("-------------------------------------------" + ordersNo);
+            model.addAttribute("orders", orders);
+            log.info(":::::::::::::::::::::::::::::::::::::orders:::::::::::::::::::::::::::::::::::" + orders);
+        } catch (Exception e) {
+            model.addAttribute("error", "예약 정보를 불러오는 중 오류가 발생했습니다.");
+        }
         return "/admin/adminReservationRead";
     }
+   
 
-    @GetMapping("/adminReservationUpdate")
-    public String adminReservationUpdate() {
-        return "/admin/adminReservationUpdate";
+    // 관리자 - 예약 수정 화면
+    @GetMapping("/adminReservationUpdate/{ordersNo}")
+    public String adminReservationUpdate(@PathVariable("ordersNo") String ordersNo, Model model) throws Exception  {
+        try {
+            Orders orders = adminService.adminReadReservation(ordersNo);
+            model.addAttribute("orders", orders);
+            Payments payments = paymentService.selectByOrdersNo(ordersNo);
+            model.addAttribute("payments", payments);
+            log.info(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" + orders);
+            return "admin/adminReservationUpdate"; // 경로 이름을 정확히 맞추세요.
+        } catch (Exception e) {
+            log.error("예약 조회 중 오류가 발생했습니다.", e);
+            model.addAttribute("error", "예약 조회 중 오류가 발생했습니다.");
+            return "redirect:/admin/adminReservation"; // 잘못된 경로로 리다이렉트되지 않도록 합니다.
+        }
     }
+
+
+
+    // 관리자 - 예약 수정 처리
+    @PostMapping("/adminReservationUpdate/{ordersNo}")
+    public String adminReservationUpdatePro(Orders orders, @PathVariable("ordersNo") String ordersNo, Model model) {
+        try {
+            Orders existingOrders = adminService.adminReadReservation(ordersNo);
+            int result = adminService.adminUpdateReservation(orders);
+            log.info("예약 수정 중..... result: " + result);
+            if (result > 0) {
+                return "redirect:/admin/adminReservationRead/" + ordersNo; // 업데이트 후에 예약 조회 페이지로 리다이렉트
+            }
+            model.addAttribute("error", "예약 업데이트에 실패했습니다.");
+            model.addAttribute("orders", existingOrders); // 기존 예약 정보를 다시 전달
+            return "/admin/adminReservationUpdate";
+        } catch (Exception e) {
+            log.error("예약 수정 중 오류가 발생했습니다.", e);
+            model.addAttribute("error", "예약 수정 중 오류가 발생했습니다.");
+            return "/admin/adminReservationUpdate";
+        }
+    }
+
+ 
 
     
 }   

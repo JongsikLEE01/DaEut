@@ -83,7 +83,6 @@
             <div class="col-md-7 col-lg-8">
                 <h4 class="mb-3 color_sub2">예약 정보</h4>
 
-                <!-- TODO : 결제 로직 완성 필요 -->
                 <form class="needs-validation" novalidate>
                     <input type="hidden" name="user_no" id="user_no">
                     <input type="hidden" name="user_id" id="user_id">
@@ -172,6 +171,25 @@
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/reservation/payment.js"></script>
+    <script>
+        // 이전 날짜 선택 X
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const dateNow = `${year}-${month}-${day}`;
+
+        const serviceDate = document.getElementById('serviceDate');
+        serviceDate.min = dateNow;
+
+        // 이전 시간 선택 X
+        const hours = String(today.getHours()).padStart(2, '0');
+        const minutes = String(today.getMinutes()).padStart(2, '0');
+        const timeNow = `${hours}:${minutes}`;
+
+        const serviceTime = document.getElementById('serviceTime');
+        serviceTime.min = timeNow;
+    </script>
 </body>
 
 </html>

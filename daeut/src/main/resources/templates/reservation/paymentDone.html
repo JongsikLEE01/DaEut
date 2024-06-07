@@ -15,13 +15,14 @@
             <div class="form-container complete">
                 <h2 class="text-center color_main">예약 성공</h2>
                 <p class="text-center">예약 번호</p>
-                <p class="text-center" th:text="${oredr.ordersNo}"></p>
+                <p class="text-center" th:text="${order.ordersNo}"></p>
+                <p class="text-center">예약 시간</p>
+                <p class="text-center" th:text="${#dates.format(payments.serviceDate, 'yy년 MM월 dd일 HH시 mm분')}"></p>
                 <hr class="completeHr">
                 <p class="text-center">회원님의 예약이 성공적으로 끝났습니다</p>
                 <p class="text-center">깨끗한 집을 만들러갈게요!</p>
 
                 <div class="d-flex gap-5">
-                    <a href="/reservation/chat" class="btn btn-primary sessuce color_main">문의하기</a>
                     <a href="/user/userReservation" class="btn btn-primary sessuce color_main">결제내역</a>
                     <a href="/" class="btn btn-primary sessuce color_main">메인화면</a>
                 </div>

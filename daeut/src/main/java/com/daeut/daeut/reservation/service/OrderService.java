@@ -21,4 +21,7 @@ public interface OrderService {
     public List<Orders> listByParterNo(int partnerNo) throws Exception;
 
     public Orders listByOrderNo(String ordersNo) throws Exception;
+
+    public void OrdersDelete(String ordersNo) throws Exception;
+
 }

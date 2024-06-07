@@ -33,7 +33,7 @@
                             <img src="/img/partner.png" alt="파트너 이미지" class="profile-img img-thumbnail">
                         </div>
                         <div class="col-md-8">
-                            <form class="ms-5" th:action="|/admin/adminPartnerUpdate/${partner.userNo}|" method="POST"><!-- form 작성 필요 -->
+                            <form id="partnerUpdateForm" class="ms-5" th:action="|/admin/adminPartnerUpdate/${partner.userNo}|" method="POST"><!-- form 작성 필요 -->
                                 <!-- CSRF TOKEN -->
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                 <input type="hidden" name="userNo" th:value="${partner.userNo}">
@@ -65,7 +65,7 @@
                                 </div>
                             <div class="buttons mb-5 d-flex gap-3 justify-content-end">
                                 <button type="submit" class="btn btn-primary sessuce color_main">수정하기</button>
-                                <button type="button" class="btn btn-secondary cancel">삭제하기</button>
+                                <button type="button" class="btn btn-secondary cancel" onclick="actionDelete()">삭제하기</button>
                                 <a href="/admin/adminPartner" class="btn btn-light myBtn">목록</a>
                             </div>
                         </form>
@@ -76,6 +76,22 @@
         </div>
 
     </div>
+
+    <script>
+        // 삭제 요청
+        let form = document.getElementById('partnerUpdateForm')
+
+        let  no = "[[${partner.userNo}]]"
+
+        function actionDelete() {
+            let check = confirm('정말로 삭제하시겠습니까?')
+            if( check ) {
+                form.action = '/admin/adminPartnerDelete/' + no
+                form.method = 'POST';
+                form.submit()
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -22,6 +22,7 @@ import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.CartService;
 import com.daeut.daeut.reservation.service.ChatRoomService;
+import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,42 +45,59 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
     @Autowired
     private PartnerService partnerService;
 
     @Autowired
     private ChatRoomService chatRoomService;
 
+    @Autowired
+    private OrderService orderService;
+
     @GetMapping("/userMypage")
-    public String userMypage(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
+    public String userMypage(HttpSession session, Model model) throws Exception {
         log.info("/user/userMypage");
 
-        Users user = customUser.getUser();
-        model.addAttribute("user", user);
+        Users user = (Users) session.getAttribute("user");
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
 
+        model.addAttribute("user", user);
         return "/user/userMypage";
     }
 
     // 사용자 마이페이지 수정
     @GetMapping("/userMypageUpdate")
-    public String userMypageUpdate(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
+    public String userMypageUpdate(HttpSession session, Model model) throws Exception {
         log.info("/user/userMypageUpdate");
 
-        Users user = customUser.getUser();
-        model.addAttribute("user", user);
+        Users user = (Users) session.getAttribute("user");
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
 
+        model.addAttribute("user", user);
         return "/user/userMypageUpdate";
     }
 
     // 사용자 마이페이지 수정 처리
     @PostMapping("/userMypageUpdateDone")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public String userMypageUpdateDone(@RequestParam("action") String action, @ModelAttribute Users user) throws Exception {
+    public String userMypageUpdateDone(HttpSession session, @RequestParam("action") String action, @ModelAttribute Users user) throws Exception {
+        Users sessionUser = (Users) session.getAttribute("user");
+        if (sessionUser == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
         if ("delete".equals(action)) {
-            int result = userService.delete(user);
+            int result = userService.delete(sessionUser);
             log.info("Delete result: " + result);
             if (result > 0) {
+                session.invalidate(); // 세션 무효화
                 return "redirect:/index";  // 탈퇴 처리 후 리다이렉트할 페이지
             } else {
                 return "redirect:/user/userMypage";
@@ -88,6 +106,7 @@ public class UserController {
             int result = userService.update(user);
             log.info("Update result: " + result);
             if (result > 0) {
+                session.setAttribute("user", user); // 세션 업데이트
                 return "redirect:/user/userMypage";
             } else {
                 return "redirect:/user/userMypageUpdate";
@@ -115,13 +134,13 @@ public class UserController {
         return "user/userReservation";
     }
 
-    // 사용자 좋아요 게시글
-    @GetMapping("/userLikeTip")
-    public String userLikeTip() {
-        log.info("/user/userLikeTip");
-        return "/user/userLikeTip";
+    @PostMapping("/OrdersDelete")
+    public String OrdersDelete(@RequestParam("ordersNo") String ordersNo) throws Exception {
+        orderService.OrdersDelete(ordersNo);
+        return "redirect:/user/userReservation";
     }
-
+    
+    
     // 사용자 작성 리뷰
     @GetMapping("/userReview")
     public String userReview() {
@@ -174,8 +193,7 @@ public class UserController {
     public String userCart(Model model, HttpSession session) {
         Users user = (Users) session.getAttribute("user");
         int userNo = user.getUserNo();
-        com.daeut.daeut.partner.dto.Partner partner;
-        Services service;
+        Partner partner;
         
         // 사용자의 장바구니 목록을 서비스를 통해 가져옴
         List<Cart> cartList;

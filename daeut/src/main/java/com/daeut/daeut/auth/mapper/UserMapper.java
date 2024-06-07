@@ -52,6 +52,8 @@ public interface UserMapper {
 
     // 예약 가져오기
     public List<Orders> selectOrdersByUserId(String userId) throws Exception;
+
+    public void OrdersDelete(@Param("orders_no") String ordersNo) throws Exception;
     
     // 파트너 찾기
     public Partner selectPartner(int userNo) throws Exception;

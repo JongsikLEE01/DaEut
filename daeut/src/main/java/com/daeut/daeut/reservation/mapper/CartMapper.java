@@ -13,4 +13,5 @@ public interface CartMapper {
     public int cartUpdate(Cart cart) throws Exception;
     public int cartDeleteSelected(String cartNos) throws Exception;
     public int cartDeleteAll(int userNo) throws Exception;
+    public int cartDelete(int cartNo) throws Exception;
 }

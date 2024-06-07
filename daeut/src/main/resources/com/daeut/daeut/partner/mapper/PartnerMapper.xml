@@ -57,4 +57,14 @@ WHERE r.partner_no = #{partnerNo}
         WHERE p.partner_no = #{partnerNo}
   </select>
 
+      <!--날짜-->
+    <select id="getPartnerSchedule">
+  SELECT p.service_date
+  FROM payment p
+  JOIN order_item oi ON p.orders_no = oi.orders_no
+  JOIN service s ON oi.service_no = s.service_no
+  JOIN partner par ON s.partner_no = par.partner_no
+  WHERE par.partner_no = #{partnerNo}
+    </select>
+
 </mapper>

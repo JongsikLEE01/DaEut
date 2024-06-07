@@ -1,4 +1,4 @@
--- Active: 1715242304860@@127.0.0.1@3306@joeun
+-- Active: 1717757886166@@127.0.0.1@3306@joeun
 
 -- ID : downy
 -- PW : 123456
@@ -11,6 +11,9 @@
 -- 회원 컬럼에 매핑된 변수
 #{userName}, #{userPhone}, #{userBirth}, #{userAddress}, #{userEmail}, #{userGender}, #{userId}, #{userPassword}, #{userCoupon}
 
+
+TRUNCATE users;
+TRUNCATE user_auth;
 -- 👩‍💼 회원
 -- 샘플 데이터
 -- 회원 

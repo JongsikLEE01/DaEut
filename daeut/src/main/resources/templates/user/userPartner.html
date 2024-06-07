@@ -16,9 +16,8 @@
                 <br>
                 <a href="/user/userMypage">내 정보 변경</a>
                 <a href="/user/userReservation">내 예약 보기</a>
-                <a href="/user/userLikeTip">내가 좋아하는 글</a>
                 <a href="/user/userReview">별점 및 리뷰 작성</a>
-                <a href="/user/userCoupon">채팅 내역</a>
+                <a href="/user/userChatRoom">채팅 내역</a>
                 <a href="/user/userPartner" class="userPartner">파트너 신청</a>
                 <a href="/user/userCart">장바구니</a>
             </nav>
@@ -38,8 +37,6 @@
                         </div>
                         <div class="col-md-8">
                             <form class="ms-5" th:action="@{/user/request-partner}" method="post" enctype="multipart/form-data">
-                                <!-- CSRF TOKEN -->
-                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                 <input type="hidden" th:name="${partner.userNo}" th:value="${partner.userNo}" id="userNo">
                                 <div class="form-group form-section p-1 mt-5 text-start">
                                     <label for="partnerName">이름</label>
