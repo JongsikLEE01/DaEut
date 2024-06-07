@@ -226,16 +226,21 @@
             o.order_status AS orderStatus, 
             o.total_quantity AS totalQuantity, 
             o.total_price AS totalPrice, 
-            o.reg_date AS regDate,
+            p.service_date AS regDate,
             u.user_name AS userName, 
             u.user_address AS userAddress, 
-            pu.user_name AS partnerName, 
+            p2.user_name AS partnerName,
             o.title AS serviceName
-        FROM orders o
-        JOIN users u ON o.user_no = u.user_no
-        JOIN partner p ON o.partner_no = p.partner_no
-        JOIN users pu ON p.user_no = pu.user_no
-        WHERE u.user_id = #{userId}
+        FROM 
+            orders o
+            JOIN users u ON o.user_no = u.user_no
+            JOIN order_item oi ON o.orders_no = oi.orders_no
+            JOIN service s ON oi.service_no = s.service_no
+            JOIN partner pt ON s.partner_no = pt.partner_no
+            JOIN users p2 ON pt.user_no = p2.user_no
+            JOIN payment p ON o.orders_no = p.orders_no
+        WHERE 
+            u.user_id = #{userId};
     </select>
 
     <!-- 파트너정보 가져오기 -->
