@@ -5,6 +5,7 @@ import java.util.List;
 import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Option;
 import com.daeut.daeut.main.dto.Page;
+import com.daeut.daeut.reservation.dto.Event;
 import com.daeut.daeut.reservation.dto.Services;
 
 public interface ReservationService {
@@ -24,4 +25,6 @@ public interface ReservationService {
     public Files SelectThumbnail(int serviceNo) throws Exception;
     // 설명 파일
     public List<Files> SelectFiles(int serviceNo) throws Exception;
+    // 달력 리스트
+    List<Event> calendarListByServiceNo(int serviceNo) throws Exception;
 }

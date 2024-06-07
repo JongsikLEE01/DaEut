@@ -1,9 +1,7 @@
 
--- Active: 1717663125839@@127.0.0.1@3306@joeun
 -- 결제 로직
 
 
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS reply;
 DROP TABLE IF EXISTS board;
 DROP TABLE IF EXISTS cancel;
@@ -13,6 +11,7 @@ DROP TABLE IF EXISTS chat_rooms;
 DROP TABLE IF EXISTS files;
 DROP TABLE IF EXISTS order_item;
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS product;
 
 DROP TABLE IF EXISTS partner;
 DROP TABLE IF EXISTS payment;
@@ -20,6 +19,7 @@ DROP TABLE IF EXISTS persistent_logins;
 DROP TABLE IF EXISTS review;
 DROP TABLE IF EXISTS service;
 DROP TABLE IF EXISTS user_auth;
+DROP TABLE IF EXISTS users;
 
         
 
