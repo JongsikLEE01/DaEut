@@ -44,15 +44,6 @@ body {
 
 .boardList {
     padding: 8px 18px;
-    background-color: #8FA2CA;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.boardUpdate {
-    padding: 8px 18px;
     background-color: white;
     color: #8FA2CA;
     border: 1px solid #8FA2CA;
@@ -60,6 +51,23 @@ body {
     cursor: pointer;
 }
 
+.boardUpdate {
+    padding: 8px 18px;
+    background-color: #8FA2CA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.boardDelete {
+    padding: 8px 18px;
+    background-color: #8FA2CA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
 
 .input-readonly:focus {
     outline: none !important;

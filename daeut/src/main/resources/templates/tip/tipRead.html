@@ -61,7 +61,8 @@
             </form>
             <div class="d-flex justify-content-end gap-2 mt-2">
                 <a th:href="@{/tip/index}" class="boardList">목록</a>
-                <a th:href="@{/tip/tipUpdate(no=${board.boardNo})}" class="boardUpdate">수정</a>
+                <a th:if="${isWriter}" th:href="@{/tip/tipUpdate(no=${board.boardNo})}" class="boardUpdate">수정</a>
+                <button th:if="${isWriter}" th:onclick="actionDelete()" class="boardDelete">삭제</button>
             </div>
 
             <!-- 댓글 섹션 -->

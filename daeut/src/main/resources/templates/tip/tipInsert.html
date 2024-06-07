@@ -14,7 +14,7 @@
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <div class="mb-3 d-flex align-items-center" style="border: 1px solid #ddd; border-radius: 8px; padding: 10px;">
                 <input type="hidden" name="userNo" th:value="${session.user.userNo}">
-                <label for="userId" class="form-label mb-0">작성자 ID</label>
+                <label for="userId" class="form-label mb-0 text-center">작성자 ID</label>
                 <div style="border-left: 1px solid #ddd; height: 40px; margin: 0 10px;"></div>
                 <input type="text" id="userId" class="form-control" th:value="${session.user.userId}" disabled style="border: none; box-shadow: none;">
             </div>
