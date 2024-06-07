@@ -15,17 +15,20 @@ function daumPostcode() {
 var IMP = window.IMP
 IMP.init('imp48458232')             // 고객사 식별코드 입력
 
-var ordersNo = $("#ordersNo").val()
-var userName = $("#userName").val()
-var userAddress = $("#userAddress").val() + $("#userAddressDetail").val()
-var userPost = $("#userPost").val()
-var userPhone = $("#userPhone").val() 
-var userEmail = $('#userEmail').val()
-var title = $('#title').val()
-var totalCost = $('#totalPrice').val()
 
 // 포트원
 $("#paymentBtn").on("click", function () {
+    var date = $("#serviceDate").val()
+    var time = $("#serviceTime").val()
+    var ordersNo = $("#ordersNo").val()
+    var userName = $("#userName").val()
+    var userAddress = $("#userAddress").val() + $("#userAddressDetail").val()
+    var userPost = $("#userPost").val()
+    var userPhone = $("#userPhone").val() 
+    var userEmail = $('#userEmail').val()
+    var title = $('#title').val()
+    var totalCost = $('#totalPrice').val()
+    
 
     IMP.request_pay({
         // 결제 정보 가져오기  
@@ -38,24 +41,22 @@ $("#paymentBtn").on("click", function () {
         buyer_name : userName,                      // 결제자 이름
         buyer_tel : userPhone,                      // 결제자 전화번호
         buyer_addr : userAddress,                   // 결제자 주소
-        buyer_postcode : userPost                  // 결제자 우편번호
+        buyer_postcode : userPost                   // 결제자 우편번호
         
     }, function (rsp) {
-        console.log(rsp)
-
         // 결제 성공
         if (rsp.success) {
             // 결제 성공
             console.log(rsp);
             // 결제 완료 페이지로 이동
-            location.href = `/orders/success?ordersNo=${ordersNo}`
+            location.href = `/orders/success?ordersNo=${ordersNo}&date=${date}&time=${time}`
         } else {
              // 결제 실패
              console.log(rsp);
              let errorMsg = rsp.error_msg;
              errorMsg = errorMsg.replace(/\[|\]/g, '');
              // 결제 실패 페이지로 이동
-             location.href = `/orders/fail?ordersNo=${ordersNo}&errorMsg=${errorMsg}`
+             location.href = `/orders/fail?ordersNo=${ordersNo}&errorMsg=${errorMsg}&date=${date}&time=${time}`
         }
     })
 })

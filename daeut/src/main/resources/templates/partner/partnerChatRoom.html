@@ -25,32 +25,25 @@
                 <table class="table table-sm table-hover">
                     <thead class="table-light">
                         <tr>
-                            <th width="30">No.</th>
-                            <th width="50">사용자 명</th>
-                            <th width="80">예약 상태</th>
-                            <th width="100">예약 시간</th>
-                            <th width="50"></th>
+                            <th>No.</th>
+                            <th>내 채팅방</th>
+                            <th>채팅 시작일</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <!-- <c:forEach items="${orderList}" var="order" varStatus="loop"> -->
-                        <tr th:each="order, loopStatus : ${orderList}">
-                            <td data-label="No." th:text="${loopStatus.index + 1}"></td> <!-- 자동으로 증가하는 글번호 -->
-                            <td data-label="사용자 명" th:text="${order.user.userName}"></td> <!-- 사용자 명 -->
-                            <td data-label="예약 상태" th:text="${order.orderStatus}"></td> <!-- 예약 상태 -->
-                            <td data-label="예약 시간" name="serviceDate" th:text="${#dates.format(payments.serviceDate, 'yy년 MM월 dd일 HH:mm')}"></td>
-                            <td data-label="자세히보기">
-                                <a th:href="@{/partner/partnerReservationRead(ordersNo=${order.ordersNo})}" class="detail-button">자세히보기</a>
-                            </td>
+                        <tr th:if="${chatRoomList == null}">
+                            <td colspan="3">채팅 내역이 비어있어요</td>
                         </tr>
-                    <!-- </c:forEach> -->
+                        <tr th:if="${chatRoomList != null}" th:each="chatRoom, stat : ${chatRoomList}">
+                            <td th:text="${stat.index + 1}"></td>
+                            <td>
+                                <a th:href="|/reservation/chat?roomNo=${chatRoom.roomNo}|" th:text="${chatRoom.title}"></a>
+                            </td>
+                            <td th:text="${#dates.format(chatRoom.regDate, 'MM-dd')}"></td>
+                        </tr>
                     </tbody>
                 </table>
                
-               
-            
-                
-
             </div>
         </div>
     </main>

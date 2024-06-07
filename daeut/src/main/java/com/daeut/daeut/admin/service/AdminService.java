@@ -40,6 +40,9 @@ public interface AdminService {
 
     // 관리자 - 파트너 수정
     public int adminUpdatePartner(Partner partner) throws Exception;
+    
+    // 관리자 - 파트너 삭제
+    public int adminDeletePartner(int userNo) throws Exception;  
  
     // 파트너 승인
     public int approvePartner(String userId) throws Exception;
@@ -58,4 +61,10 @@ public interface AdminService {
     
     // 모든 주문 조회
     public List<Orders> list(@Param("page") Page page) throws Exception;
+
+    // 관리자 예약 조회
+    public Orders adminReadReservation(String ordersNo) throws Exception;
+    
+    // 관리자 예약 수정
+    public int adminUpdateReservation(Orders orders) throws Exception;
 }

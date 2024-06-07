@@ -45,6 +45,12 @@
         VALUES (#{serviceNo}, #{userNo}, #{cartAmount}, #{partnerName})
     </insert>
 
+    <!-- 카트 삭제 -->
+    <delete id="cartDelete">
+        DELETE FROM cart
+        WHERE cart_no = ${cart_no};
+    </delete>
+
     <!-- 카트 선택 삭제 -->
     <delete id="cartDeleteSelected">
         DELETE FROM cart
