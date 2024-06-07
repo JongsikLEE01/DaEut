@@ -4,7 +4,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
@@ -42,6 +41,9 @@ public interface AdminMapper {
     
     // 관리자 - 파트너 수정
     public int adminUpdatePartner(Partner partner) throws Exception;
+
+    // 관리자 - 파트너 삭제
+    public int adminDeletePartner(int userNo) throws Exception;  
     
     // 파트너 승인
     public int approvePartner(String userId) throws Exception;
@@ -60,4 +62,10 @@ public interface AdminMapper {
 
     // 모든 주문 조회
     public List<Orders> list(@Param("page") Page page) throws Exception;
+
+    // 관리자 예약 조회
+    public Orders adminReadReservation(String ordersNo) throws Exception;
+
+    // 관리자 예약 수정
+    public int adminUpdateReservation(Orders orders) throws Exception;
 }

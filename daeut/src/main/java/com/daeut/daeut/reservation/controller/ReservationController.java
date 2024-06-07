@@ -25,7 +25,11 @@ import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.ChatRoomService;
 import com.daeut.daeut.reservation.service.ChatService;
 import com.daeut.daeut.reservation.service.ReservationService;
+
 import com.siot.IamportRestClient.response.Payment;
+
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -154,7 +158,10 @@ public class ReservationController {
      * @return
      */
 	@GetMapping("/reservationInsert")
-	public String moveToReservationInsert() {
+	public String moveToReservationInsert(HttpSession session, Model model) {
+        int partnerNo = (int) session.getAttribute("partnerNo");
+
+        model.addAttribute("partnerNo", partnerNo);
 		return "reservation/reservationInsert";
 	}
 
@@ -167,9 +174,6 @@ public class ReservationController {
      */
     @PostMapping("/reservationInsert")
     public String reservationInsert(Services service, HttpSession session) throws Exception {
-        int partnerNo = (int) session.getAttribute("partnerNo");
-        service.setPartnerNo(partnerNo);
-
         int result = reservationService.serviceInsert(service);
         
         if (result == 0) {

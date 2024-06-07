@@ -34,6 +34,7 @@ public class Orders {
 
     private String userName;
     private String userAddress;
+    private String userPhone;
     private String serviceName;
     private String partnerName;
 
