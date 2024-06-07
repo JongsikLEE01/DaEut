@@ -43,10 +43,7 @@ public class Orders {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date serviceDate; 
 
-
-
     
     private Payments payment;
-    private Date serviceDate;
 
 }
