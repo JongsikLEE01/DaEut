@@ -5,7 +5,7 @@
 
 <mapper namespace="com.daeut.daeut.reservation.mapper.OrderMapper">
 
-    <resultMap id="OrderWithUserResultMap" type="com.daeut.daeut.reservation.dto.Orders">
+<resultMap id="OrderWithUserResultMap" type="com.daeut.daeut.reservation.dto.Orders">
     <id property="ordersNo" column="orders_no"/>
     <result property="userNo" column="user_no"/>
     <result property="orderStatus" column="order_status"/>
@@ -15,7 +15,6 @@
     <result property="regDate" column="reg_date"/>
     <result property="totalCount" column="total_count"/>
     <result property="title" column="title"/>
-    <result property="partnerNo" column="partner_no"/>
     
     <association property="user" javaType="com.daeut.daeut.auth.dto.Users">
         <id property="userNo" column="user_no"/>
@@ -32,6 +31,27 @@
         <result property="userUpdDate" column="user_upd_date"/>
         <result property="enabled" column="enabled"/>
         <result property="status" column="status"/>
+    </association>
+    
+    <association property="partner" javaType="com.daeut.daeut.partner.dto.Partner">
+        <id property="partnerNo" column="partner_no"/>
+        <result property="partnerGrade" column="partner_grade"/>
+        <result property="partnerReserve" column="partner_reserve"/>
+        <result property="partnerCareer" column="partner_career"/>
+        <result property="introduce" column="introduce"/>
+        <result property="userNo" column="user_no"/>
+    </association>
+
+    <association property="payment" javaType="com.daeut.daeut.reservation.dto.Payments">
+    <result property="serviceDate" column="service_date"/>
+    </association>
+
+        <association property="service" column="service_no" javaType="com.daeut.daeut.reservation.dto.Services">
+        <id property="serviceNo" column="service_no"/>
+        <result property="serviceName" column="service_name"/>
+        <result property="serviceCategory" column="service_category"/>
+        <result property="servicePrice" column="service_price"/>
+        <result property="serviceContent" column="service_content"/>
     </association>
 </resultMap>
 
@@ -81,36 +101,54 @@
         WHERE user_no = #{userNo}
     </select>
 
-    <!-- 목록 - partnerNo-->
     <select id="listByParterNo" resultMap="OrderWithUserResultMap">
         SELECT 
         o.orders_no, o.user_no, o.order_status, o.total_quantity, o.total_price, 
-        o.upd_date, o.reg_date, o.total_count, o.title, o.partner_no,
-        u.user_no AS user_no, u.user_name, u.user_phone, u.user_birth, 
-        u.user_address, u.user_email, u.user_gender, u.user_id, u.user_password, 
-        u.user_reg_date, u.user_coupon, u.user_upd_date, u.enabled, u.status
+        o.upd_date, o.reg_date, o.total_count, o.title,
+        oi.item_no, oi.quantity, oi.price, oi.amount, 
+        s.service_no, s.service_category, s.service_name, s.service_price, s.service_content, 
+        p.partner_no, p.partner_grade, p.partner_reserve, p.partner_career, p.introduce, 
+        p.user_no AS partner_user_no, 
+        u.user_name, u.user_phone, u.user_birth, u.user_address, u.user_email, u.user_gender, 
+        u.user_id, u.user_password, u.user_reg_date, u.user_coupon, u.user_upd_date, 
+        u.enabled, u.status, 
+        pm.service_date
     FROM 
         orders o
     JOIN 
+        order_item oi ON o.orders_no = oi.orders_no
+    JOIN 
+        service s ON oi.service_no = s.service_no
+    JOIN 
+        partner p ON s.partner_no = p.partner_no
+    JOIN 
         users u ON o.user_no = u.user_no
+    JOIN 
+        payment pm ON o.orders_no = pm.orders_no
     WHERE 
-        o.partner_no = #{partnerNo}
+        p.partner_no = #{partnerNo}
+
     </select>
 
+
     <!-- orderNo로 Oder 정보와 유저 정보 출력하기 -->
-    <select id="listByOrderNo" resultMap="OrderWithUserResultMap">
-    SELECT 
-    o.orders_no, o.user_no, o.order_status, o.total_quantity, o.total_price, 
-    o.upd_date, o.reg_date, o.total_count, o.title, o.partner_no,
-    u.user_no AS user_no, u.user_name, u.user_phone, u.user_birth, 
-    u.user_address, u.user_email, u.user_gender, u.user_id, u.user_password, 
-    u.user_reg_date, u.user_coupon, u.user_upd_date, u.enabled, u.status
-    FROM 
-    orders o
-    JOIN 
-    users u ON o.user_no = u.user_no
-    WHERE 
-    o.orders_no = #{ordersNo}
-    </select>
+ <select id="listByOrderNo" resultMap="OrderWithUserResultMap">
+    SELECT o.orders_no, o.user_no, u.user_name, u.user_phone, u.user_birth, 
+        u.user_address, u.user_email, u.user_gender, u.user_id, 
+        u.user_password, u.user_reg_date, u.user_coupon, u.user_upd_date, 
+        u.enabled, u.status, o.order_status, o.total_quantity, o.total_price, 
+        o.upd_date, o.reg_date, o.total_count, o.title, oi.item_no, oi.quantity, 
+        oi.price, oi.amount, oi.upd_date, oi.reg_date, s.service_no, s.service_category, 
+        s.service_name, s.service_price, s.service_content, s.upd_date, s.reg_date, s.partner_no,
+        p.payment_no, p.payment_method, p.status AS payment_status, p.pay_date, 
+        p.reg_date AS payment_reg_date, p.upd_date AS payment_upd_date, p.service_date
+        FROM orders o
+        JOIN users u ON o.user_no = u.user_no
+        JOIN order_item oi ON o.orders_no = oi.orders_no
+        JOIN service s ON oi.service_no = s.service_no
+        JOIN payment p ON o.orders_no = p.orders_no
+    WHERE o.orders_no = #{ordersNo};
+</select>
+
 
 </mapper>

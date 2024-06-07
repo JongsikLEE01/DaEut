@@ -14,6 +14,19 @@
         <result property="serviceContent" column="service_content"/>
         <result property="updDate" column="upd_date"/>
         <result property="regDate" column="reg_date"/>
+
+        <association property="partner" javaType="Partner">
+        <id property="partnerNo" column="partner_no"/>
+        <result property="partnerGrade" column="partner_grade"/>
+        <result property="partnerReserve" column="partner_reserve"/>
+        <result property="partnerCareer" column="partner_career"/>
+        <result property="introduce" column="introduce"/>
+        <result property="userNo" column="user_no"/>
+            <association property="users" javaType="Users">
+                <id property="userNo" column="user_no"/>
+                <result property="userName" column="user_name"/>
+            </association>
+        </association>
     </resultMap>
 
     <!-- 전체 조회 -->
@@ -39,9 +52,29 @@
 
     <!-- 글 내용 조회 -->
     <select id="serviceSelect" resultMap="serviceMap">
-        SELECT *
-        FROM service
-        WHERE service_no = #{serviceNo}
+        SELECT 
+            s.service_no, 
+            s.service_category, 
+            s.service_name, 
+            s.service_price, 
+            s.service_content, 
+            s.upd_date, 
+            s.reg_date, 
+            p.partner_no,
+            p.partner_grade,
+            p.partner_reserve,
+            p.partner_career,
+            p.introduce,
+            p.user_no,
+            u.user_name
+        FROM 
+            service s
+        JOIN 
+            partner p ON s.partner_no = p.partner_no
+        JOIN 
+            users u ON p.user_no = u.user_no
+        WHERE 
+            s.service_no = #{serviceNo}
     </select>
 
 

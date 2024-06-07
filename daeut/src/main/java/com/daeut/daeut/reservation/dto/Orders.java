@@ -30,6 +30,7 @@ public class Orders {
     // ----
     private Users user;
     private Partner partner;
+    private Services service;
 
     private String userName;
     private String userAddress;
@@ -37,10 +38,15 @@ public class Orders {
     private String serviceName;
     private String partnerName;
 
+
     private PaymentStatus status; 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date serviceDate; 
 
 
+
     
+    private Payments payment;
+    private Date serviceDate;
+
 }

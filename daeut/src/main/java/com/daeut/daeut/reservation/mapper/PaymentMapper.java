@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.daeut.daeut.reservation.dto.Payments;
+import com.siot.IamportRestClient.response.Payment;
 
 @Mapper
 public interface PaymentMapper {
@@ -21,4 +22,7 @@ public interface PaymentMapper {
 
     // --------------------------------------
     public Payments selectByOrdersNo(String ordersNo);
+
+    // 날짜 띄우기
+    List<Payment> findByPartnerNo(Long partnerNo);
 }

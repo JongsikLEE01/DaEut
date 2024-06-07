@@ -99,5 +99,10 @@ public class PartnerServiceImpl implements PartnerService {
         return partnerMapper.selectUserNameByPartnerNo(partnerNo);
     }
     
+    // 날짜 가져오기
+    @Override
+    public List<String> getPartnerSchedule(String partnerNo) {
+        return partnerMapper.getPartnerSchedule(partnerNo);
+    }
     
 }
