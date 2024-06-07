@@ -185,6 +185,7 @@ CREATE TABLE review
   user_no         INT          NOT NULL COMMENT '사용자 번호',
   payment_no      INT          NOT NULL COMMENT '결제 번호',
   partner_no      INT          NOT NULL COMMENT '파트너 번호',
+  service_no      INT          NOT NULL COMMENT '서비스 번호',
   PRIMARY KEY (review_no)
 ) COMMENT '후기';
 
@@ -335,3 +336,8 @@ ALTER TABLE chat_rooms
 --   ADD CONSTRAINT FK_partner_TO_orders
 --     FOREIGN KEY (partner_no)
 --     REFERENCES partner (partner_no);
+
+ALTER TABLE review
+ADD CONSTRAINT FK_service_TO_review
+FOREIGN KEY (service_no)
+REFERENCES service (service_no);
