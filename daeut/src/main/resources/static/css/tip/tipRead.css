@@ -185,3 +185,28 @@ a {
     border-radius: 8px;
     cursor: pointer;
 }
+
+.like-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f8f9fa;
+}
+
+.like-button-wrapper:hover {
+    background-color: #e2e6ea;
+}
+
+.like-button {
+    padding: 8px 18px;
+    background-color: white;
+    gap: 10px;
+    color: #8FA2CA;
+    border: 1px solid #8FA2CA;
+    border-radius: 8px;
+    cursor: pointer;
+}
