@@ -2,6 +2,7 @@ package com.daeut.daeut.reservation.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.reservation.dto.Cart;
 import com.daeut.daeut.reservation.dto.OrderItems;
 import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.PaymentStatus;
 import com.daeut.daeut.reservation.dto.Payments;
+import com.daeut.daeut.reservation.service.CartService;
 import com.daeut.daeut.reservation.service.OrderItemService;
 import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.PaymentService;
@@ -40,6 +43,9 @@ public class OrderController {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private CartService cartService;
 
     /**
      * 주문하기
@@ -95,11 +101,13 @@ public class OrderController {
                               ,@RequestParam("ordersNo") String ordersNo
                               ,@RequestParam("date") String date
                               ,@RequestParam("time") String time) throws Exception {
+        Users user = (Users) session.getAttribute("user");
 
         payments.setOrdersNo(ordersNo);
         payments.setPaymentMethod("card");
         payments.setStatus(PaymentStatus.PAID);
 
+        // 예약 날짜 가져오기
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String dateTime = date + ' ' + time;
         Date serviceDate = sdf.parse(dateTime);
@@ -117,6 +125,20 @@ public class OrderController {
         Orders order = orderService.select(ordersNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
         log.info(payments.toString());
+
+        // 장바구니 삭제 -> stackOverFlow 발생 ❗
+        // List<OrderItems> orderItemList = orderItemService.listByOrderNo(ordersNo);
+
+        // for (OrderItems orderItem : orderItemList) {
+        //     int serviceNo = orderItem.getServiceNo();
+        //     List<Cart> cartList =  cartService.cartList(user.getUserNo());
+
+        //     for (Cart cart : cartList) {
+        //         int cartServiceNo = cart.getServiceNo();
+        //         if(serviceNo == cartServiceNo) 
+        //             cartService.cartDelete(cart.getCartNo());
+        //     }
+        // }
 
         model.addAttribute("payments", payments);
         model.addAttribute("order", order);
