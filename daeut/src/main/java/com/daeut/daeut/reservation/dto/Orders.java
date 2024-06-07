@@ -3,6 +3,8 @@ package com.daeut.daeut.reservation.dto;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.partner.dto.Partner;
 
@@ -34,8 +36,13 @@ public class Orders {
     private String userAddress;
     private String serviceName;
     private String partnerName;
+
+
+    private PaymentStatus status; 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date serviceDate; 
+
     
     private Payments payment;
-    private Date serviceDate;
 
 }

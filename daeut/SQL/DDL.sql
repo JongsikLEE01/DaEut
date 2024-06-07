@@ -334,3 +334,9 @@ CREATE TABLE users
 --   ADD CONSTRAINT FK_service_TO_review
 --     FOREIGN KEY (service_no)
 --     REFERENCES service (service_no);
+=======
+-- ALTER TABLE chat_rooms
+--   ADD CONSTRAINT FK_users_TO_chat_rooms
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
