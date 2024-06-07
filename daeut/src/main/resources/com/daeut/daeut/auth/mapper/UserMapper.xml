@@ -243,6 +243,12 @@
             u.user_id = #{userId};
     </select>
 
+    <!-- 예약 삭제 하기 -->
+    <delete id="OrdersDelete">
+        DELETE FROM orders 
+        WHERE orders_no = #{orders_no};
+    </delete>
+
     <!-- 파트너정보 가져오기 -->
     <select id="selectPartner">
         SELECT partner.*
