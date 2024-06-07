@@ -36,6 +36,6 @@ public class CalendarController {
             events.add(event);
         }
 
-        return events;
+        return events; 
     }
 }
