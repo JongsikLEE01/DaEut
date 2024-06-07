@@ -198,7 +198,6 @@ CREATE TABLE service
   service_content  TEXT         NULL     COMMENT '서비스 내용',
   upd_date         TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '서비스 수정일자',
   reg_date         TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '서비스 등록일자',
-  partner_no       INT          NOT NULL COMMENT '파트너 번호',
   PRIMARY KEY (service_no)
 ) COMMENT '서비스';
 
