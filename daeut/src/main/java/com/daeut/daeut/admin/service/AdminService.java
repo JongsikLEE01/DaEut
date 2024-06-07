@@ -64,7 +64,7 @@ public interface AdminService {
 
     // 관리자 예약 조회
     public Orders adminReadReservation(String ordersNo) throws Exception;
-
+    
     // 관리자 예약 수정
     public int adminUpdateReservation(Orders orders) throws Exception;
 }

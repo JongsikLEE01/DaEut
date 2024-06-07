@@ -1,26 +1,26 @@
+
 -- Active: 1717663125839@@127.0.0.1@3306@joeun
 -- 결제 로직
 
--- -- DROP
+
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS reply;
+DROP TABLE IF EXISTS board;
+DROP TABLE IF EXISTS cancel;
+DROP TABLE IF EXISTS cart;
+DROP TABLE IF EXISTS chat;
+DROP TABLE IF EXISTS chat_rooms;
+DROP TABLE IF EXISTS files;
+DROP TABLE IF EXISTS order_item;
+DROP TABLE IF EXISTS orders;
+
 DROP TABLE IF EXISTS partner;
-DROP TABLE IF EXISTS service;
-DROP TABLE IF EXISTS board ;
-DROP TABLE IF EXISTS orders ;
+DROP TABLE IF EXISTS payment;
 DROP TABLE IF EXISTS persistent_logins;
-DROP TABLE IF EXISTS files ;
-DROP TABLE IF EXISTS reply ;
-DROP TABLE IF EXISTS chat ;
-DROP TABLE IF EXISTS chat_rooms ;
-DROP TABLE IF EXISTS review ;
-DROP TABLE IF EXISTS user_auth ;
-DROP TABLE IF EXISTS payment ;
-DROP TABLE IF EXISTS order_item ;
-DROP TABLE IF EXISTS cancel ;
-DROP TABLE IF EXISTS cart ;
+DROP TABLE IF EXISTS review;
+DROP TABLE IF EXISTS service;
+DROP TABLE IF EXISTS user_auth;
 
-
--- *********************** 테이블 ***********************
         
 
 CREATE TABLE board
@@ -62,7 +62,7 @@ CREATE TABLE cart
   cart_upd_date TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '수정일자',
   service_no    INT         NOT NULL COMMENT '서비스 번호',
   user_no       INT         NOT NULL COMMENT '사용자 번호',
-  partnerName   VARCHAR(50) NOT NULL COMMENT '파트너 이름',
+  partner_name  VARCHAR(50) NOT NULL COMMENT '파트너 이름',
   PRIMARY KEY (cart_no)
 ) COMMENT '장바구니';
 
@@ -115,6 +115,7 @@ CREATE TABLE order_item
   PRIMARY KEY (item_no)
 ) COMMENT '예약항목';
 
+
 CREATE TABLE orders
 (
   orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
@@ -126,9 +127,9 @@ CREATE TABLE orders
   reg_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 등록일자',
   total_count    INT          NOT NULL COMMENT '총 항목수',
   title          VARCHAR(100) NULL     COMMENT '예약 제목',
-  partner_no     INT          NOT NULL COMMENT '파트너 번호',
   PRIMARY KEY (orders_no)
 ) COMMENT '예약';
+
 
 CREATE TABLE partner
 (
@@ -150,6 +151,7 @@ CREATE TABLE payment
   reg_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 등록일',
   upd_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 수정일',
   orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
+  service_date   DATETIME     NOT NULL COMMENT '서비스 신청일',
   PRIMARY KEY (payment_no)
 ) COMMENT '결제';
 
@@ -291,10 +293,55 @@ CREATE TABLE users
 --     FOREIGN KEY (partner_no)
 --     REFERENCES partner (partner_no);
 
--- -- ALTER TABLE user_auth
--- --   ADD CONSTRAINT FK_users_TO_user_auth
--- --     FOREIGN KEY (user_no)
--- --     REFERENCES users (user_no);
+-- ALTER TABLE orders
+--   ADD CONSTRAINT FK_users_TO_orders
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE chat
+--   ADD CONSTRAINT FK_users_TO_chat
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE review
+--   ADD CONSTRAINT FK_users_TO_review
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE payment
+--   ADD CONSTRAINT FK_orders_TO_payment
+--     FOREIGN KEY (orders_no)
+--     REFERENCES orders (orders_no);
+
+-- ALTER TABLE review
+--   ADD CONSTRAINT FK_payment_TO_review
+--     FOREIGN KEY (payment_no)
+--     REFERENCES payment (payment_no);
+
+-- ALTER TABLE partner
+--   ADD CONSTRAINT FK_users_TO_partner
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE board
+--   ADD CONSTRAINT FK_users_TO_board
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE reply
+--   ADD CONSTRAINT FK_users_TO_reply
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+
+-- ALTER TABLE review
+--   ADD CONSTRAINT FK_partner_TO_review
+--     FOREIGN KEY (partner_no)
+--     REFERENCES partner (partner_no);
+
+-- ALTER TABLE user_auth
+--   ADD CONSTRAINT FK_users_TO_user_auth
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
 
 -- ALTER TABLE order_item
 --   ADD CONSTRAINT FK_orders_TO_order_item
@@ -321,6 +368,7 @@ CREATE TABLE users
 --     FOREIGN KEY (user_no)
 --     REFERENCES users (user_no);
 
+
 -- ALTER TABLE chat
 --   ADD CONSTRAINT FK_chat_rooms_TO_chat
 --     FOREIGN KEY (room_no)
@@ -331,11 +379,8 @@ CREATE TABLE users
 --     FOREIGN KEY (user_no)
 --     REFERENCES users (user_no);
 
--- -- ALTER TABLE chat_rooms
--- --   ADD CONSTRAINT FK_users_TO_chat_rooms1
--- --     FOREIGN KEY (partner_no)
--- --     REFERENCES users (user_no);
 
+<<<<<<< HEAD
 -- -- ALTER TABLE orders
 -- --   ADD CONSTRAINT FK_partner_TO_orders
 -- --     FOREIGN KEY (partner_no)
@@ -345,3 +390,9 @@ CREATE TABLE users
 --   ADD CONSTRAINT FK_service_TO_review
 --     FOREIGN KEY (service_no)
 --     REFERENCES service (service_no);
+=======
+-- ALTER TABLE chat_rooms
+--   ADD CONSTRAINT FK_users_TO_chat_rooms
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
+>>>>>>> d3c3cd693a8c8b8d08c50fd5b9abfee222fbc684

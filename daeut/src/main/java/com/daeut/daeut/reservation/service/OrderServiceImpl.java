@@ -142,6 +142,7 @@ public class OrderServiceImpl implements OrderService{
         return orderList;
     }
 
+    // 예약 목록
     @Override
     public List<Orders> listByParterNo(int partnerNo) throws Exception {
         List<Orders> orderList = orderMapper.listByParterNo(partnerNo);
@@ -156,5 +157,7 @@ public class OrderServiceImpl implements OrderService{
     public Orders listByOrderNo(String orderNo) throws Exception {
         return orderMapper.listByOrderNo(orderNo);
     }
+
+    
     
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.daeut.daeut.auth.dto.UserAuth;
+import com.daeut.daeut.auth.dto.Users;
 
 import lombok.Data;
 
@@ -44,6 +45,8 @@ public class Partner {
     private Date userUpdDate; // 사용자 수정일자
     private int enabled;        // 활성화 여부
     private int status;         // 상태
+
+    private Users users;
 
 
 }

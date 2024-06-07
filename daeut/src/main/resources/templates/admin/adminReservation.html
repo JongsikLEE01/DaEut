@@ -32,7 +32,8 @@
                                 <th width="50">사용자 명</th>
                                 <th width="50">파트너 명</th>
                                 <th width="50">예약 번호</th>
-                                <th width="80">예약 상태</th>
+                                <!-- payment에서 가져오기 -->
+                                <th width="80">예약 상태</th>  
                                 <th width="100">예약 시간</th>
                                 <th width="30" name="allCheck">
                                     <input type="checkbox" class="checkbox" id="allCheck" onclick="toggleAllCheckboxes(this)">
@@ -47,11 +48,11 @@
                             </tr>
                             <tr th:each="order, stat : ${orderList}">
                                 <td th:text="${stat.index + 1}"></td>
-                                <td><a th:href="|/admin/adminReservationRead/${order.ordersNo}|" th:text="${order.userName}" class="text-decoration-line"></a></td>
+                                <td><a th:href="|/admin/adminReservationRead?ordersNo=${order.ordersNo}|" th:text="${order.userName}" class="text-decoration-line"></a></td>
                                 <td th:text="${order.partnerName}"></td>
                                 <td th:text="${order.ordersNo}"></td>
-                                <td th:text="${order.orderStatus}"></td>
-                                <td th:text="${#dates.format(order.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td th:text="${order.status}"></td>
+                                <td th:text="${#dates.format(order.serviceDate, 'yyyy-MM-dd')}"></td>
                                 <td class="checked">
                                     <input type="checkbox" class="checkbox" name="deleteNoList" th:value="${order.ordersNo}">
                                 </td>

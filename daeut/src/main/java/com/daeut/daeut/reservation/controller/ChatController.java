@@ -48,6 +48,7 @@ public class ChatController {
 
         List<Chats> chatList = chatService.selectByRoomNo(roomNo);
 
+        model.addAttribute("chatRooms", chatRooms);
         model.addAttribute("partnerNo", partnerNo);
         model.addAttribute("user", user);
         model.addAttribute("roomNo", roomNo);
