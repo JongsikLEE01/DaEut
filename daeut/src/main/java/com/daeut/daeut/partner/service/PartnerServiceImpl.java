@@ -101,7 +101,7 @@ public class PartnerServiceImpl implements PartnerService {
     
     // 날짜 가져오기
     @Override
-    public List<String> getPartnerSchedule(int partnerNo) {
+    public List<String> getPartnerSchedule(String partnerNo) {
         return partnerMapper.getPartnerSchedule(partnerNo);
     }
     

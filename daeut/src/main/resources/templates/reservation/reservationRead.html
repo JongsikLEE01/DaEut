@@ -275,12 +275,11 @@
 				nowIndicator: true, // 현재 시간 마크
 				dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
 				locale: 'ko', // 한국어 설정
+				events: '/full-calendar/getPartnerSchedule',
 				// 이벤트 
-				events: [{
-					// title: 'Meeting',
-					// start: '2024-05-12T10:30:00',
-					// end: '2024-05-12T12:30:00'
-				}]
+				eventDidMount: function (info) {
+				info.el.title = info.event.start; // 이벤트에 마우스를 올렸을 때 표시할 툴팁 설정
+			}
 			});
 			calendar.render();
 		});

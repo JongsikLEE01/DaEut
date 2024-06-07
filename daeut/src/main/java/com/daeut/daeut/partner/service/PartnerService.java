@@ -33,5 +33,5 @@ public interface PartnerService {
    public String selectUserNameByPartnerNo(@Param("partnerNo") int partnerNo);
 
    // 날짜 가져오기
-   public  List<String> getPartnerSchedule(int partnerNo);
+   List<String> getPartnerSchedule(String partnerNo);
 }

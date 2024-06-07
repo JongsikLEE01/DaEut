@@ -35,5 +35,5 @@ public interface PartnerMapper {
     public String selectUserNameByPartnerNo(int partnerNo);
 
     // 날짜 가져오기
-    public List<String> getPartnerSchedule(int partnerNo);
+    List<String> getPartnerSchedule(@Param("partnerNo") String partnerNo);
 }
