@@ -40,9 +40,10 @@
     </select>
 
     <select id="select" resultType="Board">
-        SELECT *
-        FROM board
-        WHERE board_no = #{boardNo}
+        SELECT b.*, u.user_id AS userId
+        FROM board b
+        JOIN users u ON b.user_no = u.user_no
+        WHERE b.board_no = #{boardNo}
     </select>
 
     <insert id="insert">
