@@ -5,9 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.daeut.daeut.auth.dto.Review;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.partner.dto.Partner;
-import com.daeut.daeut.partner.dto.Review;
 
 @Mapper
 public interface PartnerMapper {
@@ -19,10 +19,10 @@ public interface PartnerMapper {
     public int partnerUpdate(Partner partner) throws Exception;
 
     // 사용자가 작성한 리뷰 모아보기
-    List<Review> getReviews(int partnerNo) throws Exception;
+    public List<Review> getReviews(int partnerNo) throws Exception;
 
     // 파트너 번호를 기준으로 파트너 정보를 조회하는 메서드
-    Partner getPartnerByPartnerNo(int partnerNo);
+    public Partner getPartnerByPartnerNo(int partnerNo);
 
     // 파트너 조회
     public Partner findByUserNo(int userNo) throws Exception;
@@ -35,5 +35,5 @@ public interface PartnerMapper {
     public String selectUserNameByPartnerNo(int partnerNo);
 
     // 날짜 가져오기
-    List<String> getPartnerSchedule(@Param("partnerNo") String partnerNo);
+    public List<String> getPartnerSchedule(@Param("partnerNo") String partnerNo);
 }
