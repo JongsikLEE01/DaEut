@@ -41,9 +41,9 @@ public class Orders {
 
     private PaymentStatus status; 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date serviceDate; 
 
-    
+    private Date serviceDate; 
     private Payments payment;
+
 
 }
