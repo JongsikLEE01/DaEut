@@ -2,8 +2,6 @@ package com.daeut.daeut.reservation.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.daeut.daeut.reservation.dto.Cart;
 
 public interface CartService {

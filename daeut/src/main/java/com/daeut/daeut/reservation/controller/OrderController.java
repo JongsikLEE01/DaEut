@@ -135,14 +135,6 @@ public class OrderController {
         List<Integer> serviceNoList = new ArrayList<>();                        
         for (OrderItems orderItem : orderItemList) {
             serviceNoList.add(orderItem.getServiceNo());
-        //     int serviceNo = orderItem.getServiceNo();
-        //     List<Cart> cartList =  cartService.cartList(user.getUserNo());
-
-        //     for (Cart cart : cartList) {
-        //         int cartServiceNo = cart.getServiceNo();
-        //         if(serviceNo == cartServiceNo) 
-        //             cartService.cartDelete(cart.getCartNo());
-        //     }
         }
 
         int result = cartService.deleteByOrderComplete(serviceNoList, user.getUserNo());
@@ -162,24 +154,26 @@ public class OrderController {
      * @throws Exception 
      */
     @GetMapping("/fail")
-    public String orderFail(Model model
-                              ,Payments payments
-                              ,HttpSession session
-                              ,@RequestParam("ordersNo") String ordersNo
-                              ,@ModelAttribute String errorMsg
-                              ,@RequestParam("date") String date
-                              ,@RequestParam("time") String time) throws Exception {                    
+    public String orderFail(Model model,
+                            Payments payments,
+                            HttpSession session,
+                            @RequestParam("ordersNo") String ordersNo,
+                            @ModelAttribute String errorMsg,
+                            @RequestParam(value = "date", required = false) String date,
+                            @RequestParam(value = "time", required = false) String time) throws Exception {                    
+                            
         payments.setOrdersNo(ordersNo);
         payments.setPaymentMethod("card");
         payments.setStatus(PaymentStatus.PAID);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String serviceDate = date + ' ' + time;
-
-        if(serviceDate == null || serviceDate == ""){
+                            
+        if (date == null || date.isEmpty() || time == null || time.isEmpty()) {
+            // date나 time이 없을 때 현재 시간으로 설정
             Date now = new Date();
-            // 결제일 미지정 시 현재 시간으로 지정
             payments.setServiceDate(now);
-        }else{
+        } else {
+            // date와 time이 있을 때 입력값을 파싱하여 설정
+            String serviceDate = date + ' ' + time;
             Date orderServiceDate = sdf.parse(serviceDate);
             payments.setServiceDate(orderServiceDate);
         }
@@ -192,17 +186,18 @@ public class OrderController {
         paymentService.merge(payments);
         log.info(":::::::::::::::::::: payments ::::::::::::::::::::");
         log.info(payments.toString());
-
+    
         Orders order = orderService.select(ordersNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
         log.info(payments.toString());
-
+    
         log.info("[결제 실패] 에러 메시지 : " + errorMsg);
-
+    
         model.addAttribute("payments", payments);
         model.addAttribute("order", order);
         return "reservation/paymentFalse";
     }
+
 
     /**
      * 주문/결제  

@@ -7,16 +7,18 @@ import org.apache.ibatis.annotations.Param;
 
 import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Option;
-import com.daeut.daeut.main.dto.Page;
+import com.daeut.daeut.main.dto.ServicePage;
 import com.daeut.daeut.reservation.dto.Event;
 import com.daeut.daeut.reservation.dto.Services;
 
 @Mapper
 public interface ReservationMapper {
     // 목록
-    public List<Services> serviceList(@Param("page") Page page, @Param("option") Option option) throws Exception;
+    public List<Services> serviceList(@Param("servicePage") ServicePage servicePage, @Param("option") Option option) throws Exception;
     // 단일 조회
     public Services serviceSelect(int serviceNo) throws Exception;
+    // 단일 조회 수정 X
+    public Services select(int serviceNo) throws Exception;
     // 삽입
     public int serviceInsert(Services service) throws Exception;
     // 업데이트
