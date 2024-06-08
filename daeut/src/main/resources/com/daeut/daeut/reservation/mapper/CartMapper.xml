@@ -16,7 +16,6 @@
         <result property="serviceName" column="service_name"/>
     </resultMap>
 
-    <!-- 카트 목록 -->
     <select id="cartList" resultMap="cartMap">
         SELECT 
             c.*, 

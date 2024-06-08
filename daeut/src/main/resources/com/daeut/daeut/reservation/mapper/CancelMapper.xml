@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daeut.daeut.reservation.mapper.CancelMapper">
+
+    <resultMap id="CancelMap" type="Cancel">
+        <id property="cancelNo" column="cancel_no"/>
+        <result property="cancelAmount" column="cancel_amount"/>
+        <result property="confirmed" column="confirmed"/>
+        <result property="refund" column="refund"/>
+        <result property="cancelAccount" column="cancel_account"/>
+        <result property="cancelNumber" column="cancel_number"/>
+        <result property="cancelName" column="cancel_name"/>
+        <result property="cancelDate" column="cancel_date"/>
+        <result property="completedDate" column="completed_date"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="updDate" column="upd_date"/>
+        <result property="ordersNo" column="orders_no"/>
+    </resultMap>
+
+    <select id="list" resultMap="CancelMap">
+        select *
+        FROM Cancel
+    </select>
+
+    <!-- 번호로 찾기 -->
+    <select id="select" resultMap="CancelMap">
+        SELECT * FROM cancel
+        WHERE cancel_no = #{cancelNo}
+    </select>
+
+    <!-- 주문번호로 찾기 -->
+    <select id="selectByOrdersNo" resultMap="CancelMap">
+        SELECT * FROM cancel 
+        WHERE orders_no = #{ordersNo}
+    </select>
+
+    <!-- 삽입 -->
+    <insert id="insert">
+        INSERT INTO cancel (reason, cancel_amount, confirmed, refund, cancel_account, cancel_number, cancel_name, cancel_date, orders_no)
+        VALUES (#{reason}, #{cancelAmount}, #{confirmed}, #{refund}, ${cancelAccount}, ${cancelNumber}, ${cancelName}, now(), ${ordersNo})
+    </insert>
+
+    <!-- 업데이트 -->
+    <update id="update">
+        UPDATE cancel
+        SET 
+            confirmed = #{confirmed}
+            , refund = #{refund}
+            , completed_date = #{completed_date}
+            , upd_date = now()
+        WHERE cancel_no = #{cancelNo}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        DELETE FROM cancel
+        WHERE cancel_no = #{cancelNo}
+    </delete>
+</mapper>
