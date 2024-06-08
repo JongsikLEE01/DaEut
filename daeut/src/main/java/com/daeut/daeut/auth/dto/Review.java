@@ -1,6 +1,6 @@
-package com.daeut.daeut.partner.dto;
+package com.daeut.daeut.auth.dto;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ public class Review {
     private int reviewNo;
     private String reviewTitle;
     private String reviewContent;
-    private Timestamp reviewRegDate;
+    private Date reviewRegDate;
     private int reviewRating;
     private int userNo;
     private int paymentNo;

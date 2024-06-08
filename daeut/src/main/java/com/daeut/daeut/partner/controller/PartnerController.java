@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.daeut.daeut.auth.dto.Review;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
-import com.daeut.daeut.partner.dto.Review;
 import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Orders;

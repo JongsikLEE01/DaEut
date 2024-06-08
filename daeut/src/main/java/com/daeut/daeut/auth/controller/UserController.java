@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.daeut.daeut.auth.dto.CustomUser;
+import com.daeut.daeut.auth.dto.Review;
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.auth.service.ReviewService;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
-import com.daeut.daeut.partner.dto.Review;
 import com.daeut.daeut.partner.service.PartnerService;
-import com.daeut.daeut.partner.service.ReviewService;
 import com.daeut.daeut.reservation.dto.Cart;
 import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Orders;
@@ -142,8 +142,9 @@ public class UserController {
     
     
     // 사용자 작성 리뷰
-    @GetMapping("/user/userReview")
+    @GetMapping("/userReview")
     public String showReviewForm(Model model, HttpSession session) {
+        log.info("/user/userReview");
         Users user = (Users) session.getAttribute("user");
 
         if (user == null) {
@@ -154,8 +155,11 @@ public class UserController {
         return "userReview";
     }
 
-    @PostMapping("/user/userReviewDone")
-    public String submitReview(Review review, HttpSession session) {
+    // 리뷰 저장
+    @PostMapping("/userReviewDone")
+    public String submitReview(HttpSession session, Review review) {
+        log.info("/user/userReviewDone");
+
         Integer userNo = (Integer) session.getAttribute("userNo");
         if (userNo == null) {
             return "redirect:/login"; // 사용자 번호가 없으면 로그인 페이지로 리디렉션
