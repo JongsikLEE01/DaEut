@@ -86,4 +86,13 @@ public class CartServiceImpl implements CartService{
     public int cartDelete(int cartNo) throws Exception {
         return cartDelete(cartNo);
     }
+
+    @Override
+    public int deleteByOrderComplete(List<Integer> serviceNoList, int userNo) throws Exception {
+        String serviceNos = serviceNoList.stream()
+                            .map(s -> s.toString())
+                            .collect(Collectors.joining(","));
+
+        return cartMapper.deleteByOrderComplete(serviceNos, userNo);
+    }
 }

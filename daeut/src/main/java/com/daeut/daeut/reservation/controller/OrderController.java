@@ -1,6 +1,7 @@
 package com.daeut.daeut.reservation.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -75,9 +76,10 @@ public class OrderController {
 
         // 주문 등록
         int result = orderService.insert(orders);
-
+        
         log.info("신규 등록된 주문ID : " + orders.getOrdersNo() );
         if( result > 0 ) {
+            // 주문 등록 성공
             return "redirect:/orders/" + orders.getOrdersNo();
         }
         else {
@@ -126,10 +128,13 @@ public class OrderController {
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
         log.info(payments.toString());
 
-        // 장바구니 삭제 -> stackOverFlow 발생 ❗
-        // List<OrderItems> orderItemList = orderItemService.listByOrderNo(ordersNo);
+        // 주문 성공 시 장바구니 삭제 -> stackOverFlow 발생 ❗
+        List<OrderItems> orderItemList = orderItemService.listByOrderNo(ordersNo);
 
-        // for (OrderItems orderItem : orderItemList) {
+
+        List<Integer> serviceNoList = new ArrayList<>();                        
+        for (OrderItems orderItem : orderItemList) {
+            serviceNoList.add(orderItem.getServiceNo());
         //     int serviceNo = orderItem.getServiceNo();
         //     List<Cart> cartList =  cartService.cartList(user.getUserNo());
 
@@ -138,7 +143,10 @@ public class OrderController {
         //         if(serviceNo == cartServiceNo) 
         //             cartService.cartDelete(cart.getCartNo());
         //     }
-        // }
+        }
+
+        int result = cartService.deleteByOrderComplete(serviceNoList, user.getUserNo());
+        log.info("주문한 서비스 장바구니 삭제 - result : " + result);
 
         model.addAttribute("payments", payments);
         model.addAttribute("order", order);
