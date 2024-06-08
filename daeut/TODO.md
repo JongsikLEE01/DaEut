@@ -4,15 +4,16 @@
 - 예약 ~ 주문까지 수정할 부분
     - ✔ reservation.html 페이징 개수 변경
     - ✔ reservationRead.htrml 테스트 및 확인
-    - userChatRoom, partnerChatRoom 페이징 처리
     - ✔ payment.html 쿠폰 css 삭제, 유효성 검사
-    - ✔ 주문 취소 할 경우 예약 시간 입력 없는 경우 에러 발생
-        1. not null -> null로 ddl 변경
+    - reservation.html 썸네일 안나옴
+    - userChatRoom, partnerChatRoom 페이징 처리
+    - 주문 취소 할 경우 예약 시간 입력 없는 경우 에러 발생
+        1. ✔ not null -> null로 ddl 변경
         2. 페이지별로 null 처리 로직 필요 
 
 - 환불 처리
-    - CancelMapper.xml 기본 CRUD 생성
-    - Cancel, CancelService, CancelMapper, CancelServiceImpl 생성
+    - ✔ CancelMapper.xml 기본 CRUD 생성
+    - ✔ Cancel, CancelService, CancelMapper, CancelServiceImpl 생성
     - 로직 작성
     - userReservation.html, partnerReservation.html 연동
     - DB 연동 및 테스트 
