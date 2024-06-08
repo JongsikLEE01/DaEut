@@ -158,4 +158,9 @@ public class ReservationServiceImpl implements ReservationService{
         List<Event> eventList = reservationMapper.calendarListByServiceNo(serviceNo);
         return eventList;
     }
+
+    @Override
+    public Services select(int serviceNo) throws Exception {
+        return reservationMapper.select(serviceNo);
+    }
 }

@@ -43,17 +43,6 @@ public class CartServiceImpl implements CartService{
     // 삽입
     @Override
     public int cartInsert(Cart cart) throws Exception {
-        int serviceNo = cart.getServiceNo();
-        Services services = reservationService.serviceSelect(serviceNo);
-        Partner partner = partnerService.selectByPartnerNo(services.getPartnerNo());
-        int partnerNo = partner.getUserNo();
-        Users users = userService.findUserById(partnerNo);
-        log.info(users.toString());
-
-        cart.setPartnerName(users.getUserName());
-
-        log.info(cart.toString());
-
         return cartMapper.cartInsert(cart);
     }
 

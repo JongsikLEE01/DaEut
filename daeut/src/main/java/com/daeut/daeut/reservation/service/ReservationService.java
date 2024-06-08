@@ -13,6 +13,8 @@ public interface ReservationService {
     public List<Services> serviceList(Page page, Option option) throws Exception;
     // 단일 조회
     public Services serviceSelect(int serviceNo) throws Exception;
+    // 단일 조회 수정 X
+    public Services select(int serviceNo) throws Exception;
     // 삽입
     public int serviceInsert(Services service) throws Exception;
     // 업데이트

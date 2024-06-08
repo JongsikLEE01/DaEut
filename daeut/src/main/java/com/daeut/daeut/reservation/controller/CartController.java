@@ -62,7 +62,7 @@ public class CartController {
     }
     
 
-    /**
+     /**
      * 장바구니 추가
      * @writer jslee
      * @param cart
@@ -73,14 +73,21 @@ public class CartController {
     public ResponseEntity<String> addCart(@RequestBody Cart cart, HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
         int serviceNo = cart.getServiceNo();
-    Services service = reservationService.serviceSelect(serviceNo);
-        Partner partner = partnerService.selectByPartnerNo(service.getPartnerNo());
-        Users pUser = userService.findUserById(partner.getUserNo());
+        Services service = reservationService.select(serviceNo);
 
+        
+        int pNo = service.getPartnerNo();
+        Partner partner = partnerService.selectByPartnerNo(pNo);
+        
+        Users pUser = userService.findUserById(partner.getUserNo());
+        log.info("pUser? {}", pUser);
+        
+        cart.setServiceNo(serviceNo);
         cart.setUserNo(user.getUserNo());
         cart.setCartAmount(1);
         cart.setPartnerName(pUser.getUserName());
-
+        log.info("cart? {}", cart);
+        
         int result = 0;
         try {
             // 장바구니 추가 요청
