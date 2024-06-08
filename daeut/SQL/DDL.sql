@@ -151,9 +151,10 @@ CREATE TABLE payment
   reg_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 등록일',
   upd_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 수정일',
   orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
-  service_date   DATETIME     NOT NULL COMMENT '서비스 신청일',
+  service_date   DATETIME     NULL     COMMENT '서비스 신청일',
   PRIMARY KEY (payment_no)
 ) COMMENT '결제';
+
 
 CREATE TABLE persistent_logins
 (

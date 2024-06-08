@@ -16,10 +16,9 @@ import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Option;
 import com.daeut.daeut.main.dto.Page;
+import com.daeut.daeut.main.dto.ServicePage;
 import com.daeut.daeut.main.service.FileService;
-import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Services;
-import com.daeut.daeut.reservation.service.ChatRoomService;
 import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,12 +34,6 @@ public class ReservationController {
     @Autowired
     private FileService fileService;
 
-    @Autowired
-    private ChatRoomService chatRoomService;
-
-    @Autowired
-    private PartnerService partnerService;
-
     /**
      * 전체 조회
      * @write jslee
@@ -51,7 +44,7 @@ public class ReservationController {
      * @throws Exception
      */
 	@GetMapping("/reservation")
-	public String reservationList(Model model, Page page, Option option) throws Exception{
+	public String reservationList(Model model, ServicePage servicePage, Option option) throws Exception{
         String keyword = option.getKeyword();
 
         if(keyword == null || option.getKeyword() == ""){
@@ -62,49 +55,13 @@ public class ReservationController {
         }else
             model.addAttribute("option", option);
 
-        List<Services> serviceList = reservationService.serviceList(page, option);
+        List<Services> serviceList = reservationService.serviceList(servicePage, option);
         
         model.addAttribute("serviceList", serviceList);
-        model.addAttribute("page", page);
+        model.addAttribute("servicePage", servicePage);
         
         return "reservation/reservation";
 	}
-
-    // /**
-    //  * 채팅 - POST
-    //  * @param serviceNo
-    //  * @param model
-    //  * @param session
-    //  * @return
-    //  * @throws Exception
-    //  */
-	// @PostMapping("/chat")
-	// public String chat(int serviceNo, Model model, HttpSession session) throws Exception {
-    //     Services service = reservationService.serviceSelect(serviceNo);
-    //     Users user = (Users) session.getAttribute("user");
-    //     int userNo = user.getUserNo();
-    //     int partnerNo = service.getPartnerNo();
-
-    //     List<ChatRooms> chatRoomList = chatRoomService.selectByUserNo(userNo);
-
-    //     for (ChatRooms chatRoom : chatRoomList) {
-    //         int uNo = chatRoom.getUserNo();
-    //         int pNo = chatRoom.getPartnerNo();
-    //         if(uNo == userNo && pNo == partnerNo){
-    //             model.addAttribute("chatRoom", chatRoom);
-    //         }
-    //     }
-        
-    //     model.addAttribute("service", service);
-    //     model.addAttribute("user", user);
-	// 	return "reservation/chat";
-	// }
-
-    // @GetMapping("/chat")
-    // public void getChat(int serviceNo, Model model, HttpSession session) throws Exception {
-    //     chat(serviceNo, model, session);
-    // }
-    
     
     /**
      * 단일 조회
