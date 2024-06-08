@@ -20,8 +20,12 @@ import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.dto.Payments;
+import com.daeut.daeut.reservation.service.OrderService;
+import com.daeut.daeut.reservation.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +46,13 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private PaymentService paymentService;
+
+    @Autowired
+    private OrderService orderService;
+
 
     //  @Autowired
     // private PasswordEncoder passwordEncoder;
@@ -198,7 +209,6 @@ public class AdminController {
     @PostMapping("/approvePartner/{userId}")
     public String approvePartner(@PathVariable("userId") String userId) {
         try {
-            log.info("✅✅✅✅✅✅✅✅✅✅✅✅✅✅");
             log.info("파트너 아이디::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: : " + userId);
             adminService.approvePartner(userId);
             adminService.insertPartnerAuth(userId);
@@ -214,7 +224,6 @@ public class AdminController {
     @PostMapping("/cancelPartner/{userId}")
     public String cancelPartner(@PathVariable("userId") String userId) {
         try {
-            log.info("✅✅✅✅✅✅✅✅✅✅✅✅✅✅");
             log.info("파트너 아이디 : " + userId);
             adminService.cancelPartner(userId);
             adminService.deletePartnerAuth(userId);
@@ -240,7 +249,7 @@ public class AdminController {
 
     // 관리자 - 파트너 수정 처리
     @PostMapping("/adminPartnerUpdate/{userNo}")
-    public String adminPartnerUpdatePro(Partner partner, @RequestParam("userNo") int userNo, Model model) throws Exception {
+    public String adminPartnerUpdatePro(Partner partner, @PathVariable("userNo") int userNo, Model model) throws Exception {
         Partner existingUser = adminService.findPartnerById(userNo);
         int result = adminService.adminUpdatePartner(partner);
         log.info("회원 수정 중..... result: " + result);
@@ -300,54 +309,84 @@ public class AdminController {
         int total = adminService.countReservations(); // 총 예약 수 계산
         Page page = new Page(pageNumber, total); // Page 객체 초기화
         List<Orders> orderList = adminService.list(page);
+        log.info("--------------------------orderList " + orderList);
         model.addAttribute("orderList", orderList);
         model.addAttribute("page", page);
         return "/admin/adminReservation"; 
     }
 
-    // 관리자 - 예약 조회 화면
-    @GetMapping("/adminReservationRead/{ordersNo}")
-    public String adminReadReservation(@PathVariable("ordersNo") String ordersNo, Model model) {
+    @GetMapping("/adminReservationRead")
+    public String adminReadReservation(@RequestParam("ordersNo") String ordersNo, Model model) {
+        log.info("ordersNo : " + ordersNo);
         try {
-            Orders orders = adminService.adminReadReservation(ordersNo);
+            Payments payments = paymentService.selectByOrdersNo(ordersNo);
+            log.info("payments : " + payments);
+            Orders orders = orderService.listByOrderNo(ordersNo);
+            log.info("orders : " + orders);
+            Users user = userService.selectByUserNo(orders.getUserNo());
+            log.info("user : " + user);
+            // List<OrderItems> orderItemList = orderItemService.listByOrderNo(ordersNo);
+            // log.info("orderItemList : " + orderItemList);
+            
+            // List<Users> partnerList = new ArrayList();
+            // for (OrderItems orderItem : orderItemList) {
+            //     Services service = reservationService.serviceSelect(orderItem.getServiceNo());
+            //     Partner uPartner = partnerService.selectByPartnerNo(service.getPartnerNo());
+            //     Users partner = userService.findUserById(uPartner.getUserNo());
+            //     partnerList.add(partner);
+            //     // model.addAttribute("partner", partner);
+            // }
+            // model.addAttribute("partnerList", partnerList);
+
+            model.addAttribute("user", user);
+            model.addAttribute("payments", payments);
             model.addAttribute("orders", orders);
         } catch (Exception e) {
             model.addAttribute("error", "예약 정보를 불러오는 중 오류가 발생했습니다.");
         }
         return "/admin/adminReservationRead";
     }
-   
 
     // 관리자 - 예약 수정 화면
-    @GetMapping("/adminReservationUpdate/{ordersNo}")
-    public String adminReservationUpdate(@PathVariable("ordersNo") String ordersNo, Model model) throws Exception  {
+    @GetMapping("/adminReservationUpdate")
+    public String adminReservationUpdate(@RequestParam("ordersNo") String ordersNo, Model model) throws Exception {
         try {
-            Orders order = adminService.adminReadReservation(ordersNo);
-            model.addAttribute("order", order);
+            Payments payments = paymentService.selectByOrdersNo(ordersNo);
+            Orders orders = orderService.listByOrderNo(ordersNo);
+            Users user = userService.selectByUserNo(orders.getUserNo());
+
+            model.addAttribute("payments", payments);
+            model.addAttribute("orders", orders);
+            model.addAttribute("user", user);
+
+            log.info(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" + orders);
             return "/admin/adminReservationUpdate";
         } catch (Exception e) {
             log.error("예약 조회 중 오류가 발생했습니다.", e);
             model.addAttribute("error", "예약 조회 중 오류가 발생했습니다.");
-            return "redirect:/admin/adminReservationUpdate";
+            return "redirect:/admin/adminReservation";
         }
     }
 
 
     // 관리자 - 예약 수정 처리
-    @PostMapping("/adminReservationUpdate/{ordersNo}")
-    public String adminReservationUpdatePro(Orders orders, @PathVariable("ordersNo") String ordersNo, Model model) throws Exception {
-        Orders existingOrders = adminService.adminReadReservation(ordersNo);
-        int result = adminService.adminUpdateReservation(orders);
-        log.info("예약 수정 중..... result: " + result);
-        String no = orders.getOrdersNo();
-        if (result > 0) {
-            return "redirect:/admin/adminReservationRead/" + no; // 업데이트 후에 예약 조회 페이지로 리다이렉트
-        }
-        model.addAttribute("error", "예약 업데이트에 실패했습니다.");
-        model.addAttribute("orders", existingOrders); // 기존 예약 정보를 다시 전달
-        return "/admin/adminReservationUpdate";
-    }
- 
-
+    @PostMapping("/adminReservationUpdate")
+    public String adminUpdateReservation(@ModelAttribute Orders orders,
+                                         @ModelAttribute Payments payments,
+                                         @ModelAttribute Users users,
+                                         @RequestParam("ordersNo") String ordersNo,
+                                         Model model) throws Exception {
     
-}   
+        // 예약 정보 업데이트
+        int result = adminService.adminUpdateReservation(orders, payments, users);
+        log.info("예약 수정 결과: " + result);
+        if (result > 0) {
+            return "redirect:/admin/adminReservationRead?ordersNo=" + ordersNo;
+        } else {
+            return "redirect:/admin/adminReservation";
+        }
+    }
+    
+
+
+}

@@ -48,11 +48,11 @@
                             </tr>
                             <tr th:each="order, stat : ${orderList}">
                                 <td th:text="${stat.index + 1}"></td>
-                                <td><a th:href="|/admin/adminReservationRead/${order.ordersNo}|" th:text="${order.userName}" class="text-decoration-line"></a></td>
+                                <td><a th:href="|/admin/adminReservationRead?ordersNo=${order.ordersNo}|" th:text="${order.userName}" class="text-decoration-line"></a></td>
                                 <td th:text="${order.partnerName}"></td>
                                 <td th:text="${order.ordersNo}"></td>
-                                <td th:text="${order.orderStatus}"></td>
-                                <td th:text="${#dates.format(order.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td th:text="${order.status}"></td>
+                                <td th:text="${#dates.format(order.serviceDate, 'yyyy-MM-dd')}"></td>
                                 <td class="checked">
                                     <input type="checkbox" class="checkbox" name="deleteNoList" th:value="${order.ordersNo}">
                                 </td>

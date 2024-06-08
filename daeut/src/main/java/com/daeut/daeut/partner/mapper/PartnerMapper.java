@@ -33,4 +33,7 @@ public interface PartnerMapper {
     public Partner select(int parterNo) throws Exception;
 
     public String selectUserNameByPartnerNo(int partnerNo);
+
+    // 날짜 가져오기
+    List<String> getPartnerSchedule(@Param("partnerNo") String partnerNo);
 }

@@ -10,6 +10,7 @@ import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Option;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.main.service.FileService;
+import com.daeut.daeut.reservation.dto.Event;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.mapper.ReservationMapper;
 
@@ -150,5 +151,11 @@ public class ReservationServiceImpl implements ReservationService{
         List<Files> files = reservationMapper.SelectFiles(serviceNo);
         
         return files;
+    }
+
+    @Override
+    public List<Event> calendarListByServiceNo(int serviceNo) throws Exception {
+        List<Event> eventList = reservationMapper.calendarListByServiceNo(serviceNo);
+        return eventList;
     }
 }

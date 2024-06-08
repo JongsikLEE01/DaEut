@@ -12,9 +12,14 @@ import com.daeut.daeut.admin.mapper.AdminMapper;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
+import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.dto.Payments;
+import com.daeut.daeut.reservation.mapper.OrderMapper;
+import com.daeut.daeut.reservation.service.OrderService;
+import com.daeut.daeut.reservation.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +32,15 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private OrderMapper orderMapper;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PaymentService PaymentService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -188,12 +202,19 @@ public class AdminServiceImpl implements AdminService {
      @Override
      public Orders adminReadReservation(String ordersNo) throws Exception {
          Orders orders = adminMapper.adminReadReservation(ordersNo);
+         log.info("------------orders----------" + orders);
          return orders;
      }
 
+     // 관리자 - 예약 수정
     @Override
-    public int adminUpdateReservation(Orders orders) throws Exception {
-        int result = adminMapper.adminUpdateReservation(orders);
+    public int adminUpdateReservation(Orders orders, Payments Payments, Users users) throws Exception {
+        int userUpdateResult = userService.update(users);
+        int orderUpdateResult = orderMapper.update(orders);
+        int paymentUpdateResult = PaymentService.update(Payments);
+
+        int result =  userUpdateResult + orderUpdateResult + paymentUpdateResult;
+        log.info("zzzzzzzzzzzzzzzz" + orderUpdateResult);
         return result;
     }
 

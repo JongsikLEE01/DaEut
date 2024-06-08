@@ -31,4 +31,7 @@ public interface PartnerService {
    public Users getPartnerName(int userNo) throws Exception;
 
    public String selectUserNameByPartnerNo(@Param("partnerNo") int partnerNo);
+
+   // 날짜 가져오기
+   List<String> getPartnerSchedule(String partnerNo);
 }

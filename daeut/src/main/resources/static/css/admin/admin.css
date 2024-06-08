@@ -616,3 +616,10 @@ textarea {
 input[type="password"] {
     font-family: 'Courier New', Courier, monospace;
 }
+
+.container.complete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 680px; /* 화면 전체 높이 */
+}

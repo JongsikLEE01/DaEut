@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.auth.mapper.UserMapper;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.service.PartnerService;
@@ -38,6 +39,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private PartnerService partnerService;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public List<Orders> list() throws Exception {
@@ -142,6 +146,7 @@ public class OrderServiceImpl implements OrderService{
         return orderList;
     }
 
+    // 예약 목록
     @Override
     public List<Orders> listByParterNo(int partnerNo) throws Exception {
         List<Orders> orderList = orderMapper.listByParterNo(partnerNo);
@@ -155,6 +160,11 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Orders listByOrderNo(String orderNo) throws Exception {
         return orderMapper.listByOrderNo(orderNo);
+    }
+
+    @Override
+    public void OrdersDelete(String ordersNo) throws Exception {
+        userMapper.OrdersDelete(ordersNo);
     }
     
 }

@@ -40,9 +40,10 @@
     </select>
 
     <select id="select" resultType="Board">
-        SELECT *
-        FROM board
-        WHERE board_no = #{boardNo}
+        SELECT b.*, u.user_id AS userId
+        FROM board b
+        JOIN users u ON b.user_no = u.user_no
+        WHERE b.board_no = #{boardNo}
     </select>
 
     <insert id="insert">
@@ -129,4 +130,11 @@
     <!-- <select id="findTop5ByBoardViews" resultType="com.daeut.daeut.tip.dto.Board">
         SELECT * FROM board ORDER BY board_views DESC LIMIT 5
     </select> -->
+
+    <!-- 좋아요 수 증가 -->
+    <update id="incrementBoardLike">
+        UPDATE board
+        SET board_like = board_like + 1
+        WHERE board_no = #{boardNo}
+    </update>
 </mapper>
