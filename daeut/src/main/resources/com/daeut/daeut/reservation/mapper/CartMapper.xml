@@ -72,4 +72,11 @@
             , cart_upd_date = now()
         WHERE cart_no = #{cartNo}
     </update>
+
+    <!-- 주문한 장바구니 삭제 -->
+    <delete id="deleteByOrderComplete">
+        DELETE FROM cart
+        WHERE service_no IN (${serviceNoList})
+        AND user_no = #{userNo}
+    </delete>
 </mapper>

@@ -1,9 +1,7 @@
 
--- Active: 1717663125839@@127.0.0.1@3306@joeun
 -- 결제 로직
 
 
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS reply;
 DROP TABLE IF EXISTS board;
 DROP TABLE IF EXISTS cancel;
@@ -13,6 +11,7 @@ DROP TABLE IF EXISTS chat_rooms;
 DROP TABLE IF EXISTS files;
 DROP TABLE IF EXISTS order_item;
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS product;
 
 DROP TABLE IF EXISTS partner;
 DROP TABLE IF EXISTS payment;
@@ -20,6 +19,7 @@ DROP TABLE IF EXISTS persistent_logins;
 DROP TABLE IF EXISTS review;
 DROP TABLE IF EXISTS service;
 DROP TABLE IF EXISTS user_auth;
+DROP TABLE IF EXISTS users;
 
         
 
@@ -120,7 +120,7 @@ CREATE TABLE orders
 (
   orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
   user_no        INT          NOT NULL COMMENT '사용자 번호',
-  order_status   VARCHAR(50)  NOT NULL COMMENT '예약 상태',
+  order_status   VARCHAR(50)  NULL DEFAULT 'PENDING' COMMENT '예약 상태',
   total_quantity INT          NOT NULL COMMENT '총 수량',
   total_price    INT          NOT NULL COMMENT '총 가격',
   upd_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 수정일자',
@@ -379,6 +379,11 @@ CREATE TABLE users
 --     FOREIGN KEY (user_no)
 --     REFERENCES users (user_no);
 
+
+-- ALTER TABLE chat_rooms
+--   ADD CONSTRAINT FK_users_TO_chat_rooms
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
 
 -- ALTER TABLE chat_rooms
 --   ADD CONSTRAINT FK_users_TO_chat_rooms

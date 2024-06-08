@@ -113,6 +113,12 @@ public class BoardServiceImpl implements BoardService {
         return boardList;
     }
 
+    @Override
+    public void incrementBoardLike(int boardNo, int userNo) throws Exception {
+        log.info(boardNo + "번 글 좋아요 수 증가");
+        boardMapper.incrementBoardLike(boardNo);
+    }
+
     // @Override
     // public List<Board> getTop5BoardsByBoardViews() {
     //     return boardMapper.findTop5ByBoardViews();

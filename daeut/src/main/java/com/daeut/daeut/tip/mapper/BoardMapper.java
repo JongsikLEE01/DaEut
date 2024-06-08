@@ -43,4 +43,5 @@ public interface BoardMapper {
     
     // public List<Board> findTop5ByBoardViews();
 
+    public void incrementBoardLike(int boardNo) throws Exception;
 }
