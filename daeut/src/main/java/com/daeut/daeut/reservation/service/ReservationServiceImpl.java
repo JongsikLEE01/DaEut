@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Option;
-import com.daeut.daeut.main.dto.Page;
+import com.daeut.daeut.main.dto.ServicePage;
 import com.daeut.daeut.main.service.FileService;
 import com.daeut.daeut.reservation.dto.Event;
 import com.daeut.daeut.reservation.dto.Services;
@@ -27,13 +27,13 @@ public class ReservationServiceImpl implements ReservationService{
     private static final int THUMBNAIL_FILE_CODE = 1;
 
     @Override
-    public List<Services> serviceList(Page page, Option option) throws Exception {
+    public List<Services> serviceList(ServicePage servicePage, Option option) throws Exception {
         // 게시글 데이터 개수 조회
         int total = reservationMapper.count(option);
-        page.setTotal(total);
+        servicePage.setTotal(total);
         
         // 목록 조회
-        List<Services> serviceList = reservationMapper.serviceList(page, option);
+        List<Services> serviceList = reservationMapper.serviceList(servicePage, option);
 
         return serviceList;
     }

@@ -47,7 +47,7 @@
         <!-- LEFT JOIN joeun.partner p ON s.partner_no = p.user_no -->
         WHERE s.service_name LIKE CONCAT('%', #{option.keyword}, '%') 
         ORDER BY s.service_no DESC 
-        LIMIT #{page.index}, #{page.rows};
+        LIMIT #{servicePage.index}, #{servicePage.rows};
     </select>
 
     <!-- 글 내용 조회 -->

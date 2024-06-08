@@ -16,6 +16,7 @@ import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Option;
 import com.daeut.daeut.main.dto.Page;
+import com.daeut.daeut.main.dto.ServicePage;
 import com.daeut.daeut.main.service.FileService;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.ReservationService;
@@ -43,7 +44,7 @@ public class ReservationController {
      * @throws Exception
      */
 	@GetMapping("/reservation")
-	public String reservationList(Model model, Page page, Option option) throws Exception{
+	public String reservationList(Model model, ServicePage servicePage, Option option) throws Exception{
         String keyword = option.getKeyword();
 
         if(keyword == null || option.getKeyword() == ""){
@@ -54,10 +55,10 @@ public class ReservationController {
         }else
             model.addAttribute("option", option);
 
-        List<Services> serviceList = reservationService.serviceList(page, option);
+        List<Services> serviceList = reservationService.serviceList(servicePage, option);
         
         model.addAttribute("serviceList", serviceList);
-        model.addAttribute("page", page);
+        model.addAttribute("servicePage", servicePage);
         
         return "reservation/reservation";
 	}

@@ -6,12 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.daeut.daeut.auth.dto.Users;
-import com.daeut.daeut.auth.service.UserService;
-import com.daeut.daeut.partner.dto.Partner;
-import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Cart;
-import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.mapper.CartMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,15 +18,6 @@ public class CartServiceImpl implements CartService{
 
     @Autowired
     private CartMapper cartMapper;
-
-    @Autowired
-    private ReservationService reservationService;
-
-    @Autowired
-    private PartnerService partnerService;
-
-    @Autowired
-    private UserService userService;
 
     // 목록
     @Override

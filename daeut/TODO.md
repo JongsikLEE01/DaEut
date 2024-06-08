@@ -2,8 +2,8 @@
 
 ### 이종식
 - 예약 ~ 주문까지 수정할 부분
-    - reservation.html 페이징 개수 변경 및 css 그리드 영역 수정
-    - reservationRead.htrml 테스트 및 확인
+    - ✔ reservation.html 페이징 개수 변경
+    - ✔ reservationRead.htrml 테스트 및 확인
     - userChatRoom, partnerChatRoom 페이징 처리
     - ✔ payment.html 쿠폰 css 삭제, 유효성 검사
     - ✔ 주문 취소 할 경우 예약 시간 입력 없는 경우 에러 발생
@@ -21,7 +21,12 @@
 
 
 ### 정다운
-
+- 예약 삭제
+- 회원 리뷰 되면 받아서 리뷰 관리 기능
+- 게시판 받아서 관리..
+- 파트너 파일 되면 받아서 관리 기능(+) 
+- 이메일 인증
+- 소셜로그인
 
 ### 윤준호
 
