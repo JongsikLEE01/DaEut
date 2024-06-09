@@ -20,21 +20,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.reservation.dto.Cancel;
-import com.daeut.daeut.reservation.dto.Cart;
 import com.daeut.daeut.reservation.dto.OrderItems;
 import com.daeut.daeut.reservation.dto.OrderStatus;
 import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.PaymentStatus;
 import com.daeut.daeut.reservation.dto.Payments;
+import com.daeut.daeut.reservation.service.CancelService;
 import com.daeut.daeut.reservation.service.CartService;
 import com.daeut.daeut.reservation.service.OrderItemService;
 import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 @Slf4j
 @Controller("orders")
@@ -51,6 +48,9 @@ public class OrderController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private CancelService cancelService;
 
     /**
      * 주문하기
@@ -254,20 +254,35 @@ public class OrderController {
     }
 
     @PostMapping("/cancel")
-    public String cancel(@RequestBody String ordersNo
-                        ,@RequestBody String cancelAccount
-                        ,@RequestBody String cancelName
-                        ,@RequestBody String cancelNumber
-                        ,@RequestBody String reason) throws Exception {
+    public String cancel(@RequestParam String ordersNo,
+                         @RequestParam String cancelAccount,
+                         @RequestParam String cancelName,
+                         @RequestParam String cancelNumber,
+                         @RequestParam String reason,
+                         Model model) throws Exception {
         // orders 수정
         Orders orders = orderService.select(ordersNo);
+        log.info("ord? {}", orders.toString());
         orders.setOrderStatus(OrderStatus.CANCELLED);
+        
         orderService.update(orders);
 
         // 데이터 넣기
         Cancel cancel = new Cancel();
+        cancel.setReason(reason);
+        cancel.setCancelAmount(orders.getTotalPrice());
+        cancel.setConfirmed(0);
+        cancel.setRefund(0);
+        cancel.setCancelAccount(cancelAccount);
+        cancel.setCancelNumber(cancelNumber);
+        cancel.setCancelName(cancelName);
         cancel.setOrdersNo(ordersNo);
-        
+
+        log.info("cancel {}", cancel);
+
+        cancelService.insert(cancel);
+
+        model.addAttribute("cancel", cancel);
         return "user/cancelDone";
     }
     

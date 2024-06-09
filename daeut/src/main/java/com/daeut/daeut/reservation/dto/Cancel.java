@@ -8,7 +8,7 @@ import lombok.Data;
 public class Cancel {
     private int cancelNo;           // 취소 번호
     private String reason;          // 취소 사유
-    private int cancelAomunt;       // 환불 금액
+    private int cancelAmount;       // 환불 금액
     private int confirmed;          // 취소 승인 여부 0-> 승인X 1-> 승인
     private int refund;             // 환불 승인 여부 0-> 승인X 1-> 승인
     private String cancelAccount;   // 환불 은행
