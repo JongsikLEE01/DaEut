@@ -3,8 +3,8 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -837.2008017288986,
-    "scrollLeft": -2802.766999999996,
+    "scrollTop": -892.2008017288986,
+    "scrollLeft": -2502.40625,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -374,7 +374,7 @@
           "active": false,
           "left": 1695.5323,
           "top": 1722.8417,
-          "zIndex": 9,
+          "zIndex": 8,
           "widthName": 60,
           "widthComment": 60
         },
@@ -459,7 +459,7 @@
           "active": false,
           "left": 1006.2442,
           "top": 1668.1884,
-          "zIndex": 12,
+          "zIndex": 10,
           "widthName": 60,
           "widthComment": 60
         },
@@ -659,7 +659,7 @@
           "active": false,
           "left": 997.0372,
           "top": 978.9139,
-          "zIndex": 8,
+          "zIndex": 7,
           "widthName": 60,
           "widthComment": 60
         },
@@ -882,7 +882,7 @@
           "active": false,
           "left": 2025.2845,
           "top": 1321.3578,
-          "zIndex": 10,
+          "zIndex": 9,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1013,7 +1013,7 @@
           "active": false,
           "left": 971.4775,
           "top": 2309.3258,
-          "zIndex": 15,
+          "zIndex": 13,
           "widthName": 60,
           "widthComment": 60,
           "color": "#000000"
@@ -1591,7 +1591,7 @@
           "active": false,
           "left": 2602.7396,
           "top": 1026.7194,
-          "zIndex": 18,
+          "zIndex": 14,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2293,13 +2293,36 @@
               "widthDataType": 61.42041015625,
               "widthDefault": 60
             }
+          },
+          {
+            "id": "44b3cd51-d4b8-4bd8-9475-55405acce7e8",
+            "name": "service_address",
+            "comment": "서비스 주소",
+            "dataType": "VARCHAR(100)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 92.9619140625,
+              "widthComment": 71.5703125,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
           "active": false,
           "left": 3289.1395,
           "top": 964.2435,
-          "zIndex": 23,
+          "zIndex": 16,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2814,7 +2837,7 @@
           "active": false,
           "left": 2741.4433,
           "top": 404.4682,
-          "zIndex": 19,
+          "zIndex": 15,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2991,7 +3014,7 @@
           "active": false,
           "left": 1673.7266,
           "top": 818.2011,
-          "zIndex": 14,
+          "zIndex": 12,
           "widthName": 60,
           "widthComment": 60
         },
@@ -3145,7 +3168,7 @@
           "active": false,
           "left": 961.5338,
           "top": 1960.5229,
-          "zIndex": 13,
+          "zIndex": 11,
           "widthName": 69.5009765625,
           "widthComment": 60
         },
@@ -3309,7 +3332,7 @@
             "377a7eea-bb38-4338-b674-817740c54db9"
           ],
           "x": 3289.1395,
-          "y": 1022.4935,
+          "y": 1027.6185,
           "direction": "left"
         },
         "constraintName": "fk_reservation_to_payment",
@@ -3326,7 +3349,7 @@
             "d7b12762-5fb5-48a7-9948-587421d24799"
           ],
           "x": 3289.1395,
-          "y": 1138.9935,
+          "y": 1154.3685,
           "direction": "left"
         },
         "end": {

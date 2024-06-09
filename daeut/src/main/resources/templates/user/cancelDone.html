@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/payment_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D e ut</title>
+</head>
+<body layout:fragment="content">
+    <div class="container">
+
+        <div class="container complete">
+            <div class="form-container complete">
+                <h2 class="text-center color_main">예약 취소</h2>
+                <p class="text-center">예약 번호</p>
+                <p class="text-center" th:text="${cancel.ordersNo}"></p>
+                <p class="text-center">예약 취소 시간</p>
+                <p class="text-center" th:text="$"></p>
+                <hr class="completeHr">
+                <p class="text-center">회원님의 예약이 성공적으로 취소되었습니다.</p>
+                <p class="text-center">취소 승인까지 1~2 영업일이 소요될 수 있습니다.</p>
+
+                <div class="d-flex gap-5">
+                    <a href="/" class="btn btn-primary sessuce color_main">메인화면</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
