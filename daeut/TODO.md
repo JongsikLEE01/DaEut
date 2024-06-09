@@ -17,7 +17,7 @@
     - 로직 작성
         - userReservation.html
             - ✔ 취소 사유, 환불 계좌, 은행, 예금주 입력하는 html 추가
-            - 데이터 처리
+            - ✔ 데이터 처리
         - adminReservation에서 승인 처리 
             - 취소 한 경우 승인처리 할 수 있도록 예약 내역에 버튼 추가
         - partnerReservation.html
