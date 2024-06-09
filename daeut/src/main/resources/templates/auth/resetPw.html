@@ -9,7 +9,7 @@
 </head>
 <body layout:fragment="content">
     <div class="container form-container">
-        <form id="form" th:action="@{/auth/resetPw}" method="post">
+        <form id="resetPwForm" action="/auth/resetPw" method="post">
             <!-- CSRF TOKEN -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <!-- userId hidden field -->
