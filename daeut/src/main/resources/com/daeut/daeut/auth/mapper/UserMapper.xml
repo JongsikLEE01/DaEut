@@ -201,8 +201,8 @@
     <update id="update">
         UPDATE users
            SET 
-               <!-- user_password = #{userPassword} -->
-               user_name = #{userName}
+               user_password = #{userPassword}
+              ,user_name = #{userName}
               ,user_email = #{userEmail}
               ,user_phone = #{userPhone}
               ,user_address = #{userAddress}
