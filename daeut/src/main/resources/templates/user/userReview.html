@@ -33,7 +33,7 @@
                             </div>
                             <label for="paymentNo" class="col-form-label col-sm-3">주문 선택</label>
                             <select class="form-control col-lg-2" id="paymentNo" name="paymentNo">
-                                <option th:each="payment : ${payments}" th:value="${payment.paymentNo}" th:text="${payment.serviceName}"></option>
+                                <option th:each="payment : ${payments}" th:value="${payment.paymentNo}" th:text="${payment.title}"></option>
                             </select>
                         </div>
                         <hr>

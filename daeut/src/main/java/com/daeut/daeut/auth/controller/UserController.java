@@ -152,7 +152,7 @@ public class UserController {
         }
         int userNo = user.getUserNo();
         model.addAttribute("payments", reviewService.getUserPayments(userNo));
-        return "userReview";
+        return "user/userReview";
     }
 
     // 리뷰 저장
@@ -160,11 +160,11 @@ public class UserController {
     public String submitReview(HttpSession session, Review review) {
         log.info("/user/userReviewDone");
 
-        Integer userNo = (Integer) session.getAttribute("userNo");
-        if (userNo == null) {
+        Users user = (Users) session.getAttribute("user");
+        if (user == null) {
             return "redirect:/login"; // 사용자 번호가 없으면 로그인 페이지로 리디렉션
         }
-        review.setUserNo(userNo);
+        review.setUserNo(user.getUserNo());
         reviewService.saveReview(review);
         return "redirect:/user/userReview";
     }
