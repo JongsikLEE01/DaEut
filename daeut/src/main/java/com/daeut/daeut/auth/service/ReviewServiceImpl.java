@@ -20,6 +20,10 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewMapper.findPaymentsByUserNo(userNo);
     }
 
+    public Payments getPaymentDetails(int paymentNo) {
+        return reviewMapper.getPaymentDetails(paymentNo);
+    }
+
     @Override
     public void saveReview(Review review) {
         reviewMapper.insertReview(review);

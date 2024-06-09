@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ReviewService {
+
     public List<Payments> getUserPayments(int userNo);
+
+    public Payments getPaymentDetails(int paymentNo);
+    
     public void saveReview(Review review);
 }
