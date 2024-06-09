@@ -144,14 +144,15 @@ CREATE TABLE partner
 
 CREATE TABLE payment
 (
-  payment_no     INT          NOT NULL AUTO_INCREMENT COMMENT '결제 번호',
-  payment_method VARCHAR(100) NOT NULL COMMENT '결제 방식',
-  status         VARCHAR(100) NULL     COMMENT '결제 상태',
-  pay_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제일',
-  reg_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 등록일',
-  upd_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 수정일',
-  orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
-  service_date   DATETIME     NULL     COMMENT '서비스 신청일',
+  payment_no      INT          NOT NULL AUTO_INCREMENT COMMENT '결제 번호',
+  payment_method  VARCHAR(100) NOT NULL COMMENT '결제 방식',
+  status          VARCHAR(100) NULL     COMMENT '결제 상태',
+  pay_date        DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제일',
+  reg_date        DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 등록일',
+  upd_date        DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 수정일',
+  orders_no       VARCHAR(50)  NOT NULL COMMENT '예약 번호',
+  service_date    DATETIME     NULL     COMMENT '서비스 신청일',
+  service_address VARCHAR(100) NULL     COMMENT '서비스 주소',
   PRIMARY KEY (payment_no)
 ) COMMENT '결제';
 

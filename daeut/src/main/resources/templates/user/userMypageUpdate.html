@@ -23,6 +23,7 @@
             </nav>
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>내 정보 변경</h3>
+                <br>
                 <form th:action="@{/user/userMypageUpdateDone}" method="post">
                     <input type="hidden" name="userId" th:value="${user.userId}">
                     <input type="hidden" name="userNo" th:value="${user.userNo}">
