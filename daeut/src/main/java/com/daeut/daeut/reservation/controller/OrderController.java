@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.reservation.dto.Cancel;
 import com.daeut.daeut.reservation.dto.Cart;
 import com.daeut.daeut.reservation.dto.OrderItems;
+import com.daeut.daeut.reservation.dto.OrderStatus;
 import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.PaymentStatus;
 import com.daeut.daeut.reservation.dto.Payments;
@@ -30,6 +32,8 @@ import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Slf4j
@@ -102,7 +106,10 @@ public class OrderController {
                               ,HttpSession session
                               ,@RequestParam("ordersNo") String ordersNo
                               ,@RequestParam("date") String date
-                              ,@RequestParam("time") String time) throws Exception {
+                              ,@RequestParam("time") String time
+                              ,@RequestParam(value = "userAddress") String userAddress
+                              ,@RequestParam(value = "userPost") String userPost) throws Exception {
+                                
         Users user = (Users) session.getAttribute("user");
 
         payments.setOrdersNo(ordersNo);
@@ -115,8 +122,9 @@ public class OrderController {
         Date serviceDate = sdf.parse(dateTime);
         payments.setServiceDate(serviceDate);
         
-        log.info("serviceDate {}", serviceDate);
-        log.info("dateTime {}", dateTime);
+        // 주소 저장
+        String address = "(" + userPost + ") " + userAddress;
+        payments.setServiceAddress(address);
 
         paymentService.merge(payments);
         
@@ -128,7 +136,7 @@ public class OrderController {
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
         log.info(payments.toString());
 
-        // 주문 성공 시 장바구니 삭제 -> stackOverFlow 발생 ❗
+        // 주문 성공 시 장바구니 삭제 -> stackOverFlow 발생(해결)
         List<OrderItems> orderItemList = orderItemService.listByOrderNo(ordersNo);
 
 
@@ -160,13 +168,17 @@ public class OrderController {
                             @RequestParam("ordersNo") String ordersNo,
                             @ModelAttribute String errorMsg,
                             @RequestParam(value = "date", required = false) String date,
-                            @RequestParam(value = "time", required = false) String time) throws Exception {                    
+                            @RequestParam(value = "time", required = false) String time,
+                            @RequestParam(value = "userAddress", required = false) String userAddress,
+                            @RequestParam(value = "userPost", required = false) String userPost) throws Exception {                    
                             
         payments.setOrdersNo(ordersNo);
         payments.setPaymentMethod("card");
         payments.setStatus(PaymentStatus.PAID);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                            
+        
+
+        // 날짜 null처리
         if (date == null || date.isEmpty() || time == null || time.isEmpty()) {
             // date나 time이 없을 때 현재 시간으로 설정
             Date now = new Date();
@@ -176,6 +188,15 @@ public class OrderController {
             String serviceDate = date + ' ' + time;
             Date orderServiceDate = sdf.parse(serviceDate);
             payments.setServiceDate(orderServiceDate);
+        }
+
+        // 장소 null 처리
+        if(userAddress == null || userAddress =="" || userPost == null || userPost =="" ){
+            String address = "사용자가 주소를 지정하지 않았습니다.";
+            payments.setServiceAddress(address);
+        }else{
+            String address = "(" + userPost + ") " + userAddress;
+            payments.setServiceAddress(address);
         }
         
         paymentService.insert(payments);
@@ -231,4 +252,23 @@ public class OrderController {
         model.addAttribute("orderItems", orderItems);
         return "/reservation/payment";
     }
+
+    @PostMapping("/cancel")
+    public String cancel(@RequestBody String ordersNo
+                        ,@RequestBody String cancelAccount
+                        ,@RequestBody String cancelName
+                        ,@RequestBody String cancelNumber
+                        ,@RequestBody String reason) throws Exception {
+        // orders 수정
+        Orders orders = orderService.select(ordersNo);
+        orders.setOrderStatus(OrderStatus.CANCELLED);
+        orderService.update(orders);
+
+        // 데이터 넣기
+        Cancel cancel = new Cancel();
+        cancel.setOrdersNo(ordersNo);
+        
+        return "user/cancelDone";
+    }
+    
 }

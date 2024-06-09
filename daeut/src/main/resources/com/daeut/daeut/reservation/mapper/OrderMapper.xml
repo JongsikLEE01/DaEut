@@ -78,11 +78,7 @@
     <!-- 주문 수정 -->
     <update id="update">
         UPDATE orders
-        SET title = #{title}
-            , total_quantity = #{totalQuantity}
-            , total_price = #{totalPrice}
-            , total_count = #{totalCount}
-            , order_status = #{orderStatus}
+        SET order_status = #{orderStatus}
             , upd_date = now()
         WHERE orders_no = #{ordersNo}
     </update>

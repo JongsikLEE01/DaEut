@@ -264,5 +264,16 @@ public class UserController {
         log.info("/user/userPartnerDone");
         return "/user/userPartnerDone";
     }
-      
+    
+    /*
+     * 예약 취소 페이지로 이동
+     */
+    @GetMapping("/userResevationCancel")
+    public String getMethodName(String ordersNo, Model model)throws Exception {
+        Orders orders = orderService.select(ordersNo);
+        
+        model.addAttribute("orders", orders);
+        return "user/userResevationCancel";
+    }
+    
 }
