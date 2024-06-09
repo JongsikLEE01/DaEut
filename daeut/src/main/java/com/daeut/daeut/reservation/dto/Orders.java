@@ -44,6 +44,6 @@ public class Orders {
 
     private Date serviceDate; 
     private Payments payment;
-
+    private String serviceAddress;
 
 }

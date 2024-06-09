@@ -18,8 +18,12 @@ public class Payments {
     private Date updDate;
     private String ordersNo;
 
+
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date serviceDate;
     private String title;
+    private String serviceAddress;
+    private int serviceNo;
+    private int partnerNo;
 }

@@ -25,6 +25,7 @@ import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Cart;
 import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.dto.Payments;
 import com.daeut.daeut.reservation.service.CartService;
 import com.daeut.daeut.reservation.service.ChatRoomService;
 import com.daeut.daeut.reservation.service.OrderService;
@@ -151,20 +152,30 @@ public class UserController {
             return "redirect:/login"; // 사용자 번호가 없으면 로그인 페이지로 리디렉션
         }
         int userNo = user.getUserNo();
-        model.addAttribute("payments", reviewService.getUserPayments(userNo));
-        return "userReview";
+        List<Payments> payments = reviewService.getUserPayments(userNo);
+        model.addAttribute("payments", payments);
+        model.addAttribute("review", new Review()); // 새로운 리뷰 객체 추가
+        return "user/userReview";
     }
 
     // 리뷰 저장
     @PostMapping("/userReviewDone")
-    public String submitReview(HttpSession session, Review review) {
+    public String submitReview(HttpSession session, Review review, @RequestParam("paymentNo") int paymentNo) {
         log.info("/user/userReviewDone");
 
-        Integer userNo = (Integer) session.getAttribute("userNo");
-        if (userNo == null) {
+        Users user = (Users) session.getAttribute("user");
+        if (user == null) {
             return "redirect:/login"; // 사용자 번호가 없으면 로그인 페이지로 리디렉션
         }
-        review.setUserNo(userNo);
+
+        review.setUserNo(user.getUserNo());
+        review.setPaymentNo(paymentNo);
+
+        // paymentNo로부터 serviceNo와 partnerNo를 설정
+        Payments payment = reviewService.getPaymentDetails(paymentNo);
+        review.setServiceNo(payment.getServiceNo());
+        review.setPartnerNo(payment.getPartnerNo());
+
         reviewService.saveReview(review);
         return "redirect:/user/userReview";
     }
@@ -273,5 +284,16 @@ public class UserController {
         log.info("/user/userPartnerDone");
         return "/user/userPartnerDone";
     }
-      
+    
+    /*
+     * 예약 취소 페이지로 이동
+     */
+    @GetMapping("/userResevationCancel")
+    public String getMethodName(String ordersNo, Model model)throws Exception {
+        Orders orders = orderService.select(ordersNo);
+        
+        model.addAttribute("orders", orders);
+        return "user/userResevationCancel";
+    }
+    
 }

@@ -103,7 +103,7 @@ public class OrderServiceImpl implements OrderService{
             orderItem.setAmount(amount);
             orderItemList.add(orderItem);
         }
-        title += " 외 " + totalCount + "종";
+        title += " 외 " + totalCount + " 건";
 
         orders.setTitle(title);
         orders.setTotalPrice(totalPrice);

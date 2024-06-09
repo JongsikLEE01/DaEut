@@ -49,14 +49,14 @@ $("#paymentBtn").on("click", function () {
             // 결제 성공
             console.log(rsp);
             // 결제 완료 페이지로 이동
-            location.href = `/orders/success?ordersNo=${ordersNo}&date=${date}&time=${time}`
+            location.href = `/orders/success?ordersNo=${ordersNo}&date=${date}&time=${time}&userAddress=${userAddress}&userPost=${userPost}`
         } else {
              // 결제 실패
              console.log(rsp);
              let errorMsg = rsp.error_msg;
              errorMsg = errorMsg.replace(/\[|\]/g, '');
              // 결제 실패 페이지로 이동
-             location.href = `/orders/fail?ordersNo=${ordersNo}&errorMsg=${errorMsg}&date=${date}&time=${time}`
+             location.href = `/orders/fail?ordersNo=${ordersNo}&errorMsg=${errorMsg}&date=${date}&time=${time}&userAddress=${userAddress}&userPost=${userPost}`
         }
     })
 })
