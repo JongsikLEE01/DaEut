@@ -32,7 +32,7 @@
                         <li style="list-style-type: none;  color: black;">3. 파트너 승인이 됐을 경우, 재로그인 시 파트너 화면으로 로그인 됩니다.</li>
                     </ul>
                     <div class="d-flex justify-content-center">
-                        <div class="col-md-3 mt-5">
+                        <div class="col-md-3 mt-5" id="image-thumbnail-container">
                             <img src="/img/partner.png" alt="파트너 이미지" class="profile-img img-thumbnail">
                         </div>
                         <div class="col-md-8">
@@ -59,8 +59,8 @@
                                     <textarea class="form-control w-75" id="description" th:name="introduce" th:value="${partner.introduce}" rows="3"></textarea>
                                 </div>
                                 <div class="form-group form-section p-1 f-warp text-start">
-                                    <label for="file">추가 소개 사진</label>
-                                    <input type="file" class="form-control" id="file" name="file" placeholder="첨부 파일을 선택해주세요">
+                                    <label for="file">프로필 사진</label>
+                                    <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*" placeholder="첨부 파일을 선택해주세요" onchange="previewThumbnail(event)" required>
                                 </div>
                                 
                                 <div class="buttons mb-5 d-flex gap-3 justify-content-end">

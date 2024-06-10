@@ -148,8 +148,8 @@ public class OrderServiceImpl implements OrderService{
 
     // 예약 목록
     @Override
-    public List<Orders> listByParterNo(int partnerNo) throws Exception {
-        List<Orders> orderList = orderMapper.listByParterNo(partnerNo);
+    public List<Orders> listByPartnerNo(int partnerNo) throws Exception {
+        List<Orders> orderList = orderMapper.listByPartnerNo(partnerNo);
         for (Orders order : orderList) {
             Partner partner = partnerService.selectByPartnerNo(order.getPartnerNo());
             order.setPartner(partner);

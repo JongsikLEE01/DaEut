@@ -12,8 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
-
+import com.daeut.daeut.main.dto.Files;
+import com.daeut.daeut.main.service.FileService;
 import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.mapper.PartnerMapper;
 import com.daeut.daeut.reservation.dto.Orders;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +33,14 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private PartnerMapper partnerMapper;
+
+    @Autowired
+    private FileService fileService;
+
+    private static final int THUMBNAIL_FILE_CODE = 1;
 
     // 로그인
     @Override
@@ -114,6 +124,40 @@ public class UserServiceImpl implements UserService {
     // 파트너 신청
     @Override
     public int insertPartner(Partner partner) throws Exception {
+
+        String parentTable = "partner";
+        int parentNo = partnerMapper.maxPk();
+
+        // 썸네일 업로드
+        // - 부모 테이블, 부모 번호, 멀티파트파일, 파일 코드(1)-> 썸네일
+        MultipartFile thumbnailFile = partner.getThumbnail();
+
+        // 썸네일 파일 업로드한 경우만 추가
+        if(thumbnailFile != null && !thumbnailFile.isEmpty()){
+            Files thumbnail = new Files();
+            thumbnail.setParentTable(parentTable);
+            thumbnail.setParentNo(parentNo);
+            thumbnail.setFile(thumbnailFile);
+            thumbnail.setFileCode(THUMBNAIL_FILE_CODE);   // 썸네일 파일 코드(1)
+            fileService.upload(thumbnail);                // 썸네일 파일 업로드
+        }
+        
+        // 파일 업로드
+        // List<MultipartFile> fileList = partner.getFile();
+        // if( !fileList.isEmpty() ){
+        //     for (MultipartFile file : fileList) {
+        //         if (file.isEmpty()) continue;
+
+        //         // 파일 정보 등록
+        //         Files  uploadFile = new Files();
+        //         uploadFile.setParentTable(parentTable);
+        //         uploadFile.setParentNo(parentNo);
+        //         uploadFile.setFile(file);
+        //         uploadFile.setFileCode(0);
+        //         fileService.upload(uploadFile);
+        //     }
+        // }
+
         return userMapper.insertPartner(partner);
     }
 
