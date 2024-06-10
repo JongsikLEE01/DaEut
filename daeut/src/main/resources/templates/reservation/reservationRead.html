@@ -17,12 +17,27 @@
 
 			<!-- 게시글 리뷰 -->
 			<div class="review-star">
-				<i class="fa fa-star" aria-hidden="true"></i>
-				<i class="fa fa-star" aria-hidden="true"></i>
-				<i class="fa fa-star" aria-hidden="true"></i>
-				<i class="fa fa-star" aria-hidden="true"></i>
-				<i class="fa fa-star" aria-hidden="true"></i>
+				<th:block th:each="star : ${#numbers.sequence(1, averageRating)}">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</th:block>
 			</div>
+			<!-- <div class="review-star">
+				<th:block th:if="${averageRating >= 1}">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</th:block>
+				<th:block th:if="${averageRating >= 2}">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</th:block>
+				<th:block th:if="${averageRating >= 3}">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</th:block>
+				<th:block th:if="${averageRating >= 4}">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</th:block>
+				<th:block th:if="${averageRating == 5}">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</th:block>
+			</div> -->
 			<div class="reservation-chat reservation-updat reservation-link">
 				<th:block sec:authorize="hasRole('ROLE_USER')">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -77,24 +92,22 @@
 					</div>
 
 					<!-- 파트너 소개 -->
-					<div class="partner-intro" id="partner-intro">
+					<div class="partner-intro" id="partner-intro" >
 						<h4 class="reservation-intro">파트너 소개</h4>
 
 						<hr class="section-underbar">
 						<div class="partner-info">
 							<img src="/img/partner.png" alt="파트너 사진" class="partner-photo">
 							<div class="partner-intro-name">
-								<h3 class="partner-introduction-name" ></h3>
+								<h3 class="partner-introduction-name" th:text="${pUsers.userName}"></h3>
 								<div class="review-star2">
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
+									<th:block th:each="star : ${#numbers.sequence(1, averageRating)}">
+										<i class="fa fa-star" aria-hidden="true"></i>
+									</th:block>
 								</div>
 							</div>
-							<p class="year-of-work"> 경력: n 년</p>
-							<p class="partner-selfintroduction">경력</p>
+							<p class="year-of-work" th:text="${service.partner.partnerCareer}"> </p>
+							<p class="partner-selfintroduction" th:text="${service.partner.introduce}"></p>
 						</div>
 
 					</div>
@@ -134,7 +147,7 @@
 					<h4 class="review-title">이용 후기</h4>
 					<hr class="section-underbar">
 
-					<div class="review-section">
+					<div class="review-section" th:each="review : ${reviews}">
 						
 						<!-- <div class="review-user-title">
 							<p class="review-user-name" > 사용자 이름 </p>
@@ -169,27 +182,24 @@
 							</div>
 						</div> -->
 						
-						<hr style="color: #8FA2CA;">
-
+						<!-- <hr style="color: #8FA2CA;"> -->
 
 						<div class="review-user-title">
-							<p class="review-user-name" > 사용자</p>
+							<p class="review-user-name" th:text="${review.userName}"></p>
 							<div class="review-star3">
-								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
+								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"
+   								th:each="star : ${#numbers.sequence(1, review.reviewRating)}"></i>
 							</div>
 						</div>
-						<p class="review-content" id="reviewConetent" th:text="${reviewContent}"></p>
+						<p class="review-content" id="reviewContent" th:text="${review.reviewContent}" ></p>
 						<div class="review-actions">
-							<p class="review-date" th:text="${review-date}"></p>
+							<p class="review-date" th:text="${review.reviewRegDate}"></p>
 							<div class="review-buttons">
 								<button class="review-edit">수정</button>
 								<button class="review-delete">삭제</button>
 							</div>
 						</div>
+						
 
 
 					</div>

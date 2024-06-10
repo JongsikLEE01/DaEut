@@ -46,17 +46,9 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     @Transactional
     public int partnerUpdate(Partner partner, Users user) throws Exception {
-
-        log.info("Updating user: {}", user);
-        log.info("Updating partner: {}", partner);
-
         int userUpdateResult = userService.update(user);
-        log.info("User update result: {}", userUpdateResult);
-
-        log.info(partner.toString()+"dsdfdfdf");
-
         int partnerUpdateResult = partnerMapper.partnerUpdate(partner);
-        log.info("Partner update result: {}", partnerUpdateResult);
+     
     
         // 둘 중 하나라도 실패하면 실패로 처리하기
         int result = userUpdateResult + partnerUpdateResult;
@@ -76,18 +68,18 @@ public class PartnerServiceImpl implements PartnerService {
     }
 
     @Override
-    public Partner selectByPartnerNo(int parterNo) throws Exception {
-        return partnerMapper.selectByPartnerNo(parterNo);
+    public Partner selectByPartnerNo(int partnerNo) throws Exception {
+        return partnerMapper.selectByPartnerNo(partnerNo);
     }
 
     @Override
-    public Partner select(int parterNo) throws Exception {
-        return partnerMapper.select(parterNo);
+    public Partner select(int partnerNo) throws Exception {
+        return partnerMapper.select(partnerNo);
     }
 
     @Override
-    public Users getPartnerName(int parterNo) throws Exception {
-        Partner partner = select(parterNo);
+    public Users getPartnerName(int partnerNo) throws Exception {
+        Partner partner = select(partnerNo);
         int userNo = partner.getUserNo();
         Users uPartner = userService.findUserById(userNo);
 

@@ -34,4 +34,6 @@ public class Services {
 
     // 파트너
     private Partner partner;
+    private String introduce;
+    private String partnerCareer;
 }

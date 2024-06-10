@@ -18,5 +18,9 @@ public interface ReviewMapper {
 
     public List<Review> getReviewByServiceNo(@Param("serviceNo")int serviceNo);
 
+
+    int getAverageRatingByServiceNo(@Param("serviceNo") int serviceNo);
+
     public int maxPk();
+
 }
