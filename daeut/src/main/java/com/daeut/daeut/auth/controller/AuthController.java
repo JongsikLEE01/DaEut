@@ -2,6 +2,7 @@ package com.daeut.daeut.auth.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,13 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.auth.service.EmailService;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.service.PartnerService;
 
@@ -30,6 +33,10 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EmailService emailService;
+
 
     // 로그인 선택
     @GetMapping("/member")
@@ -176,21 +183,38 @@ public class AuthController {
     }
 
     // 비밀번호 찾기 처리
+    @PostMapping("/sendAuthCode")
+    @ResponseBody
+    public String sendAuthCode(@RequestBody Map<String, String> payload, HttpSession session) {
+        try {
+            String userEmail = payload.get("userEmail");
+            String authCode = generateAuthCode();
+            session.setAttribute("authCode", authCode);
+            session.setAttribute("userEmail", userEmail);
+
+            emailService.sendSimpleMessage(userEmail, "비밀번호 찾기 인증 코드", "인증 코드: " + authCode);
+            return "인증 코드가 이메일로 전송되었습니다.";
+        } catch (Exception e) {
+            log.error("인증 코드 전송 중 오류가 발생했습니다.", e);
+            return "인증 코드 전송에 실패했습니다.";
+        }
+    }
+
     @PostMapping("/findPw")
     public String findPw(@RequestParam String userName,
-                         @RequestParam String userId,
-                         @RequestParam String userEmail,
-                         @RequestParam String authCode,
-                         Model model) {
+                        @RequestParam String userId,
+                        @RequestParam String userEmail,
+                        @RequestParam String authCode,
+                        Model model,
+                        HttpSession session) {
         try {
-            // 인증 코드 검증 로직 추가
-            boolean isAuthCodeValid = "123456".equals(authCode); // 인증 코드가 '123456'인 경우만 유효함
+            String sessionAuthCode = (String) session.getAttribute("authCode");
+            String sessionUserEmail = (String) session.getAttribute("userEmail");
 
-            if (isAuthCodeValid) {
-                model.addAttribute("userId", userId);
+            if (sessionAuthCode != null && sessionAuthCode.equals(authCode) && userEmail.equals(sessionUserEmail)) {
                 return "redirect:/auth/resetPw?userId=" + userId;
             } else {
-                model.addAttribute("errorMessage", "인증 코드가 잘못되었습니다.");
+                model.addAttribute("errorMessage", "인증 코드가 잘못되었거나 유효하지 않습니다.");
                 return "/auth/findPw";
             }
         } catch (Exception e) {
@@ -198,6 +222,13 @@ public class AuthController {
             model.addAttribute("errorMessage", "비밀번호 찾기 중 오류가 발생했습니다.");
             return "/auth/findPw";
         }
+}
+
+
+    private String generateAuthCode() {
+        Random random = new Random();
+        int authCode = 100000 + random.nextInt(900000);
+        return String.valueOf(authCode);
     }
 
     // 비밀번호 재설정 화면
@@ -217,19 +248,19 @@ public class AuthController {
             Users user = userService.select(userId);
             if (user != null) {
                 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
+    
                 if (passwordEncoder.matches(userPassword, user.getUserPassword())) {
                     model.addAttribute("errorMessage", "기존의 비밀번호와 일치합니다.");
                     model.addAttribute("userId", userId);
                     return "/auth/resetPw";
                 }
-
+    
                 if (!userPassword.equals(confirmPassword)) {
                     model.addAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
                     model.addAttribute("userId", userId);
                     return "/auth/resetPw";
                 }
-
+    
                 user.setUserPassword(passwordEncoder.encode(userPassword));
                 userService.update(user);
                 return "redirect:/auth/resetPwComplete";
@@ -243,6 +274,7 @@ public class AuthController {
             return "/auth/resetPw";
         }
     }
+    
 
     // 비밀번호 재설저 성공
     @GetMapping("/resetPwComplete")

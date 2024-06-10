@@ -1,15 +1,23 @@
 package com.daeut.daeut.tip.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.tip.dto.Option2;
@@ -19,6 +27,10 @@ import com.daeut.daeut.tip.dto.Board;
 import com.daeut.daeut.tip.service.BoardService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @Slf4j
 @Controller
@@ -58,12 +70,22 @@ public class BoardController {
     @GetMapping("/tipRead")
     public String read(@RequestParam("no") int boardNo, Files file, Model model) throws Exception {
         Board board = boardService.select(boardNo);
-
         int view = boardService.view(boardNo);
 
         log.info("------------------------------------");
         log.info("-----------------/tip/tipRead-------------------");
         log.info(board.toString());
+
+        // 현재 사용자 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserId = null;
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            currentUserId = ((UserDetails) authentication.getPrincipal()).getUsername();
+        }
+
+        boolean isWriter = currentUserId != null && currentUserId.equals(board.getUserId());
+
+        model.addAttribute("isWriter", isWriter);
         
         file.setParentTable("board");
         file.setParentNo(boardNo);
@@ -85,7 +107,8 @@ public class BoardController {
 
     // 게시글 등록 처리
     @PostMapping("/tipInsert")
-    public String tipInsertPro(Board board) throws Exception {
+    public String tipInsertPro(Board board, @RequestParam("userNo") int userNo) throws Exception {
+        board.setUserNo(userNo);
         log.info(board.toString());
         int result = boardService.insert(board);
         if (result > 0) {
@@ -104,6 +127,15 @@ public class BoardController {
         log.info("-----------------/tip/tipUpdate-------------------");
         log.info(board.toString());
 
+        // 현재 사용자 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserId = authentication.getName();
+
+        // 게시글 작성자와 현재 사용자가 같은지 확인
+        if (!board.getUserId().equals(currentUserId)) {
+            throw new IllegalAccessException("수정 권한이 없습니다.");
+        }
+
         // 파일 목록 요청
         file.setParentTable("board");
         file.setParentNo(boardNo);
@@ -120,10 +152,19 @@ public class BoardController {
     // 게시글 수정 처리
     @PostMapping("/tipUpdate")
     public String tipUpdatePro(Board board) throws Exception {
+        // 현재 사용자 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserId = authentication.getName();
+
+        // 게시글 작성자와 현재 사용자가 같은지 확인
+        Board existingBoard = boardService.select(board.getBoardNo());
+        if (!existingBoard.getUserId().equals(currentUserId)) {
+            throw new IllegalAccessException("수정 권한이 없습니다.");
+        }
 
         int result = boardService.update(board);
 
-        if( result > 0 ) {
+        if (result > 0) {
             return "redirect:/tip/index";
         }
         int no = board.getBoardNo();
@@ -133,8 +174,18 @@ public class BoardController {
     // 게시글 삭제 처리
     @PostMapping("/tipDelete")
     public String tipDeletePro(@RequestParam("boardNo") int boardNo) throws Exception {
+        // 현재 사용자 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserId = authentication.getName();
+
+        // 게시글 작성자와 현재 사용자가 같은지 확인
+        Board existingBoard = boardService.select(boardNo);
+        if (!existingBoard.getUserId().equals(currentUserId)) {
+            throw new IllegalAccessException("삭제 권한이 없습니다.");
+        }
+
         int result = boardService.delete(boardNo);
-        if( result > 0 ) {
+        if (result > 0) {
 
             Files file = new Files();
             file.setParentTable("board");
@@ -144,7 +195,6 @@ public class BoardController {
             return "redirect:/tip/index";
         }
         return "redirect:/tip/tipUpdate?no=" + boardNo + "&error";
-        
     }
 
     // 조회수 기준 상위 5개 게시글 조회 화면
@@ -155,5 +205,42 @@ public class BoardController {
     //     return "tip/index";
     // }
     
+    // 좋아요 수 증가
+    @PutMapping("/{boardNo}/like")
+    @ResponseBody
+    public Map<String, Object> incrementBoardLike(@PathVariable int boardNo, @RequestParam int userNo, HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            List<Integer> likedBoards = (List<Integer>) session.getAttribute("likedBoards");
+            if (likedBoards == null) {
+                likedBoards = new ArrayList<>();
+            }
+
+            if (likedBoards.contains(boardNo)) {
+                response.put("success", false);
+                response.put("message", "이미 추천한 게시글입니다.");
+            } else {
+                boardService.incrementBoardLike(boardNo, userNo);
+                likedBoards.add(boardNo);
+                session.setAttribute("likedBoards", likedBoards);
+                response.put("success", true);
+                response.put("message", "게시글 추천 완료!");
+            }
+        } catch (Exception e) {
+            log.error("추천 증가 중 오류 발생", e);
+            response.put("success", false);
+            response.put("message", e.getMessage());
+        }
+        return response;
+    }
+
+    @GetMapping("/sessionTest")
+    @ResponseBody
+    public String sessionTest(HttpSession session) {
+        Integer userNo = (Integer) session.getAttribute("userNo");
+        String userId = (String) session.getAttribute("userId");
+
+        return "UserNo: " + userNo + ", UserId: " + userId;
+    }
     
 }

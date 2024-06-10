@@ -9,6 +9,7 @@ import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.dto.Payments;
 
 public interface AdminService {
 
@@ -66,5 +67,5 @@ public interface AdminService {
     public Orders adminReadReservation(String ordersNo) throws Exception;
     
     // 관리자 예약 수정
-    public int adminUpdateReservation(Orders orders) throws Exception;
+    public int adminUpdateReservation(Orders orders, Payments Payments, Users users) throws Exception;
 }

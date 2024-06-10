@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.daeut.daeut.auth.dto.Review;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
-import com.daeut.daeut.partner.dto.Review;
 import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Orders;
@@ -60,7 +59,7 @@ public class PartnerController {
     @Autowired
     private ReservationService reservationService;
 
-
+    @Autowired
     private ChatRoomService chatRoomService;
 
     
@@ -223,8 +222,10 @@ public String deleteUser(@RequestParam("userNo") int userNo, @RequestParam("user
     public String partnerReservationRead(@RequestParam("ordersNo") String ordersNo, Model model) throws Exception {
         // 주문에 대한 상세 정보를 조회하고 모델에 추가
         Orders order = orderService.listByOrderNo(ordersNo);
+        Payments payments = paymentService.selectByOrdersNo(ordersNo);
     
         model.addAttribute("order", order);
+        model.addAttribute("payments", payments);
     
         return "/partner/partnerReservationRead";
     }
@@ -234,12 +235,14 @@ public String deleteUser(@RequestParam("userNo") int userNo, @RequestParam("user
     public String userChatRooms(Model model, HttpSession session) throws Exception {
         int partnerNo = (int) session.getAttribute("partnerNo"); // 세션에서 partnerNo 가져오기
         
+        log.info("pNo {}"+partnerNo);
+
         // 파트너 번호로 채팅 내역 가져오기
         List<ChatRooms> chatRoomList = chatRoomService.selectByPartnerNo(partnerNo);
-        for (ChatRooms chatRooms : chatRoomList) {
-            String roomNo = chatRooms.getRoomNo();
-            model.addAttribute("roomNo", roomNo);
-        }
+        // for (ChatRooms chatRooms : chatRoomList) {
+        //     String roomNo = chatRooms.getRoomNo();
+        //     model.addAttribute("roomNo", roomNo);
+        // }
         
         model.addAttribute("chatRoomList", chatRoomList);
         return "partner/partnerChatRoom";

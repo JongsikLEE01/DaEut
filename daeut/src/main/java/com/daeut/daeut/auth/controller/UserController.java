@@ -1,38 +1,36 @@
 package com.daeut.daeut.auth.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.daeut.daeut.auth.dto.CustomUser;
+import com.daeut.daeut.auth.dto.Review;
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.auth.service.ReviewService;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Cart;
-import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.ChatRooms;
-import com.daeut.daeut.reservation.dto.Services;
+import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.dto.Payments;
 import com.daeut.daeut.reservation.service.CartService;
 import com.daeut.daeut.reservation.service.ChatRoomService;
 import com.daeut.daeut.reservation.service.OrderService;
-import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -53,6 +51,9 @@ public class UserController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping("/userMypage")
     public String userMypage(HttpSession session, Model model) throws Exception {
@@ -143,9 +144,40 @@ public class UserController {
     
     // 사용자 작성 리뷰
     @GetMapping("/userReview")
-    public String userReview() {
+    public String showReviewForm(Model model, HttpSession session) {
         log.info("/user/userReview");
-        return "/user/userReview";
+        Users user = (Users) session.getAttribute("user");
+
+        if (user == null) {
+            return "redirect:/login"; // 사용자 번호가 없으면 로그인 페이지로 리디렉션
+        }
+        int userNo = user.getUserNo();
+        List<Payments> payments = reviewService.getUserPayments(userNo);
+        model.addAttribute("payments", payments);
+        model.addAttribute("review", new Review()); // 새로운 리뷰 객체 추가
+        return "user/userReview";
+    }
+
+    // 리뷰 저장
+    @PostMapping("/userReviewDone")
+    public String submitReview(HttpSession session, Review review, @RequestParam("paymentNo") int paymentNo) {
+        log.info("/user/userReviewDone");
+
+        Users user = (Users) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login"; // 사용자 번호가 없으면 로그인 페이지로 리디렉션
+        }
+
+        review.setUserNo(user.getUserNo());
+        review.setPaymentNo(paymentNo);
+
+        // paymentNo로부터 serviceNo와 partnerNo를 설정
+        Payments payment = reviewService.getPaymentDetails(paymentNo);
+        review.setServiceNo(payment.getServiceNo());
+        review.setPartnerNo(payment.getPartnerNo());
+
+        reviewService.saveReview(review);
+        return "redirect:/user/userReview";
     }
 
      /**
@@ -252,5 +284,16 @@ public class UserController {
         log.info("/user/userPartnerDone");
         return "/user/userPartnerDone";
     }
-      
+    
+    /*
+     * 예약 취소 페이지로 이동
+     */
+    @GetMapping("/userResevationCancel")
+    public String getMethodName(String ordersNo, Model model)throws Exception {
+        Orders orders = orderService.select(ordersNo);
+        
+        model.addAttribute("orders", orders);
+        return "user/userResevationCancel";
+    }
+    
 }

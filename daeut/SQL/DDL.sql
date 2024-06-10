@@ -1,3 +1,4 @@
+-- Active: 1717658424847@@127.0.0.1@3306@joeun
 
 -- 결제 로직
 
@@ -120,7 +121,7 @@ CREATE TABLE orders
 (
   orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
   user_no        INT          NOT NULL COMMENT '사용자 번호',
-  order_status   VARCHAR(50)  NOT NULL COMMENT '예약 상태',
+  order_status   VARCHAR(50)  NULL DEFAULT 'PENDING' COMMENT '예약 상태',
   total_quantity INT          NOT NULL COMMENT '총 수량',
   total_price    INT          NOT NULL COMMENT '총 가격',
   upd_date       TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '예약 수정일자',
@@ -144,16 +145,18 @@ CREATE TABLE partner
 
 CREATE TABLE payment
 (
-  payment_no     INT          NOT NULL AUTO_INCREMENT COMMENT '결제 번호',
-  payment_method VARCHAR(100) NOT NULL COMMENT '결제 방식',
-  status         VARCHAR(100) NULL     COMMENT '결제 상태',
-  pay_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제일',
-  reg_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 등록일',
-  upd_date       DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 수정일',
-  orders_no      VARCHAR(50)  NOT NULL COMMENT '예약 번호',
-  service_date   DATETIME     NOT NULL COMMENT '서비스 신청일',
+  payment_no      INT          NOT NULL AUTO_INCREMENT COMMENT '결제 번호',
+  payment_method  VARCHAR(100) NOT NULL COMMENT '결제 방식',
+  status          VARCHAR(100) NULL     COMMENT '결제 상태',
+  pay_date        DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제일',
+  reg_date        DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 등록일',
+  upd_date        DATETIME     NULL     DEFAULT current_timestamp COMMENT '결제 수정일',
+  orders_no       VARCHAR(50)  NOT NULL COMMENT '예약 번호',
+  service_date    DATETIME     NULL     COMMENT '서비스 신청일',
+  service_address VARCHAR(100) NULL     COMMENT '서비스 주소',
   PRIMARY KEY (payment_no)
 ) COMMENT '결제';
+
 
 CREATE TABLE persistent_logins
 (
@@ -243,10 +246,10 @@ CREATE TABLE users
 --     FOREIGN KEY (board_no)
 --     REFERENCES board (board_no);
 
--- -- ALTER TABLE service
--- --   ADD CONSTRAINT FK_partner_TO_service
--- --     FOREIGN KEY (partner_no)
--- --     REFERENCES partner (partner_no);
+-- ALTER TABLE service
+--   ADD CONSTRAINT FK_partner_TO_service
+--     FOREIGN KEY (partner_no)
+--     REFERENCES partner (partner_no);
 
 -- ALTER TABLE orders
 --   ADD CONSTRAINT FK_users_TO_orders
@@ -341,7 +344,7 @@ CREATE TABLE users
 -- ALTER TABLE user_auth
 --   ADD CONSTRAINT FK_users_TO_user_auth
 --     FOREIGN KEY (user_no)
---     REFERENCES users (user_no);
+--     REFERENCES users (user_no) ON DELETE CASCADE;
 
 -- ALTER TABLE order_item
 --   ADD CONSTRAINT FK_orders_TO_order_item

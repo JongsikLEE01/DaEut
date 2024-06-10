@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daeut.daeut.auth.mapper.ReviewMapper">
+
+    <select id="findPaymentsByUserNo" parameterType="int" resultType="com.daeut.daeut.reservation.dto.Payments">
+        SELECT p.payment_no AS paymentNo, p.payment_method AS paymentMethod, p.status, p.pay_date AS payDate, 
+               p.reg_date AS regDate, p.upd_date AS updDate, p.orders_no AS ordersNo, p.service_date AS serviceDate,
+               o.title AS title, s.service_no AS serviceNo, s.partner_no AS partnerNo
+        FROM payment p
+        JOIN orders o ON p.orders_no = o.orders_no
+        JOIN service s ON o.orders_no = s.service_no
+        WHERE o.user_no = #{userNo}
+    </select>
+
+    <select id="getPaymentDetails" parameterType="int" resultType="com.daeut.daeut.reservation.dto.Payments">
+        SELECT p.payment_no AS paymentNo, 
+               p.payment_method AS paymentMethod, 
+               p.status, 
+               p.pay_date AS payDate, 
+               p.reg_date AS regDate, 
+               p.upd_date AS updDate, 
+               p.orders_no AS ordersNo, 
+               p.service_date AS serviceDate,
+               o.title AS title,
+               s.service_no AS serviceNo,
+               s.partner_no AS partnerNo
+        FROM payment p
+        JOIN orders o ON p.orders_no = o.orders_no
+        JOIN service s ON o.orders_no = s.service_no
+        WHERE p.payment_no = #{paymentNo}
+    </select>
+
+    <insert id="insertReview" parameterType="com.daeut.daeut.auth.dto.Review">
+        INSERT INTO review (review_title, review_content, review_reg_date, review_rating, user_no, payment_no, partner_no, service_no)
+        VALUES (#{reviewTitle}, #{reviewContent}, NOW(), #{reviewRating}, #{userNo}, #{paymentNo}, #{partnerNo}, #{serviceNo})
+    </insert>
+
+</mapper>

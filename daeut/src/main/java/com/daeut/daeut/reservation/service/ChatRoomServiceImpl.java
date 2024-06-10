@@ -45,7 +45,11 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
     @Override
     public List<ChatRooms> selectByPartnerNo(int partnerNo) throws Exception {
-        return chatRoomMapper.selectByPartnerNo(partnerNo);
+
+        List<ChatRooms> chatRoomList = chatRoomMapper.selectByPartnerNo(partnerNo);
+        log.info("chatRoomList {}",chatRoomList);
+
+        return chatRoomList;
     }
 
     @Override
