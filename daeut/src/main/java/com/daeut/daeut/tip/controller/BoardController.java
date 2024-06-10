@@ -50,6 +50,9 @@ public class BoardController {
     // 게시글 목록 조회 화면
     @GetMapping("/index")
     public String index(Model model, Page page, Option2 option) throws Exception {
+
+        page = new Page(page.getPage(), 9, page.getCount(), page.getTotal());
+
         List<Board> boardList = boardService.list(page, option);
 
         log.info("page : " + page);
