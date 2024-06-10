@@ -62,7 +62,7 @@
             <div class="d-flex justify-content-end gap-2 mt-2">
                 <a th:href="@{/tip/index}" class="boardList">목록</a>
                 <a th:if="${isWriter || isAdmin}" th:href="@{/tip/tipUpdate(no=${board.boardNo})}" class="boardUpdate">수정</a>
-                <button th:if="${isWriter}" th:onclick="actionDelete()" class="boardDelete">삭제</button>
+                <button th:if="${isWriter}" type="button" onclick="actionDelete()" class="boardDelete">삭제</button>
             </div>
 
             <!-- 댓글 섹션 -->
@@ -158,10 +158,10 @@
     
         // 삭제 요청
         function actionDelete() {
-            let check = confirm('정말로 삭제하시겠습니까?')
-            if( check ) {
-                form.action = '/tip/tipDelete'
-                form.submit()
+            let check = confirm('정말로 삭제하시겠습니까?');
+            console.log('삭제 확인:', check);
+            if (check) {
+                document.getElementById('form').submit();
             }
         }
 

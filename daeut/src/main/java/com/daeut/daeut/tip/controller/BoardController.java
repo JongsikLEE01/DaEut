@@ -25,10 +25,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.tip.dto.Option2;
+import com.daeut.daeut.tip.dto.Reply;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.main.service.FileService;
 import com.daeut.daeut.tip.dto.Board;
 import com.daeut.daeut.tip.service.BoardService;
+import com.daeut.daeut.tip.service.ReplyService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,6 +48,9 @@ public class BoardController {
 
     @Autowired
     private FileService filesService;
+
+    @Autowired
+    private ReplyService replyService;
 
     // 게시글 목록 조회 화면
     @GetMapping("/index")
@@ -104,8 +109,12 @@ public class BoardController {
         List<Files> fileList = filesService.listByParent(file);
         log.info(fileList.toString());
 
+        // 댓글 목록 조회
+        List<Reply> replyList = replyService.listByBoardNo(boardNo);
+
         model.addAttribute("board", board);
         model.addAttribute("fileList", fileList);
+        model.addAttribute("replyList", replyList); // 댓글 목록 추가
 
         return "tip/tipRead";
     }
