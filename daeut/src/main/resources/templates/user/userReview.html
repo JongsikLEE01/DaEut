@@ -40,7 +40,7 @@
                                     <img class="img-fluid" src="https://via.placeholder.com/150" alt="서비스 이미지">
                                 </div>
                                 <label for="paymentNo" class="col-form-label col-sm-3">주문 선택</label>
-                                <select class="form-control col-lg-2" id="paymentNo" name="paymentNo" th:field="*{paymentNo}" th:onchange="this.form.submit()">
+                                <select class="form-control col-lg-2" id="paymentNo" name="paymentNo" th:field="*{paymentNo}">
                                     <option th:each="payment : ${payments}" th:value="${payment.paymentNo}" th:text="${payment.title}" th:selected="${payment == selectedPayment}"></option>
                                 </select>
                             </div>

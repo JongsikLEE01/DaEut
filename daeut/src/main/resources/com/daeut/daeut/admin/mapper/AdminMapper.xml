@@ -30,6 +30,20 @@
         <result property="auth" column="auth" />
     </resultMap>
 
+    <resultMap type="com.daeut.daeut.auth.dto.Review" id="reviewMap">
+        <id property="reviewNo" column="review_no" />
+        <result property="reviewTitle" column="review_title" />
+        <result property="reviewContent" column="review_content" />
+        <result property="reviewRegDate" column="review_reg_date" />
+        <result property="reviewRating" column="review_rating" />
+        <result property="userNo" column="user_no" />
+        <result property="ordersNo" column="orders_no" />
+        <result property="paymentNo" column="payment_no" />
+        <result property="partnerNo" column="partner_no" />
+        <result property="serviceNo" column="service_no" />
+    </resultMap>
+
+
     <!-- ROLE_USER만 가진 사람 가져오기 - 관리자 페이지에서 회원 관리 -->
     <select id="selectAllUsers" resultType="Users">
         SELECT 
@@ -267,5 +281,31 @@
             payment pa ON pa.orders_no = o.orders_no
         LIMIT #{page.index}, #{page.rows}
     </select>
+
+    <!--사용자 리뷰 목록 조회-->
+    <select id="selectReviewsByUser" resultMap="reviewMap">
+       SELECT 
+            r.*,
+			u.user_name,
+            o.orders_no
+        FROM 
+            review r
+		JOIN
+			payment p ON p.payment_no = r.payment_no
+		JOIN
+			orders o ON o.orders_no = p.orders_no
+		JOIN 
+			users u ON u.user_no = r.user_no
+        WHERE 
+            r.user_no = #{userNo}
+    </select>
+
+    <!-- 관리자 리뷰 삭제 -->
+    <delete id="adminDeleteReview">
+        DELETE FROM review
+        WHERE review_no = #{reviewNo}
+    </delete>
+
+    
 
 </mapper>
