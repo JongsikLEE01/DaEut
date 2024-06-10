@@ -184,12 +184,6 @@
 								</th:block>
 							</div>
 
-							<div class="review-star" th:if="${review.reviewRating != null && review.reviewRating > 0}">
-								<th:block th:each="star : ${#numbers.sequence(1, review.reviewRating)}">
-									<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-								</th:block>
-							</div>
-
 						</div>
 						<p class="review-content" id="reviewContent" th:text="${review.reviewContent}" ></p>
 						<div class="review-actions">
