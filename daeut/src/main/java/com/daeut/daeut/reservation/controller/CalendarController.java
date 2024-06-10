@@ -52,7 +52,7 @@ public class CalendarController {
     @GetMapping("/events")
     public List<Event> getEvents(@RequestParam("serviceNo") int serviceNo) throws Exception {
         log.info("serviceNo : " + serviceNo);
-
+        // TODO : 취소된 게시글 출력 X
 
 
         List<Event> eventList = reservationService.calendarListByServiceNo(serviceNo);

@@ -21,7 +21,7 @@
             </nav>
             <div class="col-md-9 col-lg-10 form-section">
                 <h3>예약 정보</h3>
-                <div class="container mt-2">
+                <div class="container mt-5">
                     <div class="card">
                         <div class="card-body">
                             <form action="/admin/adminReservationRead" method="POST">
@@ -80,11 +80,59 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div><!-- card -->
+
+                    <th:block th:if="${cancel != null}">
+                        <h3 class="mt-5 mb-5">환불 정보</h3>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row info-row">
+                                    <label for="cancelDate" class="col-3 label">환불 일자</label>
+                                    <div class="col-9">
+                                        <span type="text" name="cancelDate" class="form-control" th:text="${cancel.cancelDate}"></span>
+                                    </div>
+                                </div>
+                                <div class="row info-row">
+                                    <label for="cancelAmount" class="col-3 label">환불 금액</label>
+                                    <div class="col-9">
+                                        <span type="text" name="cancelAmount" class="form-control" th:text="${cancel.cancelAmount}"></span>
+                                    </div>
+                                </div>
+                                <div class="row info-row">
+                                    <label for="cancelAccount" class="col-3 label">환불 정보</label>
+                                    <div class="col-3">
+                                        <span type="text" name="cancelAccount" class="form-control" th:text="${cancel.cancelAccount}"></span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span type="text" name="cancelNumber" class="form-control" th:text="${cancel.cancelNumber}"></span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span type="text" name="cancelName" class="form-control" th:text="${cancel.cancelName}"></span>
+                                    </div>
+                                </div>
+                                <div class="row info-row">
+                                    <label for="reason" class="col-3 label">취소 사유</label>
+                                    <div class="col-9">
+                                        <textarea name="reason" class="form-control" th:text="${cancel.reason}" readonly></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
                 </div>
                 <div class="buttons">
                     <a th:href="|/admin/adminReservationUpdate?ordersNo=${orders.ordersNo}|" class="btn btn-primary custom1">예약 수정</a>
                     <a href="/admin/adminPartner" class="btn btn-primary custom2 size">목록</a>
+                    <!-- th문, cancel not null처리 -->
+                    <th:block th:if="${cancel != null}">
+                        <form action="/admin/adminReservationCancel" method="post">
+                            <!-- CSRF TOKEN -->
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                            <input type="hidden" th:value="${orders.ordersNo}" name="ordersNo">
+                            <button type="submit" class="btn btn-primary custom1">환불 승인</button>
+                        </form>
+                    </th:block>
+
                 </div>
             </div>
         </div>

@@ -14,6 +14,7 @@
         <result property="serviceContent" column="service_content"/>
         <result property="updDate" column="upd_date"/>
         <result property="regDate" column="reg_date"/>
+        <result property="fileNo" column="file_no"/>
 
         <association property="partner" javaType="Partner">
         <id property="partnerNo" column="partner_no"/>

@@ -37,7 +37,7 @@
                         <tr th:if="${chatRoomList != null}" th:each="chatRoom, stat : ${chatRoomList}">
                             <td th:text="${stat.index + 1}"></td>
                             <td>
-                                <a th:href="|/reservation/chat?roomNo=${chatRoom.roomNo}|" th:text="${chatRoom.title}"></a>
+                                <a class="text-decoration-none color_main" th:href="|/reservation/chat?roomNo=${chatRoom.roomNo}|" th:text="${chatRoom.title}"></a>
                             </td>
                             <td th:text="${#dates.format(chatRoom.regDate, 'MM-dd')}"></td>
                         </tr>
