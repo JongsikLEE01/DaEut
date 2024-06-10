@@ -36,9 +36,6 @@
                         <h4>서비스 품질 리뷰</h4>
                         <form th:action="@{/user/userReviewDone}" method="post" th:object="${review}" enctype="multipart/form-data">
                             <div class="item item-1 align-items-center mb-3">
-                                <div class="col-sm-5">
-                                    <img class="img-fluid" src="https://via.placeholder.com/150" alt="서비스 이미지">
-                                </div>
                                 <label for="paymentNo" class="col-form-label col-sm-3">주문 선택</label>
                                 <select class="form-control col-lg-2" id="paymentNo" name="paymentNo" th:field="*{paymentNo}">
                                     <option th:each="payment : ${payments}" th:value="${payment.paymentNo}" 
