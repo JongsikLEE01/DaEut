@@ -238,22 +238,6 @@
 						</tfoot>
 
 					</table>
-					
-					<!-- <th:block th:if="${session.user == null}">
-						<a href="javascript:;"
-							onclick="sweetConfirm('회원가입이 필요합니다.', '예약 서비스는 회원가입 후 가능합니다.', 'warning', '로그인', ()=>{location.href='/auth/login'})"> -->
-							<!-- <a href="javascript:;" onclick="sweetAlert('경고', '회원가입이 필요합니다.', 'warning')"> -->
-							<!-- <button class="btn-coupon">바로 예약하기</button>
-						</a>
-					</th:block>
-					<th:block th:if="${session.user != null}">
-						<form action="/orders" method="post">
-							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-							<input type="hidden" id="serviceNo" name="serviceNo" th:value="${service.serviceNo}">
-							<input type="hidden" id="quantity" name="quantity" value="1">
-							<button type="submit" class="btn-coupon" id="couponBtn">바로 예약하기</button>
-						</form>
-					</th:block> -->
 				</div>
 			</div>
 
