@@ -152,15 +152,14 @@ public class UserController {
             return "redirect:/login"; // 사용자 번호가 없으면 로그인 페이지로 리디렉션
         }
         int userNo = user.getUserNo();
-        List<Payments> payments = reviewService.getUserPayments(userNo);
-        model.addAttribute("payments", payments);
-        model.addAttribute("review", new Review()); // 새로운 리뷰 객체 추가
+        model.addAttribute("payments", reviewService.getUserPayments(userNo));
+        model.addAttribute("review", new Review()); // 빈 Review 객체 추가
         return "user/userReview";
     }
 
     // 리뷰 저장
     @PostMapping("/userReviewDone")
-    public String submitReview(HttpSession session, Review review, @RequestParam("paymentNo") int paymentNo) {
+    public String submitReview(HttpSession session, Review review) {
         log.info("/user/userReviewDone");
 
         Users user = (Users) session.getAttribute("user");
@@ -169,16 +168,20 @@ public class UserController {
         }
 
         review.setUserNo(user.getUserNo());
-        review.setPaymentNo(paymentNo);
 
-        // paymentNo로부터 serviceNo와 partnerNo를 설정
-        Payments payment = reviewService.getPaymentDetails(paymentNo);
+        Payments payment = reviewService.getPaymentDetails(review.getPaymentNo());
+        if (payment == null) {
+            // payment 객체가 null인 경우 처리
+            return "redirect:/user/userReview?error=invalidPayment";
+        }
+
         review.setServiceNo(payment.getServiceNo());
         review.setPartnerNo(payment.getPartnerNo());
 
         reviewService.saveReview(review);
         return "redirect:/user/userReview";
     }
+
 
      /**
      * 유저 채팅방 생성

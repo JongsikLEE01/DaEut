@@ -24,55 +24,64 @@
             <div class="col-md-9 col-lg-10 form-section" id="content-area">
                 <h3>별점 및 리뷰 작성</h3>
                 <hr class="completeHr">
-                <div class="grid review-form">
-                    <h4>서비스 품질 리뷰</h4>
-                    <form th:action="@{/user/userReviewDone}" method="post" th:object="${review}">
-                        <div class="item item-1 align-items-center mb-3">
-                            <div class="col-sm-5">
-                                <img class="img-fluid" src="https://via.placeholder.com/150" alt="서비스 이미지">
+
+                <!-- 결제 정보가 없는 경우 메시지 표시 -->
+                <div th:if="${#lists.isEmpty(payments)}">
+                    <p>결제 정보가 없습니다.</p>
+                </div>
+
+                <!-- 결제 정보가 있는 경우 리뷰 작성 폼 표시 -->
+                <div th:if="${not #lists.isEmpty(payments)}" th:with="selectedPayment=${payments[0]}">
+                    <div class="grid review-form">
+                        <h4>서비스 품질 리뷰</h4>
+                        <form th:action="@{/user/userReviewDone}" method="post" th:object="${review}">
+                            <div class="item item-1 align-items-center mb-3">
+                                <div class="col-sm-5">
+                                    <img class="img-fluid" src="https://via.placeholder.com/150" alt="서비스 이미지">
+                                </div>
+                                <label for="paymentNo" class="col-form-label col-sm-3">주문 선택</label>
+                                <select class="form-control col-lg-2" id="paymentNo" name="paymentNo" th:field="*{paymentNo}" th:onchange="this.form.submit()">
+                                    <option th:each="payment : ${payments}" th:value="${payment.paymentNo}" th:text="${payment.title}" th:selected="${payment == selectedPayment}"></option>
+                                </select>
                             </div>
-                            <label for="paymentNo" class="col-form-label col-sm-3">주문 선택</label>
-                            <select class="form-control col-lg-2" id="paymentNo" name="paymentNo" th:onchange="this.form.serviceNo.value = this.options[this.selectedIndex].getAttribute('data-serviceNo'); this.form.partnerNo.value = this.options[this.selectedIndex].getAttribute('data-partnerNo');">
-                                <option th:each="payment : ${payments}" th:value="${payment.paymentNo}" th:data-serviceNo="${payment.serviceNo}" th:data-partnerNo="${payment.partnerNo}" th:text="${payment.title}"></option>
-                            </select>
-                        </div>
-                        <hr>
-                        <div class="item item-2 align-center mb-4">
-                            <label for="reviewTitle" class="col-form-label col-sm-3">리뷰 제목</label>
-                            <input type="text" class="form-control col-lg-2" id="reviewTitle" name="reviewTitle" placeholder="리뷰 제목을 입력하세요" th:field="*{reviewTitle}">
-                        </div>
-                        <div class="item item-3 align-center mb-4">
-                            <label for="reviewRating" class="col-form-label col-sm-3">별점 평가</label>
-                            <select class="form-control col-lg-2" id="reviewRating" name="reviewRating" th:field="*{reviewRating}">
-                                <option value="5">★★★★★ (5)</option>
-                                <option value="4">★★★★☆ (4)</option>
-                                <option value="3">★★★☆☆ (3)</option>
-                                <option value="2">★★☆☆☆ (2)</option>
-                                <option value="1">★☆☆☆☆ (1)</option>
-                            </select>
-                        </div>
-                        <div class="item item-4 align-center mb-4">
-                            <label for="reviewContent" class="col-form-label col-sm-3">상세 리뷰</label>
-                            <textarea class="form-control col-lg-2" id="reviewContent" name="reviewContent" rows="4" placeholder="다른 고객님께 도움이 되도록 서비스에 대한 솔직한 리뷰를 남겨주세요." th:field="*{reviewContent}"></textarea>
-                        </div>
-                        <hr class="completeHr">
-                        <div class="item item-5 align-center mb-3">
-                            <label for="file-upload" class="col-form-label col-sm-3">첨부파일</label>
-                            <div class="file-upload">
-                                <input type="file" class="form-control mb-3" id="file" name="file">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
+                            <hr>
+                            <div class="item item-2 align-center mb-4">
+                                <label for="reviewTitle" class="col-form-label col-sm-3">리뷰 제목</label>
+                                <input type="text" class="form-control col-lg-2" id="reviewTitle" name="reviewTitle" placeholder="리뷰 제목을 입력하세요" th:field="*{reviewTitle}">
                             </div>
-                            <small class="form-text text-muted">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</small>
-                        </div>
-                        <input type="hidden" id="serviceNo" name="serviceNo" th:value="${payments[0].serviceNo}">
-                        <input type="hidden" id="partnerNo" name="partnerNo" th:value="${payments[0].partnerNo}">
-                        <div class="form-buttons">
-                            <button type="submit" class="btn btn-primary">등록하기</button>
-                        </div>
-                    </form>
+                            <div class="item item-3 align-center mb-4">
+                                <label for="reviewRating" class="col-form-label col-sm-3">별점 평가</label>
+                                <select class="form-control col-lg-2" id="reviewRating" name="reviewRating" th:field="*{reviewRating}">
+                                    <option value="5">★★★★★ (5)</option>
+                                    <option value="4">★★★★☆ (4)</option>
+                                    <option value="3">★★★☆☆ (3)</option>
+                                    <option value="2">★★☆☆☆ (2)</option>
+                                    <option value="1">★☆☆☆☆ (1)</option>
+                                </select>
+                            </div>
+                            <div class="item item-4 align-center mb-4">
+                                <label for="reviewContent" class="col-form-label col-sm-3">상세 리뷰</label>
+                                <textarea class="form-control col-lg-2" id="reviewContent" name="reviewContent" rows="4" placeholder="다른 고객님께 도움이 되도록 서비스에 대한 솔직한 리뷰를 남겨주세요." th:field="*{reviewContent}"></textarea>
+                            </div>
+                            <hr class="completeHr">
+                            <div class="item item-5 align-center mb-3">
+                                <label for="file-upload" class="col-form-label col-sm-3">첨부파일</label>
+                                <div class="file-upload">
+                                    <input type="file" class="form-control mb-3" id="file" name="file">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                                <small class="form-text text-muted">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</small>
+                            </div>
+                            <input type="hidden" id="serviceNo" name="serviceNo" th:value="${selectedPayment.serviceNo}">
+                            <input type="hidden" id="partnerNo" name="partnerNo" th:value="${selectedPayment.partnerNo}">
+                            <div class="form-buttons">
+                                <button type="submit" class="btn btn-primary">등록하기</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
