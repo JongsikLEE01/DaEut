@@ -17,7 +17,7 @@
 
 			<!-- 게시글 별점 -->
 			<div class="review-star">
-				<th:block th:if="${averageRating != null}">
+				<th:block th:if="${averageRating != null && averageRating > 0}">
 					<th:block th:each="star : ${#numbers.sequence(1, averageRating)}">
 						<i class="fa fa-star" aria-hidden="true"></i>
 					</th:block>
@@ -88,11 +88,12 @@
 								<h3 class="partner-introduction-name" th:text="${pUsers.userName}"></h3>
 
 								<!--파트너의 별점-->
-								<th:block th:if="${averageRating != null}">
-								<th:block th:each="star : ${#numbers.sequence(1, averageRating)}">
-									<i class="fa fa-star" aria-hidden="true"></i>
-								</th:block>
-								</th:block>
+									<th:block th:if="${averageRating != null && averageRating > 0}">
+										<th:block th:each="star : ${#numbers.sequence(1, averageRating)}">
+											<i class="fa fa-star" aria-hidden="true"></i>
+										</th:block>
+									</th:block>
+							
 
 							</div>
 							<p class="year-of-work" th:text="${service.partner.partnerCareer}"> </p>
