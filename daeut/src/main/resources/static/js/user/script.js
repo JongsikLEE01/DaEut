@@ -57,3 +57,18 @@ window.onresize = function () {
         toggleBtn.style.visibility = 'hidden'; // 토글 버튼 숨기기
     }
 };
+
+function previewThumbnail(event) {
+    var container = document.getElementById('image-thumbnail-container');
+    container.innerHTML = ''; // 기존 이미지 제거
+    
+    var files = event.target.files;
+    for (var i = 0; i < files.length; i++) {
+        var image = document.createElement('img');
+        image.src = URL.createObjectURL(files[i]);
+        image.alt = '이미지 미리보기';
+        image.style.maxWidth = '119px';
+        image.style.marginTop = '150px';
+        container.appendChild(image);
+    }
+}

@@ -152,8 +152,20 @@ public class UserController {
             return "redirect:/login"; // 사용자 번호가 없으면 로그인 페이지로 리디렉션
         }
         int userNo = user.getUserNo();
-        model.addAttribute("payments", reviewService.getUserPayments(userNo));
-        model.addAttribute("review", new Review()); // 빈 Review 객체 추가
+        List<Payments> payments = reviewService.getUserPayments(userNo);
+        model.addAttribute("payments", payments);
+
+        // 결제 정보가 있다면 첫 번째 결제를 기본값으로 설정
+        if (!payments.isEmpty()) {
+            Payments firstPayment = payments.get(0);
+            Review review = new Review();
+            review.setPaymentNo(firstPayment.getPaymentNo());
+            review.setServiceNo(firstPayment.getServiceNo());
+            review.setPartnerNo(firstPayment.getPartnerNo());
+            model.addAttribute("review", review);
+        } else {
+            model.addAttribute("review", new Review());
+        }
         return "user/userReview";
     }
 
@@ -178,7 +190,11 @@ public class UserController {
         review.setServiceNo(payment.getServiceNo());
         review.setPartnerNo(payment.getPartnerNo());
 
-        reviewService.saveReview(review);
+        try {
+            reviewService.saveReview(review);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "redirect:/user/userReview";
     }
 

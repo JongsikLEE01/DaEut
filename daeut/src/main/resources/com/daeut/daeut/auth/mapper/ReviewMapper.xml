@@ -64,19 +64,24 @@
 
     <!--serviceNo로 파트너 정보 가져오기-->
     <select id="getReviewByServiceNo">
-    SELECT
-        r.review_no,
-        r.review_title,
-        r.review_content,
-        r.review_reg_date,
-        r.review_rating,
-    u.user_name
-    FROM
-        review r
-    INNER JOIN
-        users u ON r.user_no = u.user_no
-    WHERE
-    r.service_no = #{serviceNo}
+        SELECT
+            r.review_no,
+            r.review_title,
+            r.review_content,
+            r.review_reg_date,
+            r.review_rating,
+        u.user_name
+        FROM
+            review r
+        INNER JOIN
+            users u ON r.user_no = u.user_no
+        WHERE
+        r.service_no = #{serviceNo}
+    </select>
+
+    <select id="maxPk" resultType="int">
+        SELECT MAX(review_no)
+        FROM review
     </select>
 
     <!--평균값 계산-->
