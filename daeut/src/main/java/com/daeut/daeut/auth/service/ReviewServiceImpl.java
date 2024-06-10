@@ -35,7 +35,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void saveReview(Review review) throws Exception {
         String parentTable = "review";
-        int parentNo = reviewMapper.maxPk();
+        int parentNo = reviewMapper.maxPk() + 1;
            
         // 파일 업로드
         List<MultipartFile> fileList = review.getFile();
