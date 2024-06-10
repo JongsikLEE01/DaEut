@@ -57,6 +57,11 @@ public class SecurityConfig {
                                     .permitAll()
                             );
 
+        // OAuth 로그인 설정
+        http.oauth2Login(login -> login
+                                    .loginPage("/login")
+        );
+
         // ✅ 사용자 정의 인증 설정
         http.userDetailsService(userDetailServiceImpl);
 
