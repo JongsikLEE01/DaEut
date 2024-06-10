@@ -262,13 +262,29 @@ public class BoardController {
         return response;
     }
 
-    @GetMapping("/sessionTest")
-    @ResponseBody
-    public String sessionTest(HttpSession session) {
-        Integer userNo = (Integer) session.getAttribute("userNo");
-        String userId = (String) session.getAttribute("userId");
+    @PostMapping("/reply/insert")
+    public String insertReply(@RequestParam("boardNo") int boardNo, @RequestParam("replyContent") String replyContent, @RequestParam("userNo") int userNo) throws Exception {
+        Reply reply = new Reply();
+        reply.setBoardNo(boardNo);
+        reply.setReplyContent(replyContent);
+        reply.setUserNo(userNo);
 
-        return "UserNo: " + userNo + ", UserId: " + userId;
+        replyService.insert(reply);
+
+        return "redirect:/tip/tipRead?no=" + boardNo;
+    }
+
+    @PostMapping("/reply/insertReply")
+    public String insertReplyReply(@RequestParam("boardNo") int boardNo, @RequestParam("replyContent") String replyContent, @RequestParam("userNo") int userNo, @RequestParam("parentNo") int parentNo) throws Exception {
+        Reply reply = new Reply();
+        reply.setBoardNo(boardNo);
+        reply.setReplyContent(replyContent);
+        reply.setUserNo(userNo);
+        reply.setParentNo(parentNo);
+
+        replyService.insert(reply);
+
+        return "redirect:/tip/tipRead?no=" + boardNo;
     }
     
 }

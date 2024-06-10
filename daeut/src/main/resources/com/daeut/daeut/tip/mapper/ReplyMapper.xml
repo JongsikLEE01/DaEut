@@ -25,8 +25,8 @@
 
     <!-- 댓글 등록 -->
     <insert id="insert">
-        INSERT INTO reply (board_no, parent_no, user_no, reply_content)
-        VALUES (#{boardNo}, #{parentNo}, #{userNo}, #{replyContent} )
+        INSERT INTO reply (board_no, parent_no, user_no, user_id, reply_content)
+        VALUES (#{boardNo}, #{parentNo}, #{userNo}, #{userId}, #{replyContent} )
     </insert>
 
     <!-- 댓글 수정 -->
