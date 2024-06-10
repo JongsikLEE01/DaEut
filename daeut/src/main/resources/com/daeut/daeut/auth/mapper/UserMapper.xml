@@ -158,15 +158,14 @@
         VALUES (#{partnerCareer}, #{introduce}, #{userNo})
     </insert>
 
-    <!-- 파트너 신청 승인 처리
-    <update id="approvePartnerAndAddAuth">
+    <!-- 비밀번호 찾기 - 비밀번호 재설정 -->updatePw
+    <update id="updatePw">
         UPDATE users
-        SET status = 2
-        WHERE user_no = (SELECT user_no FROM users WHERE user_id = #{userId});
-        
-        INSERT INTO user_auth( user_no, auth )
-        VALUES ( (SELECT user_no FROM users WHERE user_id = #{userId}), 'role_partner' );
-    </update> -->
+           SET 
+               user_password = #{userPassword}
+              ,user_upd_date = now()
+        WHERE user_id = #{userId}
+    </update>
     <!-- 다우니다우니다우니다우니다우니다우니다우니다우니다우니다우니 -->
 
     <!-- 준호준호준호준호준호준호준호준호준호준호준호준호준호준호준호 -->
@@ -201,8 +200,8 @@
     <update id="update">
         UPDATE users
            SET 
-               user_password = #{userPassword}
-              ,user_name = #{userName}
+               <!-- user_password = #{userPassword} -->
+              user_name = #{userName}
               ,user_email = #{userEmail}
               ,user_phone = #{userPhone}
               ,user_address = #{userAddress}

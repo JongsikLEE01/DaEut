@@ -20,6 +20,9 @@ public interface UserMapper {
     public  String findUserByDetails(@Param("userName") String userName, 
                                      @Param("userEmail") String userEmail, 
                                      @Param("userPhone") String userPhone) throws Exception;
+
+    // 비밀번호 찾기
+    public int updatePw(Users user) throws Exception;
                                      
     // 회원 조회
     public Users select(String username) throws Exception;
