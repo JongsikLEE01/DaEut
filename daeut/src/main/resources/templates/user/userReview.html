@@ -31,10 +31,10 @@
                 </div>
 
                 <!-- 결제 정보가 있는 경우 리뷰 작성 폼 표시 -->
-                <div th:if="${not #lists.isEmpty(payments)}">
+                <div th:if="${not #lists.isEmpty(payments)}" th:with="selectedPayment=${payments[0]}">
                     <div class="grid review-form">
                         <h4>서비스 품질 리뷰</h4>
-                        <form th:action="@{/user/userReviewDone}" method="post" th:object="${review}">
+                        <form th:action="@{/user/userReviewDone}" method="post" th:object="${review}" enctype="multipart/form-data">
                             <div class="item item-1 align-items-center mb-3">
                                 <div class="col-sm-5">
                                     <img class="img-fluid" src="https://via.placeholder.com/150" alt="서비스 이미지">
@@ -69,12 +69,8 @@
                             <hr class="completeHr">
                             <div class="item item-5 align-center mb-3">
                                 <label for="file-upload" class="col-form-label col-sm-3">첨부파일</label>
-                                <div class="file-upload">
-                                    <input type="file" class="form-control mb-3" id="file" name="file">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
+                                <input type="file" name="file" multiple onchange="previewThumbnail(event)" required>
+                                    <div class="file-upload" id="image-thumbnail-container">
                                 </div>
                                 <small class="form-text text-muted">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</small>
                             </div>
