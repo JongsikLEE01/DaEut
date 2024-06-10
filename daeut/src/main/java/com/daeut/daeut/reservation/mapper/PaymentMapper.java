@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.Payments;
 import com.siot.IamportRestClient.response.Payment;
 
@@ -17,6 +18,8 @@ public interface PaymentMapper {
     public int insert(Payments payments);
     
     public int update(Payments payments);
+
+    public int updateData(Payments payments) throws Exception;
     
     public int delete(int paymentNo);
 

@@ -30,7 +30,7 @@
         <result property="auth" column="auth" />
     </resultMap>
 
-    <resultMap type="com.daeut.daeut.auth.dto.Review" id="reviewMap">
+    <resultMap type="Review" id="reviewMap">
         <id property="reviewNo" column="review_no" />
         <result property="reviewTitle" column="review_title" />
         <result property="reviewContent" column="review_content" />
