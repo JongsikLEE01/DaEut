@@ -14,6 +14,9 @@ public interface UserService {
 
     // 아이디 찾기
     public String findUserByDetails(String userName, String userEmail, String userPhone) throws Exception;
+
+    // 비밀번호 찾기
+    public int updatePw(Users user) throws Exception;
     
     // 조회
     public Users select(String username) throws Exception;
@@ -58,5 +61,5 @@ public interface UserService {
 
     public Users findUserById(int userNo) throws Exception;
 
-   
+    
 }
