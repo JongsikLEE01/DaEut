@@ -20,6 +20,7 @@ import com.daeut.daeut.main.dto.Option;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.main.dto.ServicePage;
 import com.daeut.daeut.main.service.FileService;
+import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.ReservationService;
 
@@ -83,7 +84,9 @@ public class ReservationController {
         Files thumbnail = reservationService.SelectThumbnail(serviceNo);
         List<Files> files = reservationService.SelectFiles(serviceNo);
         Users user = (Users) session.getAttribute("user");
+        Partner partner = new Partner();
         List<Review> reviews = reviewService.getReviewByServiceNo(serviceNo);
+     
 
         file.setParentTable("service");
         file.setParentNo(serviceNo);
@@ -95,18 +98,12 @@ public class ReservationController {
         model.addAttribute("thumbnail", thumbnail);
         model.addAttribute("files", files);
         model.addAttribute("user", user);
+        model.addAttribute("partner", partner);
         model.addAttribute("reviews", reviews);
+
         return "reservation/reservationRead";
     }
 
-
-    // 캘린더 띄우기
-    // @GetMapping("/reservationReadCalendar")
-    // public String reservationRead(@RequestParam("partnerNo") int partnerNo, Model model) {
-    //     List<String> partnerSchedule = partnerService.getPartnerSchedule(partnerNo);
-    //     model.addAttribute("partnerSchedule", partnerSchedule);
-    //     return "redirect:/reservationRead?partnerNo=" + partnerNo;
-    // }
 
 	/**
      * 글 등록 

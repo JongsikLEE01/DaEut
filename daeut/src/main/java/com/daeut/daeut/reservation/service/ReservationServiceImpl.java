@@ -38,10 +38,12 @@ public class ReservationServiceImpl implements ReservationService{
         return serviceList;
     }
 
+    // 게시글 조회
     @Override
     public Services serviceSelect(int serviceNo) throws Exception {
         // 조회
         Services service = reservationMapper.serviceSelect(serviceNo);
+        
 
         return service;
     }

@@ -2,6 +2,8 @@ package com.daeut.daeut.reservation.dto;
 
 import java.util.Date;
 
+import com.daeut.daeut.partner.dto.Partner;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,4 +25,8 @@ public class Reservation {
     private String userAddress; // 추가 필드
     private String partnerName; // 추가 필드
     private String serviceName; // 추가 필드
+
+    private Partner partner; // 파트너
+    private String introduce; // 파트너 자기 소개
+    private String partnerCarrer; // 파트너 커리어
 }

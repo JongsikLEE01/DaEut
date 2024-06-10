@@ -204,7 +204,7 @@ public String deleteUser(@RequestParam("userNo") int userNo, @RequestParam("user
     @GetMapping("/partnerReservation")
     public String partnerReservation(Model model, HttpSession session) throws Exception {
         int partnerNo = (int) session.getAttribute("partnerNo"); // 세션에서 partnerNo 가져오기
-        List<Orders> orderList = orderService.listByParterNo(partnerNo); // 주문 목록 가져오기
+        List<Orders> orderList = orderService.listByPartnerNo(partnerNo); // 주문 목록 가져오기
         
         for (Orders orders : orderList) {
             Payments payments = paymentService.selectByOrdersNo(orders.getOrdersNo());
