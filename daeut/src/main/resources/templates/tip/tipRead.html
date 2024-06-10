@@ -134,15 +134,12 @@
         var csrfToken = "[[${_csrf.token}]]"
         const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
 
-        // 댓글 목록 요청
-        replyList()
+        replyList();
 
-        // 수정 화면 이동
         function moveUpdate() {
-            location.href = '/tip/tipUpdate?no=' + no
+            location.href = '/tip/tipUpdate?no=' + no;
         }
     
-        // 삭제 요청
         function actionDelete() {
             let check = confirm('정말로 삭제하시겠습니까?');
             console.log('삭제 확인:', check);
@@ -151,16 +148,6 @@
             }
         }
 
-        function insertAnswer(replyNo) {
-            document.getElementById('reply-form-' + replyNo).style.display = 'block';
-        }
-
-        // 목록 화면 이동
-        function moveList() {
-            location.href = '/tip/index'
-        }
-            
-        // 댓글 등록
         function insertReply() {
             let $content = document.getElementById('reply-content');
             let replyContent = $content.value;
@@ -220,7 +207,7 @@
 
                         replies.forEach(reply => {
                             let replyHtml = `
-                                <div class="comment">
+                                <div class="${reply.parentNo ? 'reply' : 'comment'}">
                                     <p><strong>${reply.userId}</strong></p>
                                     <p>${reply.replyContent}</p>
                                     <div class="comment-actions">
@@ -238,54 +225,6 @@
             }
         }
 
-        function insertAnswer(replyNo) {
-            document.getElementById('reply-form-' + replyNo).style.display = 'block';
-        }
-
-        // function event() {
-
-        // // 댓글 수정 버튼
-        // let $btnUpdate = document.getElementsByClassName('btn-reply-update')
-        //     // 댓글 수정 클릭 이벤트
-        //     for( let i = 0 ; i < $btnUpdate.length ; i++ ) {
-
-        //         $btnUpdate[i].addEventListener('click', function() {
-        //             // alert('수정 클릭')
-        //             // 해당 댓글의 작성자, 내용을 가져오기
-        //             // $btnUpdate[i] : 현재요소 (수정 버튼)
-        //             // 부모요소                : parentNode
-        //             // 부모요소 -> 자식요소
-        //             // 자식요소 (reply-writer) : childNodes[?], children
-        //             let $top = $btnUpdate[i].parentNode.parentNode
-        //             let writer = $top.childNodes[1].textContent
-        //             let $inner = $top.parentNode
-        //             let content = $inner.childNodes[3].textContent
-        //             let $replyBox = $inner.parentNode
-
-        //             let no = $btnUpdate[i].getAttribute('data')     // 댓글 번호
-
-        //             // 댓글 수정 모드
-        //             // 1. 기존 댓글 내용창 숨기기
-        //             $inner.style.display = 'none'
-        //             // 2. 수정 UI 출력
-        //             let $editor = document.createElement('div')
-        //             $editor.classList.add('inner')
-        //             $editor.id = 'editor'
-        //             let editor = ``
-        //             // editor += `<div class="inner" id="editor">`
-        //             editor += `<input type="text" value="${writer}" id="update-writer" />`
-        //             editor += `<br>`
-        //             editor += `<textarea cols="60" rows="5" id="update-content">${content}</textarea>`
-        //             editor += `<br>`
-        //             editor += `<button onclick="updateReply(${no})">수정</button>`
-        //             editor += `<button onclick="cancelReply()">취소</button>`
-        //             // editor += `</div>`
-        //             $editor.innerHTML = editor
-        //             $replyBox.appendChild($editor)
-        //         })
-        //     }
-        // }
-        
         function editReply(replyNo, replyContent) {
             let replyElement = document.querySelector(`button[onclick="editReply(${replyNo}, '${replyContent}')"]`).parentNode.parentNode;
             replyElement.innerHTML = `
@@ -332,20 +271,6 @@
         }
 
         function cancelEdit(replyNo, originalContent) {
-            let replyElement = document.querySelector(`button[onclick="editReply(${replyNo}, '${originalContent}')"]`).parentNode.parentNode;
-            replyElement.innerHTML = `
-                <p><strong>${replyNo}</strong></p>
-                <p>${originalContent}</p>
-                <div class="comment-actions">
-                    <span>${new Date().toLocaleDateString()}</span>
-                    <button type="button" onclick="insertAnswer(this, ${reply.replyNo})">답글달기</button>
-                    <button type="button" onclick="editReply(${replyNo}, '${originalContent}')">수정</button>
-                    <button type="button" onclick="deleteReply(${replyNo})">삭제</button>
-                </div>
-            `;
-        }
-
-        function cancelEdit(replyNo, originalContent) {
             // replyNo에 해당하는 수정 창을 찾습니다.
             let editor = document.querySelector(`#edit-content-${replyNo}`);
             
@@ -367,114 +292,101 @@
             }
         }
 
-        // 댓글 삭제 요청
         function deleteReply(no) {
-
             const check = confirm("정말로 삭제하시겠습니까?")
-            if( !check )
-                return
+            if( !check ) return
 
-            // 삭제 요청
             let request = new XMLHttpRequest()
             request.open('DELETE', '/reply/' + no)
             request.setRequestHeader(csrfHeader, csrfToken); // CSRF 토큰 설정
-            // request.open('DELETE', `/reply/${no}`)   // ⭐템플릿 문자열
             request.send()
 
             request.onreadystatechange = function() {
-                // 요청 성공 시,
                 if( request.readyState == request.DONE && request.status == 200 ) {
                     console.log('댓글 삭제 성공!');
                     let response = request.responseText
-                    // alert(response)
                     if( response == 'SUCCESS' ){
-                        replyList()     // 댓글 목록 갱신
+                        replyList() // 댓글 목록 갱신
                     }
                 }
             }
         }
 
-        // 답글 등록
         function insertAnswer(element, parentNo) {
-                let $replyBox = element.parentNode.parentNode;
-                console.log(`부모 번호 : ${parentNo}`);
-                console.log($replyBox);
+            let $replyBox = element.parentNode.parentNode;
+            console.log(`부모 번호 : ${parentNo}`);
+            console.log($replyBox);
 
-                // 답글 작성 UI
-                let $editor = document.createElement('div');
-                $editor.classList.add('reply-box');
-                $editor.id = 'answer';
-                let editor = `
-                    <div class="inner">
-                        <textarea cols="60" rows="5" id="answer-content" style="border: 1px solid #8FA2CA;resize: none; placeholder="답글 내용을 입력하세요."></textarea>
-                        <br>
-                        <button style="background-color: #8FA2CA;border: #8FA2CA;border-radius: 8px;height: 30px;" onclick="answer(${parentNo})">등록</button>
-                        <button style="background-color: white; border-color: #8FA2CA;border-radius: 8px;height: 30px;" onclick="cancelAnswer()">취소</button>
-                    </div>
-                `;
-                $editor.innerHTML = editor;
+            let $editor = document.createElement('div');
+            $editor.classList.add('reply-box');
+            $editor.id = 'answer';
+            let editor = `
+                <div class="inner">
+                    <textarea cols="60" rows="5" id="answer-content" style="border: 1px solid #8FA2CA;resize: none;" placeholder="답글 내용을 입력하세요."></textarea>
+                    <br>
+                    <button style="background-color: #8FA2CA;border: #8FA2CA;border-radius: 8px;height: 30px;" onclick="answer(${parentNo})">등록</button>
+                    <button style="background-color: white; border-color: #8FA2CA;border-radius: 8px;height: 30px;" onclick="cancelAnswer()">취소</button>
+                </div>
+            `;
+            $editor.innerHTML = editor;
 
-                // 기존 답글 UI가 있으면 초기화
-                let $answer = document.getElementById("answer");
-                if ($answer) {
-                    $answer.parentNode.removeChild($answer);
-                }
-
-                // 요소.after(추가요소)
-                $replyBox.after($editor);
+            let $answer = document.getElementById("answer");
+            if ($answer) {
+                $answer.parentNode.removeChild($answer);
             }
 
-            // 답글 등록 요청
-            function answer(parentNo) {
-                let $content = document.getElementById('answer-content');
-                let replyContent = $content.value;
+            $replyBox.after($editor);
+        }
 
-                let no = document.getElementById('no').value;
-                let userId = document.getElementById('userId').value;
-                let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-                let csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+        function answer(parentNo) {
+            let $content = document.getElementById('answer-content');
+            let replyContent = $content.value;
 
-                console.log(`부모 번호: ${parentNo}`);
-                console.log(`댓글 내용: ${replyContent}`);
-                console.log(`회원 번호: ${userId}`);
+            let no = document.getElementById('no').value;
+            let userId = document.getElementById('userId').value;
+            let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+            let csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
-                let data = {
-                    'boardNo': no,
-                    'parentNo': parentNo,
-                    'userId': userId,
-                    'replyContent': replyContent
-                };
+            console.log(`부모 번호: ${parentNo}`);
+            console.log(`댓글 내용: ${replyContent}`);
+            console.log(`회원 번호: ${userId}`);
 
-                let request = new XMLHttpRequest();
-                request.open('POST', '/reply/insert', true);
-                request.setRequestHeader(csrfHeader, csrfToken); 
-                request.setRequestHeader('Content-Type', 'application/json');
+            let data = {
+                'boardNo': no,
+                'parentNo': parentNo,
+                'userId': userId,
+                'replyContent': replyContent
+            };
 
-                console.log(JSON.stringify(data));
-                request.send(JSON.stringify(data));
+            let request = new XMLHttpRequest();
+            request.open('POST', '/reply/insert', true);
+            request.setRequestHeader(csrfHeader, csrfToken); 
+            request.setRequestHeader('Content-Type', 'application/json');
 
-                request.onreadystatechange = function() {
-                    if (request.readyState === XMLHttpRequest.DONE) {
-                        if (request.status === 201) {
-                            console.log('답글 등록 성공!');
-                            let response = request.responseText;
-                            if (response === 'SUCCESS') {
-                                alert("답글 등록 성공!!!");
-                                replyList();  // 댓글 목록 갱신
-                                $content.value = ''; // 답글 입력 창 비우기
-                            }
+            console.log(JSON.stringify(data));
+            request.send(JSON.stringify(data));
+
+            request.onreadystatechange = function() {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    if (request.status === 201) {
+                        console.log('답글 등록 성공!');
+                        let response = request.responseText;
+                        if (response === 'SUCCESS') {
+                            alert("답글 등록 성공!!!");
+                            replyList();  // 댓글 목록 갱신
+                            $content.value = ''; // 답글 입력 창 비우기
                         }
                     }
                 }
             }
+        }
 
-            // 답글 등록 취소
-            function cancelAnswer() {
-                let $answer = document.getElementById("answer");
-                if ($answer) {
-                    $answer.parentNode.removeChild($answer);
-                }
+        function cancelAnswer() {
+            let $answer = document.getElementById("answer");
+            if ($answer) {
+                $answer.parentNode.removeChild($answer);
             }
+        }
 
         </script>
 
