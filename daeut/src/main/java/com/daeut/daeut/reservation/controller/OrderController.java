@@ -134,11 +134,12 @@ public class OrderController {
 
         Orders order = orderService.select(ordersNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
+        order.setOrderStatus(OrderStatus.CONFIRMED);
+        orderService.update(order);
         log.info(payments.toString());
 
         // 주문 성공 시 장바구니 삭제 -> stackOverFlow 발생(해결)
         List<OrderItems> orderItemList = orderItemService.listByOrderNo(ordersNo);
-
 
         List<Integer> serviceNoList = new ArrayList<>();                        
         for (OrderItems orderItem : orderItemList) {
@@ -253,6 +254,18 @@ public class OrderController {
         return "/reservation/payment";
     }
 
+
+    /**
+     * 결제 취소
+     * @param ordersNo
+     * @param cancelAccount
+     * @param cancelName
+     * @param cancelNumber
+     * @param reason
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/cancel")
     public String cancel(@RequestParam String ordersNo,
                          @RequestParam String cancelAccount,
@@ -262,9 +275,7 @@ public class OrderController {
                          Model model) throws Exception {
         // orders 수정
         Orders orders = orderService.select(ordersNo);
-        log.info("ord? {}", orders.toString());
-        orders.setOrderStatus(OrderStatus.CANCELLED);
-        
+        orders.setOrderStatus(OrderStatus.PENDING);
         orderService.update(orders);
 
         // 데이터 넣기

@@ -13,14 +13,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.daeut.daeut.admin.service.AdminService;
+import com.daeut.daeut.auth.dto.Review;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.reservation.dto.Cancel;
+import com.daeut.daeut.reservation.dto.OrderStatus;
 import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.dto.PaymentStatus;
 import com.daeut.daeut.reservation.dto.Payments;
+import com.daeut.daeut.reservation.service.CancelService;
 import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.PaymentService;
 
@@ -29,6 +35,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
+import javax.servlet.http.HttpServletRequest;
 
 
 
@@ -53,9 +63,9 @@ public class AdminController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private CancelService cancelService;
 
-    //  @Autowired
-    // private PasswordEncoder passwordEncoder;
 
     // 회원가입 화면
     @GetMapping("/join")
@@ -130,20 +140,24 @@ public class AdminController {
         return "/admin/adminPartner"; 
     }
 
-    // 관리자 - 회원 조회
+    // 관리자 - 회원, 리뷰 조회
     @GetMapping("/adminUserRead/{userNo}")
     public String adminUserRead(@PathVariable("userNo") int userNo, Model model) throws Exception {
         Users user = adminService.findUserById(userNo);
         log.info(user.toString());
+        List<Review> reviews = adminService.selectReviewsByUser(userNo); // 리뷰 목록 조회 추가
         model.addAttribute("user", user);
+        model.addAttribute("reviews", reviews); // 모델에 리뷰 추가
         return "/admin/adminUserRead";
     }
-
-    // 관리자 - 회원 수정 화면
+    
+    // 관리자 - 회원, 리뷰 수정 화면
     @GetMapping("/adminUserUpdate/{userNo}")
     public String adminUserUpdate(@PathVariable("userNo") int userNo, Model model) throws Exception {
         Users user = adminService.findUserById(userNo);
+        List<Review> reviews = adminService.selectReviewsByUser(userNo); // 리뷰 목록 조회 추가
         model.addAttribute("user", user);
+        model.addAttribute("reviews", reviews); // 모델에 리뷰 추가
         log.info("업데이트 화면이동...");
         log.info(user.toString());
         return "/admin/adminUserUpdate";
@@ -153,23 +167,7 @@ public class AdminController {
     @PostMapping("/adminUserUpdate/{userNo}")
     public String adminUserUpdatePro(Users user, @RequestParam("userNo") int userNo, Model model) throws Exception {
         Users existingUser = adminService.findUserById(userNo);
-        // String newPassword = user.getUserPassword();
-
-        // // 비밀번호가 입력된 경우에만 처리
-        // if (newPassword != null && !newPassword.isEmpty()) {
-        //     // 기존 비밀번호와 동일한지 확인
-        //     if (passwordEncoder.matches(newPassword, existingUser.getUserPassword())) {
-        //         model.addAttribute("error", "새 비밀번호가 기존 비밀번호와 동일합니다.");
-        //         model.addAttribute("user", existingUser); // 기존 사용자 정보를 다시 전달
-        //         return "admin/adminUserUpdate"; // 동일한 페이지로 다시 이동
-        //     }
-        //     // 새 비밀번호 암호화
-        //     String encodedPassword = passwordEncoder.encode(newPassword);
-        //     user.setUserPassword(encodedPassword);
-        // } else {
-        //     user.setUserPassword(existingUser.getUserPassword());
-        // }
-
+        
         int result = adminService.adminUpdateUser(user);
         log.info("회원 수정 중.....");
         int no = user.getUserNo();
@@ -193,8 +191,21 @@ public class AdminController {
         model.addAttribute("user", user);
         return "/admin/adminUserUpdate";
     }
+
+    // 관리자 - 리뷰 삭제 처리
+    @PostMapping("/adminReviewDelete/{reviewNo}")
+    public String adminReviewDelete(@PathVariable("reviewNo") int reviewNo, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
+        int result = adminService.adminDeleteReview(reviewNo);
+        if (result > 0) {
+            String referer = request.getHeader("Referer");
+            redirectAttributes.addFlashAttribute("message", "리뷰가 삭제되었습니다.");
+            return "redirect:" + referer;
+        } else {
+            redirectAttributes.addFlashAttribute("error", "리뷰 삭제에 실패했습니다.");
+            return "redirect:" + request.getHeader("Referer");
+        }
+    }
     
-   
 
     // 관리자 - 파트너 조회 화면
     @GetMapping("/adminPartnerRead/{userNo}")
@@ -320,24 +331,14 @@ public class AdminController {
         log.info("ordersNo : " + ordersNo);
         try {
             Payments payments = paymentService.selectByOrdersNo(ordersNo);
-            log.info("payments : " + payments);
+            log.info("payments?? : " + payments);
             Orders orders = orderService.listByOrderNo(ordersNo);
             log.info("orders : " + orders);
             Users user = userService.selectByUserNo(orders.getUserNo());
             log.info("user : " + user);
-            // List<OrderItems> orderItemList = orderItemService.listByOrderNo(ordersNo);
-            // log.info("orderItemList : " + orderItemList);
-            
-            // List<Users> partnerList = new ArrayList();
-            // for (OrderItems orderItem : orderItemList) {
-            //     Services service = reservationService.serviceSelect(orderItem.getServiceNo());
-            //     Partner uPartner = partnerService.selectByPartnerNo(service.getPartnerNo());
-            //     Users partner = userService.findUserById(uPartner.getUserNo());
-            //     partnerList.add(partner);
-            //     // model.addAttribute("partner", partner);
-            // }
-            // model.addAttribute("partnerList", partnerList);
+            Cancel cancel = cancelService.selectByOrdersNo(ordersNo);
 
+            model.addAttribute("cancel", cancel);
             model.addAttribute("user", user);
             model.addAttribute("payments", payments);
             model.addAttribute("orders", orders);
@@ -346,6 +347,34 @@ public class AdminController {
         }
         return "/admin/adminReservationRead";
     }
+
+    @PostMapping("/adminReservationCancel")
+    public String adminReadReservationCancel(@RequestParam("ordersNo") String ordersNo) throws Exception{
+        log.info("ordersNo? {}",ordersNo);
+        
+        // 결제 내역 환불로 수정
+        
+        Payments payments = paymentService.selectByOrdersNo(ordersNo);
+        payments.setStatus(PaymentStatus.REFUND);
+        log.info("payments? {}",payments);
+        paymentService.merge(payments);
+        
+        // 취소 내역 환불로 승인
+        Cancel cancel = cancelService.selectByOrdersNo(ordersNo);
+        cancel.setConfirmed(1);
+        cancel.setRefund(1);
+        log.info("cancel? {}",cancel);
+        cancelService.update(cancel);
+        
+        // 주문 내역 환불로 수정
+        Orders orders = orderService.select(ordersNo);
+        orders.setOrderStatus(OrderStatus.CANCELLED);
+        log.info("orders? {}",orders);
+        orderService.update(orders);
+
+        return "redirect:/admin/adminReservation";
+    }
+    
 
     // 관리자 - 예약 수정 화면
     @GetMapping("/adminReservationUpdate")
@@ -386,6 +415,8 @@ public class AdminController {
             return "redirect:/admin/adminReservation";
         }
     }
+
+
     
 
 

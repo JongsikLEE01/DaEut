@@ -27,7 +27,7 @@
             <!-- 컨텐츠 영역 -->
             <div class="col-md-9 col-lg-10 form-section" id="chatRoomSection">
                 <h3>채팅 내역</h3>
-                <p>채팅 내역을 눌러서 채팅창으로 이동 할 수 있어요</p>
+                <p>채팅 제목을 눌러서 채팅창으로 이동 할 수 있어요</p>
                 <br>
                 <table class="table table-sm table-hover">
                     <thead class="table-light">
@@ -38,13 +38,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:if="${chatRoomList == null}">
+                        <tr th:if="${chatRoomList.isEmpty()}">
                             <td colspan="3">채팅 내역이 비어있어요</td>
                         </tr>
                         <tr th:if="${chatRoomList != null}" th:each="chatRoom, stat : ${chatRoomList}">
                             <td th:text="${stat.index + 1}"></td>
                             <td>
-                                <a th:href="|/reservation/chat?roomNo=${chatRoom.roomNo}|" th:text="${chatRoom.title}"></a>
+                                <a class="text-decoration-none color_main" th:href="|/reservation/chat?roomNo=${chatRoom.roomNo}|" th:text="${chatRoom.title}"></a>
                             </td>
                             <td th:text="${#dates.format(chatRoom.regDate, 'MM-dd')}"></td>
                         </tr>

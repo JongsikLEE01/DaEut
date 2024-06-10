@@ -97,7 +97,7 @@
         WHERE user_no = #{userNo}
     </select>
 
-    <select id="listByParterNo" resultMap="OrderWithUserResultMap">
+    <select id="listByPartnerNo" resultMap="OrderWithUserResultMap">
         SELECT 
         o.orders_no, o.user_no, o.order_status, o.total_quantity, o.total_price, 
         o.upd_date, o.reg_date, o.total_count, o.title,

@@ -46,8 +46,7 @@
     <!-- 업데이트 -->
     <update id="update">
         UPDATE cancel
-        SET 
-            confirmed = #{confirmed}
+        SET  confirmed = #{confirmed}
             , refund = #{refund}
             , completed_date = now()
             , upd_date = now()

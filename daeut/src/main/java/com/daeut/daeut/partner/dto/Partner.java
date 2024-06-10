@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
@@ -20,10 +21,6 @@ public class Partner {
     private String partnerCareer;
     private String introduce;
     private int userNo;
-
-    // private MultipartFile file;
-    // private String filePath;
-
 
     // 권한 목록
     private List<UserAuth> authList;
@@ -48,5 +45,12 @@ public class Partner {
 
     private Users users;
 
+
+    // 파일 정보
+    List<MultipartFile> file;
+    // 썸네일 이미지 파일
+    MultipartFile thumbnail;
+    // 파일 번호
+    private int fileNo;
 
 }

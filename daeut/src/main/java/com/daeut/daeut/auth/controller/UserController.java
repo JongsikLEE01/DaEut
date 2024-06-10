@@ -154,13 +154,24 @@ public class UserController {
         int userNo = user.getUserNo();
         List<Payments> payments = reviewService.getUserPayments(userNo);
         model.addAttribute("payments", payments);
-        model.addAttribute("review", new Review()); // 새로운 리뷰 객체 추가
+
+        // 결제 정보가 있다면 첫 번째 결제를 기본값으로 설정
+        if (!payments.isEmpty()) {
+            Payments firstPayment = payments.get(0);
+            Review review = new Review();
+            review.setPaymentNo(firstPayment.getPaymentNo());
+            review.setServiceNo(firstPayment.getServiceNo());
+            review.setPartnerNo(firstPayment.getPartnerNo());
+            model.addAttribute("review", review);
+        } else {
+            model.addAttribute("review", new Review());
+        }
         return "user/userReview";
     }
 
     // 리뷰 저장
     @PostMapping("/userReviewDone")
-    public String submitReview(HttpSession session, Review review, @RequestParam("paymentNo") int paymentNo) {
+    public String submitReview(HttpSession session, Review review) {
         log.info("/user/userReviewDone");
 
         Users user = (Users) session.getAttribute("user");
@@ -169,19 +180,27 @@ public class UserController {
         }
 
         review.setUserNo(user.getUserNo());
-        review.setPaymentNo(paymentNo);
 
-        // paymentNo로부터 serviceNo와 partnerNo를 설정
-        Payments payment = reviewService.getPaymentDetails(paymentNo);
+        Payments payment = reviewService.getPaymentDetails(review.getPaymentNo());
+        if (payment == null) {
+            // payment 객체가 null인 경우 처리
+            return "redirect:/user/userReview?error=invalidPayment";
+        }
+
         review.setServiceNo(payment.getServiceNo());
         review.setPartnerNo(payment.getPartnerNo());
 
-        reviewService.saveReview(review);
+        try {
+            reviewService.saveReview(review);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "redirect:/user/userReview";
     }
 
+
      /**
-     * 유저 채팅방 생성
+     * 유저 채팅방 생성 - POST
      * @param chatRoom
      * @param model
      * @return

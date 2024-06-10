@@ -3,33 +3,34 @@
 ### 이종식
 - 예약 ~ 주문까지 수정할 부분
     - ✔ reservation.html 페이징 개수 변경
-    - ✔ reservationRead.htrml 테스트 및 확인
     - ✔ payment.html 쿠폰 css 삭제, 유효성 검사
     - ✔ 주문 취소 할 경우 예약 시간, 주소 입력 없는 경우 에러 발생
         - not null -> null로 ddl 변경
     - ✔ 주문 시 주소 값 넘겨주기
         - payment address 컬럼 추가
-    - reservation.html 썸네일 안나옴
+    - ✔ reservation.html 썸네일 안나옴
+    - ✔ reservationRead.htrml 테스트 및 css수정
+    - ✔ cart.html 장바구니 중복 X
+    - ✔ reservation.html 페이징 처리
 
 - 환불 처리
     - ✔ CancelMapper.xml 기본 CRUD 생성
     - ✔ Cancel, CancelService, CancelMapper, CancelServiceImpl 생성
-    - 로직 작성
+    - ✔ 로직 작성
         - userReservation.html
             - ✔ 취소 사유, 환불 계좌, 은행, 예금주 입력하는 html 추가
             - ✔ 데이터 처리
         - adminReservation에서 승인 처리 
-            - 취소 한 경우 승인처리 할 수 있도록 예약 내역에 버튼 추가
-        - partnerReservation.html
-            - 환불 승인 된 경우 예약 내역에서 목록 출력 X
+            - ✔ 취소 한 경우 승인처리 할 수 있도록 예약 내역에 버튼 추가
+        - 환불 승인 된 경우 예약 내역에서 목록 출력 X
+            - reservationRead.html 목록 출력 X
 
 ### 반예진
 - 팁 게시판 댓글 관련
-- 팁 게시판 페이지당 보이는 게시글 9개로 변경(현재 10개)
-- 팁 게시판 수정 화면에서 파일 첨부하는 기능
+- ✔ 팁 게시판 페이지당 보이는 게시글 9개로 변경(현재 10개)
   
 ### 정다운
-- 회원 리뷰 되면 받아서 리뷰 관리 기능
+- ✔ 회원 리뷰 되면 받아서 리뷰 관리 기능
 - ✔ 게시판 받아서 관리..
 - 파트너 파일 되면 받아서 관리 기능
 - ✔ 이메일 인증
