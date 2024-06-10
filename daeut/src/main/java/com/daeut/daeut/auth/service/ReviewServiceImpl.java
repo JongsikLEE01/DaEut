@@ -33,4 +33,9 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> getReviewByServiceNo(int serviceNo) {
        return reviewMapper.getReviewByServiceNo(serviceNo);
     }
+
+    @Override
+    public int getAverageRatingByServiceNo(int serviceNo) {
+       return reviewMapper.getAverageRatingByServiceNo(serviceNo);
+    }
 }

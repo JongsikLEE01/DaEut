@@ -62,6 +62,7 @@
         VALUES (#{reviewTitle}, #{reviewContent}, NOW(), #{reviewRating}, #{userNo}, #{paymentNo}, #{partnerNo}, #{serviceNo})
     </insert>
 
+    <!--serviceNo로 파트너 정보 가져오기-->
     <select id="getReviewByServiceNo">
     SELECT
         r.review_no,
@@ -77,5 +78,13 @@
     WHERE
     r.service_no = #{serviceNo}
     </select>
+
+    <!--평균값 계산-->
+    <select id="getAverageRatingByServiceNo">
+        SELECT ROUND(AVG(review_rating)) AS average_rating
+        FROM review
+        WHERE service_no = #{serviceNo}
+    </select>
+
 
 </mapper>

@@ -5,6 +5,7 @@ import com.daeut.daeut.reservation.dto.Payments;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,4 +18,6 @@ public interface ReviewService {
     public void saveReview(Review review);
 
     public List<Review> getReviewByServiceNo(int serviceNo);
+
+    int getAverageRatingByServiceNo(@Param("serviceNo") int serviceNo);
 }

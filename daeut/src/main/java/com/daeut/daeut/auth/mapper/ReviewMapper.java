@@ -17,4 +17,6 @@ public interface ReviewMapper {
     public void insertReview(Review review);
 
     public List<Review> getReviewByServiceNo(@Param("serviceNo")int serviceNo);
+
+    int getAverageRatingByServiceNo(@Param("serviceNo") int serviceNo);
 }
