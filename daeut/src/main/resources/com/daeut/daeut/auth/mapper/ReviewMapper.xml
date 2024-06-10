@@ -80,7 +80,7 @@
     </select>
 
     <select id="maxPk" resultType="int">
-        SELECT MAX(review_no)
+        SELECT COALESCE(MAX(review_no), 0)
         FROM review
     </select>
 
