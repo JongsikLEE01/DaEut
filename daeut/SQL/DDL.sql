@@ -181,6 +181,7 @@ CREATE TABLE reply
   user_no        INT       NOT NULL COMMENT '사용자 번호',
   PRIMARY KEY (reply_no)
 ) COMMENT '댓글';
+ALTER TABLE reply ADD COLUMN user_id VARCHAR(255);
 
 CREATE TABLE review
 (
