@@ -15,4 +15,6 @@ public interface ReviewMapper {
     public Payments getPaymentDetails(int paymentNo);
 
     public void insertReview(Review review);
+
+    public List<Review> getReviewByServiceNo(@Param("serviceNo")int serviceNo);
 }

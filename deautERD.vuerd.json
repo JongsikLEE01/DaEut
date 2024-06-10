@@ -3,10 +3,8 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
-
-    "scrollTop": -892.2008017288986,
-    "scrollLeft": -2502.40625,
-
+    "scrollTop": -1692.2008017288986,
+    "scrollLeft": -1640.5263157894744,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -370,14 +368,36 @@
               "widthDataType": 60,
               "widthDefault": 60
             }
+          },
+          {
+            "id": "9dd7ca47-4977-4f17-b1ac-4f906436ef8c",
+            "name": "authCode",
+            "comment": "인증 코드",
+            "dataType": "VARCHAR(100)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
-          "active": false,
+          "active": true,
           "left": 1695.5323,
           "top": 1722.8417,
-          "zIndex": 8,
-
+          "zIndex": 30,
           "widthName": 60,
           "widthComment": 60
         },
@@ -462,9 +482,7 @@
           "active": false,
           "left": 1006.2442,
           "top": 1668.1884,
-
-          "zIndex": 10,
-
+          "zIndex": 8,
           "widthName": 60,
           "widthComment": 60
         },
@@ -664,7 +682,7 @@
           "active": false,
           "left": 997.0372,
           "top": 978.9139,
-          "zIndex": 7,
+          "zIndex": 5,
           "widthName": 60,
           "widthComment": 60
         },
@@ -887,9 +905,7 @@
           "active": false,
           "left": 2025.2845,
           "top": 1321.3578,
-
-          "zIndex": 9,
-
+          "zIndex": 7,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1020,9 +1036,7 @@
           "active": false,
           "left": 971.4775,
           "top": 2309.3258,
-
-          "zIndex": 13,
-
+          "zIndex": 11,
           "widthName": 60,
           "widthComment": 60,
           "color": "#000000"
@@ -1269,7 +1283,7 @@
           "active": false,
           "left": 3247.5196,
           "top": 1275.9079,
-          "zIndex": 3,
+          "zIndex": 2,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1598,11 +1612,9 @@
         ],
         "ui": {
           "active": false,
-
           "left": 2602.7396,
           "top": 1026.7194,
-          "zIndex": 14,
-
+          "zIndex": 12,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1825,7 +1837,7 @@
           "active": false,
           "left": 2476.3597,
           "top": 1799.4425,
-          "zIndex": 19,
+          "zIndex": 25,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1933,7 +1945,7 @@
           "active": false,
           "left": 3245.9654,
           "top": 1602.9964,
-          "zIndex": 4,
+          "zIndex": 3,
           "widthName": 99.93798828125,
           "widthComment": 67
         },
@@ -2133,7 +2145,7 @@
           "active": false,
           "left": 2057.1481,
           "top": 406.7987,
-          "zIndex": 18,
+          "zIndex": 15,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2356,7 +2368,7 @@
           "active": false,
           "left": 3289.1395,
           "top": 964.2435,
-          "zIndex": 16,
+          "zIndex": 14,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2556,7 +2568,7 @@
           "active": false,
           "left": 995.0024,
           "top": 669.1538,
-          "zIndex": 6,
+          "zIndex": 4,
           "widthName": 65.0830078125,
           "widthComment": 60
         },
@@ -2871,7 +2883,7 @@
           "active": false,
           "left": 2741.4433,
           "top": 404.4682,
-          "zIndex": 15,
+          "zIndex": 13,
           "widthName": 60,
           "widthComment": 60
         },
@@ -3048,9 +3060,7 @@
           "active": false,
           "left": 1673.7266,
           "top": 818.2011,
-
-          "zIndex": 12,
-
+          "zIndex": 10,
           "widthName": 60,
           "widthComment": 60
         },
@@ -3204,9 +3214,7 @@
           "active": false,
           "left": 961.5338,
           "top": 1960.5229,
-
-          "zIndex": 11,
-
+          "zIndex": 9,
           "widthName": 69.5009765625,
           "widthComment": 60
         },
@@ -3309,7 +3317,7 @@
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
           "x": 1695.5323,
-          "y": 2043.2417000000003,
+          "y": 2061.6917,
           "direction": "left"
         },
         "end": {
@@ -3335,7 +3343,7 @@
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
           "x": 2258.15192890625,
-          "y": 1989.8417,
+          "y": 2005.2167,
           "direction": "right"
         },
         "end": {
@@ -3413,7 +3421,7 @@
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
           "x": 2258.15192890625,
-          "y": 1811.8417,
+          "y": 1816.9667,
           "direction": "right"
         },
         "end": {
@@ -3465,7 +3473,7 @@
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
           "x": 1695.5323,
-          "y": 1758.4417,
+          "y": 1760.4916999999998,
           "direction": "left"
         },
         "end": {
@@ -3517,7 +3525,7 @@
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
           "x": 1695.5323,
-          "y": 1829.6417000000001,
+          "y": 1835.7916999999998,
           "direction": "left"
         },
         "end": {
@@ -3699,7 +3707,7 @@
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
           "x": 1695.5323,
-          "y": 1900.8417000000002,
+          "y": 1911.0916999999997,
           "direction": "left"
         },
         "end": {
@@ -3725,7 +3733,7 @@
             "a5f900ab-c7e1-4c9c-92d3-d60e7810fe95"
           ],
           "x": 1695.5323,
-          "y": 1972.0417000000002,
+          "y": 1986.3916999999997,
           "direction": "left"
         },
         "end": {
