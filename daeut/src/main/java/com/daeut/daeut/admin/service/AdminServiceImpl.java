@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.daeut.daeut.admin.mapper.AdminMapper;
+import com.daeut.daeut.auth.dto.Review;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
@@ -135,6 +136,13 @@ public class AdminServiceImpl implements AdminService {
         return result;
     }
 
+    // 관리자 - 리뷰 삭제
+    @Override
+    public int adminDeleteReview(int reviewNo) throws Exception {
+        int result = adminMapper.adminDeleteReview(reviewNo);
+        return result;
+    }
+
     // 관리자 - 파트너 조회
     @Override
     public Partner findPartnerById(int userNo) throws Exception {
@@ -218,4 +226,8 @@ public class AdminServiceImpl implements AdminService {
         return result;
     }
 
+    @Override
+    public List<Review> selectReviewsByUser(int userNo) throws Exception {
+        return adminMapper.selectReviewsByUser(userNo);
+    }
 }
