@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserService {
     public int insertPartner(Partner partner) throws Exception {
 
         String parentTable = "partner";
-        int parentNo = partnerMapper.maxPk();
+        int parentNo = partnerMapper.maxPk() + 1;
 
         // 썸네일 업로드
         // - 부모 테이블, 부모 번호, 멀티파트파일, 파일 코드(1)-> 썸네일
