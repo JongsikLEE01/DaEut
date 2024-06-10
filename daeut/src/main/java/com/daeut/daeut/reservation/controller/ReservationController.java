@@ -86,22 +86,22 @@ public class ReservationController {
      * @throws Exception
      */
     @GetMapping("/reservationRead")
-	public String reservationRead(@RequestParam("serviceNo") int serviceNo, Model model, Files file, HttpSession session) throws Exception {
+    public String reservationRead(@RequestParam("serviceNo") int serviceNo, Model model, Files file, HttpSession session) throws Exception {
         Services service = reservationService.serviceSelect(serviceNo);
         Files thumbnail = reservationService.SelectThumbnail(serviceNo);
         List<Files> files = reservationService.SelectFiles(serviceNo);
         Users user = (Users) session.getAttribute("user");
         List<Review> reviews = reviewService.getReviewByServiceNo(serviceNo);
-        int pNo = service.getServiceNo();
-        Partner partner = partnerService.selectByPartnerNo(pNo);
-
-     
+        
+        // partner_no를 service 객체에서 가져옵니다.
+        int partnerNo = service.getPartnerNo();
+        Partner partner = partnerService.selectByPartnerNo(partnerNo);
         Users pUsers = userService.findUserById(partner.getUserNo());
-
+    
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
-
+    
         int averageRating = reviewService.getAverageRatingByServiceNo(serviceNo);
         
         model.addAttribute("serviceNo", serviceNo);
@@ -110,11 +110,11 @@ public class ReservationController {
         model.addAttribute("thumbnail", thumbnail);
         model.addAttribute("files", files);
         model.addAttribute("user", user);
-        model.addAttribute("partner", partner);
         model.addAttribute("reviews", reviews);
+        model.addAttribute("partner", partner);
         model.addAttribute("pUsers", pUsers);
         model.addAttribute("averageRating", averageRating);
-
+    
         return "reservation/reservationRead";
     }
 
