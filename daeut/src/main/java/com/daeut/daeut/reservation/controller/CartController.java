@@ -87,7 +87,16 @@ public class CartController {
         cart.setCartAmount(1);
         cart.setPartnerName(pUser.getUserName());
         log.info("cart? {}", cart);
-        
+
+        // 장바구니에
+        List<Cart> cartList = cartService.cartList(user.getUserNo());
+        for (Cart originCart : cartList) {
+            if(originCart.getServiceNo() == cart.getServiceNo())
+                // 추가 실패
+                return new ResponseEntity<>("FAIL",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
         int result = 0;
         try {
             // 장바구니 추가 요청

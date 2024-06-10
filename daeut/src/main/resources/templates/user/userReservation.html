@@ -70,9 +70,8 @@
                                 <div id="staticPartner" class="custom-text" th:text="${order.partnerName}"></div>
                             </div>
                         </div>
-
-                        <!-- TODO : CANCELLED, PENDING 상태일때는 출력 X -->
-                        <th:block th:if="${order.orderStatus != 'CANCELLED' || order.orderStatus != 'PENDING'}">
+                        
+                        <th:block th:if="${order.orderStatus.equals('PAID')}">
                             <form action="/user/userResevationCancel" method="get">
                                 <!-- CSRF TOKEN -->
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -82,6 +81,15 @@
                                 </div>
                             </form>
                         </th:block>
+
+                        <th:block th:if="${order.orderStatus.equals('CANCELLED')}">
+                            <span class="col-sm-5 col-form-label">이미 환불 처리가 된 주문 입니다</span>
+                        </th:block>
+
+                        <th:block th:if="${order.orderStatus.equals('PENDING')}">
+                            <span class="col-sm-5 col-form-label">결제가 보류된 주문 입니다</span>
+                        </th:block>
+
 
                     </div>
                 </div>
