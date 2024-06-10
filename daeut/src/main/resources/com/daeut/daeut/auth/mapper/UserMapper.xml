@@ -158,7 +158,7 @@
         VALUES (#{partnerCareer}, #{introduce}, #{userNo})
     </insert>
 
-    <!-- 비밀번호 찾기 - 비밀번호 재설정 -->updatePw
+    <!-- 비밀번호 찾기 - 비밀번호 재설정 -->
     <update id="updatePw">
         UPDATE users
            SET 
