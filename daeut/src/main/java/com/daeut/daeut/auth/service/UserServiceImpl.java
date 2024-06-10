@@ -58,6 +58,15 @@ public class UserServiceImpl implements UserService {
     public String findUserByDetails(String userName, String userEmail, String userPhone) throws Exception {
         return userMapper.findUserByDetails(userName, userEmail, userPhone);
     }
+
+    // 비밀번호 찾기 비밀번호 재설정
+    @Transactional
+    @Override
+    public int updatePw(Users user) throws Exception {
+        int result = userMapper.updatePw(user);
+        return result;
+    }
+
     // id로 조회
     @Override
     public Users select(String username) throws Exception {
