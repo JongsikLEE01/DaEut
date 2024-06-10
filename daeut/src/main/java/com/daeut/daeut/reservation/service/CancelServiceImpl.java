@@ -25,7 +25,7 @@ public class CancelServiceImpl implements CancelService{
     }
 
     @Override
-    public List<Cancel> selectByOrdersNo(String ordersNo) throws Exception {
+    public Cancel selectByOrdersNo(String ordersNo) throws Exception {
         return cancelMapper.selectByOrdersNo(ordersNo);
     }
 

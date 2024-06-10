@@ -24,16 +24,18 @@
 				<i class="fa fa-star" aria-hidden="true"></i>
 			</div>
 			<div class="reservation-chat reservation-updat reservation-link">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-					class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
-					<path
-						d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
-				</svg>
-				<form action="/user/userChatRoom" method="post">
-					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-					<input type="hidden" name="partnerNo" th:value="${service.partner.partnerNo}">
-					<input type="submit" class="contact-link" value="문의하기"></input>
-				</form>
+				<th:block sec:authorize="hasRole('ROLE_USER')">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+						class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+						<path
+							d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+					</svg>
+					<form action="/user/userChatRoom" method="post">
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+						<input type="hidden" name="partnerNo" th:value="${service.partner.partnerNo}">
+						<input type="submit" class="contact-link color_main" value="문의하기"></input>
+					</form>
+				</th:block>
 			</div>
 
 			<th:block sec:authorize="hasRole('ROLE_PARTNER') and hasRole('ROLE_USER') and !hasRole('ROLE_ADMIN') ">
@@ -118,13 +120,11 @@
 						<hr class="section-underbar">
 						<p class="refund-legacy"><span style="color: red;">당일 취소 및 반복적인 예약 취소는 파트너 보호를 위해 이용에 제한을 받을 수
 								있습니다.</span> <br> <br>
-							소비자 권리 보호 및 분쟁 해결기준에 따라 결제 후 2시간 이내 취소 시 전액 환불이 가능합니다.
-							아무튼 환불 규정
-							어쩌고 저쩌고
-							이용 8일 전 총 금액의 100% 환불
+							소비자 권리 보호 및 분쟁 해결 기준에 따라 결제 후 2시간 이내 취소 시 전액 환불이 가능합니다.(단, 이용시간 전까지만 가능합니다.)
+							<br>이용 8일 전 총 금액의 100% 환불이 가능합니다.
 							<br><br>
-							<span style="color: red;">이용 7일 전부터 취소 시 환불 불가</span>
-
+							<span style="color: red;">이용 7일 전부터 취소 시 환불이 불가능합니다.</span>
+							<br><br>
 						</p>
 					</div>
 				</div>
@@ -135,8 +135,9 @@
 					<hr class="section-underbar">
 
 					<div class="review-section">
-						<div class="review-user-title">
-							<p class="review-user-name">사용자01</p>
+						
+						<!-- <div class="review-user-title">
+							<p class="review-user-name" > 사용자 이름 </p>
 							<div class="review-star3">
 								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
 								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
@@ -144,8 +145,8 @@
 								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
 								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
 							</div>
-						</div>
-						<div class="review-image-box">
+						</div> -->
+						<!-- <div class="review-image-box">
 							<div class="review-image-container">
 								<img src="/img/slide02.png" alt="이미지 1" class="review-image">
 							</div>
@@ -158,21 +159,21 @@
 							<div class="review-image-container">
 								<img src="/img/slide02.png" alt="이미지 4" class="review-image">
 							</div>
-
-						</div>
-						<p class="review-content">주방 청소를 정말 깔끔하게 해주셨습니다. 입주할 때와 똑같아요.</p>
+						</div> -->
+						<!-- <p class="review-content">주방 청소를 정말 깔끔하게 해주셨습니다. 입주할 때와 똑같아요.</p>
 						<div class="review-actions">
 							<p class="review-date">2024.05.17 13:57:54</p>
 							<div class="review-buttons">
 								<button class="review-edit">수정</button>
 								<button class="review-delete">삭제</button>
 							</div>
-						</div>
+						</div> -->
+						
 						<hr style="color: #8FA2CA;">
 
 
 						<div class="review-user-title">
-							<p class="review-user-name">사용자02</p>
+							<p class="review-user-name" > 사용자</p>
 							<div class="review-star3">
 								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
 								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
@@ -181,9 +182,9 @@
 								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
 							</div>
 						</div>
-						<p class="review-content">바쁠 때 믿고 맡길 수 있어요</p>
+						<p class="review-content" id="reviewConetent" th:text="${reviewContent}"></p>
 						<div class="review-actions">
-							<p class="review-date">2024.05.17 13:59:54</p>
+							<p class="review-date" th:text="${review-date}"></p>
 							<div class="review-buttons">
 								<button class="review-edit">수정</button>
 								<button class="review-delete">삭제</button>
@@ -213,10 +214,13 @@
 							<tr class="reservation-buttons">
 
 								<th:block th:if="${session.user == null}">
-									<a href="javascript:;" id="hidden-link" onclick="sweetConfirm('회원가입이 필요합니다.', '예약 서비스는 회원가입 후 가능합니다.', 'warning', '로그인', ()=>{location.href='/auth/login'})" style="color: white;".reservation-calender, .reservation-paybutton>
-										<button class="reservation-calender" >바로 예약하기</button>
+									<a class="text-decoration-none" href="javascript:;" id="hidden-link" onclick="sweetConfirm('회원가입이 필요합니다.', '예약 서비스는 회원가입 후 가능합니다.', 'warning', '로그인', ()=>{location.href='/auth/login'})">
+										<button class="reservation-calender">바로 예약하기</button>
 									</a>
 									<!-- <a href="javascript:;" onclick="sweetAlert('경고', '회원가입이 필요합니다.', 'warning')"> -->
+									<a href="javascript:;" id="hidden-link" onclick="sweetConfirm('회원가입이 필요합니다.', '장바구니 담기는 회원가입 후 가능합니다.', 'warning', '로그인', ()=>{location.href='/auth/login'})">
+										<button class="reservation-paybutton">장바구니 담기</button>
+									</a>
 								</th:block>
 								
 								<th:block th:if="${session.user != null}">
@@ -226,29 +230,13 @@
 										<input type="hidden" id="quantity" name="quantity" value="1">
 										<button type="submit" class="reservation-calender" id="couponBtn">바로 예약하기</button>
 									</form>
+									<button class="reservation-paybutton" onclick="addToCart()">장바구니 담기</button>
 								</th:block>
 								<!-- <button class="reservation-calender" id="showCalendarBtn">날짜 선택</button> -->
-								<button class="reservation-paybutton" onclick="addToCart()">장바구니 담기</button>
 							</tr>
 						</tfoot>
 
 					</table>
-					
-					<!-- <th:block th:if="${session.user == null}">
-						<a href="javascript:;"
-							onclick="sweetConfirm('회원가입이 필요합니다.', '예약 서비스는 회원가입 후 가능합니다.', 'warning', '로그인', ()=>{location.href='/auth/login'})"> -->
-							<!-- <a href="javascript:;" onclick="sweetAlert('경고', '회원가입이 필요합니다.', 'warning')"> -->
-							<!-- <button class="btn-coupon">바로 예약하기</button>
-						</a>
-					</th:block>
-					<th:block th:if="${session.user != null}">
-						<form action="/orders" method="post">
-							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-							<input type="hidden" id="serviceNo" name="serviceNo" th:value="${service.serviceNo}">
-							<input type="hidden" id="quantity" name="quantity" value="1">
-							<button type="submit" class="btn-coupon" id="couponBtn">바로 예약하기</button>
-						</form>
-					</th:block> -->
 				</div>
 			</div>
 
@@ -312,7 +300,7 @@
 					sweetAlert('장바구니 담기 성공', '성공적으로 서비스가 장바구니에 담겼습니다.', 'success')
 				}
 				else{
-					sweetAlert('장바구니 담기 실패', '서비스가 장바구니에 담기지 못했어요.', 'error')
+					sweetAlert('장바구니 담기 실패', '서비스가 장바구니에 담기지 못했어요. 이미 장바구니에 담겨있지 않는지 확인해봐요', 'error')
 					console.log(request.responseText);
 				}
 			};

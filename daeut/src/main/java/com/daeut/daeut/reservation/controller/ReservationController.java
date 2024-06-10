@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.daeut.daeut.auth.dto.Review;
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.auth.service.ReviewService;
 import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Option;
 import com.daeut.daeut.main.dto.Page;
@@ -33,6 +35,9 @@ public class ReservationController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     /**
      * 전체 조회
@@ -59,7 +64,6 @@ public class ReservationController {
         
         model.addAttribute("serviceList", serviceList);
         model.addAttribute("servicePage", servicePage);
-        
         return "reservation/reservation";
 	}
     
@@ -78,6 +82,7 @@ public class ReservationController {
         Files thumbnail = reservationService.SelectThumbnail(serviceNo);
         List<Files> files = reservationService.SelectFiles(serviceNo);
         Users user = (Users) session.getAttribute("user");
+        List<Review> reviews = reviewService.getReviewByServiceNo(serviceNo);
 
         file.setParentTable("service");
         file.setParentNo(serviceNo);
@@ -89,6 +94,7 @@ public class ReservationController {
         model.addAttribute("thumbnail", thumbnail);
         model.addAttribute("files", files);
         model.addAttribute("user", user);
+        model.addAttribute("reviews", reviews);
         return "reservation/reservationRead";
     }
 

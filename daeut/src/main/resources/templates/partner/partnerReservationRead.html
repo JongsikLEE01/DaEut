@@ -36,13 +36,13 @@
                     <div class="form-group mb-3">
                         <label for="staticSchedule" class="col-sm-2 col-form-label">일정</label>
                         <div class="col-sm-10">
-                            <div id="staticSchedule" class="custom-text" th:text="${#dates.format(payments.serviceDate, 'yyyy년 MM월 dd일')}"></div>
+                            <div id="staticSchedule" class="custom-text" th:text="${#dates.format(payments.serviceDate, 'yyyy년 MM월 dd일 HH시 mm분')}"></div>
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="staticService" class="col-sm-2 col-form-label">내역</label>
                         <div class="col-sm-10">
-                            <!-- <div id="staticService" class="custom-text" th:text="${order.service.serviceName}"></div> -->
+                            <div id="staticService" class="custom-text" th:text="${service.serviceName}"></div>
                         </div>
                     </div>
                     <div class="form-group mb-3">
@@ -60,7 +60,7 @@
                     
                     <div class="form-buttons">
                         <a href="/reservation/chat" class="btn btn-primary">문의 하기</a>
-                        <button type="submit" class="btn btn-danger">예약 취소</button>
+                        <a href="/partner/partnerReservation" class="btn btn-primary" >돌아가기</a>
                     </div>
 
                 </form>
