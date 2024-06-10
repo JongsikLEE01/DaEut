@@ -181,7 +181,7 @@ public class UserController {
     }
 
      /**
-     * 유저 채팅방 생성
+     * 유저 채팅방 생성 - POST
      * @param chatRoom
      * @param model
      * @return

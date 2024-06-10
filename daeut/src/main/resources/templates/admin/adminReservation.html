@@ -35,9 +35,9 @@
                                 <!-- payment에서 가져오기 -->
                                 <th width="80">예약 상태</th>  
                                 <th width="100">예약 시간</th>
-                                <th width="30" name="allCheck">
+                                <!-- <th width="30" name="allCheck">
                                     <input type="checkbox" class="checkbox" id="allCheck" onclick="toggleAllCheckboxes(this)">
-                                </th>
+                                </th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -52,17 +52,17 @@
                                 <td th:text="${order.partnerName}"></td>
                                 <td th:text="${order.ordersNo}"></td>
                                 <td th:text="${order.status}"></td>
-                                <td th:text="${#dates.format(order.serviceDate, 'yyyy-MM-dd')}"></td>
-                                <td class="checked">
+                                <td th:text="${#dates.format(order.serviceDate, 'yyyy-MM-dd HH:mm')}"></td>
+                                <!-- <td class="checked">
                                     <input type="checkbox" class="checkbox" name="deleteNoList" th:value="${order.ordersNo}">
-                                </td>
+                                </td> -->
                             </tr>
                         </tbody>
                     </table>
                 </form>
-                <div class="buttons">
-                    <input type="button" class="btn btn-primary custom1" value="선택 삭제" onclick="deleteSelectedUser()"></input>
-                </div>
+                <!-- <div class="buttons">
+                    <input type="button" class="btn btn-primary custom1" value="선택 취소" onclick="deleteSelectedUser()"></input>
+                </div> -->
                 <!-- 페이징 -->
                 <div class="pagination d-flex align-items-center">
                     <!-- 처음 -->

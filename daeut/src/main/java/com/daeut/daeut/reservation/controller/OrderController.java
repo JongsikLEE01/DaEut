@@ -254,6 +254,18 @@ public class OrderController {
         return "/reservation/payment";
     }
 
+
+    /**
+     * 결제 취소
+     * @param ordersNo
+     * @param cancelAccount
+     * @param cancelName
+     * @param cancelNumber
+     * @param reason
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/cancel")
     public String cancel(@RequestParam String ordersNo,
                          @RequestParam String cancelAccount,
@@ -263,9 +275,7 @@ public class OrderController {
                          Model model) throws Exception {
         // orders 수정
         Orders orders = orderService.select(ordersNo);
-        log.info("ord? {}", orders.toString());
-        orders.setOrderStatus(OrderStatus.CANCELLED);
-        
+        orders.setOrderStatus(OrderStatus.PENDING);
         orderService.update(orders);
 
         // 데이터 넣기

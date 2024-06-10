@@ -19,8 +19,12 @@ import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.reservation.dto.Cancel;
+import com.daeut.daeut.reservation.dto.OrderStatus;
 import com.daeut.daeut.reservation.dto.Orders;
+import com.daeut.daeut.reservation.dto.PaymentStatus;
 import com.daeut.daeut.reservation.dto.Payments;
+import com.daeut.daeut.reservation.service.CancelService;
 import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.PaymentService;
 
@@ -29,6 +33,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -52,6 +58,9 @@ public class AdminController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private CancelService cancelService;
 
 
     //  @Autowired
@@ -320,24 +329,14 @@ public class AdminController {
         log.info("ordersNo : " + ordersNo);
         try {
             Payments payments = paymentService.selectByOrdersNo(ordersNo);
-            log.info("payments : " + payments);
+            log.info("payments?? : " + payments);
             Orders orders = orderService.listByOrderNo(ordersNo);
             log.info("orders : " + orders);
             Users user = userService.selectByUserNo(orders.getUserNo());
             log.info("user : " + user);
-            // List<OrderItems> orderItemList = orderItemService.listByOrderNo(ordersNo);
-            // log.info("orderItemList : " + orderItemList);
-            
-            // List<Users> partnerList = new ArrayList();
-            // for (OrderItems orderItem : orderItemList) {
-            //     Services service = reservationService.serviceSelect(orderItem.getServiceNo());
-            //     Partner uPartner = partnerService.selectByPartnerNo(service.getPartnerNo());
-            //     Users partner = userService.findUserById(uPartner.getUserNo());
-            //     partnerList.add(partner);
-            //     // model.addAttribute("partner", partner);
-            // }
-            // model.addAttribute("partnerList", partnerList);
+            Cancel cancel = cancelService.selectByOrdersNo(ordersNo);
 
+            model.addAttribute("cancel", cancel);
             model.addAttribute("user", user);
             model.addAttribute("payments", payments);
             model.addAttribute("orders", orders);
@@ -346,6 +345,34 @@ public class AdminController {
         }
         return "/admin/adminReservationRead";
     }
+
+    @PostMapping("/adminReservationCancel")
+    public String adminReadReservationCancel(@RequestParam("ordersNo") String ordersNo) throws Exception{
+        log.info("ordersNo? {}",ordersNo);
+        
+        // 결제 내역 환불로 수정
+        
+        Payments payments = paymentService.selectByOrdersNo(ordersNo);
+        payments.setStatus(PaymentStatus.REFUND);
+        log.info("payments? {}",payments);
+        paymentService.merge(payments);
+        
+        // 취소 내역 환불로 승인
+        Cancel cancel = cancelService.selectByOrdersNo(ordersNo);
+        cancel.setConfirmed(1);
+        cancel.setRefund(1);
+        log.info("cancel? {}",cancel);
+        cancelService.update(cancel);
+        
+        // 주문 내역 환불로 수정
+        Orders orders = orderService.select(ordersNo);
+        orders.setOrderStatus(OrderStatus.CANCELLED);
+        log.info("orders? {}",orders);
+        orderService.update(orders);
+
+        return "redirect:/admin/adminReservation";
+    }
+    
 
     // 관리자 - 예약 수정 화면
     @GetMapping("/adminReservationUpdate")
