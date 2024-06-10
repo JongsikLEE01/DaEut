@@ -134,11 +134,12 @@ public class OrderController {
 
         Orders order = orderService.select(ordersNo);
         log.info(":::::::::::::::::::: orders ::::::::::::::::::::");
+        order.setOrderStatus(OrderStatus.CONFIRMED);
+        orderService.update(order);
         log.info(payments.toString());
 
         // 주문 성공 시 장바구니 삭제 -> stackOverFlow 발생(해결)
         List<OrderItems> orderItemList = orderItemService.listByOrderNo(ordersNo);
-
 
         List<Integer> serviceNoList = new ArrayList<>();                        
         for (OrderItems orderItem : orderItemList) {
