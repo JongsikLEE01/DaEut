@@ -177,9 +177,16 @@
 						<div class="review-user-title">
 							<p class="review-user-name" th:text="${review.userName}"></p>
 
-							<div class="review-star3" th:if="${review.reviewRating != null}">
+							<!--유저 별점-->
+							<div class="review-star" th:if="${review.reviewRating != null}">
 								<th:block th:each="star : ${#numbers.sequence(1, review.reviewRating)}">
-									<i class="fa fa-star3" aria-hidden="true" style="width: 15px; height: 15px;"></i>
+									<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
+								</th:block>
+							</div>
+
+							<div class="review-star" th:if="${review.reviewRating != null && review.reviewRating > 0}">
+								<th:block th:each="star : ${#numbers.sequence(1, review.reviewRating)}">
+									<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
 								</th:block>
 							</div>
 
