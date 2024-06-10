@@ -3,8 +3,10 @@
     "version": "2.2.13",
     "width": 4000,
     "height": 4000,
+
     "scrollTop": -892.2008017288986,
     "scrollLeft": -2502.40625,
+
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -19,7 +21,7 @@
     },
     "database": "MySQL",
     "databaseName": "daeut",
-    "canvasType": "@vuerd/builtin-sql-ddl",
+    "canvasType": "ERD",
     "language": "GraphQL",
     "tableCase": "pascalCase",
     "columnCase": "camelCase",
@@ -375,6 +377,7 @@
           "left": 1695.5323,
           "top": 1722.8417,
           "zIndex": 8,
+
           "widthName": 60,
           "widthComment": 60
         },
@@ -459,7 +462,9 @@
           "active": false,
           "left": 1006.2442,
           "top": 1668.1884,
+
           "zIndex": 10,
+
           "widthName": 60,
           "widthComment": 60
         },
@@ -882,7 +887,9 @@
           "active": false,
           "left": 2025.2845,
           "top": 1321.3578,
+
           "zIndex": 9,
+
           "widthName": 60,
           "widthComment": 60
         },
@@ -1013,7 +1020,9 @@
           "active": false,
           "left": 971.4775,
           "top": 2309.3258,
+
           "zIndex": 13,
+
           "widthName": 60,
           "widthComment": 60,
           "color": "#000000"
@@ -1589,9 +1598,11 @@
         ],
         "ui": {
           "active": false,
+
           "left": 2602.7396,
           "top": 1026.7194,
           "zIndex": 14,
+
           "widthName": 60,
           "widthComment": 60
         },
@@ -1785,13 +1796,36 @@
               "widthDataType": 60,
               "widthDefault": 60
             }
+          },
+          {
+            "id": "e1bc9136-89b0-4b5b-b404-ed89334dff5b",
+            "name": "service_no",
+            "comment": "서비스 번호",
+            "dataType": "INT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 63.22314453125,
+              "widthComment": 71.5703125,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
           "active": false,
           "left": 2476.3597,
           "top": 1799.4425,
-          "zIndex": 2,
+          "zIndex": 19,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2099,7 +2133,7 @@
           "active": false,
           "left": 2057.1481,
           "top": 406.7987,
-          "zIndex": 5,
+          "zIndex": 18,
           "widthName": 60,
           "widthComment": 60
         },
@@ -3014,7 +3048,9 @@
           "active": false,
           "left": 1673.7266,
           "top": 818.2011,
+
           "zIndex": 12,
+
           "widthName": 60,
           "widthComment": 60
         },
@@ -3168,7 +3204,9 @@
           "active": false,
           "left": 961.5338,
           "top": 1960.5229,
+
           "zIndex": 11,
+
           "widthName": 69.5009765625,
           "widthComment": 60
         },
@@ -3306,7 +3344,7 @@
             "35ba0d25-e35c-4424-866e-8f34d8ce964a"
           ],
           "x": 2476.3597,
-          "y": 1915.9425,
+          "y": 1926.1925,
           "direction": "left"
         },
         "constraintName": "fk_users_to_review",
@@ -3358,7 +3396,7 @@
             "b04acd84-39b6-4fc9-b9ae-5e56ac768abf"
           ],
           "x": 3034.15511015625,
-          "y": 1915.9425,
+          "y": 1926.1925,
           "direction": "right"
         },
         "constraintName": "fk_payment_to_review",
