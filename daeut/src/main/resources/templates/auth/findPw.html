@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/auth_layout}"
-      >
-<!-- ⭐ layout:decorate="~{/레이아웃 경로/레이아웃 파일명}" -->
+      layout:decorate="~{/layout/auth_layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Da E ut</title>
 </head>
-<!-- ⭐ layout:fragment="레이아웃 프레그먼트 이름" -->
 <body layout:fragment="content">
     <div class="container form-container">
         <form id="form" th:action="@{/auth/findPw}" method="post">
@@ -23,7 +20,7 @@
             <div class="mb-3"><input type="text" name="userId" class="form-control" placeholder="아이디" required></div>
             <div class="mb-3 input-group">
                 <input type="text" name="userEmail" class="form-control" placeholder="이메일" required>
-                <button type="button" class="btn btn-primary custom-auth-btn">인증하기</button>
+                <button type="button" class="btn btn-primary custom-auth-btn" onclick="sendAuthCode()">인증하기</button>
             </div>
             <div class="mb-3"><input type="text" name="authCode" class="form-control" placeholder="인증코드" required></div>
 
@@ -34,5 +31,25 @@
             <hr>
         </form>
     </div>
+
+    <script>
+        function sendAuthCode() {
+            var userEmail = document.querySelector('input[name="userEmail"]').value;
+            fetch('/auth/sendAuthCode', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_csrf"]').value
+                },
+                body: JSON.stringify({ userEmail: userEmail })
+            }).then(response => response.text())
+              .then(data => {
+                  alert(data);
+              }).catch(error => {
+                  alert('인증 코드 전송 중 오류가 발생했습니다.');
+              });
+        }
+    </script>
+    
 </body>
 </html>
