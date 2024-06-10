@@ -15,4 +15,6 @@ public interface ReviewService {
     public Payments getPaymentDetails(int paymentNo);
     
     public void saveReview(Review review);
+
+    public List<Review> getReviewByServiceNo(int serviceNo);
 }
