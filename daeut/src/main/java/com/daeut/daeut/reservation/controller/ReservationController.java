@@ -59,7 +59,6 @@ public class ReservationController {
         
         model.addAttribute("serviceList", serviceList);
         model.addAttribute("servicePage", servicePage);
-        
         return "reservation/reservation";
 	}
     

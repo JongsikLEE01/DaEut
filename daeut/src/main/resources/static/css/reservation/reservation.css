@@ -1,6 +1,7 @@
 .contact-link {
     text-decoration: none;
-    color: black;
+    border: none;
+    background-color: white;
 }
 
 .chatArea {
