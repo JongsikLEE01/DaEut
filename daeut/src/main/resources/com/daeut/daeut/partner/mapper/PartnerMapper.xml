@@ -5,66 +5,71 @@
 
 <mapper namespace="com.daeut.daeut.partner.mapper.PartnerMapper">
 
-  <!-- 파트너 정보 가져오기 -->
-  <select id="select">
-    SELECT *
-    FROM partner
-    WHERE partner_no = #{partnerNo}
-  </select>
+<!-- 파트너 정보 가져오기 -->
+<select id="select">
+  SELECT *
+  FROM partner
+  WHERE partner_no = #{partnerNo}
+</select>
 
   <!-- 파트너 정보 가져오기 -->
 <select id="getPartners">
-SELECT partner.*
-        FROM users
-        INNER JOIN partner ON users.user_no = partner.user_no
-        WHERE users.user_no = #{userId}
+  SELECT partner.*
+  FROM users
+  INNER JOIN partner ON users.user_no = partner.user_no
+  WHERE users.user_no = #{userId}
 </select>
 
   <!-- 파트너 정보 수정하기 -->
 <update id="partnerUpdate">
   UPDATE partner 
-    SET introduce = #{introduce}
-    WHERE user_no = #{userNo}
+  SET introduce = #{introduce}
+  WHERE user_no = #{userNo}
 </update>
 
 <!-- 리뷰 정보 가져오기 -->
- <select id="getReviews" parameterType="int" resultType="com.daeut.daeut.auth.dto.Review">
-SELECT r.*, u.user_name AS reviewer_name
-FROM review r
-JOIN users u ON r.user_no = u.user_no
-WHERE r.partner_no = #{partnerNo}
-    </select>
+<select id="getReviews" parameterType="int" resultType="com.daeut.daeut.auth.dto.Review">
+  SELECT r.*, u.user_name AS reviewer_name
+  FROM review r
+  JOIN users u ON r.user_no = u.user_no
+  WHERE r.partner_no = #{partnerNo}
+</select>
 
 <!-- 유저 NO로 파트너 정보 가져오기-->
- <select id="findByUserNo">
-        SELECT * 
-        FROM partner 
-        WHERE user_no = #{userNo}
-    </select>
+<select id="findByUserNo">
+  SELECT * 
+  FROM partner 
+  WHERE user_no = #{userNo}
+</select>
 
-    <!--파트너 넘버로 파트너 정보 가져오기-->
-    <select id="selectByPartnerNo">
-        SELECT * 
-        FROM partner 
-        WHERE partner_no = #{partnerNo}
-    </select>
+<!--파트너 넘버로 파트너 정보 가져오기-->
+<select id="selectByPartnerNo">
+  SELECT * 
+  FROM partner 
+  WHERE partner_no = #{partnerNo}
+</select>
   
-  <!-- 파트너 넘버로 유저 이름 가져오기 -->
-  <select id="selectUserNameByPartnerNo" resultType="java.lang.String">
-    SELECT u.user_name
-        FROM users u
-        JOIN partner p ON u.user_no = p.user_no
-        WHERE p.partner_no = #{partnerNo}
-  </select>
+<!-- 파트너 넘버로 유저 이름 가져오기 -->
+<select id="selectUserNameByPartnerNo" resultType="java.lang.String">
+  SELECT u.user_name
+  FROM users u
+  JOIN partner p ON u.user_no = p.user_no
+  WHERE p.partner_no = #{partnerNo}
+</select>
 
-      <!--날짜-->
-    <select id="getPartnerSchedule">
+<!--날짜-->
+<select id="getPartnerSchedule">
   SELECT p.service_date
   FROM payment p
   JOIN order_item oi ON p.orders_no = oi.orders_no
   JOIN service s ON oi.service_no = s.service_no
   JOIN partner par ON s.partner_no = par.partner_no
   WHERE par.partner_no = #{partnerNo}
-    </select>
+</select>
+
+<select id="maxPk" resultType="int">
+  SELECT MAX(partner_no)
+  FROM partner
+</select>
 
 </mapper>

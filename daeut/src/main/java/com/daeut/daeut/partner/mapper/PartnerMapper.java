@@ -36,4 +36,7 @@ public interface PartnerMapper {
 
     // 날짜 가져오기
     public List<String> getPartnerSchedule(@Param("partnerNo") String partnerNo);
+
+    // 최댓값을 조회
+    public int maxPk() throws Exception;
 }
