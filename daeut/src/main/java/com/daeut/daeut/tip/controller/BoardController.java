@@ -5,10 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Set;
+import java.util.HashSet;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -79,14 +83,19 @@ public class BoardController {
         // 현재 사용자 정보 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserId = null;
+        Set<String> currentRoles = new HashSet<>(); // 제네릭 타입을 명시
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-            currentUserId = ((UserDetails) authentication.getPrincipal()).getUsername();
-        }
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        currentUserId = userDetails.getUsername();
+        currentRoles = AuthorityUtils.authorityListToSet(userDetails.getAuthorities());
+    }
 
         boolean isWriter = currentUserId != null && currentUserId.equals(board.getUserId());
+        boolean isAdmin = currentRoles.contains("ROLE_ADMIN");
 
         model.addAttribute("isWriter", isWriter);
-        
+        model.addAttribute("isAdmin", isAdmin);
+
         file.setParentTable("board");
         file.setParentNo(boardNo);
         List<Files> fileList = filesService.listByParent(file);
@@ -132,7 +141,7 @@ public class BoardController {
         String currentUserId = authentication.getName();
 
         // 게시글 작성자와 현재 사용자가 같은지 확인
-        if (!board.getUserId().equals(currentUserId)) {
+        if (!board.getUserId().equals(currentUserId) && !isAdmin(authentication)) {
             throw new IllegalAccessException("수정 권한이 없습니다.");
         }
 
@@ -149,6 +158,12 @@ public class BoardController {
         return "/tip/tipUpdate";
     }
 
+    private boolean isAdmin(Authentication authentication) {
+        return authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+    }
+
+
     // 게시글 수정 처리
     @PostMapping("/tipUpdate")
     public String tipUpdatePro(Board board) throws Exception {
@@ -158,7 +173,7 @@ public class BoardController {
 
         // 게시글 작성자와 현재 사용자가 같은지 확인
         Board existingBoard = boardService.select(board.getBoardNo());
-        if (!existingBoard.getUserId().equals(currentUserId)) {
+        if (!existingBoard.getUserId().equals(currentUserId) && !isAdmin(authentication)) {
             throw new IllegalAccessException("수정 권한이 없습니다.");
         }
 
@@ -170,6 +185,7 @@ public class BoardController {
         int no = board.getBoardNo();
         return "redirect:/tip/tipUpdate?no=" + no + "&error";   
     }
+
     
     // 게시글 삭제 처리
     @PostMapping("/tipDelete")
@@ -177,25 +193,25 @@ public class BoardController {
         // 현재 사용자 정보 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserId = authentication.getName();
-
+    
         // 게시글 작성자와 현재 사용자가 같은지 확인
         Board existingBoard = boardService.select(boardNo);
-        if (!existingBoard.getUserId().equals(currentUserId)) {
+        if (!existingBoard.getUserId().equals(currentUserId) && !isAdmin(authentication)) {
             throw new IllegalAccessException("삭제 권한이 없습니다.");
         }
-
+    
         int result = boardService.delete(boardNo);
         if (result > 0) {
-
             Files file = new Files();
             file.setParentTable("board");
             file.setParentNo(boardNo);
             filesService.deleteByParent(file);
-            
+    
             return "redirect:/tip/index";
         }
         return "redirect:/tip/tipUpdate?no=" + boardNo + "&error";
     }
+    
 
     // 조회수 기준 상위 5개 게시글 조회 화면
     // @GetMapping("/top5")

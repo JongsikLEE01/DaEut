@@ -28,4 +28,9 @@ public class ReviewServiceImpl implements ReviewService {
     public void saveReview(Review review) {
         reviewMapper.insertReview(review);
     }
+
+    @Override
+    public List<Review> getReviewByServiceNo(int serviceNo) {
+       return reviewMapper.getReviewByServiceNo(serviceNo);
+    }
 }

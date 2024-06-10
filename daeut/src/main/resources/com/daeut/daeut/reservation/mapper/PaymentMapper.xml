@@ -27,11 +27,8 @@
     <!-- 수정 -->
     <update id="update">
         UPDATE PAYMENT
-        SET orders_no = #{ordersNo},
-            payment_method = #{paymentMethod},
-            STATUS = #{status},
-            pay_date = #{payDate},
-            upd_date = now()
+        SET STATUS = #{status}
+            , upd_date = now()
         WHERE payment_no = #{paymentNo}
     </update>
 

@@ -116,7 +116,7 @@
     <!-- 관리자 - 회원 선택 삭제 -->
     <delete id="deleteList">
         DELETE FROM users
-        WHERE user_no IN ( ${userNoList} )
+        WHERE user_no = #{userNo}
     </delete>
 
     <!-- 관리자 회원 조회 - user_no -->

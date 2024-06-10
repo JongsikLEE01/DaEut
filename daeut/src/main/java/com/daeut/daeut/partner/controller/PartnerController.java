@@ -1,5 +1,6 @@
 package com.daeut.daeut.partner.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -18,13 +19,14 @@ import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.ChatRooms;
+import com.daeut.daeut.reservation.dto.OrderItems;
 import com.daeut.daeut.reservation.dto.Orders;
 
 import com.daeut.daeut.reservation.dto.Payments;
 import com.daeut.daeut.reservation.dto.Services;
 
 import com.daeut.daeut.reservation.service.ChatRoomService;
-
+import com.daeut.daeut.reservation.service.OrderItemService;
 import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.PaymentService;
 import com.daeut.daeut.reservation.service.ReservationService;
@@ -53,7 +55,9 @@ public class PartnerController {
     private OrderService orderService;
 
     @Autowired
+    private OrderItemService orderItemService;
 
+    @Autowired
     private PaymentService paymentService;
 
     @Autowired
@@ -205,15 +209,15 @@ public String deleteUser(@RequestParam("userNo") int userNo, @RequestParam("user
     public String partnerReservation(Model model, HttpSession session) throws Exception {
         int partnerNo = (int) session.getAttribute("partnerNo"); // 세션에서 partnerNo 가져오기
         List<Orders> orderList = orderService.listByParterNo(partnerNo); // 주문 목록 가져오기
-        
+
         for (Orders orders : orderList) {
             Payments payments = paymentService.selectByOrdersNo(orders.getOrdersNo());
             model.addAttribute("payments", payments);
+
+
         }
 
         model.addAttribute("orderList", orderList); // 모델에 주문 목록 추가
-
-
         return "/partner/partnerReservation";  
     }
 
@@ -223,10 +227,15 @@ public String deleteUser(@RequestParam("userNo") int userNo, @RequestParam("user
         // 주문에 대한 상세 정보를 조회하고 모델에 추가
         Orders order = orderService.listByOrderNo(ordersNo);
         Payments payments = paymentService.selectByOrdersNo(ordersNo);
-    
+        List<OrderItems> orderItemList = orderItemService.listByOrderNo(ordersNo);
+
+        for (OrderItems orderItems : orderItemList) {
+            Services service = reservationService.select(orderItems.getServiceNo());
+            model.addAttribute("service", service);
+        }
+
         model.addAttribute("order", order);
         model.addAttribute("payments", payments);
-    
         return "/partner/partnerReservationRead";
     }
 
