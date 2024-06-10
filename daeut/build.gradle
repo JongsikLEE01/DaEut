@@ -50,6 +50,8 @@ dependencies {
 	// implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	// webSocket 연동
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	// 이메일 인증
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 }
 

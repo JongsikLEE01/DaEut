@@ -1,3 +1,4 @@
+-- Active: 1717658424847@@127.0.0.1@3306@joeun
 
 -- 결제 로직
 
@@ -245,10 +246,10 @@ CREATE TABLE users
 --     FOREIGN KEY (board_no)
 --     REFERENCES board (board_no);
 
--- -- ALTER TABLE service
--- --   ADD CONSTRAINT FK_partner_TO_service
--- --     FOREIGN KEY (partner_no)
--- --     REFERENCES partner (partner_no);
+-- ALTER TABLE service
+--   ADD CONSTRAINT FK_partner_TO_service
+--     FOREIGN KEY (partner_no)
+--     REFERENCES partner (partner_no);
 
 -- ALTER TABLE orders
 --   ADD CONSTRAINT FK_users_TO_orders
@@ -343,7 +344,7 @@ CREATE TABLE users
 -- ALTER TABLE user_auth
 --   ADD CONSTRAINT FK_users_TO_user_auth
 --     FOREIGN KEY (user_no)
---     REFERENCES users (user_no);
+--     REFERENCES users (user_no) ON DELETE CASCADE;
 
 -- ALTER TABLE order_item
 --   ADD CONSTRAINT FK_orders_TO_order_item
@@ -382,6 +383,17 @@ CREATE TABLE users
 --     REFERENCES users (user_no);
 
 
+<<<<<<< HEAD
+-- -- ALTER TABLE orders
+-- --   ADD CONSTRAINT FK_partner_TO_orders
+-- --     FOREIGN KEY (partner_no)
+-- --     REFERENCES partner (partner_no);
+
+-- ALTER TABLE review
+--   ADD CONSTRAINT FK_service_TO_review
+--     FOREIGN KEY (service_no)
+--     REFERENCES service (service_no);
+=======
 -- ALTER TABLE chat_rooms
 --   ADD CONSTRAINT FK_users_TO_chat_rooms
 --     FOREIGN KEY (user_no)

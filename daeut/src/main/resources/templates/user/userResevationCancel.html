@@ -28,18 +28,20 @@
                 <h3>예약 취소</h3>
                 <br>
                 <form action="/orders/cancel" method="post">
-                    <input type="hidden" name="orders" th:value="${orders.ordersNo}">
+                    <!-- CSRF TOKEN -->
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <input type="hidden" name="ordersNo" th:value="${orders.ordersNo}">
                     <div class="mb-5">
                         <label for="title">예약 내역</label>
                         <span class="ms-5" id="title" th:text="${orders.title}"></span>
                     </div>
                     <div class="mb-5">
                         <label for="ordersNo">예약 번호</label>
-                        <span class="ms-5" id="ordersNo" th:text="${orders.ordersNo}"></span>
+                        <span class="ms-5" name="ordersNo" id="ordersNo" th:text="${orders.ordersNo}"></span>
                     </div>
                     <div class="form-group mb-5">
                         <label for="cancelAccount">환불 은행</label>
-                        <select name="cancelAccount" name="cancelAccount" id="cancelAccount" class="form-select w-25" required>
+                        <select name="cancelAccount" id="cancelAccount" class="form-select w-25" required>
                             <option value=''>--선택--</option>
                             <option value='SC제일은행'>SC제일은행</option>
                             <option value='경남은행'>경남은행</option>
@@ -66,16 +68,19 @@
                         </select>
 
                         <label for="cancelName" class="ms-5">예금주</label>
-                        <input type="text" class="form-control" name="cancelName" id="cancelName" required>
+                        <input type="text" class="form-control" name="cancelName" id="cancelName"
+                            placeholder="예금주를 입력해주세요" required>
                     </div>
                     <div class="mb-5">
                         <label for="cancelNumber">계좌 번호</label>
-                        <input type="text" class="form-control" name="cancelNumber" id="cancelNumber" required>
+                        <input type="text" class="form-control" name="cancelNumber" id="cancelNumber"
+                            placeholder="계좌번호를 입력해주세요('-' 제외)" required>
                     </div>
                     <div class="mb-5">
                         <label for="reason" class="form-label">취소 사유</label>
-                        <textarea class="form-control" id="reason" name="reason" rows="3" placeholder="취소 사유를 입력해주세요" required></textarea>
-                      </div>
+                        <textarea class="form-control" id="reason" name="reason" rows="3" placeholder="취소 사유를 입력해주세요"
+                            required></textarea>
+                    </div>
                     <div class="form-buttons">
                         <button class="btn btn-primary sessuce color_main">취소하기</button>
                     </div>

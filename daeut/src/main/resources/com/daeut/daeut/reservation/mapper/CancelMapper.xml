@@ -40,7 +40,7 @@
     <!-- 삽입 -->
     <insert id="insert">
         INSERT INTO cancel (reason, cancel_amount, confirmed, refund, cancel_account, cancel_number, cancel_name, cancel_date, orders_no)
-        VALUES (#{reason}, #{cancelAmount}, #{confirmed}, #{refund}, ${cancelAccount}, ${cancelNumber}, ${cancelName}, now(), ${ordersNo})
+        VALUES (#{reason}, #{cancelAmount}, #{confirmed}, #{refund}, #{cancelAccount}, #{cancelNumber}, #{cancelName}, now(), #{ordersNo})
     </insert>
 
     <!-- 업데이트 -->
@@ -49,7 +49,7 @@
         SET 
             confirmed = #{confirmed}
             , refund = #{refund}
-            , completed_date = #{completed_date}
+            , completed_date = now()
             , upd_date = now()
         WHERE cancel_no = #{cancelNo}
     </update>
