@@ -13,6 +13,8 @@ public interface OrderService {
 
     public int update(Orders orders) throws Exception;
 
+    public int updateData(Orders orderes) throws Exception;
+
     public int delete(String ordersNo) throws Exception;
 
     // ---------------------------------------------------------

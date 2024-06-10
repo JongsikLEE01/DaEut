@@ -57,7 +57,7 @@
                                 <div class="row info-row">
                                     <label for="date" class="col-3 label">일시</label>
                                     <div class="col-9">
-                                        <input type="text" name="serviceDate" class="form-control" th:value="${#dates.format(payments.serviceDate, 'yyyy-MM-dd')}" readonly>
+                                        <input type="text" name="serviceDate" class="form-control" th:value="${#dates.format(payments.serviceDate, 'yyyy-MM-dd HH시 mm분')}" readonly>
                                     </div>
                                 </div>
                                 <div class="row info-row">
@@ -69,7 +69,7 @@
                                 <div class="row info-row">
                                     <label for="address" class="col-3 label">사용자 주소</label>
                                     <div class="col-9">
-                                        <input type="text" name="userAddress" class="form-control" th:value="${user.userAddress}" readonly>
+                                        <input type="text" name="userAddress" class="form-control" th:value="${payments.serviceAddress}" readonly>
                                     </div>
                                 </div>
                                 <div class="row info-row">

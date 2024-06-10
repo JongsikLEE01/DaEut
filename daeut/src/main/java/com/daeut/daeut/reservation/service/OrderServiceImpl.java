@@ -166,5 +166,10 @@ public class OrderServiceImpl implements OrderService{
     public void OrdersDelete(String ordersNo) throws Exception {
         userMapper.OrdersDelete(ordersNo);
     }
+
+    @Override
+    public int updateData(Orders orderes) throws Exception {
+        return orderMapper.updateData(orderes);
+    }
     
 }

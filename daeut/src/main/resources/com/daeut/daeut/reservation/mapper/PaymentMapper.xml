@@ -32,6 +32,15 @@
         WHERE payment_no = #{paymentNo}
     </update>
 
+    <!-- 데이터 수정 -->
+    <update id="updateData">
+        UPDATE PAYMENT
+        SET service_date = #{serviceDate}
+            , service_address = #{serviceAddress}
+            , upd_date = now()
+        WHERE payment_no = #{paymentNo}
+    </update>
+
     <!-- 삭제 -->
     <delete id="delete">
         DELETE FROM PAYMENT

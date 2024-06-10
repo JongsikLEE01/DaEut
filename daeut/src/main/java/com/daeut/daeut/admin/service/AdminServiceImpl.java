@@ -218,8 +218,12 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int adminUpdateReservation(Orders orders, Payments Payments, Users users) throws Exception {
         int userUpdateResult = userService.update(users);
-        int orderUpdateResult = orderMapper.update(orders);
-        int paymentUpdateResult = PaymentService.update(Payments);
+        log.info("zzzzzzzzzzzzzzzz" + users);
+        int orderUpdateResult = orderMapper.updateData(orders);
+        log.info("zzzzzzzzzzzzzzzz" + orders);
+        int paymentUpdateResult = PaymentService.updateData(Payments);
+        log.info("zzzzzzzzzzzzzzzz" + Payments);
+        
 
         int result =  userUpdateResult + orderUpdateResult + paymentUpdateResult;
         log.info("zzzzzzzzzzzzzzzz" + orderUpdateResult);

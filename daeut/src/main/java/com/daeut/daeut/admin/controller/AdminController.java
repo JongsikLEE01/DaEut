@@ -32,7 +32,8 @@ import com.daeut.daeut.reservation.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
 
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -400,14 +401,45 @@ public class AdminController {
 
     // 관리자 - 예약 수정 처리
     @PostMapping("/adminReservationUpdate")
-    public String adminUpdateReservation(@ModelAttribute Orders orders,
-                                         @ModelAttribute Payments payments,
-                                         @ModelAttribute Users users,
+    public String adminUpdateReservation(@RequestParam("userNo") int userNo,
                                          @RequestParam("ordersNo") String ordersNo,
+                                         @RequestParam("userName") String userName,
+                                         @RequestParam("title") String title,
+                                         @RequestParam("totalPrice") int totalPrice,
+                                         @RequestParam("serviceAddress") String serviceAddress,
+                                         @RequestParam(value = "serviceDay", required = false) String serviceDay,
+                                         @RequestParam(value = "serviceTime", required = false) String serviceTime,
                                          Model model) throws Exception {
-    
+        // 필요한 데이터 가져오기
+        Orders orders = orderService.select(ordersNo);
+        orders.setUserNo(userNo);
+        orders.setOrdersNo(ordersNo);
+        orders.setTitle(title);
+        orders.setTotalPrice(totalPrice);
+        log.info("orders? {}", orders);
+        Payments payments = paymentService.selectByOrdersNo(ordersNo);
+        payments.setServiceAddress(serviceAddress);
+        log.info("payments? {}", payments);
+        Users user = userService.selectByUserNo(userNo);
+        log.info("user? {}", user);
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        // 날짜 null처리
+        if (serviceDay == null || serviceDay.isEmpty() || serviceTime == null || serviceTime.isEmpty()) {
+            // date나 time이 없을 때 현재 시간으로 설정
+            Date now = new Date();
+            payments.setServiceDate(now);
+        } else {
+            // date와 time이 있을 때 입력값을 파싱하여 설정
+            String serviceDate = serviceDay + ' ' + serviceTime;
+            Date orderServiceDate = sdf.parse(serviceDate);
+            payments.setServiceDate(orderServiceDate);
+        }
+
         // 예약 정보 업데이트
-        int result = adminService.adminUpdateReservation(orders, payments, users);
+        int result = adminService.adminUpdateReservation(orders, payments, user);
         log.info("예약 수정 결과: " + result);
         if (result > 0) {
             return "redirect:/admin/adminReservationRead?ordersNo=" + ordersNo;
