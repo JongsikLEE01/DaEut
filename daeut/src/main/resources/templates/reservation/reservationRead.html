@@ -87,7 +87,7 @@
 							<div class="partner-intro-name">
 								<h3 class="partner-introduction-name" th:text="${pUsers.userName}"></h3>
 
-								<!-- 파트너 별점-->
+								<!--파트너의 별점-->
 								<th:block th:if="${averageRating != null}">
 								<th:block th:each="star : ${#numbers.sequence(1, averageRating)}">
 									<i class="fa fa-star" aria-hidden="true"></i>
