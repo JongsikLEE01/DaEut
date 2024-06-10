@@ -71,16 +71,16 @@
                             </div>
                         </div>
 
-                        <!-- <th:block th:if="${order.orderStatus == 'PAID'}"> -->
+                        <th:block th:if="${order.orderStatus != 'CANCELLED'}">
                             <form action="/user/userReservationCancel" method="get">
                                 <!-- CSRF TOKEN -->
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                                <input type="hidden" name="ordersNo" th:value="${order.orderNo}" />
+                                <input type="hidden" name="ordersNo" th:value="${order.ordersNo}" />
                                 <div class="form-buttons">
                                     <button type="submit" class="btn btn-danger">예약 취소</button>
                                 </div>
                             </form>
-                        <!-- </th:block> -->
+                        </th:block>
 
                     </div>
                 </div>

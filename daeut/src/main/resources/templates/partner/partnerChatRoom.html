@@ -16,12 +16,12 @@
                 <h5>마이페이지</h5>
                 <br>
                 <a href="/partner/partnerMypage" class="active">내 정보 변경</a>
-                <a href="/partner/partnerReservation" class="partnerReservation">내 예약 보기</a>
+                <a href="/partner/partnerReservation">내 예약 보기</a>
                 <a href="/partner/partnerReview">내 리뷰 보기</a>
-                <a href="/partner/partnerChatRoom">채팅 내역</a>
+                <a href="/partner/partnerChatRoom" class="partnerReservation">채팅 내역</a>
             </nav>
             <dikv class="col-md-9 col-lg-10 form-section">
-                <h3>예약 관리</h3>
+                <h3>채팅 내역</h3>
                 <table class="table table-sm table-hover">
                     <thead class="table-light">
                         <tr>
@@ -31,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:if="${chatRoomList == null}">
+                        <tr th:if="${chatRoomList.isEmpty()}">
                             <td colspan="3">채팅 내역이 비어있어요</td>
                         </tr>
                         <tr th:if="${chatRoomList != null}" th:each="chatRoom, stat : ${chatRoomList}">
