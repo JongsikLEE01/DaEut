@@ -15,6 +15,7 @@
         <result property="updDate" column="upd_date"/>
         <result property="regDate" column="reg_date"/>
         <result property="fileNo" column="file_no"/>
+        <result property="partnerNo" column="partner_no"/>
 
         <association property="partner" javaType="Partner">
         <id property="partnerNo" column="partner_no"/>
@@ -156,7 +157,7 @@
         WHERE service_name LIKE CONCAT('%', #{option.keyword}, '%')
     </select>
 
-    <!-- 캘릭더 일정 조회 - serviceNo 로 파트너 일정 조회 -->
+    <!-- 캘린더 일정 조회 - serviceNo 로 파트너 일정 조회 -->
     <select id="calendarListByServiceNo" resultType="Event">
         SELECT (SELECT service_name FROM service WHERE service_no = #{serviceNo}) title
                 ,(SELECT service_content FROM service WHERE service_no = #{serviceNo}) description

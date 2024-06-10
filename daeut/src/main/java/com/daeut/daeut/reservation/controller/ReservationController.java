@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.daeut.daeut.auth.dto.Review;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.ReviewService;
+import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Option;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.main.dto.ServicePage;
 import com.daeut.daeut.main.service.FileService;
+import com.daeut.daeut.partner.dto.Partner;
+import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.ReservationService;
 
@@ -38,6 +41,12 @@ public class ReservationController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PartnerService partnerService;
 
     /**
      * 전체 조회
@@ -77,16 +86,23 @@ public class ReservationController {
      * @throws Exception
      */
     @GetMapping("/reservationRead")
-	public String reservationRead(@RequestParam("serviceNo") int serviceNo, Model model, Files file, HttpSession session) throws Exception {
+    public String reservationRead(@RequestParam("serviceNo") int serviceNo, Model model, Files file, HttpSession session) throws Exception {
         Services service = reservationService.serviceSelect(serviceNo);
         Files thumbnail = reservationService.SelectThumbnail(serviceNo);
         List<Files> files = reservationService.SelectFiles(serviceNo);
         Users user = (Users) session.getAttribute("user");
         List<Review> reviews = reviewService.getReviewByServiceNo(serviceNo);
-
+        
+        // partner_no를 service 객체에서 가져옵니다.
+        int partnerNo = service.getPartnerNo();
+        Partner partner = partnerService.selectByPartnerNo(partnerNo);
+        Users pUsers = userService.findUserById(partner.getUserNo());
+    
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
+    
+        int averageRating = reviewService.getAverageRatingByServiceNo(serviceNo);
         
         model.addAttribute("serviceNo", serviceNo);
         model.addAttribute("service", service);
@@ -95,17 +111,13 @@ public class ReservationController {
         model.addAttribute("files", files);
         model.addAttribute("user", user);
         model.addAttribute("reviews", reviews);
+        model.addAttribute("partner", partner);
+        model.addAttribute("pUsers", pUsers);
+        model.addAttribute("averageRating", averageRating);
+    
         return "reservation/reservationRead";
     }
 
-
-    // 캘린더 띄우기
-    // @GetMapping("/reservationReadCalendar")
-    // public String reservationRead(@RequestParam("partnerNo") int partnerNo, Model model) {
-    //     List<String> partnerSchedule = partnerService.getPartnerSchedule(partnerNo);
-    //     model.addAttribute("partnerSchedule", partnerSchedule);
-    //     return "redirect:/reservationRead?partnerNo=" + partnerNo;
-    // }
 
 	/**
      * 글 등록 

@@ -24,9 +24,9 @@ public interface PartnerService {
    public Partner findByUserNo(int userNo) throws Exception;
 
    // 파트너 번호로 파트너 조회
-   public Partner selectByPartnerNo(int parterNo) throws Exception;
+   public Partner selectByPartnerNo(int partnerNo) throws Exception;
 
-   public Partner select(int parterNo) throws Exception;
+   public Partner select(int partnerNo) throws Exception;
 
    public Users getPartnerName(int userNo) throws Exception;
 

@@ -1,5 +1,7 @@
+-- Active: 1717757886166@@127.0.0.1@3306@joeun
 
 -- partner
+TRUNCATE partner;
 INSERT INTO partner (partner_grade, partner_reserve, partner_career, introduce, user_no)
 VALUES
 ( 5, 10, '10년 경력', '안녕하세요, 저는 파트너입니다.', 3),
@@ -16,6 +18,7 @@ VALUES
 
 -- orders
 -- PENDING, PAID, CONFIRMED, CANCELLED
+TRUNCATE orders;
 INSERT INTO orders (orders_no, user_no, order_status, total_quantity, total_price, total_count, title)
 VALUES
 ('ORD1', 1, 'PAID', 2, 20000, 2, '예약 제목 1'),
@@ -30,6 +33,7 @@ VALUES
 ('ORD10', 1, 'PENDING', 3, 30000, 3, '예약 제목 10');
 
 --
+TRUNCATE order_item;
 INSERT INTO order_item (item_no, quantity, price, amount, upd_date, reg_date, orders_no, service_no)
 VALUES
 ('ITEM1', 2, 10000, 20000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'ORD1', 1),
