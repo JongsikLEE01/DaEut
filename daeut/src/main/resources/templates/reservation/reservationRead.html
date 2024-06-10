@@ -15,29 +15,15 @@
 			<!-- 서비스 이름 -->
 			<h3 class="header-title" th:text="${service.serviceName}"></h3>
 
-			<!-- 게시글 리뷰 -->
+			<!-- 게시글 별점 -->
 			<div class="review-star">
-				<th:block th:each="star : ${#numbers.sequence(1, averageRating)}">
-					<i class="fa fa-star" aria-hidden="true"></i>
+				<th:block th:if="${averageRating != null}">
+					<th:block th:each="star : ${#numbers.sequence(1, averageRating)}">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</th:block>
 				</th:block>
 			</div>
-			<!-- <div class="review-star">
-				<th:block th:if="${averageRating >= 1}">
-					<i class="fa fa-star" aria-hidden="true"></i>
-				</th:block>
-				<th:block th:if="${averageRating >= 2}">
-					<i class="fa fa-star" aria-hidden="true"></i>
-				</th:block>
-				<th:block th:if="${averageRating >= 3}">
-					<i class="fa fa-star" aria-hidden="true"></i>
-				</th:block>
-				<th:block th:if="${averageRating >= 4}">
-					<i class="fa fa-star" aria-hidden="true"></i>
-				</th:block>
-				<th:block th:if="${averageRating == 5}">
-					<i class="fa fa-star" aria-hidden="true"></i>
-				</th:block>
-			</div> -->
+			
 			<div class="reservation-chat reservation-updat reservation-link">
 				<th:block sec:authorize="hasRole('ROLE_USER')">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -100,11 +86,14 @@
 							<img src="/img/partner.png" alt="파트너 사진" class="partner-photo">
 							<div class="partner-intro-name">
 								<h3 class="partner-introduction-name" th:text="${pUsers.userName}"></h3>
-								<div class="review-star2">
-									<th:block th:each="star : ${#numbers.sequence(1, averageRating)}">
-										<i class="fa fa-star" aria-hidden="true"></i>
-									</th:block>
-								</div>
+
+								<!-- 파트너 별점-->
+								<th:block th:if="${averageRating != null}">
+								<th:block th:each="star : ${#numbers.sequence(1, averageRating)}">
+									<i class="fa fa-star" aria-hidden="true"></i>
+								</th:block>
+								</th:block>
+
 							</div>
 							<p class="year-of-work" th:text="${service.partner.partnerCareer}"> </p>
 							<p class="partner-selfintroduction" th:text="${service.partner.introduce}"></p>
@@ -186,10 +175,13 @@
 
 						<div class="review-user-title">
 							<p class="review-user-name" th:text="${review.userName}"></p>
-							<div class="review-star3">
-								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"
-   								th:each="star : ${#numbers.sequence(1, review.reviewRating)}"></i>
+
+							<div class="review-star3" th:if="${review.reviewRating != null}">
+								<th:block th:each="star : ${#numbers.sequence(1, review.reviewRating)}">
+									<i class="fa fa-star3" aria-hidden="true" style="width: 15px; height: 15px;"></i>
+								</th:block>
 							</div>
+
 						</div>
 						<p class="review-content" id="reviewContent" th:text="${review.reviewContent}" ></p>
 						<div class="review-actions">

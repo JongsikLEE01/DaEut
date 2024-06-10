@@ -86,7 +86,7 @@
 
     <!--평균값 계산-->
     <select id="getAverageRatingByServiceNo">
-        SELECT ROUND(AVG(review_rating)) AS average_rating
+       SELECT ROUND(COALESCE(AVG(review_rating), 0)) AS average_rating
         FROM review
         WHERE service_no = #{serviceNo}
     </select>
