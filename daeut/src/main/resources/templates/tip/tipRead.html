@@ -255,8 +255,8 @@
             replyElement.setAttribute('data-original-replies', repliesHtml); // 답글 요소 저장
             replyElement.innerHTML = `
                 <textarea id="edit-content-${replyNo}" cols="60" rows="5" style="border: 1px solid #8FA2CA;resize: none;">${replyContent}</textarea>
-                <button style="background-color: #8FA2CA;border: #8FA2CA;border-radius: 8px;height: 30px;" onclick="updateReply(${replyNo})">수정</button>
-                <button style="background-color: white; border-color: #8FA2CA;border-radius: 8px;height: 30px;" onclick="cancelEdit(${replyNo}, '${replyContent.replace(/'/g, "\\'")}', '${userId}')">취소</button>
+                <button style="background-color: #8FA2CA; border: #8FA2CA; border-radius: 8px; height: 30px; color: white;" onclick="updateReply(${replyNo})">수정</button>
+                <button style="background-color: white; border-color: #8FA2CA; border-radius: 8px; height: 30px; color: #8FA2CA; box-shadow: none; outline: none; border-width: 1px; border-style: solid;" onclick="cancelEdit(${replyNo}, '${replyContent.replace(/'/g, "\\'")}', '${userId}')">취소</button>
                 <div class="replies">${repliesHtml}</div>
             `;
         }
@@ -344,8 +344,8 @@
                 <div class="inner">
                     <textarea cols="60" rows="5" id="answer-content" style="border: 1px solid #8FA2CA;resize: none;" placeholder="답글 내용을 입력하세요."></textarea>
                     <br>
-                    <button style="background-color: #8FA2CA;border: #8FA2CA;border-radius: 8px;height: 30px;" onclick="answer(${parentNo})">등록</button>
-                    <button style="background-color: white; border-color: #8FA2CA;border-radius: 8px;height: 30px;" onclick="cancelAnswer()">취소</button>
+                    <button style="background-color: #8FA2CA; border: #8FA2CA; border-radius: 8px; height: 30px; color: white;" onclick="answer(${parentNo})">등록</button>
+                    <button style="background-color: white; border-color: #8FA2CA; border-radius: 8px; height: 30px; color: #8FA2CA; box-shadow: none; outline: none; border-width: 1px; border-style: solid;" onclick="cancelAnswer()">취소</button>
                 </div>
             `;
             $editor.innerHTML = editor;
