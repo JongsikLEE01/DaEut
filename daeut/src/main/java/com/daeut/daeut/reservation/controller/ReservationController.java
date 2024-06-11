@@ -92,11 +92,13 @@ public class ReservationController {
         List<Files> files = reservationService.SelectFiles(serviceNo);
         Users user = (Users) session.getAttribute("user");
         List<Review> reviews = reviewService.getReviewByServiceNo(serviceNo);
+       
         
         // partner_no를 service 객체에서 가져옵니다.
         int partnerNo = service.getPartnerNo();
         Partner partner = partnerService.selectByPartnerNo(partnerNo);
         Users pUsers = userService.findUserById(partner.getUserNo());
+        Files pthumbnail = reservationService.partnerThumbnail(partnerNo);
     
         file.setParentTable("service");
         file.setParentNo(serviceNo);
@@ -114,6 +116,7 @@ public class ReservationController {
         model.addAttribute("partner", partner);
         model.addAttribute("pUsers", pUsers);
         model.addAttribute("averageRating", averageRating);
+        model.addAttribute("pthumbnail", pthumbnail);
     
         return "reservation/reservationRead";
     }

@@ -170,4 +170,19 @@
         
     </select>
 
+    <!--파트너 넘버를 통해 partner이미지 가져오기-->
+    <select id="partnerThumbnail">
+        SELECT  p.*, 
+                f.*
+        FROM partner p
+        LEFT JOIN (
+                SELECT * 
+                FROM files
+                WHERE parent_table = 'partner'
+                AND file_code = 1
+            ) f
+        ON p.partner_no = f.parent_no
+        WHERE p.partner_no = #{partnerNo};
+    </select>
+
 </mapper>
