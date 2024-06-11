@@ -57,19 +57,18 @@
                                     <label for="description">소개글</label>
                                     <textarea class="form-control w-75" name="introduce" rows="3" th:text="${partner.introduce}"></textarea>
                                 </div>
-                                <div class="form-group form-section p-1 f-warp text-start">
+                                <!-- <div class="form-group form-section p-1 f-warp text-start">
                                     <label>소개 사진</label>
-                                    <!-- <div>
+                                    <div>
                                         <img src="https://via.placeholder.com/100" alt="파트너 설명 이미지" class="img-thumbnail">
-                                    </div> -->
-                                </div>
+                                    </div>
+                                </div> -->
                             <div class="buttons mb-5 d-flex gap-3 justify-content-end">
                                 <button type="submit" class="btn btn-primary sessuce color_main">수정하기</button>
                                 <button type="button" class="btn btn-secondary cancel" onclick="actionDelete()">삭제하기</button>
                                 <a href="/admin/adminPartner" class="btn btn-light myBtn">목록</a>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
