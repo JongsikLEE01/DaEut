@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         
-                        <th:block th:if="${order.orderStatus.equals('CONFIRMED')}">
+                        <!-- <th:block th:if="${order.orderStatus.equals('CONFIRMED')}"> -->
                             <form action="/user/userResevationCancel" method="get">
                                 <!-- CSRF TOKEN -->
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -82,9 +82,9 @@
                             </form>
                         </th:block>
 
-                        <th:block th:if="${!order.orderStatus.equals('CONFIRMED')}">
-                            <p>환불이 가능한 상태가 아닙니다.</p>
-                        </th:block>
+                        <!-- <th:block th:if="${!order.orderStatus.equals('CONFIRMED')}">
+                            <p class="mt-3">환불이 가능한 상태가 아닙니다.</p>
+                        </th:block> -->
 
                         <!-- <th:block th:if="${order.orderStatus.equals('CANCELLED')}">
                             <span class="col-sm-5 col-form-label">이미 환불 처리가 된 주문 입니다</span>
