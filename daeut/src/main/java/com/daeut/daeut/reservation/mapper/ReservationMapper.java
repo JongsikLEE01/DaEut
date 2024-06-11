@@ -43,4 +43,7 @@ public interface ReservationMapper {
     // 달력 리스트
     List<Event> calendarListByServiceNo(int serviceNo) throws Exception;
 
+    // 리뷰 이미지
+    public Files getFileByServiceNum (int serviceNo) throws Exception;
+
 }

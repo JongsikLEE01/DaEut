@@ -22,8 +22,7 @@ public interface ReviewMapper {
 
     int getAverageRatingByServiceNo(@Param("serviceNo") int serviceNo);
 
-    // 리뷰 파일
-    public List<Files> getFileByReviewNum(int reviewNo) throws Exception;
+
 
 
     public int maxPk();
