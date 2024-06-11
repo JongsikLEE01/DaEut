@@ -62,22 +62,38 @@
         VALUES (#{reviewTitle}, #{reviewContent}, NOW(), #{reviewRating}, #{userNo}, #{paymentNo}, #{partnerNo}, #{serviceNo})
     </insert>
 
-    <!--serviceNo로 리뷰 정보 + 사진까지 가져오기-->
+    <!--serviceNo로 리뷰 정보 가져오기-->
     <select id="getReviewByServiceNo">
         SELECT
             r.*,
-            u.user_name,
-            f.*
+            u.user_name
         FROM
             review r
         INNER JOIN
             users u ON r.user_no = u.user_no
-        LEFT JOIN (
-            SELECT *
-            FROM files
-            WHERE parent_table = 'review'
-        ) f ON r.review_no = f.parent_no
-        WHERE r.service_no = 3;
+        WHERE
+            r.service_no = #{serviceNo};
+    </select>
+
+    <!-- 리뷰no로 리뷰 정보 가져오기-->
+    <select id="getReviewByReviewNo">
+        SELECT *
+        FROM review
+        where review_no = #{reviewNo}
+    </select>
+
+    <!--review_no로 리뷰의 파일 정보를 가져와야 하는데.-->
+    <select id="getFileByReviewNum">
+        SELECT  r.*, 
+        		f.*
+        FROM joeun.review r    LEFT JOIN (  
+        	                    	    SELECT * 
+        	                    	    FROM joeun.files
+                                        WHERE parent_table = 'review'
+                                        AND file_code != 1
+        	                    	    ) f
+        	                    ON r.review_no = f.parent_no
+        WHERE r.review_no = #{reviewNo}
     </select>
 
     <select id="maxPk" resultType="int">

@@ -1,6 +1,7 @@
 package com.daeut.daeut.auth.service;
 
 import com.daeut.daeut.auth.dto.Review;
+import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.reservation.dto.Payments;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface ReviewService {
     public List<Review> getReviewByServiceNo(int serviceNo);
 
     int getAverageRatingByServiceNo(@Param("serviceNo") int serviceNo);
+
+    // 리뷰 사진
+    public List<Files> getFileByReviewNum(int reviewNo) throws Exception;
 }
