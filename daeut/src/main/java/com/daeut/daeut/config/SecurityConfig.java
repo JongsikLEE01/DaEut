@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.daeut.daeut.auth.service.LoginSuccessHandler;
+import com.daeut.daeut.auth.service.OAuthService;
 import com.daeut.daeut.auth.service.UserDetailServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,9 @@ public class SecurityConfig {
 
     @Autowired
     private UserDetailServiceImpl userDetailServiceImpl;
+
+    @Autowired
+    private OAuthService oAuthService;
 
     // 스프링 시큐리티 설정 메소드
     @Bean
@@ -57,10 +61,16 @@ public class SecurityConfig {
                                     .permitAll()
                             );
 
-        // OAuth 로그인 설정
+       // 👩‍💻🔐 OAuth2 로그인 
+        // ✅ userInfoEndpoint()            : 사용자 정보 설정 객체 가져오기
+        // ✅ userService(oAuthService)     : 사용자 정보 설정 객체로, 로그인 후 처리할 구현 클래스 등록
+        // ✅ loginPage(경로)               : 커스텀 로그인 페이지 경로 지정
         http.oauth2Login(login -> login
+                                    .successHandler(authenticationSuccessHandler())
                                     .loginPage("/login")
-        );
+                                    .userInfoEndpoint() 
+                                    .userService(oAuthService)
+                                    );
 
         // ✅ 사용자 정의 인증 설정
         http.userDetailsService(userDetailServiceImpl);
@@ -68,7 +78,9 @@ public class SecurityConfig {
         // 🔄 자동 로그인 설정
         http.rememberMe(me -> me.key("aloha")
                                 .tokenRepository(tokenRepository())
-                                .tokenValiditySeconds(60 * 60 * 24 * 7));
+                                .tokenValiditySeconds(60 * 60 * 24 * 7)
+                                .authenticationSuccessHandler(authenticationSuccessHandler())
+                                );
 
         http.logout(logout -> logout.invalidateHttpSession(true));
 

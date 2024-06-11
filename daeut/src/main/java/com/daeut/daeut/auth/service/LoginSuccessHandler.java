@@ -10,12 +10,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import com.daeut.daeut.auth.dto.CustomUser;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.service.PartnerService;
+import com.nimbusds.jose.crypto.impl.CipherHelper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  * ✅ 로그인 성공 처리 클래스
  */
 @Slf4j
+@Component
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     
     @Autowired
@@ -60,10 +64,24 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     
         // 인증된 사용자 정보 - (아이디/패스워드/권한)
         // User user = (User) authentication.getPrincipal();
-        CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        log.info("아이디 : " + customUser.getUsername());
-        log.info("패스워드 : " + customUser.getPassword());       // 보안상 노출❌
-        log.info("권한 : " + customUser.getAuthorities());    
+        log.info("::::::::::::::::::::::::::::::::::::::::::");
+        log.info("authentication : " + authentication);
+
+        CustomUser customUser = null;
+        // 소셜 로그인 
+        if ( authentication instanceof OAuth2AuthenticationToken ) {
+            Users user = new Users();
+            user.setUserName(authentication.getName());
+            customUser = new CustomUser(user);
+        }
+        // 그냥 로그
+        else {
+            customUser = (CustomUser) authentication.getPrincipal();
+            log.info("아이디 : " + customUser.getUsername());
+            log.info("패스워드 : " + customUser.getPassword());       // 보안상 노출❌
+            log.info("권한 : " + customUser.getAuthorities());    
+        }
+
     
         HttpSession session = request.getSession();
         Users user = customUser.getUser();
