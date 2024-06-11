@@ -253,4 +253,21 @@ public class ReservationController {
     }
 
 
+@PostMapping("/reviewDelete")
+public String reviewDelete(@RequestParam("reviewNo") int reviewNo) throws Exception {
+	int result = reviewService.reviewDelete(reviewNo);
+
+	if result = reveiwService.reviewDelete(reviewNo);
+
+	if (result == 0) {
+		log.info("리뷰 삭제 실패...")
+		return "redirect:/reservation/reservation"
+	}
+	 Files file = new Files();
+        file.setParentTable("reviewNo");
+        file.setParentNo(reviewNo);
+        fileService.deleteByParent(file);
+
+        log.info("리뷰 삭제 성공...");
+        return "redirect:/reservation/reservation";
 }
