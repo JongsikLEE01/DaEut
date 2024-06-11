@@ -22,4 +22,6 @@ public interface ReviewService {
 
     int getAverageRatingByServiceNo(@Param("serviceNo") int serviceNo);
 
+    public int reviewDelete(int reviewNo)throws Exception;
+
 }
