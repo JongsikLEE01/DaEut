@@ -160,10 +160,10 @@
 						<p class="review-content" id="reviewContent" th:text="${review.reviewContent}" ></p>
 						<div class="review-actions">
 							<p class="review-date" th:text="${review.reviewRegDate}"></p>
-							<!-- <div class="review-buttons">
-								<button class="review-edit">수정</button>
-								<button class="review-delete">삭제</button>
-							</div> -->
+							<div class="review-buttons">
+								<button class="review-edit" onclick="actionReviewDelete()">수정</button>
+								<!-- <button class="review-delete">삭제</button> -->
+							</div>
 						</div>
 					</div>
 				</div>
@@ -321,6 +321,15 @@
 			}
 		}
 
+		// 삭제 처리 함수
+		  function actionReviewDelete() {
+	            let check = confirm('정말로 삭제하시겠습니까?');
+	            if (check) {
+	                form.action = '/reservation/reservation'; // 탈퇴 처리를 담당하는 URL로 설정
+	                form.method = 'post'; // POST 메소드로 설정
+	                form.submit(); // 폼 제출
+	            }
+	        }
 
 	</script>
 </body>
