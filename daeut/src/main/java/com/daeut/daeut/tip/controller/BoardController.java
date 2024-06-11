@@ -94,6 +94,10 @@ public class BoardController {
         log.info("-----------------/tip/tipRead-------------------");
         log.info(board.toString());
 
+        // 댓글 수 설정
+        int replyCount = replyService.countByBoardNo(boardNo);
+        board.setReplyCount(replyCount);
+
         // 현재 사용자 정보 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserId = null;
