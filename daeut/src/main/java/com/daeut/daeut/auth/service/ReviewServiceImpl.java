@@ -70,7 +70,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     // 삭제
     @Override
-    public int reviewDelete(int reviewNo) throws Exception; {
+    public int reviewDelete(int reviewNo) throws Exception {
        return reviewMapper.reviewDelete(reviewNo);
     }
 
