@@ -3,39 +3,58 @@
 
 <mapper namespace="com.daeut.daeut.tip.mapper.BoardMapper">
 
-    <select id="list" resultType="Board">
+     <select id="list" resultType="Board">
         SELECT b.*
             ,f.file_no file_no
             ,f.file_name file_name
             ,f.file_path file_path
             ,f.file_code file_code
-        FROM board b LEFT JOIN (
-                                SELECT *
-                                FROM files
-                                WHERE parent_table = "board"
-                                AND file_code = 1
-                                ) f
-                    ON (b.board_no = f.parent_no)
+            ,(SELECT COUNT(*) FROM reply r WHERE r.board_no = b.board_no) AS reply_count
+            ,u.user_id AS user_id
+        FROM board b 
+        LEFT JOIN (
+            SELECT *
+            FROM files
+            WHERE parent_table = "board"
+            AND file_code = 1
+        ) f ON (b.board_no = f.parent_no)
+        JOIN users u ON b.user_no = u.user_no
         WHERE
             <if test="option.code == 0">
-                    board_title LIKE CONCAT('%', #{option.keyword}, '%')
-                OR user_no LIKE CONCAT('%', #{option.keyword}, '%')
+                board_title LIKE CONCAT('%', #{option.keyword}, '%')
+                OR u.user_id LIKE CONCAT('%', #{option.keyword}, '%')
                 OR board_content LIKE CONCAT('%', #{option.keyword}, '%')
             </if>
             <if test="option.code == 1">
-                    board_title LIKE CONCAT('%', #{option.keyword}, '%')
+                board_title LIKE CONCAT('%', #{option.keyword}, '%')
             </if>
             <if test="option.code == 2">
-                    board_content LIKE CONCAT('%', #{option.keyword}, '%')
+                board_content LIKE CONCAT('%', #{option.keyword}, '%')
             </if>
             <if test="option.code == 3">
-                    board_title LIKE CONCAT('%', #{option.keyword}, '%')
+                board_title LIKE CONCAT('%', #{option.keyword}, '%')
                 OR board_content LIKE CONCAT('%', #{option.keyword}, '%')
             </if>
             <if test="option.code == 4">
-                    user_no LIKE CONCAT('%', #{option.keyword}, '%')
+                u.user_id LIKE CONCAT('%', #{option.keyword}, '%')
             </if>    
-        ORDER BY b.board_reg_date DESC
+        <choose>
+            <when test="sort == 'latest'">
+                ORDER BY b.board_reg_date DESC
+            </when>
+            <when test="sort == 'oldest'">
+                ORDER BY b.board_reg_date ASC
+            </when>
+            <when test="sort == 'like'">
+                ORDER BY b.board_like DESC, b.board_reg_date DESC
+            </when>
+            <when test="sort == 'reply'">
+                ORDER BY reply_count DESC, b.board_reg_date DESC
+            </when>
+            <otherwise>
+                ORDER BY b.board_reg_date DESC
+            </otherwise>
+        </choose>
         LIMIT #{page.index}, #{page.rows}
     </select>
 

@@ -30,11 +30,11 @@ public class BoardServiceImpl implements BoardService {
 
     // 게시글 목록 조회
     @Override
-    public List<Board> list(Page page, Option2 option) throws Exception {
+    public List<Board> list(Page page, Option2 option, String sort) throws Exception {
         int total = boardMapper.count(option);
         page.setTotal(total);
 
-        List<Board> boardList = boardMapper.list(page, option);
+        List<Board> boardList = boardMapper.list(page, option, sort);
         log.info("::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
         log.info("boardList : " + boardList);
         return boardList;
