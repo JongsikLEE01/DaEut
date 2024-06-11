@@ -68,6 +68,10 @@ public class ReviewServiceImpl implements ReviewService {
        return reviewMapper.getAverageRatingByServiceNo(serviceNo);
     }
 
-
+    // 삭제
+    @Override
+    public int reviewDelete(int reviewNo) throws Exception; {
+       return reviewMapper.reviewDelete(reviewNo);
+    }
 
 }
