@@ -190,9 +190,26 @@
 						<div class="review-actions">
 							<p class="review-date" th:text="${review.reviewRegDate}"></p>
 							<div class="review-buttons">
-								<button class="review-edit">수정</button>
+								<button class="review-edit" onclick="document.getElementById('edit-form-${review.reviewNo}').style.display='block'">수정</button>
 								<button class="review-delete">삭제</button>
 							</div>
+						</div>
+
+						<!-- 수정 폼 -->
+						<div class="review-edit-form" id="edit-form-${review.reviewNo}" style="display: none;">
+							<form th:action="@{/reviews/edit}" method="post">
+								<input type="hidden" name="reviewNo" th:value="${review.reviewNo}">
+								<textarea name="reviewContent" rows="4" cols="50" th:text="${review.reviewContent}"></textarea>
+								<select name="reviewRating">
+									<option th:selected="${review.reviewRating == 1}" value="1">1</option>
+									<option th:selected="${review.reviewRating == 2}" value="2">2</option>
+									<option th:selected="${review.reviewRating == 3}" value="3">3</option>
+									<option th:selected="${review.reviewRating == 4}" value="4">4</option>
+									<option th:selected="${review.reviewRating == 5}" value="5">5</option>
+								</select>
+								<button type="submit">저장</button>
+								<button type="button" onclick="document.getElementById('edit-form-${review.reviewNo}').style.display='none'">취소</button>
+							</form>
 						</div>
 						
 
