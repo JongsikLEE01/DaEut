@@ -1210,16 +1210,17 @@
     text-decoration: none;
     border: 1px solid #ddd;
     border-radius: 3px;
+    color: #8FA2CA !important;
 }
 
 .pagination a:hover {
-    background-color: #ddd;
+    background-color: #E4E8F4;
 }
 
 .pagination a.active {
-    background-color: #ddd;;
-    color: #007bff !important;
-    border: 1px solid #ddd;;
+    background-color: #8FA2CA;;
+    color: white !important;
+    border: 1px solid #8FA2CA;;
 }
 
 /* 캘린더 이벤트 */
@@ -1234,4 +1235,9 @@
 
 .fc-daygrid-event-dot {
     border: calc(var(--fc-daygrid-event-dot-width) / 2) solid white;
+}
+
+.reservationthumbnail{
+    width:365px ;
+    height: 285px;
 }
