@@ -20,4 +20,8 @@ public interface ReviewService {
     public List<Review> getReviewByServiceNo(int serviceNo);
 
     int getAverageRatingByServiceNo(@Param("serviceNo") int serviceNo);
+
+    public Review getReviewById(int reviewNo);
+
+    public void updateReview(int reviewNo, String reviewContent, int reviewRating);
 }

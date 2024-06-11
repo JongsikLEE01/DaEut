@@ -1,10 +1,12 @@
 package com.daeut.daeut.reservation.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -248,4 +250,19 @@ public class ReservationController {
     }
 
 
+    @PostMapping("/reviews/edit")
+    public ResponseEntity<String> editReview(@RequestParam int reviewNo, @RequestParam String reviewContent, @RequestParam int reviewRating, Principal principal) {
+        Review review = reviewService.getReviewById(reviewNo);
+        if (!isUserAuthorized(principal, review.getUserNo())) {
+            return ResponseEntity.status(403).body("권한이 없습니다.");
+        }
+        reviewService.updateReview(reviewNo, reviewContent, reviewRating);
+        return ResponseEntity.ok("리뷰가 수정되었습니다.");
+    }
+
+    private boolean isUserAuthorized(Principal principal, int userNo) {
+        String username = principal.getName();
+        Users user = userService.findByUsername(username);
+        return user != null && user.getUserNo() == userNo;
+    }
 }

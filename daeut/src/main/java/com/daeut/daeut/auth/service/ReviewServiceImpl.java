@@ -67,5 +67,13 @@ public class ReviewServiceImpl implements ReviewService {
        return reviewMapper.getAverageRatingByServiceNo(serviceNo);
     }
 
+    @Override
+    public Review getReviewById(int reviewNo) {
+        return reviewMapper.getReviewById(reviewNo);
+    }
 
+    @Override
+    public void updateReview(int reviewNo, String reviewContent, int reviewRating) {
+        reviewMapper.updateReview(reviewNo, reviewContent, reviewRating);
+    }
 }

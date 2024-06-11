@@ -189,12 +189,28 @@
 						<p class="review-content" id="reviewContent" th:text="${review.reviewContent}" ></p>
 						<div class="review-actions">
 							<p class="review-date" th:text="${review.reviewRegDate}"></p>
-							<div class="review-buttons">
-								<button class="review-edit">수정</button>
+							<div class="review-buttons" th:if="${#authentication.name == review.userName}">
+								<button class="review-edit" onclick="showEditForm(${review.reviewNo})">수정</button>
 								<button class="review-delete">삭제</button>
 							</div>
 						</div>
 						
+						<!-- 수정 폼 -->
+						<div class="review-edit-form" id="edit-form-${review.reviewNo}" style="display: none;">
+							<form onsubmit="event.preventDefault(); updateReview(${review.reviewNo});">
+								<textarea id="edit-review-content-${review.reviewNo}" rows="4" cols="50"
+									th:text="${review.reviewContent}"></textarea>
+								<select id="edit-review-rating-${review.reviewNo}">
+									<option th:selected="${review.reviewRating == 1}" value="1">1</option>
+									<option th:selected="${review.reviewRating == 2}" value="2">2</option>
+									<option th:selected="${review.reviewRating == 3}" value="3">3</option>
+									<option th:selected="${review.reviewRating == 4}" value="4">4</option>
+									<option th:selected="${review.reviewRating == 5}" value="5">5</option>
+								</select>
+								<button type="submit">저장</button>
+								<button type="button" onclick="hideEditForm(${review.reviewNo})">취소</button>
+							</form>
+						</div>
 
 
 					</div>
@@ -350,7 +366,38 @@
 			}
 		}
 
+		function showEditForm(reviewNo) {
+			document.getElementById(`edit-form-${reviewNo}`).style.display = 'block';
+		}
 
+		function hideEditForm(reviewNo) {
+			document.getElementById(`edit-form-${reviewNo}`).style.display = 'none';
+		}
+
+		function updateReview(reviewNo) {
+			const content = document.getElementById(`edit-review-content-${reviewNo}`).value;
+			const rating = document.getElementById(`edit-review-rating-${reviewNo}`).value;
+
+			fetch('/reviews/edit', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+					'X-CSRF-TOKEN': document.querySelector("meta[name='_csrf']").content
+				},
+				body: new URLSearchParams({
+					reviewNo: reviewNo,
+					reviewContent: content,
+					reviewRating: rating
+				})
+			})
+				.then(response => {
+					if (response.ok) {
+						location.reload();
+					} else {
+						alert('수정에 실패했습니다.');
+					}
+				});
+		}
 	</script>
 </body>
 
