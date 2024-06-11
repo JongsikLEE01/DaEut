@@ -180,8 +180,22 @@
 
         function incrementReplyCount() {
             let replyCountElement = document.getElementById('reply-count');
-            let currentCount = parseInt(replyCountElement.textContent.split(": ")[1]);
+            let currentText = replyCountElement.textContent.trim();
+            let currentCount = parseInt(currentText.split(": ")[1]);
+            if (isNaN(currentCount)) {
+                currentCount = 0;
+            }
             replyCountElement.textContent = '댓글수: ' + (currentCount + 1);
+        }
+
+        function decrementReplyCount() {
+            let replyCountElement = document.getElementById('reply-count');
+            let currentText = replyCountElement.textContent.trim();
+            let currentCount = parseInt(currentText.split(": ")[1]);
+            if (isNaN(currentCount)) {
+                currentCount = 0;
+            }
+            replyCountElement.textContent = '댓글수: ' + (currentCount - 1);
         }
 
         function replyList() {
@@ -314,6 +328,7 @@
                     let response = request.responseText
                     if( response == 'SUCCESS' ){
                         replyList();
+                        decrementReplyCount(); // 댓글 수 감소 함수 호출
                     }
                 }
             }
@@ -379,6 +394,7 @@
                         if (response === 'SUCCESS') {
                             alert("답글 등록 성공!!!");
                             replyList();
+                            incrementReplyCount();  // 댓글 수 증가 함수 호출
                             $content.value = '';
                         }
                     }
