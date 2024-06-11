@@ -14,13 +14,14 @@ import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
 import com.daeut.daeut.auth.service.UserService;
+import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.Payments;
 import com.daeut.daeut.reservation.mapper.OrderMapper;
-import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.PaymentService;
+import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,6 +43,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private PaymentService PaymentService;
+
+    @Autowired
+    private ReservationService reservation;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -233,5 +237,12 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Review> selectReviewsByUser(int userNo) throws Exception {
         return adminMapper.selectReviewsByUser(userNo);
+    }
+
+    @Override
+    public Files partnerThumbnail(int partnerNo) throws Exception {
+        // 썸네일
+        Files pthumbnail = reservation.partnerThumbnail(partnerNo);
+        return pthumbnail;
     }
 }

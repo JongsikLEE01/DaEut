@@ -27,10 +27,10 @@
                     <h3>파트너 조회</h3>
                     <div class="d-flex justify-content-center">
                         <div class="col-md-3 mt-5">
-                            <!-- <div class="col-md-3 mt-5">
-                                <img th:src="|/file/img/${file.fileNo}|" alt="파트너 이미지" class="profile-img img-thumbnail">
-                            </div> -->
-                            <img src="/img/partner.png" alt="파트너 이미지" class="profile-img img-thumbnail">
+                            <!--파트너 사진-->
+							<img th:if="${pthumbnail != null and pthumbnail.fileNo != ''}" th:src="|/file/img/${pthumbnail.fileNo}|" alt="파트너 사진" class="profile-img img-thumbnail">
+                            <!-- 파일 번호가 없는 경우 기본 이미지를 표시 -->
+                            <img th:unless="${pthumbnail != null and pthumbnail.fileNo != ''}" th:src="|/file/img/0|" alt="기본 이미지" class="profile-img img-thumbnail">
                         </div>
                         <div class="col-md-8">
                             <form id="cancelPartnerForm" class="ms-5" th:action="|/admin/approvePartner/${partner.userId}|" method="POST"><!-- form 작성 필요 -->
@@ -57,12 +57,12 @@
                                     <label for="description">소개글</label>
                                     <textarea class="form-control w-75" id="description" rows="3" readonly th:text="${partner.introduce}"></textarea>
                                 </div>
-                                <div class="form-group form-section p-1 f-warp text-start">
+                                <!-- <div class="form-group form-section p-1 f-warp text-start">
                                     <label>소개 사진</label>
                                     <div>
                                         <img src="https://via.placeholder.com/100" alt="파트너 설명 이미지" class="img-thumbnail">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="buttons mb-5 d-flex gap-3 justify-content-end">
                                     <!-- 상태가 '대기'인 경우 -->
                                     <button th:if="${partner.status == 1}" type="submit" class="btn btn-primary sessuce color_main">승인하기</button>

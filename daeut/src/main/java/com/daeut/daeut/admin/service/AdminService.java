@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.daeut.daeut.auth.dto.Review;
-import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.reservation.dto.Orders;
@@ -75,4 +75,7 @@ public interface AdminService {
 
     // 리뷰 관련 메서드
     public List<Review> selectReviewsByUser(int userNo) throws Exception;
+
+    // 파트너 썸네일
+    public Files partnerThumbnail(int partnerNo) throws Exception;
 }
