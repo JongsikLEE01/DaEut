@@ -325,7 +325,7 @@
 		  function actionReviewDelete() {
 	            let check = confirm('정말로 삭제하시겠습니까?');
 	            if (check) {
-	                form.action = '/reservation/reservation'; // 탈퇴 처리를 담당하는 URL로 설정
+	                form.action = '/reviewDelete'; // 탈퇴 처리를 담당하는 URL로 설정
 	                form.method = 'post'; // POST 메소드로 설정
 	                form.submit(); // 폼 제출
 	            }
