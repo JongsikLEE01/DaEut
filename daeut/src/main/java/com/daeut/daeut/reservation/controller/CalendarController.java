@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Event;
+import com.daeut.daeut.reservation.dto.Services;
 import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -52,10 +53,10 @@ public class CalendarController {
     @GetMapping("/events")
     public List<Event> getEvents(@RequestParam("serviceNo") int serviceNo) throws Exception {
         log.info("serviceNo : " + serviceNo);
-        // TODO : 취소된 게시글 출력 X
+        Services service = reservationService.select(serviceNo);
+        int partnerNo = service.getPartnerNo();
 
-
-        List<Event> eventList = reservationService.calendarListByServiceNo(serviceNo);
+        List<Event> eventList = reservationService.calendarListByServiceNo(partnerNo);
 
         // 샘플 데이터
         // Calendar calendar = Calendar.getInstance();

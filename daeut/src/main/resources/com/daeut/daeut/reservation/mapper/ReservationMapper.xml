@@ -159,15 +159,22 @@
 
     <!-- 캘린더 일정 조회 - serviceNo 로 파트너 일정 조회 -->
     <select id="calendarListByServiceNo" resultType="Event">
-        SELECT (SELECT service_name FROM service WHERE service_no = #{serviceNo}) title
-                ,(SELECT service_content FROM service WHERE service_no = #{serviceNo}) description
-                ,service_date start
-                ,service_date end
-        FROM payment
-        WHERE orders_no IN (SELECT orders_no
-                            FROM order_item
-                            WHERE service_no = #{serviceNo})
-        
+        SELECT 
+            (SELECT service_name FROM service WHERE service_no = oi.service_no) AS title,
+            (SELECT service_content FROM service WHERE service_no = oi.service_no) AS description,
+            p.service_date AS start,
+            p.service_date AS end
+        FROM 
+            payment p
+        JOIN 
+            order_item oi ON p.orders_no = oi.orders_no
+        JOIN 
+            orders o ON oi.orders_no = o.orders_no
+        JOIN 
+            service s ON oi.service_no = s.service_no
+        WHERE 
+            s.partner_no = #{partnerNo}
+            AND o.order_status = 'CONFIRMED';
     </select>
 
 </mapper>

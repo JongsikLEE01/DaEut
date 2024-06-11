@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         
-                        <!-- <th:block th:if="${order.orderStatus.equals('PAID')}"> -->
+                        <th:block th:if="${order.orderStatus.equals('CONFIRMED')}">
                             <form action="/user/userResevationCancel" method="get">
                                 <!-- CSRF TOKEN -->
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -80,6 +80,10 @@
                                     <button type="submit" class="btn btn-danger">예약 취소</button>
                                 </div>
                             </form>
+                        </th:block>
+
+                        <th:block th:if="${!order.orderStatus.equals('CONFIRMED')}">
+                            <p>환불이 가능한 상태가 아닙니다.</p>
                         </th:block>
 
                         <!-- <th:block th:if="${order.orderStatus.equals('CANCELLED')}">
