@@ -67,5 +67,10 @@ public class ReviewServiceImpl implements ReviewService {
        return reviewMapper.getAverageRatingByServiceNo(serviceNo);
     }
 
+    @Override
+    public List<Files> getFileByReviewNum(int reviewNo) throws Exception {
+        return reviewMapper.getFileByReviewNum(reviewNo);
+    }
+
 
 }
