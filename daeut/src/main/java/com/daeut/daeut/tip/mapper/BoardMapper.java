@@ -15,7 +15,8 @@ public interface BoardMapper {
     
     // 게시글 목록
     public List<Board> list(@Param("page") Page page
-                          , @Param("option") Option2 option) throws Exception;
+                          , @Param("option") Option2 option
+                          , @Param("sort") String sort) throws Exception;
 
     // 게시글 조회
     public Board select(int boardNo) throws Exception;

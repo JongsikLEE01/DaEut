@@ -1,4 +1,4 @@
--- Active: 1717757886166@@127.0.0.1@3306@joeun
+-- Active: 1714007443343@@127.0.0.1@3306@joeun
 
 -- 결제 로직
 
@@ -172,16 +172,17 @@ ALTER TABLE persistent_logins
 
 CREATE TABLE reply
 (
-  reply_no       INT       NOT NULL AUTO_INCREMENT COMMENT '댓글 번호',
-  parent_no      INT       NOT NULL COMMENT '부모 테이블 번호',
-  reply_content  TEXT      NOT NULL COMMENT '댓글 내용',
-  reply_reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '댓글 등록일자',
-  reply_upd_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '댓글 수정일자',
-  board_no       INT       NOT NULL COMMENT '게시판 번호',
-  user_no        INT       NOT NULL COMMENT '사용자 번호',
+  reply_no       INT          NOT NULL AUTO_INCREMENT COMMENT '댓글 번호',
+  parent_no      INT          NOT NULL COMMENT '부모 테이블 번호',
+  reply_content  TEXT         NOT NULL COMMENT '댓글 내용',
+  reply_reg_date TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '댓글 등록일자',
+  reply_upd_date TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '댓글 수정일자',
+  board_no       INT          NOT NULL COMMENT '게시판 번호',
+  user_no        INT          NOT NULL COMMENT '사용자 번호',
+  user_id        VARCHAR(100) NOT NULL COMMENT '사용자 아이디',
   PRIMARY KEY (reply_no)
 ) COMMENT '댓글';
-ALTER TABLE reply ADD COLUMN user_id VARCHAR(255);
+-- ALTER TABLE reply ADD COLUMN user_id VARCHAR(255);
 
 CREATE TABLE review
 (

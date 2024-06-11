@@ -54,11 +54,17 @@ public class BoardController {
 
     // 게시글 목록 조회 화면
     @GetMapping("/index")
-    public String index(Model model, Page page, Option2 option) throws Exception {
+    public String index(Model model, Page page, Option2 option, @RequestParam(value = "sort", defaultValue = "latest") String sort) throws Exception {
 
         page = new Page(page.getPage(), 9, page.getCount(), page.getTotal());
 
-        List<Board> boardList = boardService.list(page, option);
+        List<Board> boardList = boardService.list(page, option, sort);
+
+        // 각 게시글에 댓글수 추가
+        for (Board board : boardList) {
+            int replyCount = replyService.countByBoardNo(board.getBoardNo());
+            board.setReplyCount(replyCount);
+        }
 
         log.info("page : " + page);
         log.info("option : " + option);
@@ -66,6 +72,7 @@ public class BoardController {
         model.addAttribute("boardList", boardList);
         model.addAttribute("page", page);
         model.addAttribute("option", option);
+        model.addAttribute("sort", sort);
 
         List<Option2> optionList = new ArrayList<Option2>();
         optionList.add(new Option2("전체", 0));
@@ -87,6 +94,10 @@ public class BoardController {
         log.info("------------------------------------");
         log.info("-----------------/tip/tipRead-------------------");
         log.info(board.toString());
+
+        // 댓글 수 설정
+        int replyCount = replyService.countByBoardNo(boardNo);
+        board.setReplyCount(replyCount);
 
         // 현재 사용자 정보 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

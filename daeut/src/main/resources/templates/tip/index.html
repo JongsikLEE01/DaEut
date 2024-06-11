@@ -10,20 +10,15 @@
     <!-- ⭐ content -->
     <div class="container">
         <div class="main">
-            <!-- <h3 class="tipH3">오늘의 추천 생활 팁</h3>
-            <h2 class="tipH2">쾌적한 생활을 위한 안내</h2>
-            <div class="tips">
-                <div th:each="board : ${boardList}" class="card">
-                    <a th:href="|/tip/tipRead?boardNo=${board.boardNo}|">
-                        <th:block th:each="file : ${fileList}"> 
-                    <img th:src="|/img/${board.fileNo}|" alt="모기 퇴치 방법" class="img-fluid">
-                        </th:block>
-                    </a>
-                    <p>작성자: <span th:text="${board.userNo}">작성자</span>
-                    <button class="heart-button"><i class="fa fa-heart" aria-hidden="true"></i></button></p>
-                </div>
-            </div> -->
             <h3 class="tipH3">생활 속 즐거움 <a th:href="@{/tip/tipInsert}" class="more-button2">글쓰기</a></h3>
+            <div class="sorting-dropdown">
+                <select id="sort-options" onchange="location = this.value;">
+                    <option th:value="@{/tip/index(sort='latest')}" th:selected="${sort == 'latest'}">최신순</option>
+                    <option th:value="@{/tip/index(sort='oldest')}" th:selected="${sort == 'oldest'}">오래된순</option>
+                    <option th:value="@{/tip/index(sort='like')}" th:selected="${sort == 'like'}">추천순</option>
+                    <option th:value="@{/tip/index(sort='reply')}" th:selected="${sort == 'reply'}">댓글순</option>
+                </select>
+            </div>
             <div class="categories">
                 <div th:each="board : ${boardList}" class="card">
                     <div style="position: relative;">
@@ -39,6 +34,7 @@
                         <p><span class="highlight-text" th:text="${board.boardTitle}"></span></p>
                     </a>
                     <p>추천수: <span th:text="${board.boardLike}"></span></p>
+                    <p>댓글수: <span th:text="${board.replyCount}"></span></p>
                 </div>
             </div>
         </div>
@@ -86,7 +82,6 @@
             </form>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const heartButtons = document.querySelectorAll('.heart-button, .heart-button2');
