@@ -602,7 +602,8 @@
 .button-box {
     display: flex;
     justify-content: flex-end;
-    margin-top: 30px;
+    margin-top: 30px; 
+    margin-bottom: 30px;
 }
 
 /* 예약 상세 페이지 */
@@ -1240,4 +1241,12 @@
 .reservationthumbnail{
     width:365px ;
     height: 285px;
+}
+
+.servie-tag {
+    width: 365px;
+}
+
+.review-box {
+    margin-bottom: 100px;
 }
