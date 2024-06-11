@@ -151,7 +151,7 @@
 
 						<div class="review-image-box" th:each="file : ${reviewFiles}">
 							<div class="review-image-container" th:if="${file != null}">
-								<img th:src="|/file/img/${file.fileNo}|" class="review-image">
+								<img th:src="|/file/img/${reviewFiles.fileNo}|" class="review-image">
 							</div>
 						</div>
 

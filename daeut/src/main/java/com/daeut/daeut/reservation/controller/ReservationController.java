@@ -128,6 +128,7 @@ public class ReservationController {
         model.addAttribute("pUsers", pUsers);
         model.addAttribute("averageRating", averageRating);
         model.addAttribute("pthumbnail", pthumbnail);
+        model.addAttribute("reviewFiles", reviewFiles);  // reviewFiles를 모델에 추가합니다.
     
         return "reservation/reservationRead";
     }
