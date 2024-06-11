@@ -3,7 +3,6 @@ package com.daeut.daeut.reservation.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -77,7 +76,7 @@ public class OrderController {
 
         Users user = (Users) session.getAttribute("user");
         orders.setUserNo(user.getUserNo());
-
+        orders.setOrderStatus(OrderStatus.PENDING);
         // 주문 등록
         int result = orderService.insert(orders);
         

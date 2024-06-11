@@ -51,7 +51,20 @@
                                 <td><a th:href="|/admin/adminReservationRead?ordersNo=${order.ordersNo}|" th:text="${order.userName}" class="text-decoration-line"></a></td>
                                 <td th:text="${order.partnerName}"></td>
                                 <td th:text="${order.ordersNo}"></td>
-                                <td th:text="${order.status}"></td>
+                                <td>
+                                    <!-- 상태가 'PENDING'인 경우 -->
+                                    <span th:if="${order.status.name() == 'PENDING'}" class="status-pending" style=" color: green;">
+                                        보류
+                                    </span>
+                                    <!-- 상태가 'PAID'인 경우 -->
+                                    <span th:if="${order.status.name() == 'PAID'}" class="status-paid" style=" color: blue;">
+                                        결제 완료
+                                    </span>
+                                    <!-- 상태가 'REFUND'인 경우 -->
+                                    <span th:if="${order.status.name() == 'REFUND'}" class="status-refund" style=" color: red;">
+                                        환불
+                                    </span>
+                                </td>
                                 <td th:text="${#dates.format(order.serviceDate, 'yyyy-MM-dd HH:mm')}"></td>
                                 <!-- <td class="checked">
                                     <input type="checkbox" class="checkbox" name="deleteNoList" th:value="${order.ordersNo}">

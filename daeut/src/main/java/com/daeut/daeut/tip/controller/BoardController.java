@@ -25,10 +25,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.tip.dto.Option2;
+import com.daeut.daeut.tip.dto.Reply;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.main.service.FileService;
 import com.daeut.daeut.tip.dto.Board;
 import com.daeut.daeut.tip.service.BoardService;
+import com.daeut.daeut.tip.service.ReplyService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -47,9 +49,15 @@ public class BoardController {
     @Autowired
     private FileService filesService;
 
+    @Autowired
+    private ReplyService replyService;
+
     // 게시글 목록 조회 화면
     @GetMapping("/index")
     public String index(Model model, Page page, Option2 option) throws Exception {
+
+        page = new Page(page.getPage(), 9, page.getCount(), page.getTotal());
+
         List<Board> boardList = boardService.list(page, option);
 
         log.info("page : " + page);
@@ -101,8 +109,12 @@ public class BoardController {
         List<Files> fileList = filesService.listByParent(file);
         log.info(fileList.toString());
 
+        // 댓글 목록 조회
+        List<Reply> replyList = replyService.listByBoardNo(boardNo);
+
         model.addAttribute("board", board);
         model.addAttribute("fileList", fileList);
+        model.addAttribute("replyList", replyList); // 댓글 목록 추가
 
         return "tip/tipRead";
     }
@@ -250,13 +262,29 @@ public class BoardController {
         return response;
     }
 
-    @GetMapping("/sessionTest")
-    @ResponseBody
-    public String sessionTest(HttpSession session) {
-        Integer userNo = (Integer) session.getAttribute("userNo");
-        String userId = (String) session.getAttribute("userId");
+    @PostMapping("/reply/insert")
+    public String insertReply(@RequestParam("boardNo") int boardNo, @RequestParam("replyContent") String replyContent, @RequestParam("userNo") int userNo) throws Exception {
+        Reply reply = new Reply();
+        reply.setBoardNo(boardNo);
+        reply.setReplyContent(replyContent);
+        reply.setUserNo(userNo);
 
-        return "UserNo: " + userNo + ", UserId: " + userId;
+        replyService.insert(reply);
+
+        return "redirect:/tip/tipRead?no=" + boardNo;
+    }
+
+    @PostMapping("/reply/insertReply")
+    public String insertReplyReply(@RequestParam("boardNo") int boardNo, @RequestParam("replyContent") String replyContent, @RequestParam("userNo") int userNo, @RequestParam("parentNo") int parentNo) throws Exception {
+        Reply reply = new Reply();
+        reply.setBoardNo(boardNo);
+        reply.setReplyContent(replyContent);
+        reply.setUserNo(userNo);
+        reply.setParentNo(parentNo);
+
+        replyService.insert(reply);
+
+        return "redirect:/tip/tipRead?no=" + boardNo;
     }
     
 }

@@ -83,7 +83,8 @@
 
 						<hr class="section-underbar">
 						<div class="partner-info">
-							<img src="/img/partner.png" alt="파트너 사진" class="partner-photo">
+							<!--파트너 사진-->
+							<img th:src="|/file/img/${pthumbnail.fileNo}|" alt="파트너 사진" class="partner-photo">
 							<div class="partner-intro-name">
 								<h3 class="partner-introduction-name" th:text="${pUsers.userName}"></h3>
 
@@ -124,7 +125,7 @@
 						<p class="refund-legacy"><span style="color: red;">당일 취소 및 반복적인 예약 취소는 파트너 보호를 위해 이용에 제한을 받을 수
 								있습니다.</span> <br> <br>
 							소비자 권리 보호 및 분쟁 해결 기준에 따라 결제 후 2시간 이내 취소 시 전액 환불이 가능합니다.(단, 이용시간 전까지만 가능합니다.)
-							<br>이용 8일 전 총 금액의 100% 환불이 가능합니다.
+							<br><br>이용 8일 전 총 금액의 100% 환불이 가능합니다.
 							<br><br>
 							<span style="color: red;">이용 7일 전부터 취소 시 환불이 불가능합니다.</span>
 							<br><br>
@@ -179,12 +180,6 @@
 
 							<!--유저 별점-->
 							<div class="review-star" th:if="${review.reviewRating != null}">
-								<th:block th:each="star : ${#numbers.sequence(1, review.reviewRating)}">
-									<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-								</th:block>
-							</div>
-
-							<div class="review-star" th:if="${review.reviewRating != null && review.reviewRating > 0}">
 								<th:block th:each="star : ${#numbers.sequence(1, review.reviewRating)}">
 									<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
 								</th:block>

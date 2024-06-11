@@ -15,6 +15,8 @@ public interface OrderMapper {
     public int insert(Orders orderes) throws Exception;
     
     public int update(Orders orderes) throws Exception;
+
+    public int updateData(Orders orderes) throws Exception;
     
     public int delete(String ordersNo) throws Exception;
 

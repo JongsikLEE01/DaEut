@@ -14,13 +14,14 @@ import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
 import com.daeut.daeut.auth.service.UserService;
+import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.Payments;
 import com.daeut.daeut.reservation.mapper.OrderMapper;
-import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.PaymentService;
+import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,6 +43,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private PaymentService PaymentService;
+
+    @Autowired
+    private ReservationService reservation;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -218,8 +222,12 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int adminUpdateReservation(Orders orders, Payments Payments, Users users) throws Exception {
         int userUpdateResult = userService.update(users);
-        int orderUpdateResult = orderMapper.update(orders);
-        int paymentUpdateResult = PaymentService.update(Payments);
+        log.info("zzzzzzzzzzzzzzzz" + users);
+        int orderUpdateResult = orderMapper.updateData(orders);
+        log.info("zzzzzzzzzzzzzzzz" + orders);
+        int paymentUpdateResult = PaymentService.updateData(Payments);
+        log.info("zzzzzzzzzzzzzzzz" + Payments);
+        
 
         int result =  userUpdateResult + orderUpdateResult + paymentUpdateResult;
         log.info("zzzzzzzzzzzzzzzz" + orderUpdateResult);
@@ -229,5 +237,12 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Review> selectReviewsByUser(int userNo) throws Exception {
         return adminMapper.selectReviewsByUser(userNo);
+    }
+
+    @Override
+    public Files partnerThumbnail(int partnerNo) throws Exception {
+        // 썸네일
+        Files pthumbnail = reservation.partnerThumbnail(partnerNo);
+        return pthumbnail;
     }
 }

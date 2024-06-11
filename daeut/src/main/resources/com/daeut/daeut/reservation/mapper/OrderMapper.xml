@@ -83,6 +83,15 @@
         WHERE orders_no = #{ordersNo}
     </update>
 
+    <!-- 데이터 수정 -->
+    <update id="updateData">
+        UPDATE orders
+        SET title = #{title}
+            , total_price = #{totalPrice}
+            , upd_date = now()
+        WHERE orders_no = #{ordersNo}
+    </update>
+
     <!-- 주문 삭제 -->
     <delete id="delete">
         DELETE FROM orders 
