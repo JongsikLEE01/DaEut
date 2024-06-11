@@ -66,4 +66,8 @@
         WHERE parent_no = #{parentNo}
     </delete>
 
+    <select id="countByBoardNo" resultType="int" parameterType="int">
+        SELECT COUNT(*) FROM reply WHERE board_no = #{boardNo}
+    </select>
+
 </mapper>

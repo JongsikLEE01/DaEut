@@ -60,6 +60,12 @@ public class BoardController {
 
         List<Board> boardList = boardService.list(page, option);
 
+        // 각 게시글에 댓글수 추가
+        for (Board board : boardList) {
+            int replyCount = replyService.countByBoardNo(board.getBoardNo());
+            board.setReplyCount(replyCount);
+        }
+
         log.info("page : " + page);
         log.info("option : " + option);
 

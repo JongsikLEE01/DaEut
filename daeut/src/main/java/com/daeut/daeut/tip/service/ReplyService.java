@@ -23,4 +23,6 @@ public interface ReplyService {
     public int max() throws Exception;
 
     public int deleteByParentNo(int parentNo) throws Exception;
+
+    public int countByBoardNo(int boardNo) throws Exception;
 }
