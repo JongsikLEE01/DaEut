@@ -2,6 +2,7 @@ package com.daeut.daeut.auth.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,10 +68,6 @@ public class ReviewServiceImpl implements ReviewService {
        return reviewMapper.getAverageRatingByServiceNo(serviceNo);
     }
 
-    @Override
-    public List<Files> getFileByReviewNum(int reviewNo) throws Exception {
-        return reviewMapper.getFileByReviewNum(reviewNo);
-    }
 
 
 }

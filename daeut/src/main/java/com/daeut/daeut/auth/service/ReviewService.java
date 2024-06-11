@@ -22,6 +22,4 @@ public interface ReviewService {
 
     int getAverageRatingByServiceNo(@Param("serviceNo") int serviceNo);
 
-    // 리뷰 사진
-    public List<Files> getFileByReviewNum(int reviewNo) throws Exception;
 }

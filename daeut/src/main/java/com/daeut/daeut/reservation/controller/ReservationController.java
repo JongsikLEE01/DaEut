@@ -99,16 +99,7 @@ public class ReservationController {
         Partner partner = partnerService.selectByPartnerNo(partnerNo);
         Users pUsers = userService.findUserById(partner.getUserNo());
         Files pthumbnail = reservationService.partnerThumbnail(partnerNo);
-
-        
-        // List<Files> reviewFiles = reviewService.getFileByReviewNum(reviewNo);
-        List<Files> reviewFiles = new ArrayList<>();
-        for (Review review : reviews) {
-            int reviewNo = review.getReviewNo();
-            List<Files> reviewFilesTemp = reviewService.getFileByReviewNum(reviewNo);
-            reviewFiles.addAll(reviewFilesTemp);
-        }
-
+        Files rFiles = reservationService.getFileByServiceNum(serviceNo);
 
         file.setParentTable("service");
         file.setParentNo(serviceNo);
@@ -128,7 +119,8 @@ public class ReservationController {
         model.addAttribute("pUsers", pUsers);
         model.addAttribute("averageRating", averageRating);
         model.addAttribute("pthumbnail", pthumbnail);
-        model.addAttribute("reviewFiles", reviewFiles);  // reviewFiles를 모델에 추가합니다.
+        model.addAttribute("rFiles", rFiles);
+        
     
         return "reservation/reservationRead";
     }
