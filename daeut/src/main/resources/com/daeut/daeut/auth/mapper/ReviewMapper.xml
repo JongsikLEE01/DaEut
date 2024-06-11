@@ -111,5 +111,11 @@
         WHERE service_no = #{serviceNo}
     </select>
 
+    <!--리뷰 삭제-->
+    <select id="reviewDelete">
+        DELETE * 
+        FROM review
+        where review_no = #{reviewNo}
+    <select>
 
 </mapper>
