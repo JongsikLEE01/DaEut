@@ -27,4 +27,7 @@ public interface ReviewMapper {
 
     public int maxPk();
 
+    public Review getReviewById(@Param("reviewNo") int reviewNo);
+
+    public void updateReview(int reviewNo, String reviewContent, int reviewRating);
 }

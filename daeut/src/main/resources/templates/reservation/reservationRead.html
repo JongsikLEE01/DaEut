@@ -331,6 +331,34 @@
 	            }
 	        }
 
+		function hideEditForm(reviewNo) {
+			document.getElementById(`edit-form-${reviewNo}`).style.display = 'none';
+		}
+
+		function updateReview(reviewNo) {
+			const content = document.getElementById(`edit-review-content-${reviewNo}`).value;
+			const rating = document.getElementById(`edit-review-rating-${reviewNo}`).value;
+
+			fetch('/reviews/edit', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+					'X-CSRF-TOKEN': document.querySelector("meta[name='_csrf']").content
+				},
+				body: new URLSearchParams({
+					reviewNo: reviewNo,
+					reviewContent: content,
+					reviewRating: rating
+				})
+			})
+				.then(response => {
+					if (response.ok) {
+						location.reload();
+					} else {
+						alert('수정에 실패했습니다.');
+					}
+				});
+		}
 	</script>
 </body>
 
