@@ -88,6 +88,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         Partner partner = null; // partner 변수를 선언하고 null로 초기화
         if( user != null ) {
             session.setAttribute("user", user);
+            session.setAttribute("userNo", user.getUserNo());
     
             try {
                 partner = partnerService.findByUserNo(user.getUserNo());
