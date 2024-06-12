@@ -1,4 +1,4 @@
--- Active: 1717757886166@@127.0.0.1@3306@joeun
+-- Active: 1714007443343@@127.0.0.1@3306@joeun
 
 -- 결제 로직
 
@@ -321,7 +321,7 @@ ALTER TABLE payment
 ALTER TABLE reply
   ADD CONSTRAINT FK_board_TO_reply
     FOREIGN KEY (board_no)
-    REFERENCES board (board_no);
+    REFERENCES board (board_no) ON DELETE CASCADE;
 
 ALTER TABLE reply
   ADD CONSTRAINT FK_users_TO_reply

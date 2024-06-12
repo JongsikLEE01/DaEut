@@ -45,7 +45,7 @@
                 <div class="text-center my-5">
                     <!-- ⭐ 파일 이미지 출력하기 -->
                     <th:block th:each="file : ${fileList}"> 
-                        <img th:src="|/file/img/${file.fileNo}|" alt="파일 이미지" class="img-fluid" style="width: 300px; height: 300px;">
+                        <img th:src="|/file/img/${file.fileNo}|" alt="파일 이미지" class="img-fluid" >
                     </th:block>
                 </div>
                 <div class="col-15">
@@ -141,16 +141,19 @@
 
             let no = document.getElementById('no').value;
             let userId = document.getElementById('userId').value;
+            let userNo = document.getElementById('userNo').value;
             let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
             let csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
             console.log(`글번호 : ${no}`);
             console.log(`댓글 내용 : ${replyContent}`);
-            console.log(`회원번호 : ${userNo}`);
+            console.log(`회원 ID : ${userId}`);
+            console.log(`회원 번호 : ${userNo}`);
 
             let data = {
                 'boardNo': no,
                 'userId': userId,
+                'userNo': userNo,
                 'replyContent': replyContent
             };
 
@@ -251,22 +254,23 @@
 
         function editReply(replyNo, replyContent, userId) {
             let replyElement = document.querySelector(`div[data-reply-no="${replyNo}"]`);
-            let repliesHtml = replyElement.querySelector('.replies').innerHTML; // 답글 요소 저장
-            replyElement.setAttribute('data-original-replies', repliesHtml); // 답글 요소 저장
+            let repliesHtml = replyElement.querySelector('.replies').innerHTML;
+            replyElement.setAttribute('data-original-replies', repliesHtml);
             replyElement.innerHTML = `
                 <textarea id="edit-content-${replyNo}" cols="60" rows="5" style="border: 1px solid #8FA2CA;resize: none;">${replyContent}</textarea>
-                <button style="background-color: #8FA2CA; border: #8FA2CA; border-radius: 8px; height: 30px; color: white;" onclick="updateReply(${replyNo})">수정</button>
+                <button style="background-color: #8FA2CA; border: #8FA2CA; border-radius: 8px; height: 30px; color: white;" onclick="updateReply(${replyNo}, '${userId}')">수정</button>
                 <button style="background-color: white; border-color: #8FA2CA; border-radius: 8px; height: 30px; color: #8FA2CA; box-shadow: none; outline: none; border-width: 1px; border-style: solid;" onclick="cancelEdit(${replyNo}, '${replyContent.replace(/'/g, "\\'")}', '${userId}')">취소</button>
                 <div class="replies">${repliesHtml}</div>
             `;
         }
 
-        function updateReply(replyNo) {
+        function updateReply(replyNo, userId) {
             let editedContent = document.getElementById(`edit-content-${replyNo}`).value;
 
             let data = {
                 'replyNo': replyNo,
-                'replyContent': editedContent
+                'replyContent': editedContent,
+                'userId': userId
             };
 
             let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
@@ -282,6 +286,7 @@
                 if (request.readyState === XMLHttpRequest.DONE) {
                     if (request.status === 200) {
                         let response = request.responseText;
+                        console.log('Update response:', response);
                         if (response === 'SUCCESS') {
                             alert("댓글 수정 성공!!!");
                             replyList();
@@ -299,7 +304,7 @@
 
         function cancelEdit(replyNo, originalContent, userId) {
             let replyElement = document.querySelector(`div[data-reply-no="${replyNo}"]`);
-            let repliesHtml = replyElement.getAttribute('data-original-replies'); // 저장된 답글 요소 복원
+            let repliesHtml = replyElement.getAttribute('data-original-replies');
             replyElement.innerHTML = `
                 <p><strong>${userId}</strong></p>
                 <p>${originalContent}</p>
@@ -328,7 +333,7 @@
                     let response = request.responseText
                     if( response == 'SUCCESS' ){
                         replyList();
-                        decrementReplyCount(); // 댓글 수 감소 함수 호출
+                        decrementReplyCount();
                     }
                 }
             }
@@ -364,17 +369,20 @@
 
             let no = document.getElementById('no').value;
             let userId = document.getElementById('userId').value;
+            let userNo = document.getElementById('userNo').value; 
             let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
             let csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
             console.log(`부모 번호: ${parentNo}`);
             console.log(`댓글 내용: ${replyContent}`);
-            console.log(`회원 번호: ${userId}`);
+            console.log(`회원 ID: ${userId}`);
+            console.log(`회원 번호: ${userNo}`); 
 
             let data = {
                 'boardNo': no,
                 'parentNo': parentNo,
                 'userId': userId,
+                'userNo': userNo, 
                 'replyContent': replyContent
             };
 
@@ -394,7 +402,7 @@
                         if (response === 'SUCCESS') {
                             alert("답글 등록 성공!!!");
                             replyList();
-                            incrementReplyCount();  // 댓글 수 증가 함수 호출
+                            incrementReplyCount(); 
                             $content.value = '';
                         }
                     }
