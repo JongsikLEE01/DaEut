@@ -47,5 +47,7 @@ INSERT INTO user_auth ( user_no,  auth ) VALUES ( 4, 'ROLE_USER' );
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 4, 'ROLE_PARTNER' );
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 4, 'ROLE_ADMIN' );
 
+INSERT INTO user_auth (user_no, 권한_컬럼1, 권한_컬럼2, ...)
+VALUES (3, 'ROLE_USER', 'ROLE_PARTNER', 'ROLE_ADMIN');
 -- 파트너 샘플 데이터
 INSERT INTO partner (partner_grade, partner_reserve, partner_career, introduce, user_no) VALUES (4, 5, "특수 청소 2년", '테스트 파트너입니다.', 3);
