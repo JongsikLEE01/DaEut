@@ -115,6 +115,6 @@
     <delete id="reviewDelete">
         DELETE FROM review
         where user_no = #{userNo}
-</delete>
+    </delete>
 
 </mapper>

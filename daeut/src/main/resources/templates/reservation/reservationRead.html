@@ -165,10 +165,10 @@
 						<!-- 리뷰 작성일 및 삭제 버튼 -->
 						<div class="review-actions">
 							<p class="review-date" th:text="${review.reviewRegDate}"></p>
-							<div class="review-buttons">
-								<form th:action="@{/reviewDelete}" method="post">
+							<div class="review-buttons" th:if="${session.userNo == review.userNo}">
+								<form action="/reservation/reviewDelete" method="post">
+									<input type="hidden" name="userNo" th:value="${review.userNo}">
 									<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-									<input type="hidden" name="user_no" th:value="${review.userNo}">
 									<button type="submit" class="review-delete">삭제</button>
 								</form>
 							</div>
@@ -329,16 +329,6 @@
 				console.log("reservation-image-slide 클래스를 가진 요소가 없습니다.");
 			}
 		}
-
-		// 삭제 처리 함수
-		  function actionReviewDelete() {
-	            let check = confirm('정말로 삭제하시겠습니까?');
-	            if (check) {
-	                form.action = 'reservation/reviewDelete'; // 탈퇴 처리를 담당하는 URL로 설정
-	                form.method = 'post'; // POST 메소드로 설정
-	                form.submit(); // 폼 제출
-	            }
-	        }
 
 	</script>
 </body>

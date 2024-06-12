@@ -93,7 +93,6 @@ public class ReservationController {
         List<Files> files = reservationService.SelectFiles(serviceNo);
         Users user = (Users) session.getAttribute("user");
         List<Review> reviews = reviewService.getReviewByServiceNo(serviceNo);
-        
 
         // partner_no를 service 객체에서 가져옵니다.
         int partnerNo = service.getPartnerNo();
@@ -254,16 +253,16 @@ public class ReservationController {
         return "reservation/paymentFalse";
     }
 
-
+ 
 @PostMapping("/reviewDelete")
 public String reviewDelete(@RequestParam("userNo") int userNo) throws Exception {
 	int result = reviewService.reviewDelete(userNo);
-        if (result == 0) {
-            log.info("리뷰 삭제 실패...");
-            return "redirect:/reservation/reservation";
+    log.info(":::::::::::::::::::::::::::::: " + result);
+        if (result > 0) {
+            log.info("리뷰 삭제 성공");
+            return "redirect:/index"; 
         }
-
-        log.info("리뷰 삭제 성공...");
-        return "redirect:/reservation/reservation";
+        log.info("리뷰 삭제 실패");
+         return "redirect:/reservation/reservation";
     }
 }
