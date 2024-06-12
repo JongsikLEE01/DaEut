@@ -138,34 +138,43 @@
 					<h4 class="review-title">이용 후기</h4>
 					<hr class="section-underbar">
 
-					<div class="review-section" th:each="review : ${reviews}">
+					<div class="review-section" th:each="review : ${reviews}" th:if="${review != null}">
+						<!-- 리뷰 정보 표시 -->
 						<div class="review-user-title">
 							<p class="review-user-name" th:text="${review.userName}"></p>
-							<!--유저 별점-->
+							<!-- 유저 별점 -->
 							<div class="review-star" th:if="${review.reviewRating != null}">
 								<th:block th:each="star : ${#numbers.sequence(1, review.reviewRating)}">
 									<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
 								</th:block>
 							</div>
 						</div>
-
+					
+						<!-- 리뷰 이미지 -->
 						<div class="review-image-box">
 							<div th:each="file : ${rFiles}">
 								<div class="review-image-container" th:if="${file != null}">
-									<img th:src="|/file/img/${file.fileNo}|" class="review-image">
+									<img th:src="@{|/file/img/${file.fileNo}|}" class="review-image">
 								</div>
 							</div>
 						</div>
-
-						<p class="review-content" id="reviewContent" th:text="${review.reviewContent}" ></p>
+					
+						<!-- 리뷰 내용 -->
+						<p class="review-content" id="reviewContent" th:text="${review.reviewContent}"></p>
+					
+						<!-- 리뷰 작성일 및 삭제 버튼 -->
 						<div class="review-actions">
 							<p class="review-date" th:text="${review.reviewRegDate}"></p>
-							<!-- <div class="review-buttons">
-								<button class="review-edit" onclick="actionReviewDelete()">수정</button>
-								<button class="review-delete onclick="actionReviewDelete()">삭제</button> 
-							</div> -->
+							<div class="review-buttons">
+								<form th:action="@{/reviewDelete}" method="post">
+									<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+									<input type="hidden" name="user_no" th:value="${review.userNo}">
+									<button type="submit" class="review-delete">삭제</button>
+								</form>
+							</div>
 						</div>
 					</div>
+
 				</div>
 			
 			
