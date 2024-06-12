@@ -22,7 +22,7 @@ public interface ReviewMapper {
 
     int getAverageRatingByServiceNo(@Param("serviceNo") int serviceNo);
 
-public int reviewDelete(int reviewNo)throws Exception;
+    public int reviewDelete(int reviewNo)throws Exception;
 
 
     public int maxPk();
