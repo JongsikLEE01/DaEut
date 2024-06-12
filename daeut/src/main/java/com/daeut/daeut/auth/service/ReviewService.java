@@ -20,8 +20,8 @@ public interface ReviewService {
 
     public List<Review> getReviewByServiceNo(int serviceNo);
 
-    int getAverageRatingByServiceNo(@Param("serviceNo") int serviceNo);
+    public int getAverageRatingByServiceNo(@Param("serviceNo") int serviceNo);
 
-    public int reviewDelete(int reviewNo)throws Exception;
+    public int reviewDelete(int userNo)throws Exception;
 
 }

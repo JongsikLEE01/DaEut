@@ -123,6 +123,7 @@ public class ReservationController {
         model.addAttribute("averageRating", averageRating);
         model.addAttribute("pthumbnail", pthumbnail);
         model.addAttribute("rFiles", rFiles);
+       
         
     
         
@@ -255,24 +256,17 @@ public class ReservationController {
         return "reservation/paymentFalse";
     }
 
-
+ 
 @PostMapping("/reviewDelete")
-public String reviewDelete(@RequestParam("reviewNo") int reviewNo) throws Exception {
-	int result = reviewService.reviewDelete(reviewNo);
-
-	
-        if (result == 0) {
-            log.info("리뷰 삭제 실패...");
-            return "redirect:/reservation/reservation";
+public String reviewDelete(@RequestParam("userNo") int userNo) throws Exception {
+	int result = reviewService.reviewDelete(userNo);
+    log.info(":::::::::::::::::::::::::::::: " + result);
+        if (result > 0) {
+            log.info("리뷰 삭제 성공");
+            return "redirect:/index"; 
         }
-
-        Files file = new Files();
-        file.setParentTable("reviewNo");
-        file.setParentNo(reviewNo);
-        fileService.deleteByParent(file);
-
-        log.info("리뷰 삭제 성공...");
-        return "redirect:/reservation/reservation";
+        log.info("리뷰 삭제 실패");
+         return "redirect:/reservation/reservation";
     }
 }
 

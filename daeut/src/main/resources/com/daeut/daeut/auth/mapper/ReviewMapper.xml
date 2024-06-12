@@ -114,7 +114,7 @@
     <!--리뷰 삭제-->
     <delete id="reviewDelete">
         DELETE FROM review
-        where review_no = #{reviewNo}
+        where user_no = #{userNo}
     </delete>
 
 </mapper>
