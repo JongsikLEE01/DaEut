@@ -180,10 +180,8 @@ CREATE TABLE reply
   reply_upd_date TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '댓글 수정일자',
   board_no       INT          NOT NULL COMMENT '게시판 번호',
   user_no        INT          NOT NULL COMMENT '사용자 번호',
-  user_id        VARCHAR(100) NOT NULL COMMENT '사용자 아이디',
   PRIMARY KEY (reply_no)
 ) COMMENT '댓글';
--- ALTER TABLE reply ADD COLUMN user_id VARCHAR(255);
 
 CREATE TABLE review
 (
