@@ -21,7 +21,7 @@ public class CustomSocialUser extends DefaultOAuth2User {
     }
 
     public String getName() {
-        return user.getUserName();
+        return user.getUserId();
     }
 
     public String getEmail() {
