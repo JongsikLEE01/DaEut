@@ -31,8 +31,8 @@
                     <input type="text" id="userId" th:value="${board.userId}" placeholder="userId" disabled>
                     <div class="d-flex gap-2" style="font-size: 0.8em;">
                         <span><i class="fa-regular fa-eye"></i> <span th:text="${board.boardViews}"></span></span>
-                        <!-- <span><i class="fa fa-comments"></i> <span th:text="${board.reply}">0</span></span> -->
                         <span th:text="'추천수: ' + ${board.boardLike}" id="like-count"></span>
+                        <span th:text="'댓글수: ' + ${board.replyCount}" id="reply-count"></span>
                     </div>
                 </div>
                 <!-- <div class="d-flex justify-content-between align-items-center mt-2">
@@ -45,7 +45,7 @@
                 <div class="text-center my-5">
                     <!-- ⭐ 파일 이미지 출력하기 -->
                     <th:block th:each="file : ${fileList}"> 
-                        <img th:src="|/file/img/${file.fileNo}|" alt="파일 이미지" class="img-fluid" style="width: 300px; height: 300px;">
+                        <img th:src="|/file/img/${file.fileNo}|" alt="파일 이미지" class="img-fluid" >
                     </th:block>
                 </div>
                 <div class="col-15">
@@ -77,25 +77,12 @@
                 </div>
             </div>
         </div>
-            <!-- 댓글 목록 -->
-            <!-- <div id="reply-list">
-                <div th:each="reply : ${replies}" class="comment">
-                    <p><strong th:text="${reply.userNo}">아이디</strong></p>
-                    <p th:text="${reply.replyContent}">댓글 내용</p>
-                    <div class="comment-actions">
-                        <span th:text="${#dates.format(reply.replyRegDate, 'yyyy-MM-dd')}">2023-05-22</span>
-                        <button type="button" onclick="showReplyForm">답글달기</button>
-                    </div>
-                </div>
-            </div> -->
-            <!-- 댓글 목록 -->
         <div id="reply-list"></div>
     </div>
 
     <script>
         document.getElementById("like-button").addEventListener("click", function() {
             const boardNo = document.querySelector('input[name="boardNo"]').value;
-            // const userNo = document.querySelector('input[name="userNo"]').value; // 사용자 번호 가져오기
             const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
             const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
@@ -112,9 +99,9 @@
                     let likeCountElement = document.getElementById("like-count");
                     let likeCount = parseInt(likeCountElement.textContent.split(": ")[1]) + 1;
                     likeCountElement.textContent = `추천수: ${likeCount}`;
-                    alert(data.message); // 추천 완료 메시지 표시
+                    alert(data.message);
                 } else {
-                    alert(data.message); // 이미 추천했습니다 메시지 표시
+                    alert(data.message);
                 }
             })
             .catch(error => console.error('Error:', error));
@@ -154,16 +141,19 @@
 
             let no = document.getElementById('no').value;
             let userId = document.getElementById('userId').value;
+            let userNo = document.getElementById('userNo').value;
             let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
             let csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
             console.log(`글번호 : ${no}`);
             console.log(`댓글 내용 : ${replyContent}`);
-            console.log(`회원번호 : ${userNo}`);  // 이거 없으면 로그인
+            console.log(`회원 ID : ${userId}`);
+            console.log(`회원 번호 : ${userNo}`);
 
             let data = {
                 'boardNo': no,
                 'userId': userId,
+                'userNo': userNo,
                 'replyContent': replyContent
             };
 
@@ -182,12 +172,33 @@
                         let response = request.responseText;
                         if (response === 'SUCCESS') {
                             alert("댓글 등록 성공!!!");
-                            replyList();  // 댓글 목록 갱신
-                            $content.value = ''; // 댓글 입력 창 비우기
+                            replyList();
+                            incrementReplyCount();
+                            $content.value = '';
                         }
                     }
                 }
             }
+        }
+
+        function incrementReplyCount() {
+            let replyCountElement = document.getElementById('reply-count');
+            let currentText = replyCountElement.textContent.trim();
+            let currentCount = parseInt(currentText.split(": ")[1]);
+            if (isNaN(currentCount)) {
+                currentCount = 0;
+            }
+            replyCountElement.textContent = '댓글수: ' + (currentCount + 1);
+        }
+
+        function decrementReplyCount() {
+            let replyCountElement = document.getElementById('reply-count');
+            let currentText = replyCountElement.textContent.trim();
+            let currentCount = parseInt(currentText.split(": ")[1]);
+            if (isNaN(currentCount)) {
+                currentCount = 0;
+            }
+            replyCountElement.textContent = '댓글수: ' + (currentCount - 1);
         }
 
         function replyList() {
@@ -205,41 +216,61 @@
                         let replyList = document.getElementById('reply-list');
                         replyList.innerHTML = '';
 
+                        let replyMap = {};
                         replies.forEach(reply => {
                             let replyHtml = `
-                                <div class="${reply.parentNo ? 'reply' : 'comment'}">
+                                <div class="${reply.parentNo ? 'reply' : 'comment'}" data-reply-no="${reply.replyNo}" data-parent-no="${reply.parentNo}">
                                     <p><strong>${reply.userId}</strong></p>
                                     <p>${reply.replyContent}</p>
                                     <div class="comment-actions">
                                         <span>${new Date(reply.replyRegDate).toLocaleDateString()}</span>
                                         <button type="button" onclick="insertAnswer(this, ${reply.replyNo})">답글달기</button>
-                                        <button type="button" onclick="editReply(${reply.replyNo}, '${reply.replyContent}')">수정</button>
+                                        <button type="button" onclick="editReply(${reply.replyNo}, '${reply.replyContent}', '${reply.userId}')">수정</button>
                                         <button type="button" onclick="deleteReply(${reply.replyNo})">삭제</button>
                                     </div>
+                                    <div class="replies"></div>
                                 </div>
                             `;
-                            replyList.innerHTML += replyHtml;
+
+                            replyMap[reply.replyNo] = { html: replyHtml, parentNo: reply.parentNo };
+                        });
+
+                        Object.keys(replyMap).forEach(replyNo => {
+                            let replyHtml = replyMap[replyNo].html;
+                            let parentNo = replyMap[replyNo].parentNo;
+                            if (parentNo) {
+                                let parentElement = document.querySelector(`div[data-reply-no="${parentNo}"] .replies`);
+                                if (parentElement) {
+                                    parentElement.innerHTML += replyHtml;
+                                }
+                            } else {
+                                replyList.innerHTML += replyHtml;
+                            }
                         });
                     }
                 }
             }
         }
 
-        function editReply(replyNo, replyContent) {
-            let replyElement = document.querySelector(`button[onclick="editReply(${replyNo}, '${replyContent}')"]`).parentNode.parentNode;
+        function editReply(replyNo, replyContent, userId) {
+            let replyElement = document.querySelector(`div[data-reply-no="${replyNo}"]`);
+            let repliesHtml = replyElement.querySelector('.replies').innerHTML;
+            replyElement.setAttribute('data-original-replies', repliesHtml);
             replyElement.innerHTML = `
                 <textarea id="edit-content-${replyNo}" cols="60" rows="5" style="border: 1px solid #8FA2CA;resize: none;">${replyContent}</textarea>
-                <button style="background-color: #8FA2CA;border: #8FA2CA;border-radius: 8px;height: 30px;" onclick="updateReply(${replyNo})">수정</button>
-                <button style="background-color: white; border-color: #8FA2CA;border-radius: 8px;height: 30px;" onclick="cancelEdit(${replyNo}, '${replyContent}')">취소</button>
+                <button style="background-color: #8FA2CA; border: #8FA2CA; border-radius: 8px; height: 30px; color: white;" onclick="updateReply(${replyNo}, '${userId}')">수정</button>
+                <button style="background-color: white; border-color: #8FA2CA; border-radius: 8px; height: 30px; color: #8FA2CA; box-shadow: none; outline: none; border-width: 1px; border-style: solid;" onclick="cancelEdit(${replyNo}, '${replyContent.replace(/'/g, "\\'")}', '${userId}')">취소</button>
+                <div class="replies">${repliesHtml}</div>
             `;
         }
 
-        function updateReply(replyNo) {
+        function updateReply(replyNo, userId) {
             let editedContent = document.getElementById(`edit-content-${replyNo}`).value;
 
             let data = {
                 'replyNo': replyNo,
-                'replyContent': editedContent
+                'replyContent': editedContent,
+                'userId': userId
             };
 
             let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
@@ -255,9 +286,10 @@
                 if (request.readyState === XMLHttpRequest.DONE) {
                     if (request.status === 200) {
                         let response = request.responseText;
+                        console.log('Update response:', response);
                         if (response === 'SUCCESS') {
                             alert("댓글 수정 성공!!!");
-                            replyList(); // 댓글 목록 갱신
+                            replyList();
                         } else {
                             alert("댓글 수정 실패: " + response);
                         }
@@ -270,26 +302,20 @@
             }
         }
 
-        function cancelEdit(replyNo, originalContent) {
-            // replyNo에 해당하는 수정 창을 찾습니다.
-            let editor = document.querySelector(`#edit-content-${replyNo}`);
-            
-            // editor가 존재하면 부모 요소를 찾아서 원래 댓글 형태로 되돌립니다.
-            if (editor) {
-                let replyElement = editor.parentNode;
-                replyElement.innerHTML = `
-                    <p><strong>${replyNo}</strong></p>
-                    <p>${originalContent}</p>
-                    <div class="comment-actions">
-                        <span>${new Date().toLocaleDateString()}</span>
-                        <button type="button" onclick="insertAnswer(this, ${replyNo})">답글달기</button>
-                        <button type="button" onclick="editReply(${replyNo}, '${originalContent.replace(/'/g, "\\'")}')">수정</button>
-                        <button type="button" onclick="deleteReply(${replyNo})">삭제</button>
-                    </div>
-                `;
-            } else {
-                console.error("Editor not found for replyNo: " + replyNo);
-            }
+        function cancelEdit(replyNo, originalContent, userId) {
+            let replyElement = document.querySelector(`div[data-reply-no="${replyNo}"]`);
+            let repliesHtml = replyElement.getAttribute('data-original-replies');
+            replyElement.innerHTML = `
+                <p><strong>${userId}</strong></p>
+                <p>${originalContent}</p>
+                <div class="comment-actions">
+                    <span>${new Date().toLocaleDateString()}</span>
+                    <button type="button" onclick="insertAnswer(this, ${replyNo})">답글달기</button>
+                    <button type="button" onclick="editReply(${replyNo}, '${originalContent.replace(/'/g, "\\'")}', '${userId}')">수정</button>
+                    <button type="button" onclick="deleteReply(${replyNo})">삭제</button>
+                </div>
+                <div class="replies">${repliesHtml}</div>
+            `;
         }
 
         function deleteReply(no) {
@@ -298,7 +324,7 @@
 
             let request = new XMLHttpRequest()
             request.open('DELETE', '/reply/' + no)
-            request.setRequestHeader(csrfHeader, csrfToken); // CSRF 토큰 설정
+            request.setRequestHeader(csrfHeader, csrfToken);
             request.send()
 
             request.onreadystatechange = function() {
@@ -306,16 +332,15 @@
                     console.log('댓글 삭제 성공!');
                     let response = request.responseText
                     if( response == 'SUCCESS' ){
-                        replyList() // 댓글 목록 갱신
+                        replyList();
+                        decrementReplyCount();
                     }
                 }
             }
         }
 
         function insertAnswer(element, parentNo) {
-            let $replyBox = element.parentNode.parentNode;
-            console.log(`부모 번호 : ${parentNo}`);
-            console.log($replyBox);
+            let $replyBox = element.closest('div[data-reply-no]');
 
             let $editor = document.createElement('div');
             $editor.classList.add('reply-box');
@@ -324,8 +349,8 @@
                 <div class="inner">
                     <textarea cols="60" rows="5" id="answer-content" style="border: 1px solid #8FA2CA;resize: none;" placeholder="답글 내용을 입력하세요."></textarea>
                     <br>
-                    <button style="background-color: #8FA2CA;border: #8FA2CA;border-radius: 8px;height: 30px;" onclick="answer(${parentNo})">등록</button>
-                    <button style="background-color: white; border-color: #8FA2CA;border-radius: 8px;height: 30px;" onclick="cancelAnswer()">취소</button>
+                    <button style="background-color: #8FA2CA; border: #8FA2CA; border-radius: 8px; height: 30px; color: white;" onclick="answer(${parentNo})">등록</button>
+                    <button style="background-color: white; border-color: #8FA2CA; border-radius: 8px; height: 30px; color: #8FA2CA; box-shadow: none; outline: none; border-width: 1px; border-style: solid;" onclick="cancelAnswer()">취소</button>
                 </div>
             `;
             $editor.innerHTML = editor;
@@ -335,7 +360,7 @@
                 $answer.parentNode.removeChild($answer);
             }
 
-            $replyBox.after($editor);
+            $replyBox.querySelector('.replies').appendChild($editor);
         }
 
         function answer(parentNo) {
@@ -344,23 +369,26 @@
 
             let no = document.getElementById('no').value;
             let userId = document.getElementById('userId').value;
+            let userNo = document.getElementById('userNo').value; 
             let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
             let csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
             console.log(`부모 번호: ${parentNo}`);
             console.log(`댓글 내용: ${replyContent}`);
-            console.log(`회원 번호: ${userId}`);
+            console.log(`회원 ID: ${userId}`);
+            console.log(`회원 번호: ${userNo}`); 
 
             let data = {
                 'boardNo': no,
                 'parentNo': parentNo,
                 'userId': userId,
+                'userNo': userNo, 
                 'replyContent': replyContent
             };
 
             let request = new XMLHttpRequest();
             request.open('POST', '/reply/insert', true);
-            request.setRequestHeader(csrfHeader, csrfToken); 
+            request.setRequestHeader(csrfHeader, csrfToken);
             request.setRequestHeader('Content-Type', 'application/json');
 
             console.log(JSON.stringify(data));
@@ -373,8 +401,9 @@
                         let response = request.responseText;
                         if (response === 'SUCCESS') {
                             alert("답글 등록 성공!!!");
-                            replyList();  // 댓글 목록 갱신
-                            $content.value = ''; // 답글 입력 창 비우기
+                            replyList();
+                            incrementReplyCount(); 
+                            $content.value = '';
                         }
                     }
                 }

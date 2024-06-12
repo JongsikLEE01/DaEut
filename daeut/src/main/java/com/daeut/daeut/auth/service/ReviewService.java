@@ -1,6 +1,7 @@
 package com.daeut.daeut.auth.service;
 
 import com.daeut.daeut.auth.dto.Review;
+import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.reservation.dto.Payments;
 
 import java.util.List;
@@ -21,7 +22,6 @@ public interface ReviewService {
 
     int getAverageRatingByServiceNo(@Param("serviceNo") int serviceNo);
 
-    public Review getReviewById(int reviewNo);
+    public int reviewDelete(int reviewNo)throws Exception;
 
-    public void updateReview(int reviewNo, String reviewContent, int reviewRating);
 }

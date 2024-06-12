@@ -1,5 +1,7 @@
 package com.daeut.daeut.reservation.controller;
 
+
+import java.util.ArrayList;
 import java.security.Principal;
 import java.util.List;
 
@@ -94,18 +96,19 @@ public class ReservationController {
         List<Files> files = reservationService.SelectFiles(serviceNo);
         Users user = (Users) session.getAttribute("user");
         List<Review> reviews = reviewService.getReviewByServiceNo(serviceNo);
-       
-        
+
         // partner_no를 service 객체에서 가져옵니다.
         int partnerNo = service.getPartnerNo();
         Partner partner = partnerService.selectByPartnerNo(partnerNo);
         Users pUsers = userService.findUserById(partner.getUserNo());
         Files pthumbnail = reservationService.partnerThumbnail(partnerNo);
-    
+        Files rFiles = reservationService.getFileByServiceNum(serviceNo);
+
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
-    
+        
+
         int averageRating = reviewService.getAverageRatingByServiceNo(serviceNo);
         
         model.addAttribute("serviceNo", serviceNo);
@@ -119,7 +122,10 @@ public class ReservationController {
         model.addAttribute("pUsers", pUsers);
         model.addAttribute("averageRating", averageRating);
         model.addAttribute("pthumbnail", pthumbnail);
+        model.addAttribute("rFiles", rFiles);
+        
     
+        
         return "reservation/reservationRead";
     }
 
@@ -250,19 +256,23 @@ public class ReservationController {
     }
 
 
-    @PostMapping("/reviews/edit")
-    public ResponseEntity<String> editReview(@RequestParam int reviewNo, @RequestParam String reviewContent, @RequestParam int reviewRating, Principal principal) {
-        Review review = reviewService.getReviewById(reviewNo);
-        if (!isUserAuthorized(principal, review.getUserNo())) {
-            return ResponseEntity.status(403).body("권한이 없습니다.");
-        }
-        reviewService.updateReview(reviewNo, reviewContent, reviewRating);
-        return ResponseEntity.ok("리뷰가 수정되었습니다.");
-    }
+@PostMapping("/reviewDelete")
+public String reviewDelete(@RequestParam("reviewNo") int reviewNo) throws Exception {
+	int result = reviewService.reviewDelete(reviewNo);
 
-    private boolean isUserAuthorized(Principal principal, int userNo) {
-        String username = principal.getName();
-        Users user = userService.findByUsername(username);
-        return user != null && user.getUserNo() == userNo;
+	
+        if (result == 0) {
+            log.info("리뷰 삭제 실패...");
+            return "redirect:/reservation/reservation";
+        }
+
+        Files file = new Files();
+        file.setParentTable("reviewNo");
+        file.setParentNo(reviewNo);
+        fileService.deleteByParent(file);
+
+        log.info("리뷰 삭제 성공...");
+        return "redirect:/reservation/reservation";
     }
 }
+

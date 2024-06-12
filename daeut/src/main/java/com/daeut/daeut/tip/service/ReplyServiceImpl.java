@@ -79,5 +79,10 @@ public class ReplyServiceImpl implements ReplyService {
         int result = replyMapper.deleteByParentNo(parentNo);
         return result;
     }
+
+    @Override
+    public int countByBoardNo(int boardNo) throws Exception {
+        return replyMapper.countByBoardNo(boardNo);
+    }
     
 }

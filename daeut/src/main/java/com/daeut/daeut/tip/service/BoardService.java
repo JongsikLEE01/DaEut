@@ -9,7 +9,7 @@ import com.daeut.daeut.tip.dto.Board;
 public interface BoardService {
     
     // 게시글 목록
-    public List<Board> list(Page page, Option2 option) throws Exception;
+    public List<Board> list(Page page, Option2 option, String sort) throws Exception;
 
     // 게시글 조회
     public Board select(int boardNo) throws Exception;

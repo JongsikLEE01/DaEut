@@ -4,66 +4,64 @@
 <mapper namespace="com.daeut.daeut.tip.mapper.ReplyMapper">
 
     <select id="list" resultType="Reply">
-        SELECT *
-        FROM reply
+        SELECT r.*, u.user_id AS userId
+        FROM reply r
+        JOIN users u ON r.user_no = u.user_no
     </select>
 
     <select id="listByBoardNo" resultType="Reply">
-        SELECT *
-        FROM reply
-        WHERE board_no = #{boardNo}
-        ORDER BY parent_no DESC
-                ,reply_reg_date ASC
+        SELECT r.*, u.user_id AS userId
+        FROM reply r
+        JOIN users u ON r.user_no = u.user_no
+        WHERE r.board_no = #{boardNo}
+        ORDER BY r.parent_no DESC, r.reply_reg_date ASC
     </select>
 
-    <!-- 댓글 조회 -->
     <select id="select" resultType="Reply">
-        SELECT *
-        FROM reply
-        WHERE reply_no = #{replyNo}
+        SELECT r.*, u.user_id AS userId
+        FROM reply r
+        JOIN users u ON r.user_no = u.user_no
+        WHERE r.reply_no = #{replyNo}
     </select>
 
-    <!-- 댓글 등록 -->
     <insert id="insert">
-        INSERT INTO reply (board_no, parent_no, user_no, user_id, reply_content)
-        VALUES (#{boardNo}, #{parentNo}, #{userNo}, #{userId}, #{replyContent} )
+        INSERT INTO reply (board_no, parent_no, user_no, reply_content)
+        VALUES (#{boardNo}, #{parentNo}, #{userNo}, #{replyContent})
     </insert>
 
-    <!-- 댓글 수정 -->
     <update id="update">
         UPDATE reply
-           SET user_no = #{userNo}
-              ,reply_content = #{replyContent}
-              <if test="parentNo != 0">
+            SET user_no = (SELECT user_no FROM users WHERE user_id = #{userId})
+            ,reply_content = #{replyContent}
+            <if test="parentNo != 0">
                 ,parent_no = #{parentNo}
-              </if>
-              ,reply_upd_date = now()
+            </if>
+            ,reply_upd_date = now()
         WHERE reply_no = #{replyNo}
     </update>
 
-    <!-- 댓글 삭제 -->
     <delete id="delete">
         DELETE FROM reply
         WHERE reply_no = #{replyNo}
     </delete>
 
-    <!-- ⭐ 댓글 종속 삭제 -->
     <delete id="deleteByBoardNo">
         DELETE FROM reply
         WHERE board_no = #{boardNo}
     </delete>
 
-    <!-- 댓글 번호 최댓값 -->
-    <!-- LAST_INSERT_ID() : AI 로 증가한 가장 마지막 번호 -->
     <select id="max" resultType="int">
         SELECT MAX(reply_no)
         FROM reply
     </select>
 
-    <!-- ⭐ 답글 종속 삭제 -->
     <delete id="deleteByParentNo">
         DELETE FROM reply
         WHERE parent_no = #{parentNo}
     </delete>
+
+    <select id="countByBoardNo" resultType="int" parameterType="int">
+        SELECT COUNT(*) FROM reply WHERE board_no = #{boardNo}
+    </select>
 
 </mapper>

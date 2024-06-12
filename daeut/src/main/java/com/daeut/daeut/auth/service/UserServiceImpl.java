@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import com.daeut.daeut.auth.dto.UserAuth;
+import com.daeut.daeut.auth.dto.UserSocial;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.mapper.UserMapper;
 import com.daeut.daeut.main.dto.Files;
@@ -224,6 +225,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users findUserById(int userNo) throws Exception {
         return userMapper.findUserById(userNo);
+    }
+
+    // ----------------------------------------------------------------------------
+
+    @Override
+    public int insertSocial(UserSocial userSocial) throws Exception {
+        int result = userMapper.insertSocial(userSocial);
+        return result;
+    }
+
+    @Override
+    public UserSocial selectSocial(UserSocial userSocial) throws Exception {
+        UserSocial selectedUserSocial = userMapper.selectSocial(userSocial);
+        return selectedUserSocial;
+    }
+
+    @Override
+    public int updateSocial(UserSocial userSocial) throws Exception {
+        int result = userMapper.updateSocial(userSocial);
+        return result;
+    }
+
+    @Override
+    public Users selectBySocial(UserSocial userSocial) throws Exception {
+        Users user = userMapper.selectBySocial(userSocial);
+        return user;
     }
 
     

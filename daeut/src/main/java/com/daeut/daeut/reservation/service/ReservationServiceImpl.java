@@ -161,6 +161,13 @@ public class ReservationServiceImpl implements ReservationService{
         return files;
     }
 
+    @Override 
+    public Files getFileByServiceNum (int serviceNo) throws Exception {
+        // 리뷰 이미지
+        Files rFiles = reservationMapper.getFileByServiceNum(serviceNo);
+        return rFiles;
+    }
+
     @Override
     public List<Event> calendarListByServiceNo(int serviceNo) throws Exception {
         List<Event> eventList = reservationMapper.calendarListByServiceNo(serviceNo);

@@ -42,6 +42,10 @@
                         <input type="text" class="form-control" id="userPhone"  th:placeholder="${user.userPhone}" readonly>
                     </div>
                     <div class="form-group mb-3">
+                        <label for="userEmail">이메일</label>
+                        <input type="text" class="form-control" id="userEmail" th:value="${user.userEmail}" name="userEmail">
+                    </div>
+                    <div class="form-group mb-3">
                         <label for="userAddress">주소</label>
                         <input type="text" class="form-control" id="userAddress"  th:placeholder="${user.userAddress}" readonly>
                     </div>

@@ -77,11 +77,11 @@ input[type="file"] {
     border-radius: 8px;
     overflow: hidden; /* 넘치는 이미지 숨기기 */
     position: relative;
-    height: 200px;
+    min-height: 100px;
     margin-bottom: 20px;
     margin-top: 10px;
-    width: 100%;
-    justify-content: center;
+    /* width: 100%; */
+    /* justify-content: center; */
 }
 
 #image-main-container {
@@ -92,11 +92,11 @@ input[type="file"] {
     border-radius: 8px;
     overflow: hidden; /* 넘치는 이미지 숨기기 */
     position: relative;
-    height: 200px;
+    min-height: 100px;
     margin-bottom: 20px;
     margin-top: 10px;
-    width: 100%;
-    justify-content: center;
+    /* width: 100%; */
+    /* justify-content: center; */
 }
 
 /* 추가된 중앙 정렬을 위한 스타일 */
