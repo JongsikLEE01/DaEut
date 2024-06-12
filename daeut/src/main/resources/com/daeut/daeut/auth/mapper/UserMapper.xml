@@ -272,4 +272,55 @@
     </select>
     <!-- 준호준호준호준호준호준호준호준호준호준호준호준호준호준호준호 -->
 
+    <!-- 소셜 회원 가입 -->
+    <insert id="insertSocial">
+        INSERT INTO user_social ( id, username, provider, social_id, name, email, picture )
+        VALUES ( UUID(), #{username}, #{provider}, #{socialId}, #{name}, #{email}, #{picture} )
+    </insert>
+
+
+    <!-- 소셜 회원 조회 -->
+    <select id="selectSocial" resultType="UserSocial">
+        SELECT * 
+        FROM user_social
+        WHERE provider = #{provider} 
+        AND social_id = #{socialId}
+    </select>
+
+
+    <!-- 소셜 회원 수정 -->
+    <update id="updateSocial">
+        UPDATE user_social
+           SET username = #{username}
+              ,provider = #{provider}
+              ,social_id = #{socialId}
+              ,name = #{name}
+              ,email = #{email}
+              ,picture = #{picture}
+              ,updated_at = #{updatedAt}
+        WHERE provider = #{provider} 
+        AND social_id = #{socialId}
+    </update>
+
+    <!-- 소셜정보로 회원 조회 -->
+    <select id="selectBySocial" resultMap="userMap">
+        SELECT u.user_name
+              ,u.user_id
+              ,u.user_password
+              ,u.user_name
+              ,u.user_email
+              ,u.enabled
+              ,u.user_reg_date
+              ,u.user_upd_date
+              ,auth.auth
+        FROM users u 
+             LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
+        WHERE u.user_id = (
+                        SELECT username
+                          FROM user_social
+                        WHERE provider = #{provider} 
+                          AND social_id = #{socialId}
+                    )
+    </select>
+
 </mapper>

@@ -19,6 +19,7 @@ import com.daeut.daeut.admin.service.AdminService;
 import com.daeut.daeut.auth.dto.Review;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.UserService;
+import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.reservation.dto.Cancel;
@@ -29,6 +30,7 @@ import com.daeut.daeut.reservation.dto.Payments;
 import com.daeut.daeut.reservation.service.CancelService;
 import com.daeut.daeut.reservation.service.OrderService;
 import com.daeut.daeut.reservation.service.PaymentService;
+import com.daeut.daeut.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +38,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,6 +68,8 @@ public class AdminController {
     @Autowired
     private CancelService cancelService;
 
+    @Autowired
+    private ReservationService reservationService;
 
     // 회원가입 화면
     @GetMapping("/join")
@@ -212,8 +215,12 @@ public class AdminController {
     @GetMapping("/adminPartnerRead/{userNo}")
     public String adminPartnerRead(@PathVariable("userNo") int userNo, Model model) throws Exception {
         Partner partner = adminService.findPartnerById(userNo);
+        int partnerNo = partner.getPartnerNo();
+        Files pthumbnail = reservationService.partnerThumbnail(partnerNo);
+        
         log.info(partner.toString());
         model.addAttribute("partner", partner);
+        model.addAttribute("pthumbnail", pthumbnail);
         return "/admin/adminPartnerRead";
     }
 

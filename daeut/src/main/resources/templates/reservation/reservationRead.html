@@ -83,7 +83,8 @@
 
 						<hr class="section-underbar">
 						<div class="partner-info">
-							<img src="/img/partner.png" alt="파트너 사진" class="partner-photo">
+							<!--파트너 사진-->
+							<img th:src="|/file/img/${pthumbnail.fileNo}|" alt="파트너 사진" class="partner-photo">
 							<div class="partner-intro-name">
 								<h3 class="partner-introduction-name" th:text="${pUsers.userName}"></h3>
 
@@ -124,7 +125,7 @@
 						<p class="refund-legacy"><span style="color: red;">당일 취소 및 반복적인 예약 취소는 파트너 보호를 위해 이용에 제한을 받을 수
 								있습니다.</span> <br> <br>
 							소비자 권리 보호 및 분쟁 해결 기준에 따라 결제 후 2시간 이내 취소 시 전액 환불이 가능합니다.(단, 이용시간 전까지만 가능합니다.)
-							<br>이용 8일 전 총 금액의 100% 환불이 가능합니다.
+							<br><br>이용 8일 전 총 금액의 100% 환불이 가능합니다.
 							<br><br>
 							<span style="color: red;">이용 7일 전부터 취소 시 환불이 불가능합니다.</span>
 							<br><br>
@@ -138,66 +139,37 @@
 					<hr class="section-underbar">
 
 					<div class="review-section" th:each="review : ${reviews}">
-						
-						<!-- <div class="review-user-title">
-							<p class="review-user-name" > 사용자 이름 </p>
-							<div class="review-star3">
-								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-								<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
-							</div>
-						</div> -->
-						<!-- <div class="review-image-box">
-							<div class="review-image-container">
-								<img src="/img/slide02.png" alt="이미지 1" class="review-image">
-							</div>
-							<div class="review-image-container">
-								<img src="/img/slide02.png" alt="이미지 2" class="review-image">
-							</div>
-							<div class="review-image-container">
-								<img src="/img/slide02.png" alt="이미지 3" class="review-image">
-							</div>
-							<div class="review-image-container">
-								<img src="/img/slide02.png" alt="이미지 4" class="review-image">
-							</div>
-						</div> -->
-						<!-- <p class="review-content">주방 청소를 정말 깔끔하게 해주셨습니다. 입주할 때와 똑같아요.</p>
-						<div class="review-actions">
-							<p class="review-date">2024.05.17 13:57:54</p>
-							<div class="review-buttons">
-								<button class="review-edit">수정</button>
-								<button class="review-delete">삭제</button>
-							</div>
-						</div> -->
-						
-						<!-- <hr style="color: #8FA2CA;"> -->
-
 						<div class="review-user-title">
 							<p class="review-user-name" th:text="${review.userName}"></p>
-
 							<!--유저 별점-->
 							<div class="review-star" th:if="${review.reviewRating != null}">
 								<th:block th:each="star : ${#numbers.sequence(1, review.reviewRating)}">
 									<i class="fa fa-star" aria-hidden="true" style="width: 15px; height: 15px;"></i>
 								</th:block>
 							</div>
-
 						</div>
+
+						<div class="review-image-box">
+							<div th:each="file : ${rFiles}">
+								<div class="review-image-container" th:if="${file != null}">
+									<img th:src="|/file/img/${file.fileNo}|" class="review-image">
+								</div>
+							</div>
+						</div>
+
 						<p class="review-content" id="reviewContent" th:text="${review.reviewContent}" ></p>
 						<div class="review-actions">
 							<p class="review-date" th:text="${review.reviewRegDate}"></p>
-							<div class="review-buttons">
-								<button class="review-edit">수정</button>
-								<button class="review-delete">삭제</button>
-							</div>
+							<!-- <div class="review-buttons">
+								<button class="review-edit" onclick="actionReviewDelete()">수정</button>
+								<button class="review-delete onclick="actionReviewDelete()">삭제</button> 
+							</div> -->
 						</div>
-						
-
-
 					</div>
 				</div>
+			
+			
+			
 			</div>
 
 			<div class="box-form-right">
@@ -349,6 +321,15 @@
 			}
 		}
 
+		// 삭제 처리 함수
+		  function actionReviewDelete() {
+	            let check = confirm('정말로 삭제하시겠습니까?');
+	            if (check) {
+	                form.action = 'reservation/reviewDelete'; // 탈퇴 처리를 담당하는 URL로 설정
+	                form.method = 'post'; // POST 메소드로 설정
+	                form.submit(); // 폼 제출
+	            }
+	        }
 
 	</script>
 </body>

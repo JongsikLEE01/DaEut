@@ -68,7 +68,7 @@
 </select>
 
 <select id="maxPk" resultType="int">
-  SELECT MAX(partner_no)
+  SELECT COALESCE(MAX(partner_no), 0)
   FROM partner
 </select>
 

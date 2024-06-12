@@ -1,5 +1,6 @@
 package com.daeut.daeut.reservation.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -92,16 +93,19 @@ public class ReservationController {
         List<Files> files = reservationService.SelectFiles(serviceNo);
         Users user = (Users) session.getAttribute("user");
         List<Review> reviews = reviewService.getReviewByServiceNo(serviceNo);
-        
+
         // partner_no를 service 객체에서 가져옵니다.
         int partnerNo = service.getPartnerNo();
         Partner partner = partnerService.selectByPartnerNo(partnerNo);
         Users pUsers = userService.findUserById(partner.getUserNo());
-    
+        Files pthumbnail = reservationService.partnerThumbnail(partnerNo);
+        Files rFiles = reservationService.getFileByServiceNum(serviceNo);
+
         file.setParentTable("service");
         file.setParentNo(serviceNo);
         List<Files> fileList = fileService.listByParent(file);
-    
+        
+
         int averageRating = reviewService.getAverageRatingByServiceNo(serviceNo);
         
         model.addAttribute("serviceNo", serviceNo);
@@ -114,7 +118,11 @@ public class ReservationController {
         model.addAttribute("partner", partner);
         model.addAttribute("pUsers", pUsers);
         model.addAttribute("averageRating", averageRating);
+        model.addAttribute("pthumbnail", pthumbnail);
+        model.addAttribute("rFiles", rFiles);
+        
     
+        
         return "reservation/reservationRead";
     }
 
@@ -245,4 +253,22 @@ public class ReservationController {
     }
 
 
+@PostMapping("/reviewDelete")
+public String reviewDelete(@RequestParam("reviewNo") int reviewNo) throws Exception {
+	int result = reviewService.reviewDelete(reviewNo);
+
+	
+        if (result == 0) {
+            log.info("리뷰 삭제 실패...");
+            return "redirect:/reservation/reservation";
+        }
+
+        Files file = new Files();
+        file.setParentTable("reviewNo");
+        file.setParentNo(reviewNo);
+        fileService.deleteByParent(file);
+
+        log.info("리뷰 삭제 성공...");
+        return "redirect:/reservation/reservation";
+    }
 }

@@ -11,16 +11,17 @@ DROP TABLE IF EXISTS chat;
 DROP TABLE IF EXISTS chat_rooms;
 DROP TABLE IF EXISTS files;
 DROP TABLE IF EXISTS order_item;
+DROP TABLE IF EXISTS review;
+DROP TABLE IF EXISTS payment;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS product;
 
-DROP TABLE IF EXISTS partner;
-DROP TABLE IF EXISTS payment;
 DROP TABLE IF EXISTS persistent_logins;
-DROP TABLE IF EXISTS review;
 DROP TABLE IF EXISTS service;
+DROP TABLE IF EXISTS partner;
 DROP TABLE IF EXISTS user_auth;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS user_social;
 
         
 
@@ -179,10 +180,8 @@ CREATE TABLE reply
   reply_upd_date TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '댓글 수정일자',
   board_no       INT          NOT NULL COMMENT '게시판 번호',
   user_no        INT          NOT NULL COMMENT '사용자 번호',
-  user_id        VARCHAR(100) NOT NULL COMMENT '사용자 아이디',
   PRIMARY KEY (reply_no)
 ) COMMENT '댓글';
--- ALTER TABLE reply ADD COLUMN user_id VARCHAR(255);
 
 CREATE TABLE review
 (
@@ -238,131 +237,34 @@ CREATE TABLE users
   PRIMARY KEY (user_no)
 ) COMMENT '사용자';
 
+CREATE TABLE user_social (
+    `ID` CHAR(36) PRIMARY KEY,
+    `USERNAME` VARCHAR(100) NOT NULL,
+    `PROVIDER` VARCHAR(50) NOT NULL,
+    `SOCIAL_ID` VARCHAR(255) NOT NULL,
+    `NAME` VARCHAR(100) NOT NULL,
+    `EMAIL` VARCHAR(200) DEFAULT NULL,
+    `PICTURE` TEXT DEFAULT NULL, 
+    `CREATED_AT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `UPDATED_AT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) COMMENT '소셜로그인';
 
 -- *********************** 제약 조건 ***********************
 
 
-
-ALTER TABLE reply
-  ADD CONSTRAINT FK_board_TO_reply
-    FOREIGN KEY (board_no)
-    REFERENCES board (board_no);
-
-ALTER TABLE service
-  ADD CONSTRAINT FK_partner_TO_service
-    FOREIGN KEY (partner_no)
-    REFERENCES partner (partner_no);
-
-ALTER TABLE orders
-  ADD CONSTRAINT FK_users_TO_orders
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE chat
-  ADD CONSTRAINT FK_users_TO_chat
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE review
-  ADD CONSTRAINT FK_users_TO_review
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE payment
-  ADD CONSTRAINT FK_orders_TO_payment
-    FOREIGN KEY (orders_no)
-    REFERENCES orders (orders_no);
-
-ALTER TABLE review
-  ADD CONSTRAINT FK_payment_TO_review
-    FOREIGN KEY (payment_no)
-    REFERENCES payment (payment_no);
-
-ALTER TABLE partner
-  ADD CONSTRAINT FK_users_TO_partner
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no) ON DELETE CASCADE;
-
+-- board
 ALTER TABLE board
   ADD CONSTRAINT FK_users_TO_board
     FOREIGN KEY (user_no)
     REFERENCES users (user_no);
 
-ALTER TABLE reply
-  ADD CONSTRAINT FK_users_TO_reply
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE review
-  ADD CONSTRAINT FK_partner_TO_review
-    FOREIGN KEY (partner_no)
-    REFERENCES partner (partner_no);
-
-ALTER TABLE orders
-  ADD CONSTRAINT FK_users_TO_orders
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE chat
-  ADD CONSTRAINT FK_users_TO_chat
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE review
-  ADD CONSTRAINT FK_users_TO_review
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE payment
-  ADD CONSTRAINT FK_orders_TO_payment
-    FOREIGN KEY (orders_no)
-    REFERENCES orders (orders_no);
-
-ALTER TABLE review
-  ADD CONSTRAINT FK_payment_TO_review
-    FOREIGN KEY (payment_no)
-    REFERENCES payment (payment_no);
-
-ALTER TABLE partner
-  ADD CONSTRAINT FK_users_TO_partner
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE board
-  ADD CONSTRAINT FK_users_TO_board
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE reply
-  ADD CONSTRAINT FK_users_TO_reply
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
-
-ALTER TABLE review
-  ADD CONSTRAINT FK_partner_TO_review
-    FOREIGN KEY (partner_no)
-    REFERENCES partner (partner_no);
-
-ALTER TABLE user_auth
-  ADD CONSTRAINT FK_users_TO_user_auth
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no) ON DELETE CASCADE;
-
-ALTER TABLE order_item
-  ADD CONSTRAINT FK_orders_TO_order_item
-    FOREIGN KEY (orders_no)
-    REFERENCES orders (orders_no);
-
-ALTER TABLE order_item
-  ADD CONSTRAINT FK_service_TO_order_item
-    FOREIGN KEY (service_no)
-    REFERENCES service (service_no);
-
+-- cancel
 ALTER TABLE cancel
   ADD CONSTRAINT FK_orders_TO_cancel
     FOREIGN KEY (orders_no)
     REFERENCES orders (orders_no);
 
+-- cart
 ALTER TABLE cart
   ADD CONSTRAINT FK_service_TO_cart
     FOREIGN KEY (service_no)
@@ -373,34 +275,96 @@ ALTER TABLE cart
     FOREIGN KEY (user_no)
     REFERENCES users (user_no);
 
+-- chat
+ALTER TABLE chat
+  ADD CONSTRAINT FK_users_TO_chat
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no);
 
 ALTER TABLE chat
   ADD CONSTRAINT FK_chat_rooms_TO_chat
     FOREIGN KEY (room_no)
     REFERENCES chat_rooms (room_no);
 
+-- chat_rooms
 ALTER TABLE chat_rooms
   ADD CONSTRAINT FK_users_TO_chat_rooms
     FOREIGN KEY (user_no)
     REFERENCES users (user_no);
 
+-- order_item
+ALTER TABLE order_item
+  ADD CONSTRAINT FK_orders_TO_order_item
+    FOREIGN KEY (orders_no)
+    REFERENCES orders (orders_no);
 
+ALTER TABLE order_item
+  ADD CONSTRAINT FK_service_TO_order_item
+    FOREIGN KEY (service_no)
+    REFERENCES service (service_no);
+
+-- orders
 ALTER TABLE orders
-  ADD CONSTRAINT FK_partner_TO_orders
+  ADD CONSTRAINT FK_users_TO_orders
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no);
+
+-- payment
+ALTER TABLE payment
+  ADD CONSTRAINT FK_orders_TO_payment
+    FOREIGN KEY (orders_no)
+    REFERENCES orders (orders_no);
+
+-- reply
+ALTER TABLE reply
+  ADD CONSTRAINT FK_board_TO_reply
+    FOREIGN KEY (board_no)
+    REFERENCES board (board_no) ON DELETE CASCADE;
+
+ALTER TABLE reply
+  ADD CONSTRAINT FK_users_TO_reply
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no);
+
+-- review
+ALTER TABLE review
+  ADD CONSTRAINT FK_users_TO_review
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no)
+    ON DELETE CASCADE;
+
+ALTER TABLE review
+  ADD CONSTRAINT FK_payment_TO_review
+    FOREIGN KEY (payment_no)
+    REFERENCES payment (payment_no)
+    ON DELETE CASCADE;
+
+ALTER TABLE review
+  ADD CONSTRAINT FK_partner_TO_review
     FOREIGN KEY (partner_no)
-    REFERENCES partner (partner_no);
+    REFERENCES partner (partner_no)
+    ON DELETE CASCADE;
 
 ALTER TABLE review
   ADD CONSTRAINT FK_service_TO_review
     FOREIGN KEY (service_no)
-    REFERENCES service (service_no);
+    REFERENCES service (service_no)
+    ON DELETE CASCADE;
 
-ALTER TABLE chat_rooms
-  ADD CONSTRAINT FK_users_TO_chat_rooms
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
+-- service
+ALTER TABLE service
+  ADD CONSTRAINT FK_partner_TO_service
+    FOREIGN KEY (partner_no)
+    REFERENCES partner (partner_no);
 
-ALTER TABLE chat_rooms
-  ADD CONSTRAINT FK_users_TO_chat_rooms
+-- user_auth
+ALTER TABLE user_auth
+  ADD CONSTRAINT FK_users_TO_user_auth
     FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
+    REFERENCES users (user_no) ON DELETE CASCADE;
+
+-- partner
+ALTER TABLE partner
+  ADD CONSTRAINT FK_users_TO_partner
+    FOREIGN KEY (user_no)
+    REFERENCES users (user_no) ON DELETE CASCADE;

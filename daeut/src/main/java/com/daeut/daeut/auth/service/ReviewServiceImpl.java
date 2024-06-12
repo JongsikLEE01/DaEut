@@ -2,6 +2,7 @@ package com.daeut.daeut.auth.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +36,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void saveReview(Review review) throws Exception {
         String parentTable = "review";
-        int parentNo = reviewMapper.maxPk();
+        int parentNo = reviewMapper.maxPk() + 1;
            
         // 파일 업로드
         List<MultipartFile> fileList = review.getFile();
@@ -67,5 +68,10 @@ public class ReviewServiceImpl implements ReviewService {
        return reviewMapper.getAverageRatingByServiceNo(serviceNo);
     }
 
+    // 삭제
+    @Override
+    public int reviewDelete(int reviewNo) throws Exception {
+       return reviewMapper.reviewDelete(reviewNo);
+    }
 
 }

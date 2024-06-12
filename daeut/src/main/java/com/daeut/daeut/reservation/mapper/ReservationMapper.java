@@ -37,7 +37,13 @@ public interface ReservationMapper {
     // 설명 파일
     public List<Files> SelectFiles(int serviceNo) throws Exception;
 
+    // 파트너 썸네일
+    public Files partnerThumbnail(int partnerNo) throws Exception;
+
     // 달력 리스트
     List<Event> calendarListByServiceNo(int serviceNo) throws Exception;
+
+    // 리뷰 이미지
+    public Files getFileByServiceNum (int serviceNo) throws Exception;
 
 }

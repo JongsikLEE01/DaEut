@@ -177,4 +177,36 @@
             AND o.order_status = 'CONFIRMED';
     </select>
 
+    <!--파트너 넘버를 통해 partner이미지 가져오기-->
+    <select id="partnerThumbnail">
+        SELECT  p.*, 
+                f.*
+        FROM partner p
+        LEFT JOIN (
+                SELECT * 
+                FROM files
+                WHERE parent_table = 'partner'
+                AND file_code = 1
+            ) f
+        ON p.partner_no = f.parent_no
+        WHERE p.partner_no = #{partnerNo};
+    </select>
+
+    <!--Service_no로 리뷰이미지 가져오기-->
+        <select id="getFileByServiceNum">
+            SELECT
+            r.*,
+            f.*
+        FROM
+            review r
+        INNER JOIN
+            users u ON r.user_no = u.user_no
+        LEFT JOIN (
+            SELECT *
+            FROM files
+            WHERE parent_table = 'review'
+        ) f ON r.review_no = f.parent_no
+        WHERE r.service_no = #{serviceNo};
+    </select>
+
 </mapper>

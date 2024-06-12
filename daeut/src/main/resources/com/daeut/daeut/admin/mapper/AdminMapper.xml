@@ -194,7 +194,8 @@
             p.partner_grade AS partnerGrade, 
             p.partner_reserve AS partnerReserve, 
             p.partner_career AS partnerCareer, 
-            p.introduce
+            p.introduce,
+            p.partner_no
         FROM 
             users u
         LEFT JOIN 
@@ -305,7 +306,4 @@
         DELETE FROM review
         WHERE review_no = #{reviewNo}
     </delete>
-
-    
-
 </mapper>

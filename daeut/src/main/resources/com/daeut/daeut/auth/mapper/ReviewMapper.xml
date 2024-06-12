@@ -62,25 +62,45 @@
         VALUES (#{reviewTitle}, #{reviewContent}, NOW(), #{reviewRating}, #{userNo}, #{paymentNo}, #{partnerNo}, #{serviceNo})
     </insert>
 
-    <!--serviceNo로 파트너 정보 가져오기-->
+    <!--serviceNo로 리뷰 정보 가져오기-->
     <select id="getReviewByServiceNo">
         SELECT
-            r.review_no,
-            r.review_title,
-            r.review_content,
-            r.review_reg_date,
-            r.review_rating,
-        u.user_name
+            r.*,
+            u.user_name
         FROM
             review r
         INNER JOIN
             users u ON r.user_no = u.user_no
         WHERE
-        r.service_no = #{serviceNo}
+            r.service_no = #{serviceNo};
     </select>
 
+    <!-- 리뷰no로 리뷰 정보 가져오기-->
+    <select id="getReviewByReviewNo">
+        SELECT *
+        FROM review
+        where review_no = #{reviewNo}
+    </select>
+
+    <!--service_no로 리뷰의 파일 정보를 가져와야 하는데.-->
+    <!-- <select id="getFileByServiceNum">
+            SELECT
+            r.*,
+            f.*
+        FROM
+            review r
+        INNER JOIN
+            users u ON r.user_no = u.user_no
+        LEFT JOIN (
+            SELECT *
+            FROM files
+            WHERE parent_table = 'review'
+        ) f ON r.review_no = f.parent_no
+        WHERE r.service_no = #{serviceNo};
+    </select> -->
+
     <select id="maxPk" resultType="int">
-        SELECT MAX(review_no)
+        SELECT COALESCE(MAX(review_no), 0)
         FROM review
     </select>
 
@@ -91,5 +111,10 @@
         WHERE service_no = #{serviceNo}
     </select>
 
+    <!--리뷰 삭제-->
+    <delete id="reviewDelete">
+        DELETE FROM review
+        where review_no = #{reviewNo}
+    </delete>
 
 </mapper>

@@ -41,8 +41,11 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="userPhone">전화번호</label>
-                        
                         <input type="text" class="form-control" id="userPhone" th:value="${user.userPhone}" name="userPhone">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="userEmail">이메일</label>
+                        <input type="text" class="form-control" id="userEmail" th:value="${user.userEmail}" name="userEmail">
                     </div>
                     <div class="form-group mb-3">
                         <label for="userAddress">주소</label>
@@ -56,10 +59,10 @@
                         <label for="description">소개 글</label>
                         <textarea class="form-control w-75" name="introduce" id="description" rows="3" th:text="${partner.introduce}"></textarea>
                     </div>
-                    <div class="form-group form-section p-1 f-warp text-start">
+                    <!-- <div class="form-group form-section p-1 f-warp text-start">
                         <label for="description">추가 소개 사진</label>
                         <input type="file" class="form-control" id="file" value="첨부 파일을 선택해주세요">
-                    </div>
+                    </div> -->
                     <div class="form-buttons">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                         <a href="partnerMypage" class="btn btn-secondary cancel">뒤로가기</a>

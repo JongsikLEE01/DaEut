@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.daeut.daeut.auth.dto.UserAuth;
+import com.daeut.daeut.auth.dto.UserSocial;
 import com.daeut.daeut.auth.dto.Users;
 
 import com.daeut.daeut.partner.dto.Partner;
@@ -68,4 +69,18 @@ public interface UserMapper {
     public Users findByUsername(String username);
 
     public Users findUserById(int userNo) throws Exception;
+
+    // ----------------------------------------------------------------------------
+
+    // 소셜 회원 가입
+    public int insertSocial(UserSocial userSocial) throws Exception;
+
+    // 소셜 회원 조회
+    public UserSocial selectSocial(UserSocial userSocial) throws Exception;
+
+    // 소셜 회원 수정
+    public int updateSocial(UserSocial userSocial) throws Exception;
+
+    // 소셜 정보로 회원 조회
+    public Users selectBySocial(UserSocial userSocial) throws Exception;
 }

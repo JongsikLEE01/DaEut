@@ -118,16 +118,18 @@ body {
     text-decoration: none;
     border: 1px solid #ddd;
     border-radius: 3px;
+    color: #8FA2CA !important;
+
 }
 
 .pagination a:hover {
-    background-color: #ddd;
+    background-color: #E4E8F4;
 }
 
 .pagination a.active {
-    background-color: #ddd;;
-    color: #007bff !important;
-    border: 1px solid #ddd;;
+    background-color: #8FA2CA;;
+    color: white !important;
+    border: 1px solid #8FA2CA;;
 }
 
 .search-container {
@@ -227,3 +229,24 @@ a {
     border-color: #8FA2CA;
     }
 
+.sorting-dropdown select {
+    border-radius: 8px; 
+    padding: 5px 10px; 
+    border: 1px solid #8FA2CA; 
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><path fill="%23000000" d="M0 3.5l5 5 5-5z"/></svg>') no-repeat right 10px center;
+    background-color: #fff; 
+    background-position: right 10px center; 
+    width: 100px; 
+    height: 35px; 
+    font-size: 16px; 
+    color: #000; 
+}
+
+.sorting-dropdown {
+    display: inline-block;
+    position: relative;
+    margin-top: 10px;
+}

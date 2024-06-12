@@ -143,8 +143,14 @@ public class ReservationServiceImpl implements ReservationService{
     public Files SelectThumbnail(int serviceNo) throws Exception {
         // 썸네일
         Files thumbnail = reservationMapper.SelectThumbnail(serviceNo);
-
         return thumbnail;
+    }
+
+    @Override
+    public Files partnerThumbnail(int partnerNo) throws Exception {
+        // 썸네일
+        Files pthumbnail = reservationMapper.partnerThumbnail(partnerNo);
+        return pthumbnail;
     }
     
     @Override
@@ -153,6 +159,13 @@ public class ReservationServiceImpl implements ReservationService{
         List<Files> files = reservationMapper.SelectFiles(serviceNo);
         
         return files;
+    }
+
+    @Override 
+    public Files getFileByServiceNum (int serviceNo) throws Exception {
+        // 리뷰 이미지
+        Files rFiles = reservationMapper.getFileByServiceNum(serviceNo);
+        return rFiles;
     }
 
     @Override

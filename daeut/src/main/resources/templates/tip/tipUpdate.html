@@ -22,6 +22,24 @@
                 <textarea class="form-control" id="content" rows="8" name="boardContent" th:text="${board.boardContent}" ></textarea>
             </div>
             <div class="mb-3">
+                <div class="mb-3">
+                    <label for="thumbnail" class="form-label">썸네일</label>
+                    <label for="thumbnail" class="file-upload-button">첨부하기</label>
+                    <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*" onchange="previewImages(event)">
+                <div class="form-text">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</div>
+                <!-- <div id="image-preview-wrapper" class="mb-3"> -->
+                    <div id="image-main-container" class="d-flex flex-wrap gap-2"></div>
+                <!-- </div> -->
+            </div>
+            <div class="mb-3">
+                    <label for="file" class="form-label">첨부파일</label>
+                    <label for="file" class="file-upload-button">첨부하기</label>
+                <input type="file" class="form-control" id="file" name="file" accept="image/*" multiple onchange="previewImages2(event)">
+                <div class="form-text">사진은 최대 20MB 이하의 JPG, PNG, GIF 파일 10장까지 첨부 가능합니다.</div>
+                <!-- <div id="image-preview-wrapper" class="mb-3"> -->
+                    <div id="image-preview-container" class="d-flex flex-wrap gap-2"></div>
+                <!-- </div> -->
+            </div>
 
             <tr>
                 <td>파일</td>
@@ -41,7 +59,7 @@
             </tr>
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn-btn-primary me-2">수정하기</button>
-                <button type="submit" onclick="actionDelete()" class="btn-btn-primary me-2">삭제하기</button>
+                <button type="button" onclick="actionDelete()" class="btn-btn-primary me-2">삭제하기</button>
                 <a href="/tip/index" onclick="moveList()"class="btn-btn-outline-secondary">목록</a>
             </div>
         </form>
@@ -50,9 +68,24 @@
 
     <script>
         function previewImages(event) {
+            var container = document.getElementById('image-main-container');
+            container.innerHTML = ''; // 기존 이미지 제거
+
+            var files = event.target.files;
+            for (var i = 0; i < files.length; i++) {
+                var image = document.createElement('img');
+                image.src = URL.createObjectURL(files[i]);
+                image.alt = '이미지 미리보기';
+                image.classList.add('img-thumbnail');
+                image.style.maxWidth = '200px';
+                container.appendChild(image);
+            }
+        }
+
+        function previewImages2(event) {
             var container = document.getElementById('image-preview-container');
             container.innerHTML = ''; // 기존 이미지 제거
-            
+
             var files = event.target.files;
             for (var i = 0; i < files.length; i++) {
                 var image = document.createElement('img');
