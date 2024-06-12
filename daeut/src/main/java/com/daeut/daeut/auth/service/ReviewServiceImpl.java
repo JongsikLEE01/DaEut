@@ -75,8 +75,4 @@ public class ReviewServiceImpl implements ReviewService {
 
     }
 
-    @Override
-    public void updateReview(int reviewNo, String reviewContent, int reviewRating) {
-        reviewMapper.updateReview(reviewNo, reviewContent, reviewRating);
-    }
 }
