@@ -168,6 +168,7 @@
 							<div class="review-buttons" th:if="${session.userNo == review.userNo}">
 								<form action="/reservation/reviewDelete" method="post">
 									<input type="hidden" name="userNo" th:value="${review.userNo}">
+									<input type="hidden" name="userNo" th:value="${review.reviewNo}">
 									<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 									<button type="submit" class="review-delete">삭제</button>
 								</form>
