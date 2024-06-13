@@ -396,8 +396,9 @@
 }
 
 .reservation-container {
-    display: flex;
+    flex-wrap: wrap; /* 요소들이 한 줄에 맞지 않을 때 자동으로 줄 바꿈하도록 설정합니다. */
 }
+
 .reservation-title {
     font-size: 20px;
     text-align: left !important;
@@ -425,6 +426,7 @@
 
 .reservation-subtitle{
     font-size: 14px;
+    text-align: left;
 }
 
 .partner-name{
@@ -752,6 +754,8 @@
 /* 예약 화면 내용물 */
 .detail-form {
     display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
 }
 
 .detail-content,
@@ -1249,4 +1253,28 @@
 
 .review-box {
     margin-bottom: 100px;
+}
+
+.sessuce {
+    margin-right: auto !important; /* 버튼을 왼쪽 끝에 붙입니다. */
+}
+
+@media (max-width: 900px) {
+    .detail-form {
+        flex-direction: column  /* 세로 방향으로 변경 */
+    }
+    .reservation-menu::after {
+        width: 522px !important;
+    }
+
+    .reservation-image-slide {
+        width: 522px !important;
+    }
+
+}
+
+@media (max-width: 900px) {
+    .reservation-menu li {
+        width:130px !important; /* 세로 방향으로 변경 */
+    }
 }
