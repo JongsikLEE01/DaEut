@@ -120,6 +120,7 @@ public class ReservationController {
         model.addAttribute("averageRating", averageRating);
         model.addAttribute("pthumbnail", pthumbnail);
         model.addAttribute("rFiles", rFiles);
+       
         
     
         
@@ -252,23 +253,36 @@ public class ReservationController {
         return "reservation/paymentFalse";
     }
 
-
-@PostMapping("/reviewDelete")
-public String reviewDelete(@RequestParam("reviewNo") int reviewNo) throws Exception {
-	int result = reviewService.reviewDelete(reviewNo);
-
-	
-        if (result == 0) {
-            log.info("리뷰 삭제 실패...");
+ 
+    @PostMapping("/reviewDelete")
+    public String reviewDelete(@RequestParam("userNo") int userNo, @RequestParam("reviewNo") int reviewNo) throws Exception {
+        int reviewResult = reviewService.reviewDelete(userNo);
+    
+        log.info(":::::::::::::::::::::::::::::: " + reviewResult);
+    
+        if (reviewResult > 0) {
+            Files file = new Files();
+            file.setParentTable("review");
+            file.setParentNo(reviewNo);
+    
+            try {
+                int fileResult = fileService.deleteByParent(file);
+    
+                if (fileResult > 0) {
+                    log.info("리뷰 및 파일 삭제 성공");
+                } else {
+                    log.warn("리뷰는 삭제되었지만 파일 삭제에 실패했습니다. 파일이 없을 수 있습니다.");
+                }
+            } catch (Exception e) {
+                log.error("파일 삭제 중 예외 발생: ", e);
+                // 필요하다면 여기서 예외 처리 로직 추가
+            }
+    
             return "redirect:/reservation/reservation";
-        }
-
-        Files file = new Files();
-        file.setParentTable("reviewNo");
-        file.setParentNo(reviewNo);
-        fileService.deleteByParent(file);
-
-        log.info("리뷰 삭제 성공...");
-        return "redirect:/reservation/reservation";
+            }
+            
+            log.info("리뷰 삭제 실패");
+            return "redirect:/index"; 
     }
+    
 }

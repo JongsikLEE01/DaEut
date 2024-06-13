@@ -10,12 +10,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import com.daeut.daeut.auth.dto.CustomUser;
 import com.daeut.daeut.auth.dto.Users;
+import com.daeut.daeut.auth.mapper.UserMapper;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.service.PartnerService;
 import com.nimbusds.jose.crypto.impl.CipherHelper;
@@ -31,6 +33,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     
     @Autowired
     private PartnerService partnerService;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request
@@ -70,11 +75,17 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         CustomUser customUser = null;
         // 소셜 로그인 
         if ( authentication instanceof OAuth2AuthenticationToken ) {
+            // authentication.getName() : user 테이블의 user_id
             Users user = new Users();
-            user.setUserName(authentication.getName());
+            try {
+                user = userMapper.select(authentication.getName() );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            user.setUserId(authentication.getName());
             customUser = new CustomUser(user);
         }
-        // 그냥 로그
+        // 그냥 로그인
         else {
             customUser = (CustomUser) authentication.getPrincipal();
             log.info("아이디 : " + customUser.getUsername());
@@ -87,7 +98,10 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         Users user = customUser.getUser();
         Partner partner = null; // partner 변수를 선언하고 null로 초기화
         if( user != null ) {
+            log.info(":::::::::::::::::::::::::::::::::::::::::::::");
+            log.info("userNo : " + user.getUserNo());
             session.setAttribute("user", user);
+            session.setAttribute("userNo", user.getUserNo());
     
             try {
                 partner = partnerService.findByUserNo(user.getUserNo());
