@@ -29,5 +29,5 @@ public interface ReviewMapper {
 
     public Review getReviewById(@Param("reviewNo") int reviewNo);
 
-    public void updateReview(int reviewNo, String reviewContent, int reviewRating);
+    public Review updateReview(Review review);
 }

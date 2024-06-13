@@ -24,4 +24,6 @@ public interface ReviewService {
 
     public int reviewDelete(int userNo)throws Exception;
 
+    public Review updateReview(Review review);
+
 }

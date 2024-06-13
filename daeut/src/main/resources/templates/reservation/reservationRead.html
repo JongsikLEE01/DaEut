@@ -166,7 +166,7 @@
 						<div class="review-actions">
 							<p class="review-date" th:text="${review.reviewRegDate}"></p>
 							<div class="review-buttons" th:if="${session.userNo == review.userNo}">
-								<button class="review-update">수정</button>
+								<button class="review-update" data-bs-toggle="modal" data-bs-target="#reviewModal">수정</button>
 								<form action="/reservation/reviewDelete" method="post">
 									<input type="hidden" name="userNo" th:value="${review.userNo}">
 									<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -175,12 +175,43 @@
 							</div>
 						</div>
 					</div>
-
-				</div>
-			
-			
-			
+				</div>		
 			</div>
+
+			<!-- 모달 -->
+			<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">리뷰 수정</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reviewForm">
+                        <div class="mb-3">
+                            <label for="reviewText" class="form-label">리뷰 내용:</label>
+                            <textarea id="reviewText" class="form-control" rows="4"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="starRating" class="form-label">별점:</label>
+                            <select id="starRating" class="form-select">
+                                <option value="1">★</option>
+                                <option value="2">★★</option>
+                                <option value="3">★★★</option>
+                                <option value="4">★★★★</option>
+                                <option value="5">★★★★★</option>
+                            </select>
+                        </div>
+												<div class="modal-footer text-end">
+													<button type="submit" class="btn btn-primary">저장</button>
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+												</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    	</div>
+			
 
 			<div class="box-form-right">
 				<div class="partner-service-list">
@@ -330,6 +361,54 @@
 				console.log("reservation-image-slide 클래스를 가진 요소가 없습니다.");
 			}
 		}
+
+		// 폼 제출 핸들러
+    document.getElementById("reviewForm").onsubmit = function(event) {
+        event.preventDefault(); // 폼 기본 동작 막기
+
+        var reviewText = document.getElementById("reviewText").value;
+        var starRating = document.getElementById("starRating").value;
+        var reviewId = document.getElementById('reviewForm').getAttribute('data-review-id');
+
+        var reviewData = {
+            reviewTitle: '리뷰 제목 예시', // 실제 제목을 폼에서 가져오도록 수정 필요
+            reviewContent: reviewText,
+            reviewRating: starRating
+        };
+
+        // Ajax 요청으로 리뷰 업데이트
+        fetch(`/reviews/${reviewId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(reviewData)
+        })
+        .then(response => response.json())
+        .then(updatedReview => {
+            // 성공적으로 업데이트된 경우
+            console.log("Review updated successfully:", updatedReview);
+
+            // 리뷰 목록 갱신
+            var review = reviews.find(r => r.id == updatedReview.reviewNo);
+            review.reviewTitle = updatedReview.reviewTitle;
+            review.reviewContent = updatedReview.reviewContent;
+            review.reviewRating = updatedReview.reviewRating;
+
+            loadReviewTable();
+
+            // 모달 창 닫기
+            var reviewModal = bootstrap.Modal.getInstance(document.getElementById('reviewModal'));
+            reviewModal.hide();
+        })
+        .catch(error => {
+            // 업데이트 실패한 경우
+            console.error("Failed to update review:", error);
+        });
+    };
+
+    // 초기 리뷰 목록 로드
+    loadReviewTable();
 
 	</script>
 </body>

@@ -116,5 +116,12 @@
         DELETE FROM review
         where user_no = #{userNo}
     </delete>
-
+    
+    <!-- 리뷰 업데이트 쿼리 -->
+    <update id="updateReview" parameterType="com.daeut.daeut.auth.dto.Review">
+        UPDATE review
+        SET review_content = #{reviewContent},
+            review_rating = #{reviewRating}
+        WHERE review_no = #{reviewNo}
+    </update>
 </mapper>

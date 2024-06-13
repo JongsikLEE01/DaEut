@@ -12,7 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -257,16 +260,22 @@ public class ReservationController {
     }
 
  
-@PostMapping("/reviewDelete")
-public String reviewDelete(@RequestParam("userNo") int userNo) throws Exception {
-	int result = reviewService.reviewDelete(userNo);
-    log.info(":::::::::::::::::::::::::::::: " + result);
-        if (result > 0) {
-            log.info("리뷰 삭제 성공");
-            return "redirect:/index"; 
-        }
-        log.info("리뷰 삭제 실패");
-         return "redirect:/reservation/reservation";
+    @PostMapping("/reviewDelete")
+    public String reviewDelete(@RequestParam("userNo") int userNo) throws Exception {
+        int result = reviewService.reviewDelete(userNo);
+        log.info(":::::::::::::::::::::::::::::: " + result);
+            if (result > 0) {
+                log.info("리뷰 삭제 성공");
+                return "redirect:/index"; 
+            }
+            log.info("리뷰 삭제 실패");
+            return "redirect:/reservation/reservation";
+    }
+
+    @PutMapping("/{reviewNo}")
+    public Review updateReview(@PathVariable int reviewNo, @RequestBody Review review) {
+        review.setReviewNo(reviewNo);
+        return reviewService.updateReview(review);
     }
 }
 

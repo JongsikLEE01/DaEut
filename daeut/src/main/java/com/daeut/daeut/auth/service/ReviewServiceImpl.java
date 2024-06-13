@@ -74,4 +74,10 @@ public class ReviewServiceImpl implements ReviewService {
 
     }
 
+    @Override
+    public Review updateReview(Review review) {
+        reviewMapper.updateReview(review);
+        return review;
+    }
+
 }
