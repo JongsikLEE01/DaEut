@@ -38,9 +38,13 @@
                             <div class="item item-1 align-items-center mb-3">
                                 <label for="paymentNo" class="col-form-label col-sm-3">주문 선택</label>
                                 <select class="form-control col-lg-2" id="paymentNo" name="paymentNo" th:field="*{paymentNo}">
-                                    <option th:each="payment : ${payments}" th:value="${payment.paymentNo}" 
-                                        th:data-serviceNo="${payment.serviceNo}" th:data-partnerNo="${payment.partnerNo}"
-                                        th:text="${payment.title}" th:selected="${payment.paymentNo == review.paymentNo}">
+                                    <option th:each="payment : ${payments}" 
+                                            th:if="${payment.status.name() == 'PAID'}"
+                                            th:value="${payment.paymentNo}" 
+                                            th:data-serviceNo="${payment.serviceNo}" 
+                                            th:data-partnerNo="${payment.partnerNo}"
+                                            th:text="${payment.title}" 
+                                            th:selected="${payment.paymentNo == review.paymentNo}">
                                     </option>
                                 </select>
                             </div>
