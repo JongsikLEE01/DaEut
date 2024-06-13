@@ -29,7 +29,7 @@
 
 <!-- 리뷰 정보 가져오기 -->
 <select id="getReviews" parameterType="int" resultType="com.daeut.daeut.auth.dto.Review">
-  SELECT r.*, u.user_name AS reviewer_name
+  SELECT r.*, u.user_name
   FROM review r
   JOIN users u ON r.user_no = u.user_no
   WHERE r.partner_no = #{partnerNo}
