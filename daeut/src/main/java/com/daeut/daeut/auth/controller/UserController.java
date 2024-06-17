@@ -55,6 +55,7 @@ public class UserController {
     @Autowired
     private ReviewService reviewService;
 
+    // 사용자 마이페이지 조회
     @GetMapping("/userMypage")
     public String userMypage(HttpSession session, Model model) throws Exception {
         log.info("/user/userMypage");
@@ -69,7 +70,7 @@ public class UserController {
         return "/user/userMypage";
     }
 
-    // 사용자 마이페이지 수정
+    // 사용자 마이페이지 수정 화면
     @GetMapping("/userMypageUpdate")
     public String userMypageUpdate(HttpSession session, Model model) throws Exception {
         log.info("/user/userMypageUpdate");
@@ -99,7 +100,7 @@ public class UserController {
             log.info("Delete result: " + result);
             if (result > 0) {
                 session.invalidate(); // 세션 무효화
-                return "redirect:/index";  // 탈퇴 처리 후 리다이렉트할 페이지
+                return "redirect:/index"; // 탈퇴 처리 후 리다이렉트할 페이지
             } else {
                 return "redirect:/user/userMypage";
             }
@@ -115,19 +116,23 @@ public class UserController {
         }
         return "redirect:/user/userMypage"; // 기본적으로 리다이렉트할 페이지
     }
-    
-    // 사용자 예약 화면
+
+    // 사용자 예약 화면 조회
     @GetMapping("/userReservation")
-    public String userReservation(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
+    public String userReservation(HttpSession session, Model model) throws Exception {
         log.info("/user/userReservation");
 
-        
-        String userId = customUser.getUsername();
-        if(userId == null) {
+        Users user = (Users) session.getAttribute("user");
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
+        String userId = user.getUserId();
+        if (userId == null) {
             return "redirect:/index";
         }
         log.info(userId);
-
 
         List<Orders> orders = userService.selectOrdersByUserId(userId);
         model.addAttribute("orders", orders);
@@ -135,19 +140,19 @@ public class UserController {
         return "user/userReservation";
     }
 
+    // 사용자 예약 삭제 처리
     @PostMapping("/OrdersDelete")
     public String OrdersDelete(@RequestParam("ordersNo") String ordersNo) throws Exception {
         orderService.OrdersDelete(ordersNo);
         return "redirect:/user/userReservation";
     }
-    
-    
-    // 사용자 작성 리뷰
+
+    // 사용자 작성 리뷰 폼 조회
     @GetMapping("/userReview")
     public String showReviewForm(Model model, HttpSession session) {
         log.info("/user/userReview");
-        Users user = (Users) session.getAttribute("user");
 
+        Users user = (Users) session.getAttribute("user");
         if (user == null) {
             return "redirect:/login"; // 사용자 번호가 없으면 로그인 페이지로 리디렉션
         }
@@ -169,7 +174,7 @@ public class UserController {
         return "user/userReview";
     }
 
-    // 리뷰 저장
+    // 리뷰 저장 처리
     @PostMapping("/userReviewDone")
     public String submitReview(HttpSession session, Review review) {
         log.info("/user/userReviewDone");
@@ -198,16 +203,9 @@ public class UserController {
         return "redirect:/user/userReview";
     }
 
-
-     /**
-     * 유저 채팅방 생성 - POST
-     * @param chatRoom
-     * @param model
-     * @return
-     * @throws Exception
-     */
+    // 유저 채팅방 생성 처리
     @PostMapping("/userChatRoom")
-    public String createChatRoom(int partnerNo, Model model, HttpSession session) throws Exception{    
+    public String createChatRoom(@RequestParam("partnerNo") int partnerNo, Model model, HttpSession session) throws Exception {
         ChatRooms chatRoom = new ChatRooms();
         chatRoom.setPartnerNo(partnerNo);
 
@@ -220,13 +218,7 @@ public class UserController {
         return "redirect:/user/userChatRoom";
     }
 
-    /**
-     * 유저 채팅 내역 - GET
-     * @param model
-     * @param session
-     * @return
-     * @throws Exception
-     */
+    // 유저 채팅 내역 조회
     @GetMapping("/userChatRoom")
     public String userChatRooms(Model model, HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
@@ -239,19 +231,19 @@ public class UserController {
         return "user/userChatRoom";
     }
 
-    // 장바구니
+    // 사용자 장바구니 조회
     @GetMapping("/userCart")
     public String userCart(Model model, HttpSession session) {
         Users user = (Users) session.getAttribute("user");
         int userNo = user.getUserNo();
         Partner partner;
-        
+
         // 사용자의 장바구니 목록을 서비스를 통해 가져옴
         List<Cart> cartList;
         try {
             cartList = cartService.cartList(userNo);
             partner = userService.selectPartner(userNo);
-            
+
             model.addAttribute("cartList", cartList);
             model.addAttribute("user", user);
             model.addAttribute("partner", partner);
@@ -259,25 +251,36 @@ public class UserController {
             log.info("장바구니 조회 중 에러 발생...");
             e.printStackTrace();
         }
-    
+
         return "/user/userCart";
     }
 
-    // 유저, 파트너 신청 화면
+    // 사용자, 파트너 신청 화면 조회
     @GetMapping("/userPartner")
-    public String userPartner(@AuthenticationPrincipal CustomUser customUser, Model model) throws Exception {
+    public String userPartner(HttpSession session, Model model) throws Exception {
         log.info("/user/userPartner");
-    
-        Partner partner = userService.selectUserAndPartnerDetails(customUser.getUser().getUserNo());
+
+        Users user = (Users) session.getAttribute("user");
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
+        Partner partner = userService.selectUserAndPartnerDetails(user.getUserNo());
         model.addAttribute("partner", partner);
-    
+
         return "user/userPartner";
     }
-    
+
     // 파트너 신청 처리
     @PostMapping("/request-partner")
-    public String insertPartner(@ModelAttribute Partner partner, @AuthenticationPrincipal CustomUser customUser) throws Exception {
-        Partner partnerDetails = userService.selectUserAndPartnerDetails(customUser.getUser().getUserNo()); // 사용자 정보를 가져옴
+    public String insertPartner(@ModelAttribute Partner partner, HttpSession session) throws Exception {
+        Users user = (Users) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login"; // 사용자 번호가 없으면 로그인 페이지로 리디렉션
+        }
+
+        Partner partnerDetails = userService.selectUserAndPartnerDetails(user.getUserNo()); // 사용자 정보를 가져옴
         if (partnerDetails != null) {
             partner.setUserNo(partnerDetails.getUserNo());
             userService.insertPartner(partner);
@@ -285,8 +288,8 @@ public class UserController {
         }
         return "redirect:/user/userPartnerDone";
     }
-    
-    // 관리자가 파트너 신청을 승인하는 엔드포인트
+
+    // 파트너 신청 승인 처리
     @PostMapping("/approve-partner")
     public String approvePartner(@RequestParam String userId) {
         try {
@@ -303,16 +306,14 @@ public class UserController {
         log.info("/user/userPartnerDone");
         return "/user/userPartnerDone";
     }
-    
-    /*
-     * 예약 취소 페이지로 이동
-     */
+
+    // 예약 취소 페이지 조회
     @GetMapping("/userResevationCancel")
-    public String getMethodName(String ordersNo, Model model)throws Exception {
+    public String userResevationCancel(@RequestParam String ordersNo, Model model) throws Exception {
         Orders orders = orderService.select(ordersNo);
-        
+
         model.addAttribute("orders", orders);
         return "user/userResevationCancel";
     }
-    
+
 }

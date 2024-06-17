@@ -37,7 +37,22 @@
                         <div class="form-group mb-3">
                             <label for="staticOrderStatus" class="col-sm-2 col-form-label">주문 상태</label>
                             <div class="col-sm-10">
-                                <div id="staticOrderStatus" class="custom-text" th:text="${order.orderStatus}"></div>
+                                <!-- 상태가 'PENDING'인 경우 -->
+                                <span th:if="${order.orderStatus.name() == 'PENDING'}" class="custom-text" style=" color: green;">
+                                    보류
+                                </span>
+                                <!-- 상태가 'PAID'인 경우 -->
+                                <span th:if="${order.orderStatus.name() == 'PAID'}" class="custom-text" style=" color: orange;">
+                                    결제 완료
+                                </span>
+                                <!-- 상태가 'CONFIRMED'인 경우 -->
+                                <span th:if="${order.orderStatus.name() == 'CONFIRMED'}" class="custom-text" style=" color: blue;">
+                                    확정 완료
+                                </span>
+                                <!-- 상태가 'CANCELLED'인 경우 -->
+                                <span th:if="${order.orderStatus.name() == 'CANCELLED'}" class="custom-text" style=" color: red;">
+                                    환불(결제 취소)
+                                </span>
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -77,7 +92,7 @@
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                 <input type="hidden" name="ordersNo" th:value="${order.ordersNo}" />
                                 <div class="form-buttons">
-                                    <button type="submit" class="btn btn-danger">예약 취소</button>
+                                    <button th:if="${order.orderStatus.name() == 'CONFIRMED'}" type="submit" class="btn btn-danger">예약 취소</button>
                                 </div>
                             </form>
                         <!-- </th:block> -->
