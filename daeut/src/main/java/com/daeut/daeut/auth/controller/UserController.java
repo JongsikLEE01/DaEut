@@ -19,7 +19,6 @@ import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.ReviewService;
 import com.daeut.daeut.auth.service.UserService;
 import com.daeut.daeut.partner.dto.Partner;
-import com.daeut.daeut.partner.service.PartnerService;
 import com.daeut.daeut.reservation.dto.Cart;
 import com.daeut.daeut.reservation.dto.ChatRooms;
 import com.daeut.daeut.reservation.dto.Orders;

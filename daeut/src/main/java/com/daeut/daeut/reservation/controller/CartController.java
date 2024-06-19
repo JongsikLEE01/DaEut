@@ -73,7 +73,9 @@ public class CartController {
     public ResponseEntity<String> addCart(@RequestBody Cart cart, HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
         int serviceNo = cart.getServiceNo();
+        log.info("serviceNo? {}", serviceNo);
         Services service = reservationService.select(serviceNo);
+        log.info("ser? {}", service);
 
         if (service == null) {
             return new ResponseEntity<>("서비스 찾을 수 없음...", HttpStatus.NOT_FOUND);
@@ -114,7 +116,6 @@ public class CartController {
             return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         }
     }
-
 
     /**
      * 장바구니 선택 삭제
