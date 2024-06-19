@@ -421,15 +421,80 @@ INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, 
 VALUES 
     ("파트너1", "01012345678", "2000-01-01", "인천광역시 부평구", "partner1@naver.com", "male", "partner1", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92"),
     ("파트너2", "01023456789", "1999-02-02", "서울특별시 강남구", "partner2@gmail.com", "female", "partner2", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92");
-INSERT INTO user_auth ( user_no,  auth ) VALUES ( 15, 'ROLE_USER' );
+INSERT INTO user_auth ( user_no,  auth ) VALUES ( 15, 'ROLE_USER' ); 
 UPDATE users SET status = 1 WHERE user_no = 15;
 UPDATE users SET status = 2 WHERE user_no = 15;
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 15, 'ROLE_PARTNER' );
-INSERT INTO partner (partner_career, introduce, user_no) VALUES ("일반 청소 2년" , "안녕하세요" , 15);
+INSERT INTO partner (partner_career, introduce, user_no) VALUES ("일반 청소 2년" , "안녕하세요" , 15);  -- partner_no = 1
 
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 16, 'ROLE_USER' );
 UPDATE users SET status = 1 WHERE user_no = 16;
 UPDATE users SET status = 2 WHERE user_no = 16;
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 16, 'ROLE_PARTNER' );
-INSERT INTO partner (partner_career, introduce, user_no) VALUES ("특수 방역 5년" , "안녕하세요" , 16);
+INSERT INTO partner (partner_career, introduce, user_no) VALUES ("특수 방역 5년" , "안녕하세요" , 16);  -- partner_no = 2
+-- ----------------------------------------------------------------------------------------------------------------
+
+-- ------------------------------------------- 예약 게시글 샘플 ---------------------------------------------------------------
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('청소','[청소] 화장실 청소', 300, '테스트데이터, 청소 서비스 입니다.', 1);
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('빨래','[빨래] 빨래 전문', 300, '테스트데이터, 청소 서비스 입니다.', 1);
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('방역','[방역] 집 청소', 300, '테스트데이터, 청소 서비스 입니다.', 1);
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('보안','[보안] CCTV', 300, '테스트데이터, 청소 서비스 입니다.', 1);
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('기타','[테스트] 각종 청소 서비스', 300, '테스트데이터, 청소 서비스 입니다.', 1);
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('청소','[청소] 건물 계단 청소', 300, '테스트데이터, 청소 서비스 입니다.', 1);
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('청소','[청소] 안방 청소', 300, '테스트데이터, 청소 서비스 입니다.', 1);
+
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('청소','[청소] 사무실 청소 전문', 300, '테스트데이터, 청소 서비스 입니다.', 2);
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('빨래','[빨래] 대형 빨래 세탁', 300, '테스트데이터, 청소 서비스 입니다.', 2);
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('청소','[청소] 안방 청소', 300, '테스트데이터, 청소 서비스 입니다.', 2);
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('방역','[방역] 원룸 청소', 300, '테스트데이터, 청소 서비스 입니다.', 2);
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('보안','[보안] 원룸 보안', 300, '테스트데이터, 청소 서비스 입니다.', 2);
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('청소','[청소] 정기 청소', 300, '테스트데이터, 청소 서비스 입니다.', 2);
+INSERT INTO service (service_category, service_name, service_price, service_content, partner_no)
+VALUES ('방역','[방역] 쥐 잡이', 300, '테스트데이터, 청소 서비스 입니다.', 2);
+-- ----------------------------------------------------------------------------------------------------------------
+
+------------------------------------------- 팁게시판 게시글 샘플 ---------------------------------------------------------------
+ INSERT INTO board( board_title, user_no, board_content)    -- board_no = 1
+        VALUES ( "자취 꿀팁 전수!!", 4, "엄마한테 전화하기!" );
+ INSERT INTO board( board_title, user_no, board_content)
+        VALUES ( "원룸 살 때 필수 아이템", 5, "다이웃 짱" );
+ INSERT INTO board( board_title, user_no, board_content)
+        VALUES ( "바퀴벌레 잡는데는 역시 바퀴벌레 아저씨가 짱", 6, "다이웃 짱" );
+ INSERT INTO board( board_title, user_no, board_content)
+        VALUES ( "빨래 하는 법..", 7, "다이웃 짱" );
+ INSERT INTO board( board_title, user_no, board_content)
+        VALUES ( "간단한 자취 요리", 8, "다이웃 짱" );
+ INSERT INTO board( board_title, user_no, board_content)
+        VALUES ( "배달 음식 처리", 9, "다이웃 짱" );
+ INSERT INTO board( board_title, user_no, board_content)
+        VALUES ( "너무 심심해요 ㅠㅠ", 10, "다이웃 짱" );
+ INSERT INTO board( board_title, user_no, board_content)
+        VALUES ( "룸메랑 같이 사시는 분 있나요?", 11, "다이웃 짱" );
+ INSERT INTO board( board_title, user_no, board_content)
+        VALUES ( "자취 초년생 🤭", 12, "다이웃 짱" );
+ INSERT INTO board( board_title, user_no, board_content)
+        VALUES ( "이사가려고 하는데,,,", 13, "다이웃 짱" );
+ INSERT INTO board( board_title, user_no, board_content)
+        VALUES ( "셀프 이사 하는 법", 14, "엄마를 부른다" );
+ -- ----------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------- 팁게시판 댓글 샘플 ---------------------------------------------------------------
+ INSERT INTO reply (board_no, parent_no, user_no, reply_content)
+        VALUES ( 11, 0, 5, "완전 인정 ㅠㅠ 엄마없이 못살아..");
+ INSERT INTO reply (board_no, parent_no, user_no, reply_content)
+        VALUES ( 11, 1, 4, "엄마 보고싶어요...");
 -- ----------------------------------------------------------------------------------------------------------------
