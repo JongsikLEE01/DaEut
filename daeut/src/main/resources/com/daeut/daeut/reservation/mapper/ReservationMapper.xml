@@ -36,15 +36,15 @@
         SELECT  s.*, 
         		f.*,
         		u.user_name
-        FROM joeun.service s    LEFT JOIN (  
+        FROM service s    LEFT JOIN (  
         	                    	    SELECT * 
-        	                    	    FROM joeun.files
+        	                    	    FROM files
                                         WHERE parent_table = 'service' 
                                         AND file_code = 1
         	                    	    ) f
         	                    ON s.service_no = f.parent_no
         <!-- 유저 번호 -->
-        LEFT JOIN   joeun.users u ON  s.partner_no = u.user_no
+        LEFT JOIN  users u ON  s.partner_no = u.user_no
         <!-- 파트너 번호 -->
         <!-- LEFT JOIN joeun.partner p ON s.partner_no = p.user_no -->
         WHERE s.service_name LIKE CONCAT('%', #{option.keyword}, '%') 
@@ -89,9 +89,9 @@
     <select id="SelectThumbnail">
         SELECT  s.*, 
         		f.*
-        FROM joeun.service s    LEFT JOIN (  
+        FROM service s    LEFT JOIN (  
         	                    	    SELECT * 
-        	                    	    FROM joeun.files
+        	                    	    FROM files
                                         WHERE parent_table = 'service'
                                         AND file_code = 1
         	                    	    ) f
@@ -103,9 +103,9 @@
     <select id="SelectFiles">
         SELECT  s.*, 
         		f.*
-        FROM joeun.service s    LEFT JOIN (  
+        FROM service s    LEFT JOIN (  
         	                    	    SELECT * 
-        	                    	    FROM joeun.files
+        	                    	    FROM files
                                         WHERE parent_table = 'service'
                                         AND file_code != 1
         	                    	    ) f
