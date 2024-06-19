@@ -411,6 +411,11 @@ VALUES
 	( 9, 'ROLE_USER' ),
 	( 10, 'ROLE_USER' ),
 	( 11, 'ROLE_USER' );
+INSERT INTO user_auth ( user_no,  auth )
+VALUES 
+( 12, 'ROLE_USER' ),
+( 13, 'ROLE_USER' ),
+( 14, 'ROLE_USER' );
     
 INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password)
 VALUES 
