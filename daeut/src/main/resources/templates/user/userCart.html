@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{/layout/user_layout}">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Da E ut</title>
+    <meta name="_csrf" content="${_csrf.token}">
+    <meta name="_csrf_header" content="${_csrf.headerName}">
 </head>
 
 <body layout:fragment="content">
@@ -49,7 +50,7 @@
                             <tr th:if="${cartList == null}" th:each="cart: ${cartList}">
                                 <td>장바구니가 비어있어요</td>
                             </tr>
-                            <tr th:if="${cartList != null}" th:each="cart: ${cartList}">
+                            <tr th:if="${cartList != null}" th:each="cart, cartStat: ${cartList}">
                                 <input type="hidden" id="serviceNo" name="serviceNo" th:value="${cart.serviceNo}">
                                 <input type="hidden" id="quantity" name="quantity" value="1">
                                 <td class="checked">
@@ -67,33 +68,54 @@
                 <div class="buttons">
                     <button class="btn btn-danger" onclick="deleteSeleteCarts()">선택 삭제</button>
                     <button class="btn btn-danger" onclick="deleteCarts()">전체 삭제</button>
-                    <button class="btn btn-primary custom2" onclick="orderCart()">결제 하기</button>
+                    <button class="btn btn-primary custom2" onclick="orderSelectedCarts()">구매하기</button>
                 </div>
             </div>
             
         </div>
     </main>
 
-    <script>
-    function orderCart() {
+<script>
+    function orderSelectedCarts() {
         var form = document.getElementById('form');
+        var checkboxes = document.querySelectorAll('.checkbox:checked');
+        var selectedCartNos = [];
+        
+        checkboxes.forEach(function(checkbox) {
+            selectedCartNos.push(checkbox.value);
+        });
+        
+        if (selectedCartNos.length === 0) {
+            alert('선택된 제품이 없습니다.');
+            return;
+        }
+
+        // 선택된 제품들을 폼 데이터에 추가
+        selectedCartNos.forEach(function(cartNo) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'selectedCartNos';
+            input.value = cartNo;
+            form.appendChild(input);
+        });
+
         form.action = '/orders'; // 변경할 액션 경로 설정
         form.submit();
     }
 
-    const csrfToken = document.querySelector("meta[name='_csrf']").content
-    const csrfHeader = document.querySelector("meta[name='_csrf_header']").content
+    const csrfToken = document.querySelector("meta[name='_csrf']").getAttribute('content');
+    const csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute('content');
     
-    const form = document.getElementById("form")
+    const form = document.getElementById("form");
     
     function deleteSeleteCarts() {
-        const check = sweetConfirm("정말로 삭제하시겠습니까?", '삭제된 서비스는 되돌릴 수 없습니다.', 'warning', '삭제', deleteSelectedCarts)
-        if (!check) return
+        const check = sweetConfirm("정말로 삭제하시겠습니까?", '삭제된 서비스는 되돌릴 수 없습니다.', 'warning', '삭제', deleteSelectedCarts);
+        if (!check) return;
     }
     
     // 선택삭제
     function deleteSelectedCarts() {
-        form.submit()
+        form.submit();
         // 비동기 테스트....
         // const checkboxes = document.querySelectorAll('input.checkbox');
         // const cartNos = [];
@@ -108,47 +130,47 @@
         // }
         // // AJAX 비동기 요청
         // let request = new XMLHttpRequest();
-        // 	request.open("DELETE",'/cart/delete')
-        // 	request.setRequestHeader(csrfHeader, csrfToken)
-        // 	request.setRequestHeader('Content-Type', 'application/json')
-        // 	request.send(JSON.stringify(data))
+        // 	request.open("DELETE",'/cart/delete');
+        // 	request.setRequestHeader(csrfHeader, csrfToken);
+        // 	request.setRequestHeader('Content-Type', 'application/json');
+        // 	request.send(JSON.stringify(data));
         // 	// 요청 상태가 변할 때 실행하는 메소드
         // 	request.onreadystatechange = function() {
         //         // 요청 성공
         // 	    if (request.readyState == request.DONE && request.status == 200) {
-        //             // location.reload()
+        //             // location.reload();
         // 	        alert('장바구니 선택 삭제 성공!'); // 응답 메세지 확인
         // 	    }
         // }
     }
     
     function deleteCarts() {
-        const check = sweetConfirm("정말로 삭제하시겠습니까?", '삭제된 서비스는 되돌릴 수 없습니다.', 'warning', '삭제', deleteAllCarts)
-        if (!check) return
+        const check = sweetConfirm("정말로 삭제하시겠습니까?", '삭제된 서비스는 되돌릴 수 없습니다.', 'warning', '삭제', deleteAllCarts);
+        if (!check) return;
     }
     
     // 전체삭제
     function deleteAllCarts() {
-        let userNo = '[[${user.userNo}]]'
+        let userNo = '[[${user.userNo}]]';
         let data = {
             'userNo': userNo
-        }
+        };
         // AJAX 비동기 요청
         let request = new XMLHttpRequest();
-        request.open("DELETE", '/cart/delete/' + userNo)
-        request.setRequestHeader(csrfHeader, csrfToken)
-        request.setRequestHeader('Content-Type', 'application/json')
-        request.send(JSON.stringify(data))
+        request.open("DELETE", '/cart/delete/' + userNo);
+        request.setRequestHeader(csrfHeader, csrfToken);
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify(data));
         // 요청 상태가 변할 때 실행하는 메소드
         request.onreadystatechange = function () {
             // 요청 성공
-            location.reload()
+            location.reload();
             if (request.readyState == request.DONE && request.status == 200) {
                 alert('장바구니 비우기 성공!'); // 응답 메세지 확인
             }
         }
     }
-    </script>
+</script>
 
 </body>
 </html>
