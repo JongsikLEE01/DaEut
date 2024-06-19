@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.auth.service.EmailService;
 import com.daeut.daeut.auth.service.UserService;
-import com.daeut.daeut.partner.service.PartnerService;
 
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpSession;

@@ -97,9 +97,6 @@
 				</div>
 			</div>
 
-
-
-
 			<div class="detail-content">
 
 				<div class="reservation-service-content">
@@ -272,8 +269,9 @@
 			// CSRF 토큰 가져오기
 			const csrfToken = document.querySelector("meta[name='_csrf']").content;
 			const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
+			console 
 
-			var sNo = '[[${service.partner.partnerNo}]]'
+			var sNo = '[[${service.serviceNo}]]'
 			let data = {
 				'serviceNo': sNo
 			};

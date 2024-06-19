@@ -4,9 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.daeut.daeut.partner.dto.Partner;
-
 import lombok.Data;
 
 
