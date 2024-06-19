@@ -2,7 +2,6 @@ package com.daeut.daeut.reservation.service;
 
 import java.util.List;
 
-import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.Payments;
 
 public interface PaymentService {

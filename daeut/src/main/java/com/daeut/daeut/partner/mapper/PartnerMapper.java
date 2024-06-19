@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.daeut.daeut.auth.dto.Review;
-import com.daeut.daeut.auth.dto.Users;
 import com.daeut.daeut.partner.dto.Partner;
 
 @Mapper

@@ -18,11 +18,9 @@ import com.daeut.daeut.main.service.FileService;
 import com.daeut.daeut.partner.dto.Partner;
 import com.daeut.daeut.partner.mapper.PartnerMapper;
 import com.daeut.daeut.reservation.dto.Orders;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
-@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 

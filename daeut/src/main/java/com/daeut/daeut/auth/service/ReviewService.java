@@ -1,7 +1,6 @@
 package com.daeut.daeut.auth.service;
 
 import com.daeut.daeut.auth.dto.Review;
-import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.reservation.dto.Payments;
 
 import java.util.List;

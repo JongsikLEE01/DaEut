@@ -21,8 +21,6 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private FileService fileService;
 
-    private static final int THUMBNAIL_FILE_CODE = 1;
-
     @Override
     public List<Payments> getUserPayments(int userNo) {
         return reviewMapper.findPaymentsByUserNo(userNo);
