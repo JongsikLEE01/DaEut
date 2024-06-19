@@ -380,6 +380,8 @@ VALUES ( 1, 'ROLE_USER' );
 -- 파트너로 만들 회원
 INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password)
 VALUES ("김조은", "01012345678", "2000-01-01", "인천광역시 부평구", "joeun@naver.com", "male", "joeun", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92");
+INSERT INTO user_auth ( user_no,  auth )
+VALUES ( 2, 'ROLE_USER' );
 -- 관리자
 INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password)
 VALUES ("관리자", "01012345678", "2000-01-01", "인천광역시 부평구", "admin@naver.com", "male", "admin", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92");

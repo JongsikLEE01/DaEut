@@ -27,10 +27,10 @@
                     <h3>파트너 수정</h3>
                     <div class="d-flex justify-content-center">
                         <div class="col-md-3 mt-5">
-                            <!-- <div class="col-md-3 mt-5">
-                                <img th:src="|/file/img/${file.fileNo}|" alt="파트너 이미지" class="profile-img img-thumbnail">
-                            </div> -->
-                            <img src="/img/partner.png" alt="파트너 이미지" class="profile-img img-thumbnail">
+                            <!--파트너 사진-->
+							<img th:if="${pthumbnail != null and pthumbnail.fileNo != ''}" th:src="|/file/img/${pthumbnail.fileNo}|" alt="파트너 사진" class="profile-img img-thumbnail">
+                            <!-- 파일 번호가 없는 경우 기본 이미지를 표시 -->
+                            <img th:unless="${pthumbnail != null and pthumbnail.fileNo != ''}" th:src="|/file/img/0|" alt="기본 이미지" class="profile-img img-thumbnail">
                         </div>
                         <div class="col-md-8">
                             <form id="partnerUpdateForm" class="ms-5" th:action="|/admin/adminPartnerUpdate/${partner.userNo}|" method="POST"><!-- form 작성 필요 -->
