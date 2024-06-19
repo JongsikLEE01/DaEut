@@ -75,41 +75,46 @@ public class CartController {
         int serviceNo = cart.getServiceNo();
         Services service = reservationService.select(serviceNo);
 
-        
+        if (service == null) {
+            return new ResponseEntity<>("서비스 찾을 수 없음...", HttpStatus.NOT_FOUND);
+        }
+
         int pNo = service.getPartnerNo();
         Partner partner = partnerService.selectByPartnerNo(pNo);
-        
+        if (partner == null) {
+            return new ResponseEntity<>("파트너 찾을 수 없음...", HttpStatus.NOT_FOUND);
+        }
+
         Users pUser = userService.findUserById(partner.getUserNo());
         log.info("pUser? {}", pUser);
-        
         cart.setServiceNo(serviceNo);
         cart.setUserNo(user.getUserNo());
         cart.setCartAmount(1);
         cart.setPartnerName(pUser.getUserName());
         log.info("cart? {}", cart);
 
-        // 장바구니에
-        List<Cart> cartList = cartService.cartList(user.getUserNo());
+        // 장바구니에 이미 있는지 체크
+        List<Cart> cartList = cartService.cartList(cart.getUserNo());
+        log.info("cartList? {}", cartList);
+        boolean alreadyInCart = false;
         for (Cart originCart : cartList) {
-            if(originCart.getServiceNo() == cart.getServiceNo())
-                // 추가 실패
-                return new ResponseEntity<>("FAIL",HttpStatus.INTERNAL_SERVER_ERROR);
+            if (originCart.getServiceNo() == cart.getServiceNo() && originCart.getUserNo() == cart.getUserNo()) {
+                // 이미 장바구니에 있는 경우
+                alreadyInCart = true;
+                break;
+            }
         }
 
-
-        int result = 0;
-        try {
-            // 장바구니 추가 요청
-            result = cartService.cartInsert(cart);
-        } catch (Exception e) {
+        if (alreadyInCart) {
             // 추가 실패
-            e.printStackTrace();
-            return new ResponseEntity<>("FAIL",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("해당 제품이 이미 있습니다.", HttpStatus.BAD_REQUEST);
+        } else {
+            // 추가 성공
+            cartService.cartInsert(cart); // 장바구니에 추가하는 메소드 호출
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         }
-
-        // 추가 성공
-        return new ResponseEntity<>("SUCCESS",HttpStatus.OK);
     }
+
 
     /**
      * 장바구니 선택 삭제
