@@ -374,15 +374,15 @@ ALTER TABLE partner
 -- ------------------------------------------- 회원 샘플 ---------------------------------------------------------------
 -- 사용자로 시연할 샘플
 INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password)
-VALUES ("정다운", "01076672354", "2000-01-01", "인천광역시 남동구", "tkwk36@naver.com", "female", "tkwk36", "abcd123!");
+VALUES ("정다운", "01076672354", "2000-01-01", "인천광역시 남동구", "tkwk36@naver.com", "female", "tkwk36", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92");
 INSERT INTO user_auth ( user_no,  auth )
 VALUES ( 1, 'ROLE_USER' );
 -- 파트너로 만들 회원
 INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password)
-VALUES ("김조은", "01012345678", "2000-01-01", "인천광역시 부평구", "joeun@naver.com", "male", "joeun", "abcd123!");
+VALUES ("김조은", "01012345678", "2000-01-01", "인천광역시 부평구", "joeun@naver.com", "male", "joeun", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92");
 -- 관리자
 INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password)
-VALUES ("관리자", "01012345678", "2000-01-01", "인천광역시 부평구", "admin@naver.com", "male", "admin", "admin123!");
+VALUES ("관리자", "01012345678", "2000-01-01", "인천광역시 부평구", "admin@naver.com", "male", "admin", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92");
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 3, 'ROLE_USER' );
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 3, 'ROLE_PARTNER' );
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 3, 'ROLE_ADMIN' );
@@ -390,17 +390,17 @@ INSERT INTO user_auth ( user_no,  auth ) VALUES ( 3, 'ROLE_ADMIN' );
 
 INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password)
 VALUES 
-    ("사용자1", "01012345678", "2000-01-01", "인천광역시 부평구", "user1@naver.com", "male", "user1", "abcd123!"),
-    ("사용자2", "01023456789", "1999-02-02", "서울특별시 강남구", "user2@gmail.com", "female", "user2", "abcd123!"),
-    ("사용자3", "01034567890", "1998-03-03", "부산광역시 해운대구", "user3@daum.net", "male", "user3", "abcd123!"),
-    ("사용자4", "01045678901", "1997-04-04", "대구광역시 중구", "user4@naver.com", "female", "user4", "abcd123!"),
-    ("사용자5", "01056789012", "1996-05-05", "광주광역시 서구", "user5@gmail.com", "male", "user5", "abcd123!"),
-    ("사용자6", "01067890123", "1995-06-06", "대전광역시 유성구", "user6@daum.net", "female", "user6", "abcd123!"),
-    ("사용자7", "01078901234", "1994-07-07", "울산광역시 남구", "user7@naver.com", "male", "user7", "abcd123!"),
-    ("사용자8", "01089012345", "1993-08-08", "세종특별자치시", "user8@gmail.com", "female", "user8", "abcd123!"),
-    ("사용자9", "01090123456", "1992-09-09", "경기도 성남시", "user9@daum.net", "male", "user9", "abcd123!"),
-    ("사용자10", "01001234567", "1991-10-10", "전라북도 전주시", "user10@naver.com", "female", "user10", "abcd123!"),
-    ("사용자11", "01012345679", "1990-11-11", "경상남도 창원시", "user11@gmail.com", "male", "user11", "abcd123!");
+    ("사용자1", "01012345678", "2000-01-01", "인천광역시 부평구", "user1@naver.com", "male", "user1", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92"),
+    ("사용자2", "01023456789", "1999-02-02", "서울특별시 강남구", "user2@gmail.com", "female", "user2", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92"),
+    ("사용자3", "01034567890", "1998-03-03", "부산광역시 해운대구", "user3@daum.net", "male", "user3", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92"),
+    ("사용자4", "01045678901", "1997-04-04", "대구광역시 중구", "user4@naver.com", "female", "user4", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92"),
+    ("사용자5", "01056789012", "1996-05-05", "광주광역시 서구", "user5@gmail.com", "male", "user5", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92"),
+    ("사용자6", "01067890123", "1995-06-06", "대전광역시 유성구", "user6@daum.net", "female", "user6", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92"),
+    ("사용자7", "01078901234", "1994-07-07", "울산광역시 남구", "user7@naver.com", "male", "user7", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92"),
+    ("사용자8", "01089012345", "1993-08-08", "세종특별자치시", "user8@gmail.com", "female", "user8", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92"),
+    ("사용자9", "01090123456", "1992-09-09", "경기도 성남시", "user9@daum.net", "male", "user9", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92"),
+    ("사용자10", "01001234567", "1991-10-10", "전라북도 전주시", "user10@naver.com", "female", "user10", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92"),
+    ("사용자11", "01012345679", "1990-11-11", "경상남도 창원시", "user11@gmail.com", "male", "user11", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92");
 INSERT INTO user_auth ( user_no,  auth )
 VALUES 
 	( 4, 'ROLE_USER' ),
@@ -419,8 +419,8 @@ VALUES
     
 INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password)
 VALUES 
-    ("파트너1", "01012345678", "2000-01-01", "인천광역시 부평구", "partner1@naver.com", "male", "partner1", "abcd123!"),
-    ("파트너2", "01023456789", "1999-02-02", "서울특별시 강남구", "partner2@gmail.com", "female", "partner2", "abcd123!");
+    ("파트너1", "01012345678", "2000-01-01", "인천광역시 부평구", "partner1@naver.com", "male", "partner1", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92"),
+    ("파트너2", "01023456789", "1999-02-02", "서울특별시 강남구", "partner2@gmail.com", "female", "partner2", "$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92");
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 15, 'ROLE_USER' );
 UPDATE users SET status = 1 WHERE user_no = 15;
 UPDATE users SET status = 2 WHERE user_no = 15;
