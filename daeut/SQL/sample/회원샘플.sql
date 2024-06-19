@@ -1,4 +1,4 @@
--- Active: 1717757886166@@127.0.0.1@3306@joeun
+-- Active: 1717979949380@@127.0.0.1@3306@joeun
 
 -- ID : downy
 -- PW : 123456
@@ -31,7 +31,7 @@ INSERT INTO user_auth ( user_no,  auth )
 VALUES ( 1, 'ROLE_USER' );
 -- 회원 권한
 INSERT INTO user_auth ( user_no,  auth )
-VALUES ( 2, 'ROLE_USER' );
+VALUES ( 3, 'ROLE_USER' );
 
 
 -- 👨‍🔬 파트너

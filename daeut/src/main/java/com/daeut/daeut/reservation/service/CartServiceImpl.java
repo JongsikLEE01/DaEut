@@ -62,6 +62,7 @@ public class CartServiceImpl implements CartService{
         return cartDelete(cartNo);
     }
 
+    // 주문 완료시 삭제
     @Override
     public int deleteByOrderComplete(List<Integer> serviceNoList, int userNo) throws Exception {
         String serviceNos = serviceNoList.stream()
