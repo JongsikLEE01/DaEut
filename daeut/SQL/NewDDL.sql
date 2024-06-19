@@ -1,4 +1,4 @@
--- Active: 1717979949380@@127.0.0.1@3306@joeun
+-- Active: 1717724147832@@127.0.0.1@3306@daeut
 
 -- 결제 로직
 
@@ -256,106 +256,105 @@ CREATE TABLE user_social (
 ALTER TABLE board
   ADD CONSTRAINT FK_users_TO_board
     FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
+    REFERENCES users (user_no) ON DELETE CASCADE;
 
--- cancel
-ALTER TABLE cancel
-  ADD CONSTRAINT FK_orders_TO_cancel
-    FOREIGN KEY (orders_no)
-    REFERENCES orders (orders_no);
+-- -- cancel
+-- ALTER TABLE cancel
+--   ADD CONSTRAINT FK_orders_TO_cancel
+--     FOREIGN KEY (orders_no)
+--     REFERENCES orders (orders_no);
 
--- cart
-ALTER TABLE cart
-  ADD CONSTRAINT FK_service_TO_cart
-    FOREIGN KEY (service_no)
-    REFERENCES service (service_no);
+-- -- cart
+-- ALTER TABLE cart
+--   ADD CONSTRAINT FK_service_TO_cart
+--     FOREIGN KEY (service_no)
+--     REFERENCES service (service_no);
 
-ALTER TABLE cart
-  ADD CONSTRAINT FK_users_TO_cart
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
+-- ALTER TABLE cart
+--   ADD CONSTRAINT FK_users_TO_cart
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
 
--- chat
-ALTER TABLE chat
-  ADD CONSTRAINT FK_users_TO_chat
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
+-- -- chat
+-- ALTER TABLE chat
+--   ADD CONSTRAINT FK_users_TO_chat
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
 
-ALTER TABLE chat
-  ADD CONSTRAINT FK_chat_rooms_TO_chat
-    FOREIGN KEY (room_no)
-    REFERENCES chat_rooms (room_no);
+-- ALTER TABLE chat
+--   ADD CONSTRAINT FK_chat_rooms_TO_chat
+--     FOREIGN KEY (room_no)
+--     REFERENCES chat_rooms (room_no);
 
--- chat_rooms
-ALTER TABLE chat_rooms
-  ADD CONSTRAINT FK_users_TO_chat_rooms
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
+-- -- chat_rooms
+-- ALTER TABLE chat_rooms
+--   ADD CONSTRAINT FK_users_TO_chat_rooms
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
 
--- order_item
-ALTER TABLE order_item
-  ADD CONSTRAINT FK_orders_TO_order_item
-    FOREIGN KEY (orders_no)
-    REFERENCES orders (orders_no);
+-- -- order_item
+-- ALTER TABLE order_item
+--   ADD CONSTRAINT FK_orders_TO_order_item
+--     FOREIGN KEY (orders_no)
+--     REFERENCES orders (orders_no);
 
-ALTER TABLE order_item
-  ADD CONSTRAINT FK_service_TO_order_item
-    FOREIGN KEY (service_no)
-    REFERENCES service (service_no);
+-- ALTER TABLE order_item
+--   ADD CONSTRAINT FK_service_TO_order_item
+--     FOREIGN KEY (service_no)
+--     REFERENCES service (service_no);
 
--- orders
-ALTER TABLE orders
-  ADD CONSTRAINT FK_users_TO_orders
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
+-- -- orders
+-- ALTER TABLE orders
+--   ADD CONSTRAINT FK_users_TO_orders
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
 
--- payment
-ALTER TABLE payment
-  ADD CONSTRAINT FK_orders_TO_payment
-    FOREIGN KEY (orders_no)
-    REFERENCES orders (orders_no);
+-- -- payment
+-- ALTER TABLE payment
+--   ADD CONSTRAINT FK_orders_TO_payment
+--     FOREIGN KEY (orders_no)
+--     REFERENCES orders (orders_no);
 
--- reply
-ALTER TABLE reply
-  ADD CONSTRAINT FK_board_TO_reply
-    FOREIGN KEY (board_no)
-    REFERENCES board (board_no) ON DELETE CASCADE;
+-- -- reply
+-- ALTER TABLE reply
+--   ADD CONSTRAINT FK_board_TO_reply
+--     FOREIGN KEY (board_no)
+--     REFERENCES board (board_no) ON DELETE CASCADE;
 
-ALTER TABLE reply
-  ADD CONSTRAINT FK_users_TO_reply
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no);
+-- ALTER TABLE reply
+--   ADD CONSTRAINT FK_users_TO_reply
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no);
 
--- review
-ALTER TABLE review
-  ADD CONSTRAINT FK_users_TO_review
-    FOREIGN KEY (user_no)
-    REFERENCES users (user_no)
-    ON DELETE CASCADE;
+-- -- review
+-- ALTER TABLE review
+--   ADD CONSTRAINT FK_users_TO_review
+--     FOREIGN KEY (user_no)
+--     REFERENCES users (user_no)
+--     ON DELETE CASCADE;
 
-ALTER TABLE review
-  ADD CONSTRAINT FK_payment_TO_review
-    FOREIGN KEY (payment_no)
-    REFERENCES payment (payment_no)
-    ON DELETE CASCADE;
+-- ALTER TABLE review
+--   ADD CONSTRAINT FK_payment_TO_review
+--     FOREIGN KEY (payment_no)
+--     REFERENCES payment (payment_no)
+--     ON DELETE CASCADE;
 
-ALTER TABLE review
-  ADD CONSTRAINT FK_partner_TO_review
-    FOREIGN KEY (partner_no)
-    REFERENCES partner (partner_no)
-    ON DELETE CASCADE;
+-- ALTER TABLE review
+  -- ADD CONSTRAINT FK_partner_TO_review
+  --   FOREIGN KEY (partner_no)
+  --   REFERENCES partner (partner_no)
+  --   ON DELETE CASCADE;
 
 ALTER TABLE review
   ADD CONSTRAINT FK_service_TO_review
     FOREIGN KEY (service_no)
-    REFERENCES service (service_no)
-    ON DELETE CASCADE;
+    REFERENCES service (service_no) ON DELETE CASCADE;
 
 -- service
 ALTER TABLE service
   ADD CONSTRAINT FK_partner_TO_service
     FOREIGN KEY (partner_no)
-    REFERENCES partner (partner_no);
+    REFERENCES partner (partner_no) ON DELETE CASCADE;
 
 -- user_auth
 ALTER TABLE user_auth
@@ -368,3 +367,7 @@ ALTER TABLE partner
   ADD CONSTRAINT FK_users_TO_partner
     FOREIGN KEY (user_no)
     REFERENCES users (user_no) ON DELETE CASCADE;
+
+-- service 제약 조건 삭제
+-- ALTER TABLE service
+-- DROP CONSTRAINT FK_partner_TO_service;
