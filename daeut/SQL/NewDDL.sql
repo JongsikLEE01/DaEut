@@ -1,4 +1,4 @@
--- Active: 1715242304860@@127.0.0.1@3306@daeut
+-- Active: 1717658424847@@127.0.0.1@3306@daeut
 
 
 DROP TABLE IF EXISTS reply;
@@ -382,7 +382,7 @@ INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, 
 VALUES ("김조은", "01012345678", "2000-01-01", "인천광역시 부평구", "joeun@naver.com", "male", "joeun", "abcd123!");
 -- 관리자
 INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, user_gender, user_id, user_password)
-VALUES ("관리자", "01012345678", "2000-01-01", "인천광역시 부평구", "admin@naver.com", "male", "admin", "abcd123!");
+VALUES ("관리자", "01012345678", "2000-01-01", "인천광역시 부평구", "admin@naver.com", "male", "admin", "admin123!");
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 3, 'ROLE_USER' );
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 3, 'ROLE_PARTNER' );
 INSERT INTO user_auth ( user_no,  auth ) VALUES ( 3, 'ROLE_ADMIN' );
@@ -416,15 +416,15 @@ INSERT INTO users (user_name, user_phone, user_birth, user_address, user_email, 
 VALUES 
     ("파트너1", "01012345678", "2000-01-01", "인천광역시 부평구", "partner1@naver.com", "male", "partner1", "abcd123!"),
     ("파트너2", "01023456789", "1999-02-02", "서울특별시 강남구", "partner2@gmail.com", "female", "partner2", "abcd123!");
-INSERT INTO user_auth ( user_no,  auth ) VALUES ( 12, 'ROLE_USER' );
-UPDATE users SET status = 1 WHERE user_no = 12;
-UPDATE users SET status = 2 WHERE user_no = 12;
-INSERT INTO user_auth ( user_no,  auth ) VALUES ( 12, 'ROLE_PARTNER' );
-INSERT INTO partner (partner_career, introduce, user_no) VALUES ("일반 청소 2년" , "안녕하세요" , 12);
+INSERT INTO user_auth ( user_no,  auth ) VALUES ( 15, 'ROLE_USER' );
+UPDATE users SET status = 1 WHERE user_no = 15;
+UPDATE users SET status = 2 WHERE user_no = 15;
+INSERT INTO user_auth ( user_no,  auth ) VALUES ( 15, 'ROLE_PARTNER' );
+INSERT INTO partner (partner_career, introduce, user_no) VALUES ("일반 청소 2년" , "안녕하세요" , 15);
 
-INSERT INTO user_auth ( user_no,  auth ) VALUES ( 13, 'ROLE_USER' );
-UPDATE users SET status = 1 WHERE user_no = 13;
-UPDATE users SET status = 2 WHERE user_no = 13;
-INSERT INTO user_auth ( user_no,  auth ) VALUES ( 13, 'ROLE_PARTNER' );
-INSERT INTO partner (partner_career, introduce, user_no) VALUES ("특수 방역 5년" , "안녕하세요" , 13);
+INSERT INTO user_auth ( user_no,  auth ) VALUES ( 16, 'ROLE_USER' );
+UPDATE users SET status = 1 WHERE user_no = 16;
+UPDATE users SET status = 2 WHERE user_no = 16;
+INSERT INTO user_auth ( user_no,  auth ) VALUES ( 16, 'ROLE_PARTNER' );
+INSERT INTO partner (partner_career, introduce, user_no) VALUES ("특수 방역 5년" , "안녕하세요" , 16);
 -- ----------------------------------------------------------------------------------------------------------------
