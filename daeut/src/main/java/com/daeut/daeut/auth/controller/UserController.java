@@ -100,7 +100,7 @@ public class UserController {
             log.info("Delete result: " + result);
             if (result > 0) {
                 session.invalidate(); // 세션 무효화
-                return "redirect:/index"; // 탈퇴 처리 후 리다이렉트할 페이지
+                return "redirect:/"; // 탈퇴 처리 후 리다이렉트할 페이지
             } else {
                 return "redirect:/user/userMypage";
             }
