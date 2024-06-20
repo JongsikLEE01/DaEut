@@ -44,9 +44,9 @@
                 body: JSON.stringify({ userEmail: userEmail })
             }).then(response => response.text())
               .then(data => {
-                  alert(data);
+                sweetAlert('😊', data, "success");
               }).catch(error => {
-                  alert('인증 코드 전송 중 오류가 발생했습니다.');
+                  sweetAlert('인증 코드 전송 중 오류가 발생했습니다.');
               });
         }
     </script>

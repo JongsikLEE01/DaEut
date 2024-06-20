@@ -133,7 +133,7 @@
             request.onreadystatechange = function(){
                 // 요청 성공
                 if(request.readyState == request.DONE && request.status == 200){
-                    alert("파일 삭제")
+                    sweetAlert('📄',"파일 삭제", 'info')
                     console.log('파일 삭제 성공!');
                     // 파일 항목 제거
                     element.parentNode.remove()
