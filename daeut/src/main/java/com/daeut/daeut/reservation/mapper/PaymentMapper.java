@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.daeut.daeut.reservation.dto.Orders;
 import com.daeut.daeut.reservation.dto.Payments;
 import com.siot.IamportRestClient.response.Payment;
 

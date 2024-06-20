@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import com.daeut.daeut.auth.dto.Review;
-import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.reservation.dto.Payments;
 
 @Mapper

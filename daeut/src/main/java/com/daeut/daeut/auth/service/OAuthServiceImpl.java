@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.daeut.daeut.auth.dto.CustomSocialUser;
-import com.daeut.daeut.auth.dto.CustomUser;
 import com.daeut.daeut.auth.dto.OAuthAttributes;
 import com.daeut.daeut.auth.dto.UserAuth;
 import com.daeut.daeut.auth.dto.UserSocial;

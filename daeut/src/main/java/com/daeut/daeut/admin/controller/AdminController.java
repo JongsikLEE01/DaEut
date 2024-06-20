@@ -259,9 +259,12 @@ public class AdminController {
     @GetMapping("/adminPartnerUpdate/{userNo}")
     public String adminPartnerUpdate(@PathVariable("userNo") int userNo, Model model) throws Exception {
         Partner partner = adminService.findPartnerById(userNo);
-        model.addAttribute("partner", partner);
-        log.info("업데이트 화면 이동....");
+        int partnerNo = partner.getPartnerNo();
+        Files pthumbnail = reservationService.partnerThumbnail(partnerNo);
+        
         log.info(partner.toString());
+        model.addAttribute("partner", partner);
+        model.addAttribute("pthumbnail", pthumbnail);
         return "/admin/adminPartnerUpdate";
 
     }

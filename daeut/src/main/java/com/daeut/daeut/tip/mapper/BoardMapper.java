@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.daeut.daeut.tip.dto.Option2;
-import com.daeut.daeut.main.dto.Files;
 import com.daeut.daeut.main.dto.Page;
 import com.daeut.daeut.tip.dto.Board;
 
