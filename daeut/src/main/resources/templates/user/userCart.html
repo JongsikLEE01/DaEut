@@ -86,7 +86,7 @@
         });
         
         if (selectedCartNos.length === 0) {
-            alert('선택된 제품이 없습니다.');
+            sweetAlert("경고", "선택된 제품이 없어요", "warning")
             return;
         }
 
@@ -166,7 +166,8 @@
             // 요청 성공
             location.reload();
             if (request.readyState == request.DONE && request.status == 200) {
-                alert('장바구니 비우기 성공!'); // 응답 메세지 확인
+                // alert('장바구니 비우기 성공!'); // 응답 메세지 확인
+                sweetAlert("성공", "장바구니를 성공적으로 비웠어요", "success")
             }
         }
     }

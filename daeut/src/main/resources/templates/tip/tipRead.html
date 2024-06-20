@@ -101,9 +101,9 @@
                     let likeCountElement = document.getElementById("like-count");
                     let likeCount = parseInt(likeCountElement.textContent.split(": ")[1]) + 1;
                     likeCountElement.textContent = `추천수: ${likeCount}`;
-                    alert(data.message);
+                    sweetAlert(data.message);
                 } else {
-                    alert(data.message);
+                    sweetAlert(data.message);
                 }
             })
             .catch(error => console.error('Error:', error));
@@ -130,11 +130,9 @@
         }
     
         function actionDelete() {
-            let check = confirm('정말로 삭제하시겠습니까?');
-            console.log('삭제 확인:', check);
-            if (check) {
+            sweetConfirm('정말로 삭제하시겠습니까?', '', 'warning', '삭제', function() {
                 document.getElementById('form').submit();
-            }
+            });
         }
 
         function insertReply() {
@@ -173,7 +171,7 @@
                         console.log('댓글 등록 성공!');
                         let response = request.responseText;
                         if (response === 'SUCCESS') {
-                            alert("댓글 등록 성공!!!");
+                            sweetAlert("댓글 등록 성공!!!");
                             replyList();
                             incrementReplyCount();
                             $content.value = '';
@@ -291,15 +289,15 @@
                         let response = request.responseText;
                         console.log('Update response:', response);
                         if (response === 'SUCCESS') {
-                            alert("댓글 수정 성공!!!");
+                            sweetAlert("댓글 수정 성공!!!");
                             replyList();
                         } else {
-                            alert("댓글 수정 실패: " + response);
+                            sweetAlert("댓글 수정 실패: " + response);
                         }
                     } else if (request.status === 403) {
-                        alert("수정 권한이 없습니다.");
+                        sweetAlert("수정 권한이 없습니다.");
                     } else {
-                        alert("댓글 수정 중 오류 발생.");
+                        sweetAlert("댓글 수정 중 오류 발생.");
                     }
                 }
             }
@@ -322,25 +320,31 @@
         }
 
         function deleteReply(no) {
-            const check = confirm("정말로 삭제하시겠습니까?")
-            if( !check ) return
+        sweetConfirm(
+            "정말로 삭제하시겠습니까?",
+            "",
+            "warning",
+            "삭제",
+            function() {
+                let request = new XMLHttpRequest();
+                request.open('DELETE', '/reply/' + no);
+                request.setRequestHeader(csrfHeader, csrfToken);
+                request.send();
 
-            let request = new XMLHttpRequest()
-            request.open('DELETE', '/reply/' + no)
-            request.setRequestHeader(csrfHeader, csrfToken);
-            request.send()
-
-            request.onreadystatechange = function() {
-                if( request.readyState == request.DONE && request.status == 200 ) {
-                    console.log('댓글 삭제 성공!');
-                    let response = request.responseText
-                    if( response == 'SUCCESS' ){
-                        replyList();
-                        decrementReplyCount();
+                request.onreadystatechange = function() {
+                    if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+                        console.log('댓글 삭제 성공!');
+                        let response = request.responseText;
+                        if (response === 'SUCCESS') {
+                            replyList();
+                            decrementReplyCount();
+                        }
                     }
-                }
+                };
             }
-        }
+        );
+    }
+
 
         function insertAnswer(element, parentNo) {
             let $replyBox = element.closest('div[data-reply-no]');
@@ -403,7 +407,7 @@
                         console.log('답글 등록 성공!');
                         let response = request.responseText;
                         if (response === 'SUCCESS') {
-                            alert("답글 등록 성공!!!");
+                            sweetAlert("답글 등록 성공!!!");
                             replyList();
                             incrementReplyCount(); 
                             $content.value = '';
