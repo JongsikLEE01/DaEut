@@ -92,7 +92,7 @@
 
 # 4. 프로젝트 수행절차 및 방법
 ## 4-2. 수행방법
-- 사용 언어 :     
+- 사용 언어 : <img src="https://img.shields.io/badge/HTML5?style=flat&logo=HTML5&logoColor=white"/>    
 - 개발도구 :   
 - 라이브러리 : 
 - 사용 DB : 
