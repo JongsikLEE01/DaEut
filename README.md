@@ -92,7 +92,7 @@
 
 # 4. 프로젝트 수행절차 및 방법
 ## 4-2. 수행방법
-- 사용 언어 : ![js](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white)      
+- 사용 언어 :     
 - 개발도구 :   
 - 라이브러리 : 
 - 사용 DB : 
