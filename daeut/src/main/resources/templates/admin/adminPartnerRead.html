@@ -91,11 +91,21 @@
         let  id = "[[${partner.userId}]]"
         
         function cancelPartner() {
-            let check = confirm('파트너 승인을 취소하시겠습니까?')
-            if( check ) {
-                form.action = '/admin/cancelPartner/' + id 
-                form.submit()
-            }      
+            Swal.fire({
+                title: '파트너 승인 취소',
+                text: '파트너 승인을 취소하시겠습니까?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '네, 취소합니다',
+                cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // 취소 처리 로직 - form submit
+                    document.getElementById('cancelPartnerForm').submit();
+                }
+            });
         }
 
     </script>

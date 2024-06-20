@@ -80,12 +80,22 @@
 
         // 탈퇴 처리 함수
         function actionDelete() {
-            let check = confirm('정말로 탈퇴하시겠습니까?');
-            if (check) {
-                form.action = '/partner/deleteUser'; // 탈퇴 처리를 담당하는 URL로 설정
-                form.method = 'post'; // POST 메소드로 설정
-                form.submit(); // 폼 제출
-            }
+            Swal.fire({
+                title: '정말로 탈퇴하시겠습니까?',
+                text: '탈퇴 후에는 되돌릴 수 없습니다.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: '탈퇴하기',
+                cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.action = '/partner/deleteUser'; // 탈퇴 처리를 담당하는 URL로 설정
+                    form.method = 'post'; // POST 메소드로 설정
+                    form.submit(); // 폼 제출
+                }
+            });
         }
     </script>   
 </body>
