@@ -1,5 +1,5 @@
 # 프로젝트 : DaEut
-![logo_h (1)](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/645e666f-7703-44c6-bbbf-d7845ade2938)
+
 (시연 영상 링크)
 
 ## 목차
