@@ -60,6 +60,8 @@
 - 이를 통해 사용자는 더 나은 생활을 유지할 수 있으며, 플랫폼은 신뢰성과 지속성을 확보 가능.
 
 # 2. 프로젝트 구조
+### 2-1. 메뉴 구조도
+### 2-2. 플로우 차트
 
 # 3. 프로젝트 팀 구성 및 역할
 ## 팀원
@@ -82,7 +84,7 @@
     - 로그인 기능(Security5를 통한 기능 구현 & 카카오 소셜 로그인 기능 구현), 이메일 인증, 관리자 페이지
     - 로그인, 회원가입, 관리자 페이지 디자인
     - 기존 팁 게시판에 관리자 권한을 부여하여 관리
-    - 관리자의 회원, 파트너, 예약 관리 (목록 / 조회 / 수정 / 삭제)
+    - 관리자의 회원, 파트너, 예약 관리 (목록 / 조회 / 수정 / 삭제)          
     - 구글 이메일 인증을 통해 비밀번호 찾기 기능 구현 
 - 황다정
     - 파트너 페이지의 정보 조회 수정, 리뷰 및 자신의 예약 보기 구현
@@ -91,6 +93,14 @@
     - 채팅, 예약 게시글 목록, 예약 게시글 세부 페이지, 에러 페이지 디자인
 
 # 4. 프로젝트 수행절차 및 방법
+## 4-1. 프로젝트 수행 절차
+<details>
+    <summary>🧊ERD</summary>
+      
+![간트차트](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/793b4cd2-0d38-44c0-8cdf-1179f4190cd1)
+
+</details>
+
 ## 4-2. 수행방법
 - 사용 언어 : <img src="https://camo.githubusercontent.com/e11bf98e7a9c4795e17eaede4499d4520ed924d9a0f3162a0b10820350b405fb/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6a6176612d3030373339363f7374796c653d666c6174266c6f676f3d6a617661266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/java-007396?style=flat&amp;logo=java&amp;logoColor=white" style="max-width: 100%;">
 - 개발도구 : <img src="https://camo.githubusercontent.com/d625623d4b2669fff64435f7cfb76bc89822c7dbfa3cf869debf603df09457cd/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f76697375616c73747564696f636f64652d3030374143433f7374796c653d666c6174266c6f676f3d76697375616c73747564696f636f6465266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/visualstudiocode-007ACC?style=flat&amp;logo=visualstudiocode&amp;logoColor=white" style="max-width: 100%;">  
@@ -154,15 +164,102 @@
 
 ## 5-5. 화면 설계서
 <details>
-    <summary>🧊화면 설계서</summary>
+    <summary>🧊메인 및 로그인</summary>
 
+    ![화면설계도1](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/8ca60a22-11a0-41b3-82a0-116c82beb39a)
+      ![화면설계도2](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/065abef7-d523-4173-b5ee-28874ba25bdd)
+      ![화면설계도3](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/f4803324-b4ea-45a5-8bbb-58f41d5ebe18)
+      ![화면설계도4](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/8cba0213-318e-42bc-a2c3-2509a6116b2a)
+      ![화면설계도5](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/abf0ea71-2095-4a3f-a0fe-557bcc321f6a)
+      ![화면설계도6](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/66a61248-7d2f-47e3-9f38-dfa8fc4b1457)
+      ![화면설계도7](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/61476393-6e08-40f7-93fb-f78b925a5faf)
+
+</details>
+
+<details>
+    <summary>🧊예약 및 결제, 채팅</summary>
+
+![화면설계도9](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/2cc78008-9f58-40f4-99d7-0094d2f088fb)
+![화면설계도10](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/fca6c74d-5343-4fde-b9d2-18efbf7462ee)
+![화면설계도8](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/40de2ee5-23fb-4c35-bab6-cb1d65ce59cc)
+![화면설계도11](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/0f099d58-7c3a-49ec-8e30-fdbdfee09000)
+![화면설계도12](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/73c622b1-a516-4f16-91f7-49642a63ee61)
+![화면설계도13](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/6c20165e-a2dc-403b-af67-e5ec3cabfb3b)
+![화면설계도19](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/46920253-fd07-494e-b79b-c7e37f95190a)
+
+</details>
+
+<details>
+    <summary>🧊팁 게시판</summary>
+
+
+
+</details>
+
+<details>
+    <summary>🧊사용자</summary>
+
+![화면설계도14](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/2396c950-5413-4778-8f62-d32df8de861b)
+![화면설계도15](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/e960ea61-09bd-4575-90a3-c478e95ee9d6)
+![화면설계도16](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/4ba6997d-07b7-4e9c-9a30-3ba7a0901127)
+![화면설계도17](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/2f3eefe5-1811-40d7-b325-c7045db935b2)
+![화면설계도18](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/cba42d89-1d83-465d-9f82-8e4419bbd232)
+
+</details>
+
+<details>
+    <summary>🧊파트너</summary>
+
+
+
+</details>
+
+<details>
+    <summary>🧊관리자</summary>
+
+![화면설계도20](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/353cf090-4119-4b21-8508-4b6fe2dad272)
 
 
 </details>
 
 ## 5-6. 실제 화면
 <details>
-    <summary>🧊실제 화면</summary>
+    <summary>🧊메인 및 로그인</summary>
+
+
+
+</details>
+
+<details>
+    <summary>🧊예약 및 결제</summary>
+
+
+
+</details>
+
+<details>
+    <summary>🧊팁 게시판</summary>
+
+
+
+</details>
+
+<details>
+    <summary>🧊사용자</summary>
+
+
+
+</details>
+
+<details>
+    <summary>🧊파트너</summary>
+
+
+
+</details>
+
+<details>
+    <summary>🧊관리자</summary>
 
 
 
