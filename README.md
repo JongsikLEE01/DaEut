@@ -97,8 +97,7 @@
 - 라이브러리 : 
 - 사용 DB : 
 - 참조 API : 
-- 협업 Tools : <img src="https://camo.githubusercontent.com/cafe322517fa3cf031631e2e8b06992124186216aee8a1a8cc3aad086bcc6c1e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7472656c6c6f2d3030353243433f7374796c653d666c6174266c6f676f3d7472656c6c6f266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/trello-0052CC?style=flat&amp;logo=trello&amp;logoColor=white" style="max-width: 100%;">
-<img src="https://camo.githubusercontent.com/18129633ca4fdac8b4cd138bca0bc454bb8d17637c4d186158773604a0dfedae/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6769746875622d3138313731373f7374796c653d666c6174266c6f676f3d676974687562266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/github-181717?style=flat&amp;logo=github&amp;logoColor=white" style="max-width: 100%;">
+- 협업 Tools : <img src="https://camo.githubusercontent.com/cafe322517fa3cf031631e2e8b06992124186216aee8a1a8cc3aad086bcc6c1e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7472656c6c6f2d3030353243433f7374796c653d666c6174266c6f676f3d7472656c6c6f266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/trello-0052CC?style=flat&amp;logo=trello&amp;logoColor=white" style="max-width: 100%;"><img src="https://camo.githubusercontent.com/18129633ca4fdac8b4cd138bca0bc454bb8d17637c4d186158773604a0dfedae/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6769746875622d3138313731373f7374796c653d666c6174266c6f676f3d676974687562266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/github-181717?style=flat&amp;logo=github&amp;logoColor=white" style="max-width: 100%;">
   
 # 5. 프로젝트 수행 경과
 
