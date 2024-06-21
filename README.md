@@ -95,7 +95,7 @@
 # 4. 프로젝트 수행절차 및 방법
 ## 4-1. 프로젝트 수행 절차
 <details>
-    <summary>🧊ERD</summary>
+    <summary>🧊프로젝트 수행 절차</summary>
       
 ![간트차트](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/793b4cd2-0d38-44c0-8cdf-1179f4190cd1)
 
