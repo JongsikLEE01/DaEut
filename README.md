@@ -101,6 +101,12 @@
   
 # 5. 프로젝트 수행 경과
 ## 5-1. 요구사항 정의서
+<details>
+    <summary>요구사항 정의서</summary>
+
+![요구사항정의서](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/a3fbe5a1-e714-48f1-9be0-5403b7d86da2)
+
+</details>
 ## 5-2. 기능 정의서
 ## 5-3. ERD
 ## 5-4. 테이블 정의서
