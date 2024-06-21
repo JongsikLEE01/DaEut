@@ -253,36 +253,66 @@
 ## 5-6. 실제 화면
 <details>
     <summary>🧊메인 및 로그인</summary>
-
-
+      
+![실제화면8](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/e8f5eead-14b5-46da-a285-89a302f51963)
+![실제화면9](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/c963f11f-c283-4411-ad56-c82c84ee9992)
+![실제화면1](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/b21e3817-c8dc-4eb3-9998-d4dfd01750a4)
+![실제화면2](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/3d85d734-8e2d-42ec-b433-425757c9a694)
+![실제화면3](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/fb6f02b0-ad5f-478f-8d93-d60d9f121717)
+![실제화면4](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/d71dbd04-f93b-468d-a942-9cc8d128738e)
+![실제화면5](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/6e4d5652-695d-4676-a5ed-bc9e29c94023)
+![실제화면6](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/134a0ceb-3c86-4dc3-9e52-5e625f04c29a)
+![실제화면7](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/e0758692-fbd4-4f88-aa91-d14eb5814dd4)
 
 </details>
 
 <details>
     <summary>🧊예약 및 결제</summary>
 
-
+![실제화면10](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/5235da66-68c9-4590-827d-c3c511b8fb8a)
+![실제화면11](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/9612bd51-943c-480d-bbd5-6697738b0fff)
+![실제화면12](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/28d77ea8-79a4-45e4-8140-c55594b5d93c)
+![실제화면13](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/19191512-57be-4b01-bcf7-7048d736b3b1)
+![실제화면14](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/346c1044-f2fc-4084-a67d-c0b114309038)
+![실제화면15](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/9e9560ec-c3d5-4373-97dc-7dd166eb4d7f)
+![실제화면16](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/b43d1a77-c3b4-46b3-a0cc-19ebaff15604)
+![실제화면17](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/a4668443-a7ec-4378-b436-864e541c3e39)
+![실제화면18](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/2d1be101-ed26-4ec2-b512-408579717200)
 
 </details>
 
 <details>
     <summary>🧊팁 게시판</summary>
 
-
+![실제화면19](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/68435933-7ebc-47c8-9fe6-a792c6ca9319)
+![실제화면20](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/73c66f84-968b-4853-a22c-db004c85be4d)
+![실제화면22](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/b6a59ccb-34b5-48c5-9cc9-7dd311938b7a)
+![실제화면21](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/b038bb91-b8ab-41b6-9c9d-14fef30d9931)
 
 </details>
 
 <details>
     <summary>🧊사용자</summary>
 
-
+![실제화면23](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/636b2c11-75a2-4bd6-b2da-67b7961f8506)
+![실제화면24](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/8cb90140-05f8-41ad-82b4-03422bcc5e72)
+![실제화면25](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/18f41b0d-5725-4c43-a4bd-cd1ac16f5634)
+![실제화면26](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/1f83eadb-f840-4ab0-b2d0-91f2b04599c9)
+![실제화면28](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/1e21dfe8-5c9a-4a03-86c0-bd95b701c08f)
+![실제화면30](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/02cb5072-a5c9-4f75-b177-b46fdc4e3d5e)
+![실제화면31](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/3b6a15ad-bbf3-4211-a9af-f0cef52db65c)
+![실제화면29](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/890a370a-8e77-471a-830d-b57b82d2c3bf)
 
 </details>
 
 <details>
     <summary>🧊파트너</summary>
 
-
+![실제화면32](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/b8c4dbfc-79f6-4c9d-8227-12e7e96e1507)
+![실제화면33](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/72d616c7-cc0d-4627-9134-042e29cafeb8)
+![실제화면34](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/48e1cf16-e74d-4380-894d-74b3263f0fc3)
+![실제화면35](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/0c24f7aa-fe1e-4ca5-912b-2cdcfd7be76b)
+![실제화면36](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/16690f19-d309-4dae-ab23-e30ec6eed49e)
 
 </details>
 
