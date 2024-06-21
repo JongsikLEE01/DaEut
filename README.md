@@ -102,17 +102,71 @@
 # 5. 프로젝트 수행 경과
 ## 5-1. 요구사항 정의서
 <details>
-    <summary>요구사항 정의서</summary>
+    <summary>🧊요구사항 정의서</summary>
 
 ![요구사항정의서](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/a3fbe5a1-e714-48f1-9be0-5403b7d86da2)
 
 </details>
 
 ## 5-2. 기능 정의서
+<details>
+    <summary>🧊기능 정의서</summary>
+
+![기능정의서1](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/ec5b18fd-0cca-4b2a-a7de-6ed16b23eebf)
+![기능정의서2](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/e143306b-da35-4760-affc-b6c81b7abff2)
+![기능정의서3](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/ca51b062-97c3-4e45-828f-69f82c988bac)
+![기능정의서4](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/96597457-bd5d-4d24-8210-ed9044299409)
+
+</details>
+
 ## 5-3. ERD
+<details>
+    <summary>🧊ERD</summary>
+      
+![ERD](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/fd51df14-9a63-4f8e-ac67-ce2d318c5397)
+
+</details>
+
 ## 5-4. 테이블 정의서
+<details>
+    <summary>🧊테이블 정의서</summary>
+
+![테이블정의서1](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/eef4772e-d57c-480f-a02d-bda8aa960432)
+![테이블정의서2](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/58f48755-6f59-4552-92d5-e32cd2f34b2d)
+![테이블정의서3](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/106d60af-d743-4801-be90-906f5c6806b3)
+![테이블정의서4](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/c1a9e28b-1728-45fa-aa97-7d2e0ba40a04)
+![테이블정의서5](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/70cbd362-cddb-4ff9-aaeb-b5a793be32dc)
+![테이블정의서6](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/2bc0ac02-79bc-4e52-958a-a0b8dcf23fef)
+![테이블정의서7](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/c862e741-ade5-4737-81a0-fa21b2302ce6)
+![테이블정의서8](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/62bacddd-82a1-4ef9-b41c-3892c27a7cc6)
+![테이블정의서9](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/da3e9d6e-41c5-467c-848b-490f65bc5d06)
+![테이블정의서10](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/2f247665-5f20-4ab2-829c-9cb1a85e5308)
+![테이블정의서11](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/57e929d6-bb40-442c-8731-cc78eb9332a4)
+![테이블정의서12](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/568bb83e-589e-4416-9f98-02f5eb7c9734)
+![테이블정의서13](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/cd3471d7-652b-4110-af5c-116de87d9b43)
+![테이블정의서14](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/b0cea7bc-4e6e-4287-a1cf-fb0f0f40d90c)
+![테이블정의서15](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/5df47404-f4ef-4476-b58b-76f083159b2c)
+![테이블정의서16](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/de409ace-efc5-450e-91a3-13a2ff6d6ec7)
+![테이블정의서17](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/ff533ac0-d700-4b83-a807-48ef43d5193c)
+
+
+</details>
+
 ## 5-5. 화면 설계서
+<details>
+    <summary>🧊화면 설계서</summary>
+
+
+
+</details>
+
 ## 5-6. 실제 화면
+<details>
+    <summary>🧊실제 화면</summary>
+
+
+
+</details>
 
 # 6. 핵심기능 코드 리뷰
 
