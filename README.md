@@ -313,12 +313,21 @@
 ![실제화면34](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/48e1cf16-e74d-4380-894d-74b3263f0fc3)
 ![실제화면35](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/0c24f7aa-fe1e-4ca5-912b-2cdcfd7be76b)
 ![실제화면36](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/16690f19-d309-4dae-ab23-e30ec6eed49e)
+![실제화면38](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/b5a61da7-7755-4352-93c5-2556806812c1)
+![실제화면39](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/8ba69734-709e-4bbf-85eb-054fee1c71f7)
+
 
 </details>
 
 <details>
     <summary>🧊관리자</summary>
 
+![image](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/9d2be97d-f7fe-4088-9425-da2172742105)
+![image](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/7c79475c-7323-47ad-948a-d358fbfcc9d5)
+![image](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/182d6be2-b6db-4b4e-a634-90ef3f48a566)
+![image](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/944dabbc-aa9a-4175-8e60-3990e7b980ec)
+![image](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/c7b835da-8b28-4c30-846c-55f3e67f1ee3)
+![image](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/76f96ebf-e27a-4201-8bea-55519da9647d)
 
 
 </details>
