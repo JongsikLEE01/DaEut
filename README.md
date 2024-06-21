@@ -192,7 +192,8 @@
 <details>
     <summary>🧊팁 게시판</summary>
 
-
+![화면설계도37](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/4489ecf4-52a0-44b8-978b-3c7f6cb7bcd7)
+![화면설계도38](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/fc4ecfef-ce6f-4880-9cb9-3b1a79f35c8e)
 
 </details>
 
@@ -204,13 +205,19 @@
 ![화면설계도16](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/4ba6997d-07b7-4e9c-9a30-3ba7a0901127)
 ![화면설계도17](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/2f3eefe5-1811-40d7-b325-c7045db935b2)
 ![화면설계도18](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/cba42d89-1d83-465d-9f82-8e4419bbd232)
+![화면설계도21](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/a0405bea-e025-4fd2-9a09-93140a7f7651)
+![화면설계도22](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/45a36681-18a7-46dc-b8b6-f9e47ad5a655)
+![화면설계도23](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/3504d182-5a88-480d-8e3b-7cc932b86a15)
 
 </details>
 
 <details>
     <summary>🧊파트너</summary>
 
-
+![화면설계도31](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/8248641d-6971-4b8b-90d9-5ac91a3bc8e8)
+![화면설계도34](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/86a4958d-5279-475a-acf6-09c0ba95b4ce)
+![화면설계도35](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/32f390f8-28d3-45a8-bdff-fe0db02f7720)
+![화면설계도36](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/560b2a23-a9d3-40ba-95f2-7df32fcb4bb0)
 
 </details>
 
@@ -218,7 +225,23 @@
     <summary>🧊관리자</summary>
 
 ![화면설계도20](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/353cf090-4119-4b21-8508-4b6fe2dad272)
+![화면설계도24](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/cec4088a-329e-4051-a5f2-44a6cf7912fe)
+![화면설계도25](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/12f40848-4443-48b2-bc6f-a2054d62bdb0)
+![화면설계도26](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/2084c6ab-d6fd-4bd3-abc7-bb1dcfc1cb5e)
+![화면설계도27](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/795dc231-4749-4fbb-a9e5-685c0ecda655)
+![화면설계도28](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/18cf494a-4851-41b6-bfc7-f0d575429f2f)
+![화면설계도29](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/254c8c26-c023-4973-adc7-a7d70a5c8ccd)
+![화면설계도30](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/1e5a1ff2-c680-4856-8aef-56c1722a1b01)
+![화면설계도32](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/063f96fd-f442-4c73-8f56-c1f9d2f3f821)
 
+</details>
+
+<details>
+    <summary>🧊에러 페이지</summary>
+
+![화면설계도39](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/fb9a7514-4e62-42fa-8884-c64b1d58d980)
+![화면설계도40](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/6310b5d0-578f-4f08-8ebd-5f9e91106a47)
+![화면설계도41](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/edf8b296-abe7-4c37-884c-3ec9d8984e59)
 
 </details>
 
