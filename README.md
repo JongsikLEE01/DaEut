@@ -14,8 +14,7 @@
 **2. 프로젝트 구조**
 <br>
 - 주요 기능
-- Menu Structure
-- Project Structure
+- 메뉴 구조도
 - Flow Chart
     
 **3. 프로젝트 팀 구성 및 역할**
@@ -45,8 +44,10 @@
 <br>
 - 개별 평가
 - 종합 평가
-
+<br><br>
 # 1. 프로젝트 개요
+<br>
+
 ## 1-1. 프로젝트 주제
 - 1인 가구를 위한 종합 서비스 플랫폼
 ## 1-2. 주제 선정 배경
@@ -59,13 +60,19 @@
 - 관리자에게는 효율적인 서비스 관리를 통해 서비스 품질을 높일 수 있도록 보조.
 - 이를 통해 사용자는 더 나은 생활을 유지할 수 있으며, 플랫폼은 신뢰성과 지속성을 확보 가능.
 ## 1-4. 활용방안 및 기대효과
-
+- 다양한 생활 패키지 서비스 제공을 통해 합리적인 가격을 서비스에게 제공하여, 청소 외의 여러가지 서비스를 한 곳에서 예약하고 관리할 수 있도록 한다.
+- 생활 팁 게시판 및 리뷰와 댓글을 통해 사용자간 정보를 교류하고 소통한다.
+- 실시간 날씨 정보로 사용자는 필요한 정보를 얻는다.
+- 사용자와 파트너간 채팅으로 상세하고 즉각적인 Q&A를 가능하게 하여 원활한 소통을 지원한다.
+<br>
 # 2. 프로젝트 구조
+<br>
+
 ### 2-1. 주요 기능
 #### 핵심 기능
 1. 파트너 : 유저 간의 채팅
 2. 회원의 서비스 예약
-
+<br>
 #### 기타 기능
 1. 게시판 기능
 2. 페이징 처리
@@ -75,7 +82,7 @@
 4. 날씨 정보 출력
 5. 결제 처리
 6. 달력을 통한 일정 관리
-
+<br>
 #### 서비스
 유저는 서비스와 해당 서비스의 파트너를 선택해서 예약을 요청할 수 있고, 파트너는 자신의 일정을 조회하고 유저와의 상담을 할 수 있다.
 - 세부 기능
@@ -146,12 +153,31 @@
 
 #### ETC
 - 날씨별 생활 정보 출력
-
+<br><br>
 ### 2-2. 메뉴 구조도
-### 2-3. 프로젝트 구조도
-### 2-4. 플로우 차트
+<details>
+    <summary>🧊메뉴 구조도</summary>
+
+![image](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/f1355d61-d788-43e0-8ffc-f6b3e67208ab)
+![image](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/a2df97b8-eead-4a6c-8ea8-87130176601f)
+![image](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/04e0677e-70e9-4c38-996b-5431d59fa3bf)
+
+
+</details>
+
+### 2-3. 플로우 차트
+<details>
+    <summary>🧊플로우 차트</summary>
+
+![image](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/630e5a14-d03a-4164-bcea-9b7140f57211)
+
+</details>
+
+<br><br>
 
 # 3. 프로젝트 팀 구성 및 역할
+<br>
+
 ## 팀원
 - 인원 : 5명
 - 반예진
@@ -180,6 +206,8 @@
     - 예약 세부 페이지의 세부 사항 구현(별점 및 리뷰 시스템 구현)
     - 채팅, 예약 게시글 목록, 예약 게시글 세부 페이지, 에러 페이지 디자인
 
+<br><br>
+
 # 4. 프로젝트 수행절차 및 방법
 ## 4-1. 프로젝트 수행 절차
 <details>
@@ -188,6 +216,7 @@
 ![간트차트](https://github.com/JongsikLEE01/MSA5_MainProject/assets/160221884/793b4cd2-0d38-44c0-8cdf-1179f4190cd1)
 
 </details>
+<br>
 
 ## 4-2. 수행방법
 - 사용 언어 
@@ -201,8 +230,11 @@
 - 사용 DB : <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/> 
 - 참조 API : <img src="https://img.shields.io/badge/ProtOne-007396?style=flat&logo=Iamport&logoColor=white"> <img src="https://img.shields.io/badge/OpenWeather-007396?style=flat&logo=Zxing&logoColor=white"> <img src="https://img.shields.io/badge/FullCalendar-007396?style=flat&logo=Zxing&logoColor=white">
 - 협업 Tools : <img src="https://img.shields.io/badge/trello-0052CC?style=flat&logo=trello&logoColor=white"/> <img src="https://img.shields.io/badge/github-181717?style=flat&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/GoogleDrive-4285F4?style=flat&logo=GoogleDrive&logoColor=white"/> <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=Figma&logoColor=white"/>
-  
+<br><br>
+
 # 5. 프로젝트 수행 경과
+<br>
+
 ## 5-1. 요구사항 정의서
 <details>
     <summary>🧊요구사항 정의서</summary>
@@ -419,10 +451,14 @@
 
 
 </details>
+<br><br>
 
 # 6. 핵심기능 코드 리뷰
+<br>
 
 # 7. 자체 평가 의견
+<br>
+
 ## 7-1. 개별 평가
 - 반예진
     - 화면 설계 단계의 중요성을 크게 느꼈으며 제가 구현할 기능에서 쓰이는 게 무엇인지 정확히 알고 적용하는 게 중요하다고 느꼈습니다. 평소에 배운 것을 응용하는 부분에서 어려움이 많이 있었는데 이번 프로젝트를 계기로 응용하는 방법에 대해 조금 더 배우는 시간이 되었습니다.
@@ -443,6 +479,7 @@
 ### 문제 해결 방법
 - 프로젝트를 설계할 때, 시간이 오래 걸려도 프로젝트 기간을 생각해 목표를 철저히 세우고 중간에 변경이 될 수 있는 부분을 최소화해야 한다고 생각하며, 틈틈이 깃허브를 통해 파일을 합치고 팀원과 소통을 원활히 할 수 있도록 하여 오류를 줄인다. 또한, 기능 구현을 위한 시간 및 역할 분배를 잘 하여 원하는 기능을 최대한 할 수 있도록 한다.
 
+<br><br>
 
 ## 버전
 - MySQL
