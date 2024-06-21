@@ -103,6 +103,11 @@
 
 ## 4-2. 수행방법
 - 사용 언어 : <img src="https://camo.githubusercontent.com/e11bf98e7a9c4795e17eaede4499d4520ed924d9a0f3162a0b10820350b405fb/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6a6176612d3030373339363f7374796c653d666c6174266c6f676f3d6a617661266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/java-007396?style=flat&amp;logo=java&amp;logoColor=white" style="max-width: 100%;">
+<!-- mysql -->
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
+<!-- HTML5 -->
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
+
 - 개발도구 : <img src="https://camo.githubusercontent.com/d625623d4b2669fff64435f7cfb76bc89822c7dbfa3cf869debf603df09457cd/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f76697375616c73747564696f636f64652d3030374143433f7374796c653d666c6174266c6f676f3d76697375616c73747564696f636f6465266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/visualstudiocode-007ACC?style=flat&amp;logo=visualstudiocode&amp;logoColor=white" style="max-width: 100%;">  
 - 라이브러리 : 
 - 사용 DB : 
