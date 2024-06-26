@@ -438,6 +438,82 @@
 <br><br>
 
 # 6. 핵심기능 코드 리뷰
+## 6-1. 기능 목표
+유저와 파트너가 서비스에 대해서 실시간으로 문의를 할 수 있도록 1:1 채팅을 구현하는 기능
+
+- 실시간 문의로 유저의 만족도 증대
+- 서비스 게시글에서 알 수 없는 정보도 문의를 통해 알 수 있음
+    
+<br><br>
+
+## 6-2. 채팅 생성 및 처리 과정
+### 채팅방 생성
+<details>
+    <summary>채팅방 생성</summary>
+
+- 문의하기 클릭시 채팅방 생성 후 채팅 목록으로 이동
+    
+    ```java
+    // 유저 채팅방 생성 처리
+    @PostMapping("/userChatRoom")
+    public String createChatRoom(@RequestParam("partnerNo") int partnerNo, Model model, HttpSession session) throws Exception {
+       ChatRooms chatRoom = new ChatRooms();
+       chatRoom.setPartnerNo(partnerNo);
+    
+       Users user = (Users) session.getAttribute("user");
+       int userNo = user.getUserNo();
+       chatRoom.setUserNo(userNo);
+    
+       chatRoomService.merge(chatRoom);
+    
+       return "redirect:/user/userChatRoom";
+    }
+    ```
+</details>
+    
+
+### 채팅 처리
+<details>
+    <summary>채팅 처리</summary>
+
+- 메세지 전송시 @MessageMapping 어노테이션을 이용해 실시간 채팅 구현
+    
+    ```java
+    @MessageMapping("/chat/sendMessage")
+    public void sendMessage(@Payload Chats chat) throws Exception {
+        chatService.insert(chat);
+    
+        log.info("chat? {}", chat);
+    
+        template.convertAndSend("/sub/chat/" + chat.getRoomNo(), chat);        
+    }
+    ```
+    
+    - 방을 나갔다가 다시 들어와도 채팅 내역을 볼 수 있도록 DB에 저장 후 출력
+    
+    ```java
+    @GetMapping("/reservation/chat")
+    public String goToChatRoom(@RequestParam("roomNo") String roomNo, Model model, HttpSession session) throws Exception {
+        Users user = (Users) session.getAttribute("user");
+        ChatRooms chatRooms = chatRoomService.select(roomNo);
+        int partnerNo = chatRooms.getPartnerNo();
+    
+        List<Chats> chatList = chatService.selectByRoomNo(roomNo);
+    
+        model.addAttribute("chatRooms", chatRooms);
+        model.addAttribute("partnerNo", partnerNo);
+        model.addAttribute("user", user);
+        model.addAttribute("roomNo", roomNo);
+        model.addAttribute("chatList", chatList);
+        return "reservation/chat";
+    }
+    ```
+</details>
+<br><br>
+
+## 6-3. 개선할 점
+- 유저가 더 좋은 서비스를 제공 받기 위해서 채팅에서 사진을 첨부하고 메세지를 전송할 수 있도록 실제 사용할 수 있는 서비스 플랫폼을 구현하고자 함
+<br><br>
 
 # 7. 자체 평가 의견
 ## 7-1. 개별 평가<br>
